@@ -8,570 +8,96 @@
   <meta name="description" content="AtSepeti ile ihtiyacın olan atı seç, 30 dakikada kapında. Gecikirse paran iade!" />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <style>
-    :root {
-      --red: #e21b3c;
-      --red-dark: #be1230;
-      --cream: #fff8f2;
-      --ink: #242424;
-      --muted: #6f6f73;
-      --line: #ece7e2;
-      --green: #168a5b;
-      --shadow: 0 16px 40px rgba(35, 22, 16, .10);
-      --radius: 22px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: #fff;
-    }
-
-    img { display: block; width: 100%; }
-    button, input { font: inherit; }
-
-    .container {
-      width: min(1180px, calc(100% - 36px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      background: var(--red);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 800;
-      text-align: center;
-      padding: 9px 16px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: rgba(255,255,255,.94);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0,0,0,.06);
-    }
-
-    .nav {
-      height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 27px;
-      font-weight: 950;
-      letter-spacing: -1.4px;
-      color: var(--red);
-      white-space: nowrap;
-    }
-
-    .brand-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: var(--red);
-      color: white;
-      font-size: 25px;
-      box-shadow: 0 8px 20px rgba(226,27,60,.25);
-    }
-
-    .nav-right { display: flex; align-items: center; gap: 10px; }
-
-    .location, .cart {
-      border: 1px solid #e8e5e2;
-      background: #fff;
-      min-height: 44px;
-      border-radius: 14px;
-      padding: 0 14px;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-weight: 800;
-      color: #333;
-    }
-
-    .cart {
-      background: var(--red);
-      color: #fff;
-      border-color: var(--red);
-      padding-inline: 17px;
-    }
-
-    .hero {
-      background:
-        radial-gradient(circle at 16% 16%, rgba(255,255,255,.92), rgba(255,255,255,.50) 30%, transparent 48%),
-        linear-gradient(110deg, #fff3ea 0%, #fff8f3 56%, #ffe5df 100%);
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      min-height: 510px;
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      align-items: center;
-      gap: 46px;
-      padding: 44px 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      background: #fff;
-      border: 1px solid #f2ddd8;
-      padding: 9px 13px;
-      border-radius: 999px;
-      color: var(--red);
-      font-size: 14px;
-      font-weight: 900;
-      box-shadow: 0 8px 20px rgba(98,45,35,.07);
-    }
-
-    h1 {
-      margin: 18px 0 16px;
-      max-width: 700px;
-      font-size: clamp(44px, 6vw, 77px);
-      line-height: .98;
-      letter-spacing: -4px;
-    }
-
-    h1 span { color: var(--red); }
-
-    .hero-copy {
-      max-width: 600px;
-      margin: 0;
-      color: #555158;
-      font-size: 19px;
-      line-height: 1.65;
-    }
-
-    .searchbox {
-      margin-top: 28px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 9px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      box-shadow: var(--shadow);
-      max-width: 610px;
-    }
-
-    .searchbox input {
-      min-width: 0;
-      border: 0;
-      outline: 0;
-      padding: 0 15px;
-      font-weight: 750;
-      color: #555;
-      background: transparent;
-    }
-
-    .searchbox button {
-      border: 0;
-      border-radius: 13px;
-      background: var(--red);
-      color: #fff;
-      font-weight: 900;
-      padding: 14px 20px;
-      cursor: default;
-    }
-
-    .mini-features {
-      margin-top: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      color: #555;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .hero-photo {
-      position: relative;
-      min-height: 410px;
-    }
-
-    .hero-photo .photo-main {
-      width: 100%;
-      height: 430px;
-      object-fit: cover;
-      object-position: center;
-      border-radius: 34px;
-      box-shadow: 0 28px 70px rgba(75,39,28,.22);
-    }
-
-    .delivery-card {
-      position: absolute;
-      left: -28px;
-      bottom: 24px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 14px 16px;
-      box-shadow: 0 20px 50px rgba(31,19,15,.20);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      max-width: 260px;
-    }
-
-    .delivery-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 15px;
-      background: #fff1ef;
-      display: grid;
-      place-items: center;
-      font-size: 27px;
-    }
-
-    .delivery-card strong { display: block; font-size: 15px; }
-    .delivery-card small { color: var(--muted); font-weight: 700; }
-
-    .section { padding: 70px 0; }
-    .section.soft { background: #faf9f7; }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 26px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(28px, 3.7vw, 43px);
-      letter-spacing: -1.8px;
-    }
-
-    .section-head p { margin: 8px 0 0; color: var(--muted); font-weight: 650; }
-
-    .pill {
-      color: var(--red);
-      background: #fff1f3;
-      border: 1px solid #ffd8de;
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 2px 0 8px;
-      scrollbar-width: none;
-    }
-
-    .categories::-webkit-scrollbar { display: none; }
-    .cat {
-      flex: 0 0 auto;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 15px;
-      font-size: 14px;
-      font-weight: 850;
-    }
-    .cat.active { color: #fff; background: var(--red); border-color: var(--red); }
-
-    .horse-grid {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .horse-card {
-      background: #fff;
-      border: 1px solid #ece8e4;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 7px 22px rgba(44,31,25,.06);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .horse-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-
-    .horse-img-wrap { position: relative; }
-    .horse-img {
-      height: 210px;
-      object-fit: cover;
-    }
-
-    .badge {
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      background: #fff;
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 950;
-      box-shadow: 0 5px 14px rgba(0,0,0,.12);
-    }
-
-    .badge.fast { color: var(--green); }
-    .badge.hot { color: var(--red); }
-
-    .horse-body { padding: 16px; }
-    .horse-title-row { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
-    .horse-body h3 { margin: 0; font-size: 18px; letter-spacing: -.35px; }
-    .rating { white-space: nowrap; color: #ef8f00; font-size: 13px; font-weight: 900; }
-    .horse-meta { margin: 7px 0 15px; color: var(--muted); font-size: 13px; font-weight: 650; min-height: 38px; }
-    .price-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    .price { font-size: 21px; font-weight: 950; letter-spacing: -.6px; }
-    .price small { font-size: 12px; color: var(--muted); font-weight: 700; }
-    .add { width: 39px; height: 39px; border: 0; border-radius: 12px; background: var(--red); color: #fff; font-size: 24px; font-weight: 700; cursor: default; }
-
-    .promo {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      overflow: hidden;
-      min-height: 290px;
-      border-radius: 30px;
-      background: linear-gradient(120deg, #e21b3c, #b80f31);
-      color: #fff;
-      box-shadow: 0 24px 55px rgba(191,18,49,.22);
-    }
-
-    .promo-copy { padding: 44px; align-self: center; }
-    .promo-copy h2 { margin: 0 0 12px; font-size: clamp(30px, 4vw, 48px); letter-spacing: -2px; }
-    .promo-copy p { margin: 0; max-width: 570px; color: #ffe7ec; font-size: 17px; line-height: 1.55; }
-    .promo-code { display: inline-block; margin-top: 20px; background: #fff; color: var(--red); border-radius: 12px; padding: 11px 15px; font-weight: 950; letter-spacing: .5px; }
-    .promo img { width: 100%; height: 100%; min-height: 290px; object-fit: cover; mix-blend-mode: screen; opacity: .83; }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .benefit {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 22px;
-      background: #fff;
-    }
-    .benefit-icon { font-size: 31px; }
-    .benefit h3 { margin: 12px 0 7px; }
-    .benefit p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; font-weight: 650; }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 34px 0 46px;
-      color: var(--muted);
-    }
-
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .footer-brand { color: var(--red); font-weight: 950; font-size: 20px; }
-    .fineprint { font-size: 12px; max-width: 650px; line-height: 1.55; }
-
-    @media (max-width: 930px) {
-      .hero-grid { grid-template-columns: 1fr; padding-top: 34px; }
-      .hero-photo { min-height: auto; }
-      .delivery-card { left: 16px; }
-      .horse-grid { grid-template-columns: repeat(2, 1fr); }
-      .promo { grid-template-columns: 1fr; }
-      .promo img { max-height: 270px; }
-    }
-
-    @media (max-width: 620px) {
-      .container { width: min(100% - 24px, 1180px); }
-      .nav { height: 66px; }
-      .location { display: none; }
-      .cart span { display: none; }
-      .brand { font-size: 23px; }
-      .brand-badge { width: 39px; height: 39px; }
-      h1 { letter-spacing: -2.5px; }
-      .hero-grid { gap: 28px; min-height: auto; }
-      .hero-copy { font-size: 16px; }
-      .hero-photo .photo-main { height: 330px; border-radius: 25px; }
-      .delivery-card { right: 12px; left: 12px; bottom: 12px; max-width: none; }
-      .searchbox { grid-template-columns: 1fr; }
-      .searchbox input { padding: 13px 12px; }
-      .section { padding: 52px 0; }
-      .section-head { align-items: start; flex-direction: column; }
-      .horse-grid { grid-template-columns: 1fr; }
-      .horse-img { height: 240px; }
-      .benefits { grid-template-columns: 1fr; }
-      .promo-copy { padding: 30px 24px; }
-      .promo img { min-height: 220px; }
-      .topbar { font-size: 12px; }
-    }
+    :root{--red:#e21b3c;--red-dark:#b91231;--cream:#fff8f2;--ink:#252525;--muted:#727277;--line:#ece7e2;--green:#168a5b;--yellow:#ffb000;--shadow:0 16px 40px rgba(35,22,16,.10);--radius:22px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff} img{display:block;width:100%} button,input{font:inherit} button{cursor:pointer}.container{width:min(1180px,calc(100% - 36px));margin:0 auto}
+    .topbar{background:var(--red);color:#fff;font-size:14px;font-weight:900;text-align:center;padding:9px 16px}.topbar b{background:#fff;color:var(--red);padding:2px 7px;border-radius:999px;margin-left:6px}
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;font-size:27px;font-weight:950;letter-spacing:-1.4px;color:var(--red);white-space:nowrap}.brand-badge{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--red);color:white;font-size:25px;box-shadow:0 8px 20px rgba(226,27,60,.25)}.nav-right{display:flex;align-items:center;gap:10px}.location,.cart{border:1px solid #e8e5e2;background:#fff;min-height:44px;border-radius:14px;padding:0 14px;display:flex;align-items:center;gap:9px;font-weight:850;color:#333}.cart{background:var(--red);color:#fff;border-color:var(--red);padding-inline:17px;position:relative}.cart-count{width:20px;height:20px;border-radius:999px;background:#fff;color:var(--red);display:grid;place-items:center;font-size:11px;font-weight:950}
+    .hero{background:radial-gradient(circle at 16% 16%,rgba(255,255,255,.92),rgba(255,255,255,.5) 30%,transparent 48%),linear-gradient(110deg,#fff3ea 0%,#fff8f3 56%,#ffe5df 100%);overflow:hidden}.hero-grid{min-height:510px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:46px;padding:44px 0}.eyebrow{display:inline-flex;gap:8px;align-items:center;background:#fff;border:1px solid #f2ddd8;padding:9px 13px;border-radius:999px;color:var(--red);font-size:14px;font-weight:900;box-shadow:0 8px 20px rgba(98,45,35,.07)}h1{margin:18px 0 16px;max-width:700px;font-size:clamp(44px,6vw,77px);line-height:.98;letter-spacing:-4px}h1 span{color:var(--red)}.hero-copy{max-width:600px;margin:0;color:#555158;font-size:19px;line-height:1.65}.searchbox{margin-top:28px;background:#fff;border-radius:18px;padding:9px;display:grid;grid-template-columns:1fr auto;gap:8px;box-shadow:var(--shadow);max-width:610px}.searchbox input{min-width:0;border:0;outline:0;padding:0 15px;font-weight:750;color:#555;background:transparent}.searchbox button{border:0;border-radius:13px;background:var(--red);color:#fff;font-weight:900;padding:14px 20px}.mini-features{margin-top:24px;display:flex;flex-wrap:wrap;gap:16px;color:#555;font-size:14px;font-weight:800}.hero-photo{position:relative;min-height:410px}.hero-photo .photo-main{width:100%;height:430px;object-fit:cover;object-position:center;border-radius:34px;box-shadow:0 28px 70px rgba(75,39,28,.22)}.delivery-card{position:absolute;left:-28px;bottom:24px;background:#fff;border-radius:18px;padding:14px 16px;box-shadow:0 20px 50px rgba(31,19,15,.20);display:flex;align-items:center;gap:12px;max-width:290px}.delivery-icon{width:50px;height:50px;border-radius:15px;background:#fff1ef;display:grid;place-items:center;font-size:27px}.delivery-card strong{display:block;font-size:15px}.delivery-card small{color:var(--muted);font-weight:700}
+    .section{padding:70px 0}.section.soft{background:#faf9f7}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:26px}.section-head h2{margin:0;font-size:clamp(28px,3.7vw,43px);letter-spacing:-1.8px}.section-head p{margin:8px 0 0;color:var(--muted);font-weight:650}.pill{color:var(--red);background:#fff1f3;border:1px solid #ffd8de;border-radius:999px;padding:9px 12px;font-size:13px;font-weight:900;white-space:nowrap}.categories{display:flex;gap:10px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.categories::-webkit-scrollbar{display:none}.cat{flex:0 0 auto;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 15px;font-size:14px;font-weight:850}.cat.active{color:#fff;background:var(--red);border-color:var(--red)}
+    .horse-grid{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.horse-card{background:#fff;border:1px solid #ece8e4;border-radius:var(--radius);overflow:hidden;box-shadow:0 7px 22px rgba(44,31,25,.06);transition:transform .2s ease,box-shadow .2s ease}.horse-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.horse-img-wrap{position:relative}.horse-img{height:210px;object-fit:cover}.badge{position:absolute;left:12px;top:12px;background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:950;box-shadow:0 5px 14px rgba(0,0,0,.12)}.badge.fast{color:var(--green)}.badge.hot{color:var(--red)}.horse-body{padding:16px}.horse-title-row{display:flex;justify-content:space-between;gap:12px;align-items:start}.horse-body h3{margin:0;font-size:18px;letter-spacing:-.35px}.rating{white-space:nowrap;color:#ef8f00;font-size:13px;font-weight:900}.horse-meta{margin:7px 0 12px;color:var(--muted);font-size:13px;font-weight:650;min-height:38px}.specs{display:grid;gap:5px;margin:0 0 15px;padding:10px 11px;border-radius:12px;background:#faf8f6;font-size:12px;font-weight:760;color:#555}.specs span{display:flex;justify-content:space-between;gap:8px}.price-row{display:flex;justify-content:space-between;align-items:center;gap:10px}.price{font-size:21px;font-weight:950;letter-spacing:-.6px}.price small{font-size:12px;color:var(--muted);font-weight:700}.add{width:39px;height:39px;border:0;border-radius:12px;background:var(--red);color:#fff;font-size:24px;font-weight:700;transition:transform .15s}.add:hover{transform:scale(1.08)}
+    .promo{display:grid;grid-template-columns:1.1fr .9fr;overflow:hidden;min-height:290px;border-radius:30px;background:linear-gradient(120deg,#e21b3c,#b80f31);color:#fff;box-shadow:0 24px 55px rgba(191,18,49,.22)}.promo-copy{padding:44px;align-self:center}.promo-copy h2{margin:0 0 12px;font-size:clamp(30px,4vw,48px);letter-spacing:-2px}.promo-copy p{margin:0;max-width:570px;color:#ffe7ec;font-size:17px;line-height:1.55}.promo-code{display:inline-block;margin-top:20px;background:#fff;color:var(--red);border-radius:12px;padding:11px 15px;font-weight:950;letter-spacing:.5px}.promo img{width:100%;height:100%;min-height:290px;object-fit:cover;mix-blend-mode:screen;opacity:.83}
+    .benefits,.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.benefit,.review{border:1px solid var(--line);border-radius:20px;padding:22px;background:#fff}.benefit-icon{font-size:31px}.benefit h3{margin:12px 0 7px}.benefit p,.review p{margin:0;color:var(--muted);line-height:1.55;font-size:14px;font-weight:650}.review-stars{color:#ef8f00;font-weight:950;letter-spacing:1px}.review-quote{font-size:16px!important;color:#333!important;margin:12px 0 16px!important;min-height:68px}.review-user{display:flex;align-items:center;gap:10px}.avatar{width:38px;height:38px;border-radius:999px;background:#fff0ec;display:grid;place-items:center;font-size:20px}.review-user strong{display:block;font-size:13px}.review-user small{color:var(--muted);font-weight:700}
+    .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;position:relative}.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 14px;text-align:center;min-height:145px}.step-icon{width:44px;height:44px;margin:0 auto 10px;border-radius:14px;background:#fff1f3;display:grid;place-items:center;font-size:23px}.step strong{display:block;font-size:13px}.step small{display:block;margin-top:7px;color:var(--muted);font-weight:650;line-height:1.4}
+    .plus-card{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;border-radius:30px;padding:36px;background:linear-gradient(135deg,#241f23,#3b3038);color:#fff;overflow:hidden}.plus-logo{display:inline-flex;align-items:center;gap:9px;color:#fff;font-size:22px;font-weight:950}.plus-badge{background:var(--yellow);color:#221b00;padding:5px 9px;border-radius:9px}.plus-card h2{font-size:clamp(31px,4vw,48px);letter-spacing:-2px;margin:15px 0 10px}.plus-card p{color:#ded5db;line-height:1.6;max-width:650px}.plus-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.plus-list div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:12px;border-radius:13px;font-weight:800;font-size:13px}.membership{background:#fff;color:#222;border-radius:23px;padding:24px;box-shadow:0 20px 45px rgba(0,0,0,.25)}.membership .price-big{font-size:38px;font-weight:950;color:var(--red)}.membership small{color:var(--muted);font-weight:700}.membership button{width:100%;margin-top:18px;border:0;background:var(--red);color:#fff;font-weight:950;padding:13px;border-radius:13px}
+    .fake-cart{border:1px solid var(--line);border-radius:24px;padding:26px;background:#fff;box-shadow:var(--shadow);max-width:690px;margin:0 auto}.cart-line{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px dashed #e8e1dd;font-weight:800}.cart-line span:last-child{font-weight:900}.cart-line.muted{color:var(--muted);font-size:14px}.cart-line.total{border:0;padding-top:18px;font-size:20px}.cart-line.total span:last-child{color:var(--red)}.cart-note{text-align:center;color:var(--muted);font-size:12px;font-weight:700;margin-top:14px}
+    .faq{display:grid;grid-template-columns:1fr 1fr;gap:12px}.faq details{border:1px solid var(--line);border-radius:16px;background:#fff;padding:0 18px}.faq summary{list-style:none;font-weight:900;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;gap:12px}.faq summary::-webkit-details-marker{display:none}.faq summary:after{content:'+';color:var(--red);font-size:22px}.faq details[open] summary:after{content:'−'}.faq details p{margin:0 0 18px;color:var(--muted);font-weight:650;line-height:1.55}
+    footer{border-top:1px solid var(--line);padding:34px 0 46px;color:var(--muted)}.footer-row{display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap}.footer-brand{color:var(--red);font-weight:950;font-size:20px}.fineprint{font-size:12px;max-width:720px;line-height:1.55}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(30,20,23,.45);display:none;place-items:center;padding:20px;z-index:100}.modal-backdrop.show{display:grid}.modal{width:min(460px,100%);background:#fff;border-radius:24px;padding:26px;box-shadow:0 30px 90px rgba(0,0,0,.28);animation:pop .18s ease}.modal-icon{font-size:48px}.modal h3{margin:10px 0 8px;font-size:25px;letter-spacing:-.7px}.modal p{margin:0;color:var(--muted);line-height:1.55;font-weight:650}.modal button{width:100%;margin-top:20px;border:0;border-radius:13px;background:var(--red);color:#fff;padding:13px;font-weight:950}@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+    .support-launcher{position:fixed;right:22px;bottom:22px;z-index:80;border:0;background:var(--red);color:#fff;border-radius:999px;padding:14px 17px;box-shadow:0 14px 35px rgba(226,27,60,.35);font-weight:950}.support-box{position:fixed;right:22px;bottom:82px;z-index:79;width:min(350px,calc(100% - 44px));background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 65px rgba(0,0,0,.2);overflow:hidden;display:none}.support-box.show{display:block}.support-head{background:var(--red);color:#fff;padding:16px 18px;font-weight:950}.support-body{padding:16px;background:#faf9f7}.bubble{max-width:86%;padding:11px 13px;border-radius:15px;margin-bottom:9px;font-size:13px;font-weight:700;line-height:1.45}.bubble.bot{background:#fff;border:1px solid var(--line)}.bubble.user{background:#ffe8ed;margin-left:auto;color:#8c1330}.support-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.support-actions button{border:1px solid #f1bdc8;background:#fff;color:var(--red);border-radius:999px;padding:8px 10px;font-size:12px;font-weight:900}
+    @media(max-width:930px){.hero-grid{grid-template-columns:1fr;padding-top:34px}.hero-photo{min-height:auto}.delivery-card{left:16px}.horse-grid{grid-template-columns:repeat(2,1fr)}.promo,.plus-card{grid-template-columns:1fr}.promo img{max-height:270px}.timeline{grid-template-columns:repeat(3,1fr)}.reviews,.benefits{grid-template-columns:1fr 1fr}.faq{grid-template-columns:1fr}}
+    @media(max-width:620px){.container{width:min(100% - 24px,1180px)}.nav{height:66px}.location{display:none}.cart span.label{display:none}.brand{font-size:23px}.brand-badge{width:39px;height:39px}h1{letter-spacing:-2.5px}.hero-grid{gap:28px;min-height:auto}.hero-copy{font-size:16px}.hero-photo .photo-main{height:330px;border-radius:25px}.delivery-card{right:12px;left:12px;bottom:12px;max-width:none}.searchbox{grid-template-columns:1fr}.searchbox input{padding:13px 12px}.section{padding:52px 0}.section-head{align-items:start;flex-direction:column}.horse-grid,.benefits,.reviews{grid-template-columns:1fr}.horse-img{height:240px}.promo-copy{padding:30px 24px}.promo img{min-height:220px}.topbar{font-size:12px}.timeline{grid-template-columns:1fr 1fr}.plus-card{padding:25px 20px}.plus-list{grid-template-columns:1fr}.support-launcher{right:14px;bottom:14px}.support-box{right:14px;bottom:72px;width:calc(100% - 28px)}}
   </style>
 </head>
 <body>
-  <div class="topbar">🐎 30 dakikada kapında • Gecikirse paran iade!*</div>
-
-  <header>
-    <div class="container nav">
-      <div class="brand"><span class="brand-badge">🐴</span>AtSepeti</div>
-      <div class="nav-right">
-        <div class="location">📍 Adana <span style="color:#999">⌄</span></div>
-        <div class="cart">🛒 <span>Sepetim</span></div>
-      </div>
-    </div>
-  </header>
+  <div class="topbar">🐎 30 dakikada kapında • Gecikirse paran iade!* <b>Adana aktif</b></div>
+  <header><div class="container nav"><div class="brand"><span class="brand-badge">🐴</span>AtSepeti</div><div class="nav-right"><div class="location">📍 Adana <span style="color:#999">⌄</span></div><button class="cart" id="cartButton" type="button">🛒 <span class="label">Sepetim</span><span class="cart-count" id="cartCount">0</span></button></div></div></header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">⚡ Şehrin en hızlı at teslimatı</div>
-          <h1>At mı lazım?<br><span>30 dakikada kapında.</span></h1>
-          <p class="hero-copy">Toplantıya mı geç kaldın, mahallede acil dörtnala işin mi çıktı? AtSepeti'nden atını seç; biz koşa koşa getirelim.</p>
+    <section class="hero"><div class="container hero-grid"><div><div class="eyebrow">⚡ Şehrin en hızlı at teslimatı</div><h1>At mı lazım?<br><span>30 dakikada kapında.</span></h1><p class="hero-copy">Toplantıya mı geç kaldın, mahallede acil dörtnala işin mi çıktı? AtSepeti'nden atını seç; biz koşa koşa getirelim.</p><div class="searchbox"><input aria-label="Teslimat adresi" value="Teslimat adresini yaz..." readonly /><button type="button" id="showHorses">Atları Göster</button></div><div class="mini-features"><span>✓ Koşu garantili</span><span>✓ Nal kontrolü yapılmış</span><span>✓ 7/24 kişneme desteği</span><span>✓ 1 beygir motor gücü</span></div></div><div class="hero-photo"><img class="photo-main" src="https://images.unsplash.com/photo-1666280254768-bc0fa68eef1c?auto=format&fit=crop&q=82&w=1400" alt="Koşan kahverengi at" /><div class="delivery-card"><div class="delivery-icon">🏇</div><div><strong>Kuryen yola çıktı!</strong><small>Tahmini varış: 12 dakika • Kurye de atla geliyor</small></div></div></div></div></section>
 
-          <div class="searchbox">
-            <input aria-label="Teslimat adresi" value="Teslimat adresini yaz..." readonly />
-            <button type="button">Atları Göster</button>
-          </div>
+    <section class="section soft" id="horses"><div class="container"><div class="section-head"><div><h2>Bugün neye bineceksin?</h2><p>En çok sipariş edilen atlar. Hepsi fotoğraftaki kadar ciddi.</p></div><div class="pill">🔥 2. ata %25 indirim</div></div><div class="categories"><div class="cat active">Tümü</div><div class="cat">⚡ Hızlı</div><div class="cat">🎩 Premium</div><div class="cat">🌾 Köy Paketi</div><div class="cat">🧒 Öğrenci Atı</div><div class="cat">🌙 Gece Teslimatı</div><div class="cat">📚 Sınava Geç Kalanlar</div></div>
+      <div class="horse-grid">
+        <article class="horse-card"><div class="horse-img-wrap"><img class="horse-img" src="https://images.unsplash.com/photo-1567367409966-1f1d990e087b?auto=format&fit=crop&q=82&w=900" alt="Kahverengi at" /><span class="badge hot">🔥 Çok satan</span></div><div class="horse-body"><div class="horse-title-row"><h3>Anadolu Express</h3><span class="rating">★ 4.9</span></div><div class="horse-meta">Uysal • Trafikte seri • Klima yok</div><div class="specs"><span><b>Motor</b><i>1 beygir</i></span><span><b>Yakıt</b><i>Yulaf 95</i></span><span><b>0–40</b><i>Moraline bağlı</i></span></div><div class="price-row"><div class="price">₺799 <small>/ gün</small></div><button class="add" data-horse="Anadolu Express" type="button">+</button></div></div></article>
+        <article class="horse-card"><div class="horse-img-wrap"><img class="horse-img" src="https://images.unsplash.com/photo-1551694719-a92c87eecd0d?auto=format&fit=crop&q=82&w=900" alt="Beyaz at" /><span class="badge fast">⚡ 18 dk.</span></div><div class="horse-body"><div class="horse-title-row"><h3>Beyaz Şimşek</h3><span class="rating">★ 4.8</span></div><div class="horse-meta">Premium • Fotojenik • Düğüne uygun</div><div class="specs"><span><b>Motor</b><i>1.2 his beygiri</i></span><span><b>Yakıt</b><i>Organik havuç</i></span><span><b>Bagaj</b><i>Yok</i></span></div><div class="price-row"><div class="price">₺1.249 <small>/ gün</small></div><button class="add" data-horse="Beyaz Şimşek" type="button">+</button></div></div></article>
+        <article class="horse-card"><div class="horse-img-wrap"><img class="horse-img" src="https://images.unsplash.com/photo-1553080364-0fe46de925ff?auto=format&fit=crop&q=82&w=900" alt="Siyah at" /><span class="badge">🌙 Gece favorisi</span></div><div class="horse-body"><div class="horse-title-row"><h3>Gece Vardiyası</h3><span class="rating">★ 4.7</span></div><div class="horse-meta">Sessiz • Karizmatik • Far gerektirmez*</div><div class="specs"><span><b>Motor</b><i>1 karanlık beygir</i></span><span><b>Far</b><i>Gözler açık</i></span><span><b>Korna</b><i>Kişneme Pro</i></span></div><div class="price-row"><div class="price">₺999 <small>/ gün</small></div><button class="add" data-horse="Gece Vardiyası" type="button">+</button></div></div></article>
+        <article class="horse-card"><div class="horse-img-wrap"><img class="horse-img" src="https://images.unsplash.com/photo-1666280254768-bc0fa68eef1c?auto=format&fit=crop&q=82&w=900" alt="Koşan at" /><span class="badge fast">💨 Turbo paket</span></div><div class="horse-body"><div class="horse-title-row"><h3>Minik Turbo</h3><span class="rating">★ 5.0</span></div><div class="horse-meta">Aceleci • Dörtnal paket • Kornası doğal</div><div class="specs"><span><b>Motor</b><i>0.7 beygir</i></span><span><b>Park</b><i>Kolay</i></span><span><b>Şarj</b><i>Kesinlikle etmeyin</i></span></div><div class="price-row"><div class="price">₺649 <small>/ gün</small></div><button class="add" data-horse="Minik Turbo" type="button">+</button></div></div></article>
+      </div></div></section>
 
-          <div class="mini-features">
-            <span>✓ Koşu garantili</span>
-            <span>✓ Nal kontrolü yapılmış</span>
-            <span>✓ 7/24 kişneme desteği</span>
-          </div>
-        </div>
+    <section class="section"><div class="container"><div class="promo"><div class="promo-copy"><div style="font-weight:900;opacity:.9">YENİ ÜYELERE ÖZEL</div><h2>İlk kişnemene 250 TL indirim.</h2><p>Kuponu kullan, üzengini tak, hayatına dörtnala devam et. Kampanya motorlu taşıtlarda geçerli değildir çünkü zaten motor yok.</p><span class="promo-code">KOD: DORTNAL250</span></div><img src="https://images.unsplash.com/photo-1567367409966-1f1d990e087b?auto=format&fit=crop&q=78&w=1200" alt="At kampanya görseli" /></div></div></section>
 
-        <div class="hero-photo">
-          <img class="photo-main" src="https://images.unsplash.com/photo-1666280254768-bc0fa68eef1c?auto=format&fit=crop&q=82&w=1400" alt="Koşan kahverengi at" />
-          <div class="delivery-card">
-            <div class="delivery-icon">🏇</div>
-            <div><strong>Kuryen yola çıktı!</strong><small>Tahmini varış: 12 dakika</small></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="section soft"><div class="container"><div class="section-head"><div><h2>Siparişin nasıl geliyor?</h2><p>Türkiye'nin en şeffaf at lojistiği süreci.</p></div></div><div class="timeline"><div class="step"><div class="step-icon">📱</div><strong>Sipariş alındı</strong><small>Sistem “ciddi misin?” diye bir kez kontrol etti.</small></div><div class="step"><div class="step-icon">🧽</div><strong>At hazırlanıyor</strong><small>Nalları silindi, saçları tarandı.</small></div><div class="step"><div class="step-icon">😤</div><strong>At huysuzlandı</strong><small>Standart prosedür. Endişelenmeyin.</small></div><div class="step"><div class="step-icon">🥕</div><strong>At ikna edildi</strong><small>Bir havuç karşılığında anlaşmaya varıldı.</small></div><div class="step"><div class="step-icon">🏇</div><strong>Kurye ata bindi</strong><small>Hangi atın sipariş olduğu şu an belirsiz.</small></div><div class="step"><div class="step-icon">🏠</div><strong>Kapınızda</strong><small>Lütfen apartman girişini boşaltınız.</small></div></div></div></section>
 
-    <section class="section soft">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Bugün neye bineceksin?</h2>
-            <p>En çok sipariş edilen atlar. Hepsi fotoğraftaki kadar ciddi.</p>
-          </div>
-          <div class="pill">🔥 2. ata %25 indirim</div>
-        </div>
+    <section class="section"><div class="container"><div class="section-head"><div><h2>Binicilerimiz ne diyor?</h2><p>On binlerce tamamen ciddi müşteri yorumu.</p></div><div class="pill">★ 4.87 / 5 kişneme</div></div><div class="reviews">
+      <div class="review"><div class="review-stars">★★★★☆</div><p class="review-quote">“At geldi ama apartmana çıkmadı. Asansöre de binmedi. Onun dışında hızlı teslimat.”</p><div class="review-user"><div class="avatar">👨</div><div><strong>Serkan K.</strong><small>Seyhan • Doğrulanmış binici</small></div></div></div>
+      <div class="review"><div class="review-stars">★★★★★</div><p class="review-quote">“Kurye atı atla getirdi. Hangisi benim siparişim, hangisi kurye aracı anlayamadım.”</p><div class="review-user"><div class="avatar">👩</div><div><strong>Melis T.</strong><small>Çukurova • 2 at siparişi</small></div></div></div>
+      <div class="review"><div class="review-stars">★★★☆☆</div><p class="review-quote">“Matematik sınavına bununla gittim, yine 42 aldım. Atla ilgili değil ama belirtmek istedim.”</p><div class="review-user"><div class="avatar">🧑‍🎓</div><div><strong>Efe, 7/B</strong><small>Öğrenci paketi kullanıcısı</small></div></div></div>
+      <div class="review"><div class="review-stars">★★★★★</div><p class="review-quote">“Sipariş verdim. At beni görünce geri döndü. Müşteri hizmetleri ‘kişisel algılamayın’ dedi.”</p><div class="review-user"><div class="avatar">😐</div><div><strong>Burak A.</strong><small>Yüreğir • İade talebi açık</small></div></div></div>
+      <div class="review"><div class="review-stars">★★★★☆</div><p class="review-quote">“30 dakikada geldi. Park yeri bulamayınca kaldırıma bağladık. Komşular biraz gergin.”</p><div class="review-user"><div class="avatar">👵</div><div><strong>Nermin Hanım</strong><small>Sarıçam • Premium binici</small></div></div></div>
+      <div class="review"><div class="review-stars">★★★★★</div><p class="review-quote">“Beyaz Şimşek’i düğüne çağırdık, gelinden daha çok fotoğrafı çekildi. Bir daha almam, kıskandık.”</p><div class="review-user"><div class="avatar">🤵</div><div><strong>Oğuz & Ece</strong><small>Düğün paketi • Doğrulanmış</small></div></div></div>
+    </div></div></section>
 
-        <div class="categories">
-          <div class="cat active">Tümü</div>
-          <div class="cat">⚡ Hızlı</div>
-          <div class="cat">🎩 Premium</div>
-          <div class="cat">🌾 Köy Paketi</div>
-          <div class="cat">🧒 Midilli</div>
-          <div class="cat">🌙 Gece Teslimatı</div>
-        </div>
+    <section class="section soft"><div class="container"><div class="plus-card"><div><div class="plus-logo">🐴 AtSepeti <span class="plus-badge">DörtNal+</span></div><h2>Atın çoksa, üyeliğin olsun.</h2><p>Ayda sadece 49,90 TL'ye kurumsal seviyede at ayrıcalıkları. Çünkü bir noktadan sonra insan kendine “Ben neden bu kadar at söylüyorum?” diye sormayı bırakıyor.</p><div class="plus-list"><div>✓ Sınırsız nal teslimatı</div><div>✓ Öncelikli kişneme hattı</div><div>✓ Ayda 1 ücretsiz eyer</div><div>✓ Havuçta %10 avantaj</div><div>✓ VIP ahır bekleme salonu</div><div>✓ Atın doğum gününde sürpriz</div></div></div><div class="membership"><div style="font-weight:950">DörtNal+ Üyeliği</div><div class="price-big">₺49,90 <small>/ ay</small></div><p style="color:#666">İlk 14 gün ücretsiz. Atınız iptal etmek isterse müşteri hizmetlerini araması gerekir.</p><button type="button" id="plusJoin">DörtNala Geç</button></div></div></div></section>
 
-        <div class="horse-grid">
-          <article class="horse-card">
-            <div class="horse-img-wrap">
-              <img class="horse-img" src="https://images.unsplash.com/photo-1567367409966-1f1d990e087b?auto=format&fit=crop&q=82&w=900" alt="Kahverengi at" />
-              <span class="badge hot">🔥 Çok satan</span>
-            </div>
-            <div class="horse-body">
-              <div class="horse-title-row"><h3>Anadolu Express</h3><span class="rating">★ 4.9</span></div>
-              <div class="horse-meta">Uysal • Trafikte seri • Klima yok</div>
-              <div class="price-row"><div class="price">₺799 <small>/ gün</small></div><button class="add" type="button">+</button></div>
-            </div>
-          </article>
+    <section class="section"><div class="container"><div class="section-head"><div><h2>Sepette neler oluyor?</h2><p>Şeffaf fiyatlandırma. Neredeyse.</p></div></div><div class="fake-cart"><div class="cart-line"><span>🐴 Anadolu Express</span><span>₺799,00</span></div><div class="cart-line muted"><span>Ahır hizmet bedeli</span><span>₺39,90</span></div><div class="cart-line muted"><span>Nal vergisi</span><span>₺18,50</span></div><div class="cart-line muted"><span>Kişneme bedeli</span><span>ÜCRETSİZ</span></div><div class="cart-line muted"><span>Havuç poşeti</span><span>₺14,90</span></div><div class="cart-line muted"><span>“Bu paraya araba alınır” indirimi</span><span>−₺0,00</span></div><div class="cart-line total"><span>Toplam</span><span>Maaşa göre fazla</span></div><div class="cart-note">* Fiyatlara atın o günkü ruh hali dahil değildir.</div></div></div></section>
 
-          <article class="horse-card">
-            <div class="horse-img-wrap">
-              <img class="horse-img" src="https://images.unsplash.com/photo-1551694719-a92c87eecd0d?auto=format&fit=crop&q=82&w=900" alt="Beyaz at" />
-              <span class="badge fast">⚡ 18 dk.</span>
-            </div>
-            <div class="horse-body">
-              <div class="horse-title-row"><h3>Beyaz Şimşek</h3><span class="rating">★ 4.8</span></div>
-              <div class="horse-meta">Premium • Fotojenik • Düğüne uygun</div>
-              <div class="price-row"><div class="price">₺1.249 <small>/ gün</small></div><button class="add" type="button">+</button></div>
-            </div>
-          </article>
+    <section class="section soft"><div class="container"><div class="section-head"><div><h2>Neden AtSepeti?</h2><p>Çünkü bazen taksi yetmez.</p></div></div><div class="benefits"><div class="benefit"><div class="benefit-icon">⏱️</div><h3>30 dakika garantisi</h3><p>Atın zamanında gelmezse paran iade. At gelirse de artık geri dönüş yok; bağ kurmuş olabilirsiniz.</p></div><div class="benefit"><div class="benefit-icon">🧲</div><h3>Nal kontrolü</h3><p>Tüm atlarımız teslimattan önce dört lastik… yani dört nal kontrolünden geçer.</p></div><div class="benefit"><div class="benefit-icon">🎧</div><h3>7/24 destek</h3><p>“At niye bana bakıyor?” dahil olmak üzere tüm acil sorular için kişneme destek hattımız açık.</p></div></div></div></section>
 
-          <article class="horse-card">
-            <div class="horse-img-wrap">
-              <img class="horse-img" src="https://images.unsplash.com/photo-1553080364-0fe46de925ff?auto=format&fit=crop&q=82&w=900" alt="Siyah at" />
-              <span class="badge">🌙 Gece favorisi</span>
-            </div>
-            <div class="horse-body">
-              <div class="horse-title-row"><h3>Gece Vardiyası</h3><span class="rating">★ 4.7</span></div>
-              <div class="horse-meta">Sessiz • Karizmatik • Far gerektirmez*</div>
-              <div class="price-row"><div class="price">₺999 <small>/ gün</small></div><button class="add" type="button">+</button></div>
-            </div>
-          </article>
-
-          <article class="horse-card">
-            <div class="horse-img-wrap">
-              <img class="horse-img" src="https://images.unsplash.com/photo-1666280254768-bc0fa68eef1c?auto=format&fit=crop&q=82&w=900" alt="Koşan at" />
-              <span class="badge fast">💨 Turbo paket</span>
-            </div>
-            <div class="horse-body">
-              <div class="horse-title-row"><h3>Minik Turbo</h3><span class="rating">★ 5.0</span></div>
-              <div class="horse-meta">Aceleci • Dörtnal paket • Kornası doğal</div>
-              <div class="price-row"><div class="price">₺649 <small>/ gün</small></div><button class="add" type="button">+</button></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="promo">
-          <div class="promo-copy">
-            <div style="font-weight:900; opacity:.9">YENİ ÜYELERE ÖZEL</div>
-            <h2>İlk atın bizden sayılır.</h2>
-            <p>İlk siparişinde 250 TL indirim. Kuponu kullan, üzengini tak, hayatına dörtnala devam et.</p>
-            <span class="promo-code">KOD: DORTNAL250</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1567367409966-1f1d990e087b?auto=format&fit=crop&q=78&w=1200" alt="At kampanya görseli" />
-        </div>
-      </div>
-    </section>
-
-    <section class="section soft">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Neden AtSepeti?</h2>
-            <p>Çünkü bazen taksi yetmez.</p>
-          </div>
-        </div>
-
-        <div class="benefits">
-          <div class="benefit"><div class="benefit-icon">⏱️</div><h3>30 dakika garantisi</h3><p>Atın zamanında gelmezse paran iade. At gelirse de artık geri dönüş yok; bağ kurmuş olabilirsiniz.</p></div>
-          <div class="benefit"><div class="benefit-icon">🧲</div><h3>Nal kontrolü</h3><p>Tüm atlarımız teslimattan önce dört lastik… yani dört nal kontrolünden geçer.</p></div>
-          <div class="benefit"><div class="benefit-icon">🎧</div><h3>7/24 destek</h3><p>“At niye bana bakıyor?” dahil olmak üzere tüm acil sorularınız için kişneme destek hattımız açık.</p></div>
-        </div>
-      </div>
-    </section>
+    <section class="section"><div class="container"><div class="section-head"><div><h2>Sık Sorulan Sorular</h2><p>Sormasanız da cevapladık.</p></div></div><div class="faq">
+      <details><summary>At asansöre biner mi?</summary><p>Teknik olarak evet. Duygusal olarak hayır. Asansör kapasitesini ve atın o günkü keyfini kontrol ediniz.</p></details>
+      <details><summary>Apartmanda at beslemek için yönetici izni gerekir mi?</summary><p>Biz yöneticiyle göz göze gelmemeyi öneriyoruz. Site yönetim planınızda “at” kelimesi geçmiyorsa hukuki yorum yapmıyoruz.</p></details>
+      <details><summary>At Wi‑Fi'a bağlanıyor mu?</summary><p>Hayır. Ancak modeminizin yanında uzun süre durursa bir şeyler öğrenebilir. AtSepeti bunun sorumluluğunu kabul etmez.</p></details>
+      <details><summary>İade ederken atın kutusu gerekli mi?</summary><p>Atlarımız kutusuz gelir. Kutulu at gördüyseniz lütfen müşteri hizmetlerimize haber verin; orada başka bir problem vardır.</p></details>
+      <details><summary>Şarjı ne kadar gidiyor?</summary><p>Atı şarj etmeye çalışmayınız. Tekrar ediyoruz: prize takmayınız. Yulaf ve su yeterlidir.</p></details>
+      <details><summary>Yakıt olarak 95 mi 97 mi kullanıyor?</summary><p>Anadolu Express Yulaf 95 ile çalışır. Premium modellerde organik havuç önerilir. Mazot dökmeyin.</p></details>
+      <details><summary>Okula atla gelebilir miyim?</summary><p>Okul yönetimi, güvenlik görevlisi ve at aynı fikirdeyse neden olmasın? Bisiklet parkına bırakmayınız.</p></details>
+      <details><summary>Gecikirse gerçekten para iadesi var mı?</summary><p>At gecikirse evet. Fakat at yolda bir şey görüp durduysa bu “mücbir kişneme” sayılabilir.</p></details>
+      <details><summary>Atın rengi fotoğraftakinden farklı çıktı.</summary><p>Ekran parlaklığı, güneş, toz ve atın karizması nedeniyle renk tonlarında farklılık olabilir.</p></details>
+      <details><summary>İki at alınca ne oluyor?</summary><p>İkinci ata %25 indirim olur. Üçüncü atı alırsanız uygulama size “Nereye koyacaksın?” diye sorar.</p></details>
+    </div></div></section>
   </main>
 
-  <footer>
-    <div class="container footer-row">
-      <div><div class="footer-brand">🐴 AtSepeti</div><div style="margin-top:6px;font-weight:700">At lazım olur, biz getiririz.</div></div>
-      <div class="fineprint">* AtSepeti gerçek bir teslimat hizmeti değildir. Bu sayfa sınıf içi eğlence amacıyla hazırlanmış bir parodi projesidir. Sipariş verilemez, at gönderilmez, kişneme desteği teknik olarak mevcut değildir. At görselleri Unsplash kaynaklıdır.</div>
-    </div>
-  </footer>
+  <footer><div class="container footer-row"><div><div class="footer-brand">🐴 AtSepeti</div><div style="margin-top:6px;font-weight:700">At lazım olur, biz getiririz.</div></div><div class="fineprint">* AtSepeti gerçek bir teslimat hizmeti değildir. Bu sayfa sınıf içi eğlence amacıyla hazırlanmış bir parodi projesidir. Sipariş verilemez, at gönderilmez, kişneme desteği teknik olarak mevcut değildir. Atların renkleri ekran ayarlarına göre farklılık gösterebilir. Teslim edilen at stok durumuna göre kişneyebilir. Atı şarj etmeye çalışmayınız.</div></div></footer>
+
+  <div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="modal-icon" id="modalIcon">🐴</div><h3 id="modalTitle">At sepete eklendi!</h3><p id="modalText">Lütfen teslimat öncesi apartman girişini boşaltınız.</p><button type="button" id="modalClose">Tamam, kişnemeye devam</button></div></div>
+
+  <button class="support-launcher" id="supportLauncher" type="button">💬 AtCanlı Destek</button>
+  <div class="support-box" id="supportBox"><div class="support-head">🐴 AtCanlı Destek • Çevrimiçi</div><div class="support-body"><div class="bubble bot">Merhaba 👋 Nasıl kişneyebilirim?</div><div class="bubble bot">Temsilcimiz Şahbatur şu an 3 müşteriye aynı anda bakıyor.</div><div id="supportReply"></div><div class="support-actions"><button data-reply="Atım neden bana bakıyor?">Atım bana bakıyor</button><button data-reply="At asansöre binmiyor.">Asansöre binmiyor</button><button data-reply="Siparişim kişniyor.">Siparişim kişniyor</button></div></div></div>
+
+  <script>
+    const modalBackdrop=document.getElementById('modalBackdrop');
+    const modalIcon=document.getElementById('modalIcon');
+    const modalTitle=document.getElementById('modalTitle');
+    const modalText=document.getElementById('modalText');
+    const cartCount=document.getElementById('cartCount');
+    let count=0;
+    function showModal(icon,title,text){modalIcon.textContent=icon;modalTitle.textContent=title;modalText.textContent=text;modalBackdrop.classList.add('show')}
+    document.querySelectorAll('.add').forEach(btn=>btn.addEventListener('click',()=>{count++;cartCount.textContent=count;const horse=btn.dataset.horse;if(count===1)showModal('🐴','At sepete eklendi!',`${horse} sepetinizde. Lütfen teslimat öncesi apartman girişini boşaltınız.`);else if(count===2)showModal('🐴🐴','Sepetinizde zaten bir at var.','Gerçekten ikinci bir ata ihtiyacınız olduğundan emin misiniz? Biz satıyoruz diye almak zorunda değilsiniz.');else if(count===3)showModal('🚨','Abi yeter.','Nereye koyacaksın bu kadar atı? Sistem güvenliğiniz için kısa süreliğine sizi sorguluyor.');else if(count===4)showModal('🏚️','Ahır modu açıldı!','4 at sipariş ettiğiniz için sistem sizi otomatik olarak “küçük çiftlik” müşterisi kabul etti.');else showModal('🥕','Toplu sipariş tespit edildi.','Satış ekibimiz değil, veterinerimiz sizinle iletişime geçmek istiyor.');}));
+    document.getElementById('modalClose').addEventListener('click',()=>modalBackdrop.classList.remove('show'));modalBackdrop.addEventListener('click',e=>{if(e.target===modalBackdrop)modalBackdrop.classList.remove('show')});
+    document.getElementById('showHorses').addEventListener('click',()=>document.getElementById('horses').scrollIntoView({behavior:'smooth'}));
+    document.getElementById('cartButton').addEventListener('click',()=>count?showModal('🛒',`Sepetinizde ${count} at var.`,count>=3?'Bu noktada sepet değil, sürü diyebiliriz.':'Ödeme ekranı bakımda. Atlar bunu fırsat bilip dinleniyor.'):showModal('🛒','Sepetiniz boş.','Bir at bile mi yok? Bu ekonomide anlaşılır.'));
+    document.getElementById('plusJoin').addEventListener('click',()=>showModal('👑','DörtNal+ başvurunuz alındı!','Üyelik onayı için atınızdan sözlü kişneme onayı bekleniyor.'));
+    const supportBox=document.getElementById('supportBox');document.getElementById('supportLauncher').addEventListener('click',()=>supportBox.classList.toggle('show'));
+    document.querySelectorAll('.support-actions button').forEach(btn=>btn.addEventListener('click',()=>{const reply=document.getElementById('supportReply');reply.innerHTML=`<div class="bubble user">${btn.dataset.reply}</div><div class="bubble bot">Bu davranış normal görünüyor. Atınıza karşı sakin olun ve elinizde havuç varsa pazarlık gücünüz artar. Sorun devam ederse atla göz temasını azaltın.</div>`;}));
+  </script>
 </body>
 </html>
