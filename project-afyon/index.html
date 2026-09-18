@@ -411,7 +411,7 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.3 Coupon Results</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.4 Coupon Order</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1678,7 +1678,11 @@ function renderCoupons(){
 
   const visibleKeys=new Set();
 
-  list.innerHTML=state.coupons.slice().reverse().map((c,index)=>{
+  list.innerHTML=state.coupons.slice().sort((a,b)=>{
+    const aTime=new Date(a.created||0).getTime()||0;
+    const bTime=new Date(b.created||0).getTime()||0;
+    return bTime-aTime;
+  }).map((c,index)=>{
     const couponKey=String(c.id??c.created??('coupon-'+index));
     visibleKeys.add(couponKey);
 
