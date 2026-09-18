@@ -181,6 +181,83 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
   .wallet span:before{content:"₳D ";font-size:10px;color:#8090aa;font-weight:900}
 }
 
+
+/* Mobile header: account row + page tabs. Keep wallet permanently visible. */
+@media(max-width:1050px){
+  body{padding-bottom:0}
+  header{position:sticky;top:0}
+  .nav{
+    height:auto!important;
+    min-height:0;
+    padding:9px 0 10px;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:
+      "brand account"
+      "tabs tabs";
+    gap:9px 8px!important;
+  }
+  .brand{grid-area:brand;min-width:0;margin:0!important}
+  .nav-right{
+    grid-area:account;
+    margin-left:0!important;
+    display:flex!important;
+    align-items:center;
+    justify-content:flex-end;
+    gap:6px;
+  }
+  .main-nav{
+    grid-area:tabs;
+    position:static!important;
+    inset:auto!important;
+    width:100%;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    margin:0!important;
+    padding:5px!important;
+    border:1px solid #2a3852;
+    border-radius:15px;
+    background:#0d1526;
+    box-shadow:none;
+    backdrop-filter:none;
+  }
+  .main-nav .nav-btn{
+    min-width:0;
+    padding:9px 4px!important;
+    font-size:10px!important;
+    white-space:nowrap;
+  }
+  .wallet{
+    display:flex!important;
+    align-items:center;
+    white-space:nowrap;
+    padding:8px 9px!important;
+    font-size:11px!important;
+  }
+  .profile.auth-profile{
+    display:grid!important;
+    width:36px!important;
+    height:36px!important;
+    flex:0 0 36px;
+  }
+  .afmb-float{bottom:12px}
+}
+@media(max-width:520px){
+  .nav{width:calc(100% - 16px)!important}
+  .brand{gap:7px;font-size:15px}
+  .brand-mark{width:36px!important;height:36px!important;flex:0 0 36px}
+  .brand small,.online-pill{display:none!important}
+  .brand-copy{min-width:0;display:block!important}
+  .brand-title{display:block;max-width:125px;overflow:hidden;text-overflow:ellipsis}
+  .wallet{font-size:0!important}
+  .wallet span{font-size:12px!important}
+  .wallet span:before{content:"₳D ";font-size:10px;color:#8090aa;font-weight:900}
+}
+@media(max-width:370px){
+  .brand-copy{display:none!important}
+  .main-nav .nav-btn{font-size:9px!important}
+}
+
 @media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
@@ -334,7 +411,7 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.16 Pages</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.1 Mobile Header</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
