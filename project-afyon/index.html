@@ -475,7 +475,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.22 Calmer Economy</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.23 Global Strength</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -992,49 +992,68 @@ function stableHash(text){
   }
   return h>>>0;
 }
+const globalCountryBase={
+  'İngiltere':82,'İspanya':81,'İtalya':80,'Almanya':80,'Fransa':78,
+  'Hollanda':76,'Portekiz':76,'Türkiye':74,'Belçika':72,'İskoçya':71,
+  'Yunanistan':69,'Avusturya':69
+};
+const globalLeagueDelta={1:0,2:-13,3:-24,4:-33,5:-40};
+const globalRankProfiles={
+  1:[12,10,7,5,3,2,1,0,0,-1,-2,-3,-4,-5,-6,-7,-8,-10],
+  2:[8,7,6,5,4,3,2,1,0,0,-1,-2,-3,-4,-5,-6,-7,-8],
+  3:[7,6,5,4,3,2,1,1,0,0,-1,-1,-2,-3,-4,-5,-6,-7],
+  4:[6,5,4,3,2,2,1,1,0,0,-1,-1,-2,-2,-3,-4,-5,-6],
+  5:[5,4,3,3,2,2,1,1,0,0,-1,-1,-2,-2,-3,-3,-4,-5]
+};
+
 function getTeams(country,level){
   if(onlineMode){
     const serverTeams=onlineClubLists[country+'|'+level];
     if(serverTeams&&serverTeams.length===18)return serverTeams;
   }
-  const names=getClubNames(country,level);
 
-  // 4 şampiyonluk adayı, 10 orta sıra, 4 küme hattı profili.
-  // Takımın gerçek gücü ATK + MID + DEF ortalamasıdır; stil toplam gücü bedavadan artırmaz.
-  const profile=[10,8,7,6,3,2,1,1,0,0,-1,-1,-2,-3,-6,-7,-9,-10];
+  const names=getClubNames(country,level);
+  const legacyProfile=[10,8,7,6,3,2,1,1,0,0,-1,-1,-2,-3,-6,-7,-9,-10];
+  const rotation=stableHash(country+'|'+level)%legacyProfile.length;
+
+  // Eski güçler artık rating değildir; yalnızca kulüplerin kendi liglerindeki
+  // tarihsel sırasını korumak için rank kaynağı olarak kullanılır.
+  const ranked=names.map((name,i)=>{
+    const legacy=level===1
+      ?(topTierStrengthOverrides[country]?.[name]??80)
+      :80-(level-1)*5+legacyProfile[(i*5+rotation)%legacyProfile.length];
+    return {name,i,legacy};
+  }).sort((a,b)=>b.legacy-a.legacy||a.name.localeCompare(b.name,'tr'));
+
+  const rankByName=new Map(ranked.map((x,index)=>[x.name,index]));
   const styleProfiles=[
     {name:'Dengeli',atk:0,mid:0,def:0},
-    {name:'Hücumcu',atk:7,mid:1,def:-8},
-    {name:'Savunmacı',atk:-6,mid:1,def:5},
-    {name:'Kontrol',atk:-2,mid:6,def:-4},
-    {name:'Kontra',atk:5,mid:-5,def:0},
-    {name:'Kaotik',atk:6,mid:-2,def:-4}
+    {name:'Hücumcu',atk:4,mid:1,def:-5},
+    {name:'Savunmacı',atk:-4,mid:0,def:4},
+    {name:'Kontrol',atk:-2,mid:4,def:-2},
+    {name:'Kontra',atk:3,mid:-3,def:0},
+    {name:'Kaotik',atk:4,mid:-1,def:-3}
   ];
-  const base=80-(level-1)*5;
-  const rotation=stableHash(country+'|'+level)%profile.length;
 
   return names.map((name,i)=>{
-    const offset=profile[(i*5+rotation)%profile.length];
-    const override=level===1?topTierStrengthOverrides[country]?.[name]:undefined;
-    const target=Number.isFinite(override)?override:clamp(base+offset,45,92);
+    const rank=rankByName.get(name)??9;
+    const target=(globalCountryBase[country]??70)+(globalLeagueDelta[level]??0)+globalRankProfiles[level][rank];
     const style=styleProfiles[stableHash(country+'|'+level+'|'+name+'|style')%styleProfiles.length];
+    const jitter=(i%3)-1;
 
-    // Küçük deterministik sapma: aynı stile sahip kulüpler birebir kopya olmasın.
-    const jitter=((stableHash(name+'|lines')%5)-2);
-    const attack=clamp(Math.round(target+style.atk+jitter),40,96);
-    const midfield=clamp(Math.round(target+style.mid-Math.sign(jitter)),40,96);
-    const defense=clamp(Math.round(target+style.def),40,96);
-    const strength=Math.round((attack+midfield+defense)/3);
+    const attack=clamp(Math.round(target+style.atk+jitter),20,99);
+    const midfield=clamp(Math.round(target+style.mid-jitter),20,99);
+    const defense=clamp(Math.round(target+style.def),20,99);
 
     return {
       name,
       attack,
       midfield,
       defense,
-      strength,
+      strength:target,
       style:style.name,
       seed:i,
-      tier:offset>=6?'favorite':offset<=-6?'relegation':'mid'
+      tier:rank<=3?'favorite':rank>=14?'relegation':'mid'
     };
   });
 }
@@ -1503,7 +1522,7 @@ function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
           <div class="club-name">${club.name}</div>
           <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span><span class="club-tag">Sezon ${state.season}</span></div>
         </div>
-        <div class="club-overall"><strong>${club.strength}</strong><small>GENEL GÜÇ</small></div>
+        <div class="club-overall"><strong>${club.strength}</strong><small>GLOBAL GÜÇ</small></div>
       </div>
     </div>
     <div class="club-body">
@@ -1514,7 +1533,7 @@ function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
       </div>
       <div class="club-pane active" data-club-pane="overview">
         <div class="club-rating-grid">
-          ${ratingCard('GENEL',club.strength)}${ratingCard('ATK',club.attack)}${ratingCard('MID',club.midfield)}${ratingCard('DEF',club.defense)}
+          ${ratingCard('GLOBAL',club.strength)}${ratingCard('ATK',club.attack)}${ratingCard('MID',club.midfield)}${ratingCard('DEF',club.defense)}
         </div>
         <div class="club-overview-grid">
           <div class="club-panel">
@@ -1531,7 +1550,7 @@ function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
           <div class="club-panel">
             <h4>Son Form</h4>
             <div class="club-form-row">${formHtml}</div>
-            <div class="squad-note" style="margin-top:12px">Takım gücü yalnızca tek sayı değil; ATK, MID ve DEF hatları maç motorunda ayrı ayrı eşleşir.</div>
+            <div class="squad-note" style="margin-top:12px">Global güç bütün Afyon evreninde aynı cetveli kullanır; ATK, MID ve DEF hatları maç motorunda ayrıca eşleşir.</div>
           </div>
         </div>
       </div>
