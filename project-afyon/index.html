@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.9.2</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.10</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -189,7 +189,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 
 <script>
 
-const STORAGE_KEY='projectAfyonPrototypeV3';
+const STORAGE_KEY='projectAfyonPrototypeV4';
 const LIVE_DURATION=180000;
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
@@ -228,21 +228,78 @@ const countryRoots={
   Yunanistan:['Athens','Piraeus','Thessaloniki','Patras','Larissa','Volos','Crete','Rhodes','Ioannina','Kavala','Serres','Corinth','Chania','Drama','Sparta','Kalamata','Trikala','Agrinio'],
   Avusturya:['Vienna','Salzburg','Graz','Linz','Tirol','Klagenfurt','Innsbruck','Wels','Dornbirn','Bregenz','Steyr','Krems','Villach','Leoben','Amstetten','Kapfenberg','Wienerwald','Eisenstadt']
 }
-const levelSuffixes={
-  1:['Athletic','Ravens','United','Forge','Crown','Miners','FC','Borough'],
-  2:['City','Wanderers','Rovers','Sporting','Town','Olympic','Union','Vale'],
-  3:['Academy','Harbor','Rail','Lions','North','Dynamo','Stars','County'],
-  4:['Reserves','Workers','Eagles','Racing','Heights','Meadow','Phoenix','Bridge'],
-  5:['Sunday','Amateurs','Old Boys','Village','Locals','XI','Friends','Garage']
+const topTierNames={
+  İngiltere:['North London Cannons','Manchester Sky','Mersey Reds','West London Royals','Tottenham Roosters','Tyne Blackwings','Birmingham Lions','Brighton Seaglass','East London Irons','Brentford Hives','Nottingham Arrows','South London Palace','Thames Cottage','Dorset Cherries','Wolverhampton Gold','Leeds White Rose','Wearside Cats','Burnley Claret'],
+  Türkiye:['Galata Lions','Kadıköy Lanterns','Bosphorus Eagles','Black Sea Storm','Başak City','İzmir Gulf Sun','Samsun Red Port','Rize Tea Union','Konya Steppe','Kocaeli Gulf','Alanya Coast','Gaziantep Pistachios','Ankara Youth','Kasımpaşa Dock','Eyüp Horn','Diyarbakır Walls','Erzurum Frost','Çorum Roasters'],
+  İspanya:['Madrid Crown','Catalunya Blau','Madrid Red Stripe','Bilbao Forge','Sevilla Palms','San Sebastián Waves','Villarreal Yellowfleet','Valencia Bats','Girona Red River','Vigo Atlantic','Pamplona Bulls','Mallorca Islanders','Vallecas Workers','Getafe Airfield','Levante Mar','Oviedo Blue Hills','Elche Palms','Granada Sierra'],
+  Almanya:['Munich Redworks','Dortmund Yellow Wall','Leipzig Charge','Leverkusen Chemists','Frankfurt Main','Stuttgart Swabians','Berlin Unionworks','Freiburg Forest','Bremen River','Hamburg Harbor','Cologne Cathedral','Lower Rhine Foals','Mainz Carnival','Augsburg Fugger','Hoffenheim Village','Wolfsburg Motors','Hamburg Pirates','Gelsenkirchen Miners'],
+  İtalya:['Milano Serpents','Milano Rosso','Torino Zebras','Napoli Vespa','Roma Wolves','Rome Eagles','Bergamo Alps','Bologna Towers','Firenze Arno','Como Lake','Genova Lighthouse','Parma Ducal','Verona Arena','Udine Friuli','Cagliari Sardegna','Lecce Salento','Pisa Leaners','Emilia Nero'],
+  Fransa:['Paris Étoile','Marseille Harbor','Lyon Rhône','Monaco Crown','Lille North','Lens Miners','Nice Riviera','Strasbourg Storks','Rennes Rouge','Nantes Canaries','Toulouse Violet','Brest Atlantic','Auxerre Vines','Lorient Mer','Le Havre Dock','Metz Garnet','Reims Champagne','Angers Slate'],
+  Hollanda:['Amsterdam Masters','Rotterdam Port','Eindhoven Lamps','Rotterdam South','Utrecht Dom','Alkmaar North','Enschede Red','Groningen Green','Heerenveen Friesland','Nijmegen Old City','Breda Pearls','Zwolle Blue','Tilburg Tricolor','Sittard Gold','Deventer River','Almere Polders','Volendam Harbor','Arnhem Airborne'],
+  Portekiz:['Lisboa Eagles','Lisboa Lions','Porto Azure','Braga Archbishops','Guimarães Castle','Famalicão Textile','Rio Ave River','Moreira Green','Santa Clara Azores','Estoril Coast','Arouca Mountain','Casa Pia Ravens','Barcelos Roosters','Nacional Madeira','Tondela Goldgreen','Alverca Aviators','Farense Algarve','Boavista Checker'],
+  Belçika:['Bruges Blackblue','Brussels Mauve','Saint-Gilles Union','Genk Miners','Ghent Buffalos','Antwerp Red','Liège Steel','Mechelen Yellowred','Charleroi Zebras','Leuven Scholars','Westerlo Campine','Sint-Truiden Canaries','Dender River','Waregem Farmers','Kortrijk Red','Bruges Green Circle','Beveren Lions','Lommel Sand'],
+  İskoçya:['Glasgow Hoops','Glasgow Blues','Edinburgh Hearts','Leith Greens','Aberdeen Granite','Dundee Tangerines','Dundee Darkblue','Kilmarnock Blue','Motherwell Steel','Paisley Saints','Falkirk Wheel','Livingston Amber','Highland Stags','Perth Saints','Ayr Honest Men','Dunfermline Abbey','Greenock Morton Bay','Inverness Caledonia'],
+  Yunanistan:['Piraeus Red','Athens Clover','Athens Doublehead','Thessaloniki Blackwhite','Thessaloniki Gold','Crete Blackwhite','Tripoli Stars','Volos Magnesians','Peristeri Blue','Agrinio Canaries','Livadia Green','Larissa Horses','Kifisia North','Serres Lions','Kalamata Olives','Thessaloniki Blue','Patras Waves','Ioannina Lake'],
+  Avusturya:['Salzburg Energy','Vienna Greenwhite','Vienna Violet','Graz Blackwhite','Linz Steel','Wolfsberg Pack','Hartberg Blue','Altach Rhine','Ried Vikings','Klagenfurt Lake','Tirol Mountains','Linz Danube','Grazer Reds','Lustenau Rhine','St Pölten Wolves','Admira South Vienna','Dornbirn Red','Kapfenberg Falcons']
 };
-const levelOneOverrides={
-  İngiltere:['Northbridge Athletic','Birmingham Ravens','East London Pigeons','Manchester Forge','Bristol Crown','Yorkshire Miners','Rivergate FC','Westham Borough'],
-  Türkiye:['Adana Toros','Ankara Vadi','İzmir Körfez','Bursa Çınar','Konya Ovası SK','Mersin Liman','Trabzon Fırtına','Eskişehir Ray'],
-  İspanya:['Madrid Sol','Valencia Naranja','Bilbao Forge','Sevilla Palms','Catalunya Azul','Granada Hills','Costa Verde','Zaragoza Lions'],
-  Almanya:['Berlin Adler','Rhein Stahl','Munich Werk','Hamburg Dockers','Dortmund Coal','Leipzig Pulse','Bremen North','Frankfurt Towers'],
-  İtalya:['Torino Wolves','Milano Nero','Roma Aurelia','Napoli Vespa','Firenze Arno','Bologna Rosso','Genova Harbor','Verona Arena'],
-  Fransa:['Paris Étoile','Lyon Rhône','Marseille Bleu','Lille North','Bordeaux Vigne','Nantes Atlantique','Nice Riviera','Toulouse Violet']
+
+const lowerExtraRoots={
+  İngiltere:['York','Preston','Derby','Coventry','Portsmouth','Reading','Plymouth','Exeter','Chester','Lincoln','Wigan','Bolton','Blackpool','Middlesbrough','Hull','Ipswich','Norwich','Carlisle'],
+  Türkiye:['Van','Iğdır','Mardin','Batman','Bandırma','Bolu','Sivas','Pendik','Sarıyer','Muğla','Çorum','Düzce','Kırklareli','Kastamonu','Aksaray','Karaman','Afyon','Şanlıurfa'],
+  İspanya:['Albacete','Burgos','Eibar','Huesca','Almería','Cartagena','Cádiz','Tenerife','Ferrol','Miranda','Castellón','Santander','Gijón','Badajoz','Lugo','Ceuta','Melilla','Andorra'],
+  Almanya:['Kaiserslautern','Karlsruhe','Darmstadt','Osnabrück','Münster','Aachen','Rostock','Saarbrücken','Mannheim','Ulm','Regensburg','Meppen','Wiesbaden','Cottbus','Halle','Jena','Kassel','Würzburg'],
+  İtalya:['Palermo','Spezia','Bari','Catanzaro','Cesena','Modena','Mantova','Reggiana','Frosinone','Salerno','Cremona','Padova','Vicenza','Perugia','Pescara','Arezzo','Taranto','Avellino'],
+  Fransa:['Caen','Nancy','Sochaux','Dunkerque','Guingamp','Grenoble','Amiens','Troyes','Annecy','Clermont','Pau','Laval','Rodez','Bastia','Ajaccio','Orléans','Dijon','Rouen'],
+  Hollanda:['Leiden','Haarlem','Delft','Venlo','Dordrecht','Maastricht','Emmen','Helmond','Oss','Velsen','Kerkrade','Roosendaal','Doetinchem','Leeuwarden','Apeldoorn','Assen','Hoorn','Gouda'],
+  Portekiz:['Coimbra','Faro','Setúbal','Aveiro','Funchal','Leiria','Viseu','Évora','Cascais','Sintra','Chaves','Beja','Lagos','Bragança','Mafra','Penafiel','Covilhã','Portimão'],
+  Belçika:['Hasselt','Mons','Ostend','Aalst','Tournai','Lokeren','Turnhout','Roeselare','Mouscron','Seraing','Eupen','Virton','Lier','Deinze','Tongeren','Geel','Diest','Ninove'],
+  İskoçya:['Stirling','Arbroath','Raith','Hamilton','Airdrie','Alloa','Clyde','Dumbarton','Queenstown','Montrose','Forfar','Elgin','Peterhead','Annan','Kelty','Stenhouse','Cove','Brechin'],
+  Yunanistan:['Karditsa','Syros','Kallithea','Komotini','Chrysoupoli','Nea Smyrni','Markopoulo','Chania','Kavala','Drama','Sparta','Trikala','Corinth','Rhodes','Agrinio','Kozani','Veria','Edessa'],
+  Avusturya:['Wels','Bregenz','Steyr','Krems','Villach','Leoben','Amstetten','Wienerwald','Eisenstadt','Lafnitz','Horn','Floridsdorf','Dornbirn','Kufstein','Schwaz','Bischofshofen','Mödling','Traiskirchen']
 };
+
+const countryClubWords={
+  İngiltere:['Rovers','Athletic','Town','Borough','United','Wanderers','County','Albion'],
+  Türkiye:['SK','Gençlik','Belediye','Anadolu','Yıldız','1967','Kale','Birlik'],
+  İspanya:['Atlético','Unión','Deportivo','CF','Sporting','Rojos','Azul','Estrella'],
+  Almanya:['SV','FC','04','Eintracht','Kickers','Rot-Weiss','Blau-Weiss','VfB'],
+  İtalya:['Calcio','Virtus','AC','US','Sporting','Rosso','Azzurri','1912'],
+  Fransa:['FC','Racing','Olympique','Union','Stade','AS','Sporting','Étoile'],
+  Hollanda:['VV','SV','FC','Boys','Sport','Oranje','Blauw','Combinatie'],
+  Portekiz:['SC','União','Atlético','FC','Académica','Estrela','Desportivo','Lusitano'],
+  Belçika:['KFC','Union','Racing','Cercle','Sporting','SK','Royal','Olympic'],
+  İskoçya:['Athletic','Thistle','Rovers','United','County','Wanderers','Albion','Vale'],
+  Yunanistan:['AO','GS','Doxa','Asteras','Ethnikos','Enosi','Athlitiki','Neoi'],
+  Avusturya:['SV','FC','SC','Union','Kickers','Sportklub','1919','Blau-Weiss']
+};
+
+const countryAreaTags={
+  İngiltere:['North','Vale','Park','Heath','Bridge','Meadow'],
+  Türkiye:['Ova','Kale','Vadi','Sahil','Yıldız','Hisar'],
+  İspanya:['Norte','Sur','Sierra','Costa','Valle','Barrio'],
+  Almanya:['Nord','Süd','Wald','Tal','Berg','Hafen'],
+  İtalya:['Nord','Sud','Borgo','Monte','Marina','Valle'],
+  Fransa:['Nord','Sud','Vallée','Côte','Mont','Rive'],
+  Hollanda:['Noord','Zuid','Dijk','Polder','Haven','Veld'],
+  Portekiz:['Norte','Sul','Serra','Ribeira','Costa','Vale'],
+  Belçika:['Noord','Sud','Kempen','Haven','Val','Bos'],
+  İskoçya:['North','Vale','Glen','Burn','Bridge','Moor'],
+  Yunanistan:['Ano','Kato','Nea','Akti','Oros','Limani'],
+  Avusturya:['Nord','Süd','Tal','Berg','See','Wald']
+};
+
+function getClubNames(country,level){
+  if(level===1)return topTierNames[country];
+  const roots=(level===2||level===4)?countryRoots[country]:lowerExtraRoots[country];
+  const words=countryClubWords[country];
+  const tags=countryAreaTags[country];
+  return roots.map((root,i)=>{
+    const word=words[(i+level*2)%words.length];
+    if(level<=3)return `${root} ${word}`;
+    const tag=tags[(i+level)%tags.length];
+    return `${root} ${tag} ${word}`;
+  });
+}
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
 let state={engineVersion:6,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
 
@@ -294,11 +351,7 @@ function stableHash(text){
   return h>>>0;
 }
 function getTeams(country,level){
-  const roots=countryRoots[country];
-  const generated=roots.map((root,i)=>`${root} ${levelSuffixes[level][i%levelSuffixes[level].length]}`);
-  const names=level===1&&levelOneOverrides[country]
-    ?generated.map((name,i)=>levelOneOverrides[country][i]||name)
-    :generated;
+  const names=getClubNames(country,level);
 
   // 4 şampiyonluk adayı, 10 orta sıra, 4 küme hattı profili.
   // Takımın gerçek gücü ATK + MID + DEF ortalamasıdır; stil toplam gücü bedavadan artırmaz.
