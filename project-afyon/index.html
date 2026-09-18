@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.8</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.8.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -189,7 +189,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 
 <script>
 
-const STORAGE_KEY='projectAfyonPrototypeV1';
+const STORAGE_KEY='projectAfyonPrototypeV2';
 const LIVE_DURATION=180000;
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
@@ -592,8 +592,8 @@ function renderMatches(){
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • FORM ${market.homeForm.sequence} ${market.homeForm.modifier>=0?'+':''}${market.homeForm.modifier.toFixed(1)}</span>`}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • FORM ${market.awayForm.sequence} ${market.awayForm.modifier>=0?'+':''}${market.awayForm.modifier.toFixed(1)}</span>`}</div>
+        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • FORM ${market.homeForm.sequence}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • FORM ${market.awayForm.sequence}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,market.main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row">
