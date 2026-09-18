@@ -411,7 +411,7 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.1 Mobile Header</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.2 Coupon UI</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -838,6 +838,7 @@ function getClubNames(country,level){
   });
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
+const openCouponIds=new Set();
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0;
 let onlineClubLists={},onlineClubsById={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let bulletinCountry='Tümü',bulletinLevel=0;
@@ -1670,12 +1671,21 @@ function updateSlipMath(){
 function renderCoupons(){
   const list=document.getElementById('couponList');
   if(!state.coupons.length){
-    list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';return;
+    list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';
+    openCouponIds.clear();
+    return;
   }
-  list.innerHTML=state.coupons.slice().reverse().map(c=>{
+
+  const visibleKeys=new Set();
+
+  list.innerHTML=state.coupons.slice().reverse().map((c,index)=>{
+    const couponKey=String(c.id??c.created??('coupon-'+index));
+    visibleKeys.add(couponKey);
+
     const status=c.status||(!c.selections?'legacy':'pending');
     const statusText=status==='won'?'KAZANDI':status==='lost'?'KAYBETTİ':status==='legacy'?'ESKİ KUPON':isCurrentLive()&&c.season===state.season&&c.week===state.week?'CANLI':'BEKLİYOR';
     const extra=status==='won'&&c.payout?` • Ödeme ${money(c.payout)}`:'';
+
     let legs='<div class="coupon-hint">Bu kupon eski prototipten geldiği için maç detayları tutulmamış.</div>';
     if(Array.isArray(c.selections)&&c.selections.length){
       legs='<div class="coupon-legs">'+c.selections.map(s=>{
@@ -1687,8 +1697,19 @@ function renderCoupons(){
         return `<div class="coupon-leg"><div class="leg-icon ${legState}">${icon}</div><div class="leg-main"><strong>${s.match}</strong><small>${s.market} • ${s.label} • ${score}</small></div><div class="leg-odd">${Number(s.odd).toFixed(2)}</div></div>`;
       }).join('')+'</div>';
     }
-    return `<details class="coupon"><summary><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}${extra}</small></div><div class="status ${status}">${statusText}</div></summary>${legs}</details>`;
+
+    return `<details class="coupon" data-coupon-key="${couponKey}" ${openCouponIds.has(couponKey)?'open':''}><summary><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}${extra}</small></div><div class="status ${status}">${statusText}</div></summary>${legs}</details>`;
   }).join('');
+
+  [...openCouponIds].forEach(key=>{if(!visibleKeys.has(key))openCouponIds.delete(key)});
+
+  list.querySelectorAll('details[data-coupon-key]').forEach(details=>{
+    details.addEventListener('toggle',()=>{
+      const key=details.dataset.couponKey;
+      if(details.open)openCouponIds.add(key);
+      else openCouponIds.delete(key);
+    });
+  });
 }
 function renderStandings(){
   const teams=getTeams(selectedCountry,selectedLevel);
