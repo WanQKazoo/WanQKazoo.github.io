@@ -67,11 +67,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-card">
-          <div class="kicker" id="seasonKicker">SEZON 1 • HAFTA 1 / 14</div>
+          <div class="kicker" id="seasonKicker">SEZON 1 • HAFTA 1 / 34</div>
           <h1>Avrupa futbolu.<br><span>Tamamı uydurma.</span></h1>
-          <p>12 ülke, ülke başına 5 lig, yüzlerce hayali kulüp ve kendi kendine yaşayan bir futbol dünyası. Sen sadece istatistiğe bak, tahminini yap ve Afyon Dinarı'nı korumaya çalış.</p>
+          <p>12 ülke, ülke başına 5 lig, lig başına 18 kulüp ve kendi kendine yaşayan bir futbol dünyası. Sen sadece istatistiğe bak, tahminini yap ve Afyon Dinarı'nı korumaya çalış.</p>
           <div class="stats">
-            <div class="stat"><strong>480</strong><small>Hayali kulüp</small></div>
+            <div class="stat"><strong>1.080</strong><small>Hayali kulüp</small></div>
             <div class="stat"><strong>5</strong><small>Lig seviyesi / ülke</small></div>
             <div class="stat"><strong>100%</strong><small>Gerçek paradan bağımsız</small></div>
           </div>
@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.7.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.8</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -194,19 +194,19 @@ const LIVE_DURATION=180000;
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
 const countryRoots={
-  İngiltere:['Northbridge','Birmingham','East London','Manchester','Bristol','Yorkshire','Rivergate','Westham'],
-  Türkiye:['Adana','Ankara','İzmir','Bursa','Konya','Mersin','Trabzon','Eskişehir'],
-  İspanya:['Madrid','Valencia','Bilbao','Sevilla','Catalunya','Granada','Costa Verde','Zaragoza'],
-  Almanya:['Berlin','Rhein','Munich','Hamburg','Dortmund','Leipzig','Bremen','Frankfurt'],
-  İtalya:['Torino','Milano','Roma','Napoli','Firenze','Bologna','Genova','Verona'],
-  Fransa:['Paris','Lyon','Marseille','Lille','Bordeaux','Nantes','Nice','Toulouse'],
-  Hollanda:['Amsterdam','Rotterdam','Utrecht','Eindhoven','Groningen','Leiden','Arnhem','Breda'],
-  Portekiz:['Lisboa','Porto','Braga','Coimbra','Faro','Setúbal','Aveiro','Guimarães'],
-  Belçika:['Brussels','Antwerp','Ghent','Bruges','Liège','Leuven','Namur','Mechelen'],
-  İskoçya:['Edinburgh','Glasgow','Aberdeen','Dundee','Highland','Falkirk','Perth','Stirling'],
-  Yunanistan:['Athens','Piraeus','Thessaloniki','Patras','Larissa','Volos','Crete','Rhodes'],
-  Avusturya:['Vienna','Salzburg','Graz','Linz','Tirol','Klagenfurt','Innsbruck','Wels']
-};
+  İngiltere:['Northbridge','Birmingham','East London','Manchester','Bristol','Yorkshire','Rivergate','Westham','Liverpool Bay','Nottingham','Leeds Park','Newcastle Tyne','Sheffield Steel','Leicester Vale','Brighton Coast','Wolverton','Southampton Dock','Burnley Moor'],
+  Türkiye:['Adana','Ankara','İzmir','Bursa','Konya','Mersin','Trabzon','Eskişehir','Antalya','Samsun','Kayseri','Gaziantep','Sakarya','Kocaeli','Manisa','Denizli','Balıkesir','Malatya'],
+  İspanya:['Madrid','Valencia','Bilbao','Sevilla','Catalunya','Granada','Costa Verde','Zaragoza','Malaga','Vigo','Murcia','Toledo','Alicante','Cordoba','Leon','Oviedo','Salamanca','Cadiz'],
+  Almanya:['Berlin','Rhein','Munich','Hamburg','Dortmund','Leipzig','Bremen','Frankfurt','Stuttgart','Dresden','Hannover','Essen','Cologne','Freiburg','Mainz','Augsburg','Nuremberg','Bochum'],
+  İtalya:['Torino','Milano','Roma','Napoli','Firenze','Bologna','Genova','Verona','Bergamo','Parma','Palermo','Bari','Udine','Cagliari','Modena','Pisa','Perugia','Lecce'],
+  Fransa:['Paris','Lyon','Marseille','Lille','Bordeaux','Nantes','Nice','Toulouse','Rennes','Strasbourg','Montpellier','Reims','Rouen','Dijon','Metz','Angers','Brest','Le Havre'],
+  Hollanda:['Amsterdam','Rotterdam','Utrecht','Eindhoven','Groningen','Leiden','Arnhem','Breda','Tilburg','Alkmaar','Enschede','Zwolle','Haarlem','Delft','Nijmegen','Venlo','Dordrecht','Maastricht'],
+  Portekiz:['Lisboa','Porto','Braga','Coimbra','Faro','Setúbal','Aveiro','Guimarães','Funchal','Leiria','Viseu','Évora','Cascais','Sintra','Chaves','Beja','Lagos','Bragança'],
+  Belçika:['Brussels','Antwerp','Ghent','Bruges','Liège','Leuven','Namur','Mechelen','Charleroi','Hasselt','Mons','Kortrijk','Ostend','Genk','Aalst','Tournai','Lokeren','Turnhout'],
+  İskoçya:['Edinburgh','Glasgow','Aberdeen','Dundee','Highland','Falkirk','Perth','Stirling','Inverness','Paisley','Ayr','Dunfermline','Kilmarnock','Motherwell','Hamilton','Greenock','Livingston','Arbroath'],
+  Yunanistan:['Athens','Piraeus','Thessaloniki','Patras','Larissa','Volos','Crete','Rhodes','Ioannina','Kavala','Serres','Corinth','Chania','Drama','Sparta','Kalamata','Trikala','Agrinio'],
+  Avusturya:['Vienna','Salzburg','Graz','Linz','Tirol','Klagenfurt','Innsbruck','Wels','Dornbirn','Bregenz','Steyr','Krems','Villach','Leoben','Amstetten','Kapfenberg','Wienerwald','Eisenstadt']
+}
 const levelSuffixes={
   1:['Athletic','Ravens','United','Forge','Crown','Miners','FC','Borough'],
   2:['City','Wanderers','Rovers','Sporting','Town','Olympic','Union','Vale'],
@@ -223,25 +223,37 @@ const levelOneOverrides={
   Fransa:['Paris Étoile','Lyon Rhône','Marseille Bleu','Lille North','Bordeaux Vigne','Nantes Atlantique','Nice Riviera','Toulouse Violet']
 };
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
-let state={engineVersion:5,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
+let state={engineVersion:6,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
 
 try{
   const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
   if(saved){
-    if((saved.engineVersion||0)>=4){
+    const version=saved.engineVersion||0;
+    if(version>=6){
       state={
         ...state,...saved,
-        engineVersion:5,
+        engineVersion:6,
         results:saved.results||{},
         coupons:saved.coupons||[],
         liveWeek:saved.liveWeek||null
       };
+    }else if(version>=4){
+      state.balance=Number.isFinite(saved.balance)?saved.balance:10000;
+      state.season=(saved.season||1)+1;
+      state.week=1;
+      state.results={};
+      state.liveWeek=null;
+      state.coupons=(saved.coupons||[]).map(coupon=>({
+        ...coupon,
+        status:coupon.status==='won'||coupon.status==='lost'?coupon.status:'legacy',
+        selections:null,
+        migratedTo18Team:true
+      }));
     }else{
       state.balance=Number.isFinite(saved.balance)?saved.balance:10000;
-      state.coupons=(saved.coupons||[]).map(c=>{
-        if(c.status==='won'||c.status==='lost'||c.status==='legacy')return c;
-        return {...c,status:'legacy'};
-      });
+      state.coupons=(saved.coupons||[]).map(coupon=>({
+        ...coupon,status:'legacy',selections:null,migratedTo18Team:true
+      }));
     }
   }
 }catch(e){}
@@ -262,32 +274,41 @@ function stableHash(text){
 }
 function getTeams(country,level){
   const roots=countryRoots[country];
+  const generated=roots.map((root,i)=>`${root} ${levelSuffixes[level][i%levelSuffixes[level].length]}`);
   const names=level===1&&levelOneOverrides[country]
-    ?levelOneOverrides[country]
-    :roots.map((root,i)=>`${root} ${levelSuffixes[level][i]}`);
-  const base=80-(level-1)*6;
-  const spread=[6,4,2,1,-1,-2,-4,-6];
-  const rotation=stableHash(country+'|'+level)%spread.length;
-  return names.map((name,i)=>({
-    name,
-    strength:clamp(base+spread[(i+rotation)%spread.length],48,90),
-    seed:i
-  }));
+    ?generated.map((name,i)=>levelOneOverrides[country][i]||name)
+    :generated;
+
+  // 4 şampiyonluk adayı, 10 orta sıra, 4 küme hattı profili.
+  const profile=[10,8,7,6,3,2,1,1,0,0,-1,-1,-2,-3,-6,-7,-9,-10];
+  const base=80-(level-1)*5;
+  const rotation=stableHash(country+'|'+level)%profile.length;
+
+  return names.map((name,i)=>{
+    const offset=profile[(i*5+rotation)%profile.length];
+    return {
+      name,
+      strength:clamp(base+offset,45,92),
+      seed:i,
+      tier:offset>=6?'favorite':offset<=-6?'relegation':'mid'
+    };
+  });
 }
 function buildSchedule(teams){
+  const count=teams.length;
   let rotation=teams.map((_,i)=>i);
-  const first=[];
-  for(let round=0;round<7;round++){
+  const firstHalf=[];
+  for(let round=0;round<count-1;round++){
     const matches=[];
-    for(let i=0;i<4;i++){
-      let a=rotation[i],b=rotation[7-i];
+    for(let i=0;i<count/2;i++){
+      let a=rotation[i],b=rotation[count-1-i];
       if((round+i)%2===1)[a,b]=[b,a];
       matches.push({home:teams[a],away:teams[b]});
     }
-    first.push(matches);
-    rotation=[rotation[0],rotation[7],...rotation.slice(1,7)];
+    firstHalf.push(matches);
+    rotation=[rotation[0],rotation[count-1],...rotation.slice(1,count-1)];
   }
-  return first.concat(first.map(round=>round.map(m=>({home:m.away,away:m.home}))));
+  return firstHalf.concat(firstHalf.map(round=>round.map(m=>({home:m.away,away:m.home}))));
 }
 function getWeekFixtures(country,level,week){return buildSchedule(getTeams(country,level))[week-1]}
 function resultId(season,country,level,week,index){return `S${season}|${country}|L${level}|W${week}|M${index}`}
@@ -311,12 +332,52 @@ function poisson(lambda){
   do{k++;p*=Math.random()}while(p>L&&k<9);
   return Math.min(7,k-1);
 }
-function expectedGoals(home,away){
-  const ratingDiff=(home.strength-away.strength)/10;
+function getFormData(country,level,teamName,beforeWeek){
+  const teams=getTeams(country,level);
+  const schedule=buildSchedule(teams);
+  const matches=[];
+  for(let week=1;week<beforeWeek;week++){
+    const round=schedule[week-1];
+    if(!round)break;
+    round.forEach((m,i)=>{
+      if(m.home.name!==teamName&&m.away.name!==teamName)return;
+      const r=state.results[resultId(state.season,country,level,week,i)];
+      if(!r)return;
+      const home=m.home.name===teamName;
+      const gf=home?r.homeGoals:r.awayGoals;
+      const ga=home?r.awayGoals:r.homeGoals;
+      matches.push({
+        week,
+        points:gf>ga?3:gf===ga?1:0,
+        gd:gf-ga,
+        letter:gf>ga?'W':gf===ga?'D':'L'
+      });
+    });
+  }
+  const recent=matches.slice(-5);
+  if(!recent.length)return {modifier:0,sequence:'—',played:0};
+  const weights=recent.map((_,i)=>1+i*.15);
+  const weightTotal=weights.reduce((a,b)=>a+b,0);
+  const weightedPoints=recent.reduce((sum,m,i)=>sum+m.points*weights[i],0)/weightTotal;
+  const weightedGd=recent.reduce((sum,m,i)=>sum+m.gd*weights[i],0)/weightTotal;
+  const modifier=clamp((weightedPoints-1.35)*3.2+weightedGd*.7,-6,6);
+  return {
+    modifier,
+    sequence:recent.map(m=>m.letter).join(''),
+    played:recent.length
+  };
+}
+function expectedGoals(home,away,country,level,week){
+  const homeForm=getFormData(country,level,home.name,week);
+  const awayForm=getFormData(country,level,away.name,week);
+  const homeEffective=home.strength+homeForm.modifier;
+  const awayEffective=away.strength+awayForm.modifier;
+  const ratingDiff=(homeEffective-awayEffective)/10;
   const tempo=((home.seed*3+away.seed*5)%5-2)*.025;
   return {
     home:clamp(1.45+ratingDiff*.20+tempo,.65,2.35),
-    away:clamp(1.15-ratingDiff*.17+tempo,.55,2.10)
+    away:clamp(1.15-ratingDiff*.17+tempo,.55,2.10),
+    homeForm,awayForm,homeEffective,awayEffective
   };
 }
 function poissonProbability(lambda,k){
@@ -324,8 +385,8 @@ function poissonProbability(lambda,k){
   for(let i=2;i<=k;i++)fact*=i;
   return Math.exp(-lambda)*Math.pow(lambda,k)/fact;
 }
-function marketProbabilities(home,away){
-  const xg=expectedGoals(home,away);
+function marketProbabilities(home,away,country,level,week){
+  const xg=expectedGoals(home,away,country,level,week);
   let p1=0,px=0,p2=0,btts=0,under15=0,under25=0,under35=0,totalMass=0;
   for(let h=0;h<=8;h++){
     const ph=poissonProbability(xg.home,h);
@@ -353,8 +414,8 @@ function marketProbabilities(home,away){
 function fairOdd(prob,margin,min=1.12,max=7.50){
   return clamp(1/(Math.max(.01,prob)*margin),min,max);
 }
-function getMatchOdds(home,away,week,index){
-  const p=marketProbabilities(home,away);
+function getMatchOdds(home,away,country,level,week,index){
+  const p=marketProbabilities(home,away,country,level,week);
   const main=[
     fairOdd(p.p1,1.06,1.25,6.80),
     fairOdd(p.px,1.06,2.65,4.80),
@@ -373,10 +434,14 @@ function getMatchOdds(home,away,week,index){
     ['12',fairOdd(p.p1+p.p2,1.035,1.08,2.35).toFixed(2),'Çifte Şans'],
     ['X2',fairOdd(p.px+p.p2,1.035,1.08,2.35).toFixed(2),'Çifte Şans']
   ];
-  return {main,extra,xg:p.xg};
+  return {
+    main,extra,xg:p.xg,
+    homeForm:p.xg.homeForm,awayForm:p.xg.awayForm,
+    homeEffective:p.xg.homeEffective,awayEffective:p.xg.awayEffective
+  };
 }
-function simulateScore(home,away){
-  const xg=expectedGoals(home,away);
+function simulateScore(home,away,country,level,week){
+  const xg=expectedGoals(home,away,country,level,week);
   return [poisson(xg.home),poisson(xg.away)];
 }
 function buildGoalEvents(homeGoals,awayGoals){
@@ -452,7 +517,7 @@ function settleCoupons(){
 }
 
 function renderTopState(){
-  document.getElementById('seasonKicker').textContent=`SEZON ${state.season} • HAFTA ${state.week} / 14`;
+  document.getElementById('seasonKicker').textContent=`SEZON ${state.season} • HAFTA ${state.week} / 34`;
 }
 function renderLiveCenter(){
   const center=document.getElementById('liveCenter');
@@ -503,15 +568,15 @@ function renderMatches(){
   if(live){
     simBtn.disabled=true;
     simBtn.textContent=`🔴 CANLI ${minute}'`;
-    document.getElementById('simInfo').textContent=`${state.week}. Hafta canlı • Avrupa genelinde 240 maç oynanıyor`;
+    document.getElementById('simInfo').textContent=`${state.week}. Hafta canlı • Avrupa genelinde 540 maç oynanıyor`;
   }else if(played){
     simBtn.disabled=false;
-    simBtn.textContent=state.week===14?`🏁 Sezon ${state.season+1}'e Geç`:`➡️ ${state.week+1}. Haftaya Geç`;
+    simBtn.textContent=state.week===34?`🏁 Sezon ${state.season+1}'e Geç`:`➡️ ${state.week+1}. Haftaya Geç`;
     document.getElementById('simInfo').textContent=`${state.week}. Hafta tamamlandı • Sonuçlar kesinleşti`;
   }else{
     simBtn.disabled=false;
     simBtn.textContent=`▶ ${state.week}. Haftayı Canlı Başlat`;
-    document.getElementById('simInfo').textContent=`${state.week}. Hafta • Avrupa genelinde 240 maç bekliyor`;
+    document.getElementById('simInfo').textContent=`${state.week}. Hafta • Avrupa genelinde 540 maç bekliyor`;
   }
 
   document.getElementById('matches').innerHTML=fixtures.map((m,i)=>{
@@ -519,7 +584,7 @@ function renderMatches(){
     const final=state.results[id];
     const snap=liveSnapshot(id);
     const shown=final||snap;
-    const market=getMatchOdds(m.home,m.away,state.week,i);
+    const market=getMatchOdds(m.home,m.away,selectedCountry,selectedLevel,state.week,i);
     const locked=!!shown||live;
     const pickButton=(label,odd,marketName)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" ${locked?'disabled':''} data-id="${id}" data-label="${label}" data-market="${marketName}" data-odd="${odd}" data-match="${m.home.name} - ${m.away.name}"><small>${label}</small>${odd}</button>`;
     const status=final?'MS':snap?`${snap.minute>=90?"90+":snap.minute}'`:(19+i)+':00';
@@ -527,8 +592,8 @@ function renderMatches(){
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:'<span class="form">GÜÇ '+m.home.strength+'</span>'}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:'<span class="form">GÜÇ '+m.away.strength+'</span>'}</div>
+        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • FORM ${market.homeForm.sequence} ${market.homeForm.modifier>=0?'+':''}${market.homeForm.modifier.toFixed(1)}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • FORM ${market.awayForm.sequence} ${market.awayForm.modifier>=0?'+':''}${market.awayForm.modifier.toFixed(1)}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,market.main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row">
@@ -620,7 +685,7 @@ function renderStandings(){
   const teams=getTeams(selectedCountry,selectedLevel);
   const schedule=buildSchedule(teams);
   const table=Object.fromEntries(teams.map(t=>[t.name,{team:t.name,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}]));
-  for(let week=1;week<=14;week++){
+  for(let week=1;week<=34;week++){
     schedule[week-1].forEach((m,i)=>{
       const id=resultId(state.season,selectedCountry,selectedLevel,week,i);
       let r=state.results[id];
@@ -634,7 +699,11 @@ function renderStandings(){
     });
   }
   const rows=Object.values(table).sort((a,b)=>b.pts-a.pts||((b.gf-b.ga)-(a.gf-a.ga))||b.gf-a.gf||a.team.localeCompare(b.team,'tr'));
-  document.getElementById('standingsWrap').innerHTML=`<table class="standings"><thead><tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th><th>P</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${i<2?'top':''}"><td>${i+1}</td><td>${r.team}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga}</td><td><strong>${r.pts}</strong></td></tr>`).join('')}</tbody></table>`;
+  const formBeforeWeek=worldWeekPlayed()?state.week+1:state.week;
+  document.getElementById('standingsWrap').innerHTML=`<table class="standings"><thead><tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th><th>FORM</th><th>P</th></tr></thead><tbody>${rows.map((r,i)=>{
+    const form=getFormData(selectedCountry,selectedLevel,r.team,formBeforeWeek);
+    return `<tr class="${i<4?'top':''}"><td>${i+1}</td><td>${r.team}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga}</td><td>${form.sequence}</td><td><strong>${r.pts}</strong></td></tr>`;
+  }).join('')}</tbody></table>`;
 }
 function hasPendingCoupon(){
   return state.coupons.some(c=>{
@@ -742,7 +811,7 @@ function prepareLiveWeek(){
       const fixtures=getWeekFixtures(country,level,state.week);
       fixtures.forEach((m,i)=>{
         const id=resultId(state.season,country,level,state.week,i);
-        const [homeGoals,awayGoals]=simulateScore(m.home,m.away);
+        const [homeGoals,awayGoals]=simulateScore(m.home,m.away,country,level,state.week);
         plans[id]={
           homeGoals,awayGoals,
           events:buildGoalEvents(homeGoals,awayGoals)
@@ -816,8 +885,12 @@ document.getElementById('simulateLeague').addEventListener('click',()=>{
   if(isCurrentLive())return;
   if(worldWeekPlayed()){
     picks=[];
-    if(state.week===14){state.season++;state.week=1}
-    else state.week++;
+    if(state.week===34){
+      state.coupons=state.coupons.map(coupon=>coupon.season===state.season?{...coupon,selections:null}:coupon);
+      state.results={};
+      state.season++;
+      state.week=1;
+    }else state.week++;
     save();renderAll();
     toast(state.week===1?`Sezon ${state.season} başladı. Defterler sıfırlandı. ⚽`:`${state.week}. hafta bülteni açıldı. 📋`);
     return;
