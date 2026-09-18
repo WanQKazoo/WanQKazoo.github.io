@@ -306,6 +306,95 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
 .chance-session-note{padding:9px 11px;border:1px solid #2d405e;border-radius:11px;background:#101b2e;color:#8496b2;font-size:10px;line-height:1.5}
 
 @media(max-width:720px){.auth-profile{display:grid!important}}
+
+/* ===== Prototype 0.27 — Bet UI Pass 1 ===== */
+#bulletinSection{background:#0d1422}
+#bulletinSection .section-title{background:linear-gradient(180deg,#111c2f,#0d1626);padding:16px 18px}
+#bulletinSection .section-title h2{font-size:18px;letter-spacing:-.2px}
+#bulletinSection .country-tabs{background:#0b1321;padding-top:10px;padding-bottom:10px}
+#bulletinSection .league-tabs{padding-top:9px;padding-bottom:9px}
+#bulletinSection .country-tab,#bulletinSection .league-tab{border-radius:9px;padding:8px 11px}
+#bulletinSection .country-tab.active,#bulletinSection .league-tab.active{box-shadow:0 0 0 1px rgba(99,230,190,.12),0 6px 18px rgba(0,0,0,.18)}
+.bet-market-head{display:grid;grid-template-columns:104px minmax(240px,1fr) repeat(3,86px);gap:8px;align-items:center;padding:8px 14px;background:#0a111d;border-top:1px solid #1c2940;border-bottom:1px solid #21304a;color:#647796;font-size:9px;font-weight:1000;letter-spacing:.8px;text-transform:uppercase;position:sticky;top:72px;z-index:7}
+.bet-market-head span:nth-last-child(-n+3){text-align:center;color:#8698b5}
+.match{grid-template-columns:104px minmax(240px,1fr) repeat(3,86px);gap:8px;padding:11px 14px;background:#0f1828;border-top:1px solid #1c2940;transition:background .14s,border-color .14s}
+.match:hover{background:#121d30}
+.match-meta{align-self:stretch;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #202e45;padding-right:10px}
+.match-meta strong{display:inline-flex;align-items:center;width:max-content;min-height:24px;padding:5px 7px;border-radius:7px;background:#18243a;color:#dfe8f7;font-size:11px;line-height:1;font-weight:1000}
+.match-meta>small:not(.match-context){margin-top:5px;color:#667995;font-size:9px;font-weight:900}
+.match-context{margin-top:5px!important;color:#7185a4!important;font-size:8px!important;line-height:1.4!important}
+.match-context b{color:#a6b7d0}
+.teams{gap:8px;padding:1px 4px}
+.team{min-height:26px;font-size:12px;font-weight:900}
+.team .club-link{font-weight:950}
+.dot{width:6px;height:6px;flex:0 0 6px}
+.form{font-size:8px;letter-spacing:.15px;color:#667a99;background:#121f33;border:1px solid #263651;border-radius:7px;padding:4px 6px;white-space:nowrap}
+.odd-btn{position:relative;min-width:0;height:48px;border:1px solid #2b3b57;border-radius:9px;background:#172238;color:#f5f8ff;padding:6px 7px;font-size:14px;font-weight:1000;line-height:1.1;transition:transform .12s,border-color .12s,background .12s,box-shadow .12s}
+.odd-btn small{font-size:8px;letter-spacing:.4px;color:#7285a4;margin-bottom:4px;font-weight:1000}
+.odd-btn:not(:disabled):hover{transform:translateY(-1px);background:#1d2d48;border-color:#526887;box-shadow:0 7px 18px rgba(0,0,0,.18)}
+.odd-btn.selected{background:#1d5a4c;border-color:#63e6be;color:#e8fff8;box-shadow:inset 0 0 0 1px rgba(99,230,190,.22),0 6px 18px rgba(28,125,101,.18)}
+.odd-btn.selected:after{content:"✓";position:absolute;right:5px;top:4px;color:#93f6d7;font-size:9px}
+.odd-btn.selected small{color:#bff5e5}
+.match-live{background:linear-gradient(90deg,rgba(255,94,108,.075),#0f1828 32%);box-shadow:inset 3px 0 #ff6474}
+.match-live .match-meta strong{background:#401923;color:#ff9daa}
+.team-score{font-size:16px;color:#ffd166}
+.market-toggle-row{margin-top:0;padding-top:5px;border-top:0}
+.market-toggle{min-height:31px;border:0;border-top:1px dashed #27364f;border-radius:0;background:transparent;padding:7px 4px;color:#7f92b1}
+.market-toggle:hover,.market-toggle[aria-expanded="true"]{background:transparent;border-color:#3a506f;color:#c5d3e8}
+.market-toggle span{font-size:9px}.market-toggle small{font-size:8px}
+.extra-markets{padding-top:5px;padding-bottom:5px}
+.extra-markets.open{gap:7px}
+.market-group{padding:8px;border-radius:10px;background:#0b1423;border-color:#22324a}
+.market-group-title{font-size:8px;margin-bottom:6px}
+.market-grid{gap:5px}.market-grid .odd-btn{height:42px;border-radius:8px;font-size:12px}
+.bulletin-group-head{padding:9px 14px;background:#101a2b;border-top:2px solid #253650;border-bottom:1px solid #25344c}
+.bulletin-group-head strong{font-size:10px;letter-spacing:.5px}.bulletin-group-head small{font-size:9px}
+.bulletin-group-head.live{background:#1b121d;border-top-color:#68303d}
+.sim-bar{background:#0a111e;padding:10px 14px}.sim-info{font-size:10px}.simulate-btn{border-radius:9px;padding:8px 11px;font-size:10px}
+.slip{border-radius:16px;background:#0d1626;border-color:#293a56;box-shadow:0 18px 50px rgba(0,0,0,.30)}
+.slip-head{padding:12px 14px;background:linear-gradient(180deg,#16233a,#111b2e)}
+.slip-head-main{display:flex;align-items:center;gap:8px}.slip-head-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#21314b}
+.slip-head strong{font-size:14px}.slip-head small{display:block;margin-top:1px;color:#6f819f;font-size:8px;font-weight:900;letter-spacing:.5px}
+.slip-count{padding:5px 8px;font-size:9px}
+.slip-body{padding:10px}
+.slip .empty{padding:26px 10px}.slip-empty-icon{display:block;font-size:26px;margin-bottom:7px}.slip .empty strong{display:block;color:#c9d5e8;font-size:12px}.slip .empty small{display:block;margin-top:5px;color:#6f819c;font-size:9px;line-height:1.5}
+.pick-row{padding:9px 10px;border-radius:10px;background:#121e31;border-color:#263750;margin-bottom:7px}
+.pick-row-top{align-items:flex-start}.pick-row strong{font-size:10px;line-height:1.35}.pick-row button{font-size:17px;line-height:1;padding:0 2px}
+.pick-meta{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.pick-chip{display:inline-flex;padding:3px 6px;border-radius:6px;background:#1a2941;color:#8193af;font-size:7px;font-weight:1000;letter-spacing:.25px}
+.pick-choice{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:7px;padding-top:7px;border-top:1px solid #223149;font-size:9px;color:#8fa0bb}
+.pick-choice strong{font-size:11px;color:#fff}.pick-odd{min-width:44px;text-align:center;padding:5px 7px;border-radius:7px;background:#253550;color:#ffd166!important;font-size:11px!important}
+.slip-summary{margin-top:9px;padding:9px;border:1px solid #273851;border-radius:10px;background:#0a1321}
+.summary-line{padding:4px 0;font-size:9px}.summary-line strong{font-size:12px}
+.summary-line.return-line{margin-top:4px;padding-top:8px;border-top:1px solid #26364e}.summary-line.return-line strong{font-size:16px;color:#ffd166}
+.stake-label{display:flex;justify-content:space-between;margin-top:10px;color:#7587a3;font-size:8px;font-weight:1000;letter-spacing:.5px}
+.stake-wrap{margin-top:5px;grid-template-columns:1fr 56px}.stake-wrap input{padding:10px 11px;border-radius:9px;font-weight:900}.stake-wrap span{border-radius:9px;font-size:11px}
+.stake-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:6px}.stake-preset{border:1px solid #2a3b57;border-radius:7px;background:#121e31;color:#8899b5;padding:6px 3px;font-size:8px;font-weight:1000}
+.stake-preset:hover{border-color:#526987;color:#fff}
+.place-btn{border-radius:9px;padding:11px;margin-top:9px;font-size:11px;letter-spacing:.3px;box-shadow:0 8px 20px rgba(99,230,190,.10)}
+.slip-note{font-size:8px;line-height:1.45;margin-top:8px;text-align:center}
+.mobile-slip-launcher{display:none}
+@media(max-width:1050px){
+  body[data-page="bulletin"]{padding-bottom:70px}
+  body[data-page="bulletin"] .sidebar{display:none;order:initial}
+  body[data-page="bulletin"] .sidebar.mobile-open{display:block!important;position:fixed;inset:0;z-index:105;background:rgba(4,8,18,.72);padding:15vh 12px 12px;backdrop-filter:blur(7px)}
+  body[data-page="bulletin"] .sidebar.mobile-open .slip{position:relative;top:auto;max-width:520px;max-height:75vh;overflow:auto;margin:auto;border-radius:18px}
+  .mobile-slip-launcher{position:fixed;left:12px;right:12px;bottom:10px;z-index:106;display:flex;align-items:center;justify-content:space-between;border:1px solid #3e5c78;border-radius:13px;background:#15243a;color:#eef5ff;padding:11px 13px;box-shadow:0 12px 38px rgba(0,0,0,.46);font-weight:1000}
+  body:not([data-page="bulletin"]) .mobile-slip-launcher{display:none}
+  .mobile-slip-launcher.has-picks{background:#1d5a4c;border-color:#63e6be;color:#effff9}
+  .bet-market-head{display:none}
+}
+@media(max-width:720px){
+  #bulletinSection{border-radius:15px}
+  .match{grid-template-columns:72px repeat(3,minmax(0,1fr));gap:6px;padding:10px}
+  .match-meta{grid-column:1;grid-row:1;padding-right:6px}
+  .match-meta strong{font-size:10px;padding:4px 6px}.match-context{font-size:7px!important}
+  .teams{grid-column:2/5;grid-row:1;padding:0;gap:4px}.team{font-size:11px;min-height:23px}
+  .match>.odd-btn:nth-child(3){grid-column:2;grid-row:2}.match>.odd-btn:nth-child(4){grid-column:3;grid-row:2}.match>.odd-btn:nth-child(5){grid-column:4;grid-row:2}
+  .match>.odd-btn{height:42px;padding:5px 4px;font-size:12px}.match>.odd-btn small{font-size:7px}
+  .market-toggle-row{grid-column:1/-1;grid-row:3}.extra-markets{grid-column:1/-1;grid-row:4}
+  .bulletin-group-head{position:static}
+}
 </style>
 </head>
 <body>
@@ -380,6 +469,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
             <div class="live-progress"><span id="liveProgressBar"></span></div>
             <div class="live-feed" id="liveFeed"><div class="live-event">Hakemler saatlerini kontrol ediyor.</div></div>
           </div>
+          <div class="bet-market-head"><span>Durum</span><span>Karşılaşma</span><span>1</span><span>X</span><span>2</span></div>
           <div id="matches"></div>
         </section>
 
@@ -468,25 +558,36 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
 
       <aside class="sidebar" data-page-section="bulletin">
         <div class="slip">
-          <div class="slip-head"><strong>Kuponum</strong><span class="slip-count" id="slipCount">0 seçim</span></div>
+          <div class="slip-head">
+            <div class="slip-head-main"><span class="slip-head-icon">🎟</span><div><strong>Kuponum</strong><small>KOMBİNE KUPON</small></div></div>
+            <span class="slip-count" id="slipCount">0 seçim</span>
+          </div>
           <div class="slip-body">
             <div id="slipItems"></div>
             <div id="slipControls" style="display:none">
               <div class="slip-summary">
                 <div class="summary-line"><span>Toplam oran</span><strong id="totalOdds">1.00</strong></div>
-                <div class="summary-line"><span>Olası dönüş</span><strong id="possibleReturn" style="color:var(--accent2)">0 ₳D</strong></div>
+                <div class="summary-line return-line"><span>Olası dönüş</span><strong id="possibleReturn">0 ₳D</strong></div>
               </div>
+              <div class="stake-label"><span>KUPON MİKTARI</span><span>min. 10 ₳D</span></div>
               <div class="stake-wrap"><input id="stakeInput" type="number" min="10" step="10" value="100"><span>₳D</span></div>
-              <button class="place-btn" id="placeCoupon">Kuponu Oluştur</button>
-              <div class="slip-note">Afyon Dinarı yalnızca bu oyunda kullanılan sanal puandır. Satın alınamaz, satılamaz, çekilemez ve gerçek paraya dönüştürülemez. Afyon'da da geçmez.</div>
+              <div class="stake-presets">
+                <button class="stake-preset" type="button" data-stake="50">50</button>
+                <button class="stake-preset" type="button" data-stake="100">100</button>
+                <button class="stake-preset" type="button" data-stake="250">250</button>
+                <button class="stake-preset" type="button" data-stake="500">500</button>
+              </div>
+              <button class="place-btn" id="placeCoupon">KUPONU OYNA</button>
+              <div class="slip-note">Afyon Dinarı yalnızca bu oyunda kullanılan sanal puandır. Gerçek para karşılığı yoktur.</div>
             </div>
           </div>
         </div>
       </aside>
     </div>
+    <button class="mobile-slip-launcher" id="mobileSlipLauncher" type="button"><span>🎟 Kuponum</span><strong id="mobileSlipText">0 seçim</strong></button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.26 26/27 Rosters</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.27 Bet UI Pass 1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1663,8 +1764,8 @@ function renderOnlineBulletin(){
     return `<div class="match ${m.status==='live'?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small><small class="match-context"><b>${countryFlags[m.country]||'⚽'} ${m.country}</b><br>${leagueNames[m.league_level]}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(home.name)}" data-club-country="${m.country}" data-club-level="${m.league_level}">${home.name}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${home.strength} • ATK ${home.attack} MID ${home.midfield} DEF ${home.defense}</span>`}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(away.name)}" data-club-country="${m.country}" data-club-level="${m.league_level}">${away.name}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${away.strength} • ATK ${away.attack} MID ${away.midfield} DEF ${away.defense}</span>`}</div>
+        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(home.name)}" data-club-country="${m.country}" data-club-level="${m.league_level}">${home.name}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form" title="ATK ${home.attack} • MID ${home.midfield} • DEF ${home.defense}">GÜÇ ${home.strength}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(away.name)}" data-club-country="${m.country}" data-club-level="${m.league_level}">${away.name}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form" title="ATK ${away.attack} • MID ${away.midfield} • DEF ${away.defense}">GÜÇ ${away.strength}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row"><button class="market-toggle" data-market-toggle="${id}" aria-expanded="${openMarkets.has(id)}"><span>${openMarkets.has(id)?'−':'＋'} Diğer Marketler</span><small>Gol • KG • Çifte Şans</small></button></div>
@@ -1749,8 +1850,8 @@ function renderMatches(){
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(m.home.name)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${m.home.name}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • ATK ${m.home.attack} MID ${m.home.midfield} DEF ${m.home.defense} • FORM ${market.homeForm.sequence||'—'}</span>`}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(m.away.name)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${m.away.name}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • ATK ${m.away.attack} MID ${m.away.midfield} DEF ${m.away.defense} • FORM ${market.awayForm.sequence||'—'}</span>`}</div>
+        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(m.home.name)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${m.home.name}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form" title="ATK ${m.home.attack} • MID ${m.home.midfield} • DEF ${m.home.defense} • FORM ${market.homeForm.sequence||'—'}">GÜÇ ${m.home.strength}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(m.away.name)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${m.away.name}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form" title="ATK ${m.away.attack} • MID ${m.away.midfield} • DEF ${m.away.defense} • FORM ${market.awayForm.sequence||'—'}">GÜÇ ${m.away.strength}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,market.main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row">
@@ -1801,13 +1902,20 @@ function togglePick(d){
 }
 function renderSlip(){
   const box=document.getElementById('slipItems'),controls=document.getElementById('slipControls');
+  const launcher=document.getElementById('mobileSlipLauncher'),mobileText=document.getElementById('mobileSlipText');
   document.getElementById('slipCount').textContent=picks.length+' seçim';
+  if(launcher)launcher.classList.toggle('has-picks',picks.length>0);
+  if(mobileText)mobileText.textContent=picks.length?picks.length+' seçim':'0 seçim';
   if(!picks.length){
-    box.innerHTML='<div class="empty">Bültenden bir oran seç.<br>Kupon burada oluşacak. 👇</div>';
+    box.innerHTML='<div class="empty"><span class="slip-empty-icon">🎯</span><strong>Kuponun boş</strong><small>Bültenden bir orana dokun.<br>Seçimin burada görünecek.</small></div>';
     controls.style.display='none';return;
   }
   controls.style.display='block';
-  box.innerHTML=picks.map((p,i)=>`<div class="pick-row"><div class="pick-row-top"><strong>${p.match}</strong><button data-remove="${i}">×</button></div><small>${p.country} • ${leagueNames[p.level]} • ${p.week}. Hafta • ${p.market}</small><div class="odds-line"><span>Seçim: ${p.label}</span><b>${p.odd.toFixed(2)}</b></div></div>`).join('');
+  box.innerHTML=picks.map((p,i)=>`<div class="pick-row">
+    <div class="pick-row-top"><strong>${p.match}</strong><button data-remove="${i}" aria-label="Seçimi kaldır">×</button></div>
+    <div class="pick-meta"><span class="pick-chip">${p.country}</span><span class="pick-chip">${leagueNames[p.level]}</span><span class="pick-chip">${p.market}</span></div>
+    <div class="pick-choice"><span>Seçim <strong>${p.label}</strong></span><b class="pick-odd">${p.odd.toFixed(2)}</b></div>
+  </div>`).join('');
   box.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{
     picks.splice(Number(b.dataset.remove),1);renderMatches();renderSlip();
   }));
@@ -1818,6 +1926,10 @@ function updateSlipMath(){
   const stake=Math.max(0,Number(document.getElementById('stakeInput').value)||0);
   document.getElementById('totalOdds').textContent=total.toFixed(2);
   document.getElementById('possibleReturn').textContent=money(total*stake);
+  const place=document.getElementById('placeCoupon');
+  if(place)place.textContent=stake>0?'KUPONU OYNA • '+money(stake):'KUPONU OYNA';
+  const mobileText=document.getElementById('mobileSlipText');
+  if(mobileText&&picks.length)mobileText.textContent=picks.length+' seçim • '+total.toFixed(2);
 }
 function renderCoupons(){
   const list=document.getElementById('couponList');
@@ -2799,6 +2911,18 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
 document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{onlineSession=session;try{if(onlineMode){await refreshOnlineAccount();await refreshChanceHistory();}}catch(e){console.error(e)}});
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
+document.querySelectorAll('.stake-preset').forEach(btn=>btn.addEventListener('click',()=>{
+  const input=document.getElementById('stakeInput');
+  input.value=btn.dataset.stake;
+  updateSlipMath();
+}));
+document.getElementById('mobileSlipLauncher').addEventListener('click',()=>{
+  const sidebar=document.querySelector('.sidebar[data-page-section="bulletin"]');
+  sidebar.classList.toggle('mobile-open');
+});
+document.querySelector('.sidebar[data-page-section="bulletin"]').addEventListener('click',e=>{
+  if(e.target===e.currentTarget)e.currentTarget.classList.remove('mobile-open');
+});
 document.getElementById('rescueStart').addEventListener('click',startRescue);
 document.getElementById('stampBtn').addEventListener('click',stampPaper);
 document.getElementById('rescueLauncher').addEventListener('click',()=>setRescuePopup(!rescuePopupOpen));
@@ -2822,7 +2946,7 @@ document.getElementById('placeCoupon').addEventListener('click',async()=>{
     selections:picks.map(p=>({...p})),status:'pending',paid:false,
     season:state.season,week:state.week,created:new Date().toISOString()
   });
-  save();picks=[];renderAll();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
+  save();picks=[];document.querySelector('.sidebar[data-page-section="bulletin"]')?.classList.remove('mobile-open');renderAll();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
 });
 
 document.getElementById('simulateLeague').addEventListener('click',()=>{
