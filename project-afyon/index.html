@@ -50,6 +50,21 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .market-grid .odd-btn{width:100%;min-width:0;padding:10px 6px}
 .sim-bar{padding:11px 14px;align-items:flex-start}.simulate-btn{padding:9px 11px;font-size:12px;white-space:nowrap}.live-center{padding:13px 14px}.live-top{align-items:flex-start}.live-main{gap:7px}.live-clock{font-size:21px}.live-sub{display:none}.live-remaining{font-size:10px}.live-event{max-width:230px}.team-score{font-size:17px}.coupon{padding:0 11px}.coupon summary{padding:12px 0}.coupon-leg{grid-template-columns:20px minmax(0,1fr) auto;padding:8px}.afmb-float{right:12px;bottom:12px}.afmb-popup{width:min(360px,calc(100vw - 24px))}.afmb-launcher{padding:9px 11px}.afmb-launcher .launcher-copy{display:none}.rescue-head,.rescue-body{padding-left:14px;padding-right:14px}.rescue-head{padding-right:52px}.rescue-actions{grid-template-columns:1fr}.stamp-btn{min-height:58px}
 }
+
+.auth-profile{border:1px solid var(--line);color:#fff;cursor:pointer}
+.auth-modal-backdrop{display:none;position:fixed;inset:0;z-index:120;background:rgba(4,8,18,.72);backdrop-filter:blur(6px);padding:20px}
+.auth-modal-backdrop.open{display:grid;place-items:center}
+.auth-modal{width:min(430px,100%);border:1px solid var(--line);border-radius:22px;background:#101827;box-shadow:0 24px 80px rgba(0,0,0,.55);overflow:hidden}
+.auth-modal-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.auth-modal-head h3{margin:0}.auth-close{border:0;background:transparent;color:#9aabc7;font-size:24px}
+.auth-modal-body{padding:18px 20px}.auth-modal-body p{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.5}
+.auth-fields{display:grid;gap:9px}.auth-fields input{width:100%;background:#0b1220;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}
+.auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.auth-actions button,.auth-signout{border:0;border-radius:12px;padding:12px;font-weight:950}
+.auth-login{background:var(--accent);color:#062018}.auth-signup{background:#24324f;color:#fff}.auth-signout{width:100%;margin-top:10px;background:#3a2230;color:#ffb5c0}
+.auth-status{margin-top:11px;font-size:11px;color:#91a3c1;line-height:1.45}
+.online-pill{display:inline-flex;align-items:center;gap:6px;margin-left:8px;padding:4px 7px;border-radius:999px;background:#17362f;color:#8effd8;font-size:9px;font-weight:1000;letter-spacing:.6px;vertical-align:middle}
+.online-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.08)}
+
 </style>
 </head>
 <body>
@@ -57,9 +72,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
   <div class="notice">⚠ Tamamen sanal oyun evrenidir. Gerçek para, gerçek takım, gerçek maç ve gerçek bahis bulunmaz. Afyon Dinarı'nın gerçek dünyada karşılığı yoktur.</div>
   <header>
     <div class="container nav">
-      <div class="brand"><div class="brand-mark">₳D</div><div>Project Afyon<small>FANTASY FOOTBALL UNIVERSE</small></div></div>
+      <div class="brand"><div class="brand-mark">₳D</div><div>Project Afyon <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></div>
       <nav class="main-nav"><button class="nav-btn active">Bülten</button><button class="nav-btn">Kuponlarım</button><button class="nav-btn">Ligler</button><button class="nav-btn">Haberler</button></nav>
-      <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">10.000 ₳D</span></div><div class="profile">😎</div></div>
+      <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">10.000 ₳D</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
     </div>
   </header>
 
@@ -156,7 +171,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.10.3</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.11 Online Beta</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -185,11 +200,34 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     <span class="launcher-badge">!</span>
   </button>
 </div>
+
+<div class="auth-modal-backdrop" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-modal-head"><h3>Project Afyon Hesabı</h3><button class="auth-close" id="authClose">×</button></div>
+    <div class="auth-modal-body">
+      <p id="authIntro">Aynı Afyon evrenini bütün cihazlarda yaşamak için giriş yap. Yeni hesap 10.000 ₳D ile başlar.</p>
+      <div class="auth-fields" id="authFields">
+        <input id="authEmail" type="email" autocomplete="email" placeholder="E-posta">
+        <input id="authPassword" type="password" autocomplete="current-password" placeholder="Şifre (en az 6 karakter)">
+      </div>
+      <div class="auth-actions" id="authActions">
+        <button class="auth-login" id="authLogin">Giriş Yap</button>
+        <button class="auth-signup" id="authSignup">Kayıt Ol</button>
+      </div>
+      <button class="auth-signout" id="authSignout" style="display:none">Çıkış Yap</button>
+      <div class="auth-status" id="authStatus">Bağlantı hazırlanıyor…</div>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
 const STORAGE_KEY='projectAfyonPrototypeV4';
+const SUPABASE_URL='https://urwldxjymmzfspicyhfs.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_Vy_LUWH2R-7dVfoQOZJT0g_t-nt-V3M';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 const LIVE_DURATION=180000;
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
@@ -213,6 +251,15 @@ function kickoffLabel(country,level){
   const hh=String(Math.floor(total/60)%24).padStart(2,'0');
   const mm=String(total%60).padStart(2,'0');
   return `${hh}:${mm}`;
+}
+function matchKickoffLabel(id,country,level){
+  if(onlineMode){
+    const m=onlineMatchMap[id];
+    if(m?.kickoff_at){
+      return new Intl.DateTimeFormat('tr-TR',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/Istanbul'}).format(new Date(m.kickoff_at));
+    }
+  }
+  return kickoffLabel(country,level);
 }
 const countryRoots={
   İngiltere:['Northbridge','Birmingham','East London','Manchester','Bristol','Yorkshire','Rivergate','Westham','Liverpool Bay','Nottingham','Leeds Park','Newcastle Tyne','Sheffield Steel','Leicester Vale','Brighton Coast','Wolverton','Southampton Dock','Burnley Moor'],
@@ -544,6 +591,8 @@ function getClubNames(country,level){
   });
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
+let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0;
+let onlineClubLists={},onlineClubsById={},onlineSelectedMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let state={engineVersion:6,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
 
 try{
@@ -583,7 +632,11 @@ const money=n=>new Intl.NumberFormat('tr-TR').format(Math.round(n))+' ₳D';
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
-function renderWallet(){document.getElementById('walletValue').textContent=money(state.balance)}
+function renderWallet(){
+  const el=document.getElementById('walletValue');
+  if(onlineMode&&!onlineSession){el.textContent='Giriş yap';return}
+  el.textContent=money(state.balance);
+}
 
 function stableHash(text){
   let h=2166136261;
@@ -594,6 +647,10 @@ function stableHash(text){
   return h>>>0;
 }
 function getTeams(country,level){
+  if(onlineMode){
+    const serverTeams=onlineClubLists[country+'|'+level];
+    if(serverTeams&&serverTeams.length===18)return serverTeams;
+  }
   const names=getClubNames(country,level);
 
   // 4 şampiyonluk adayı, 10 orta sıra, 4 küme hattı profili.
@@ -654,9 +711,11 @@ function buildSchedule(teams){
 function getWeekFixtures(country,level,week){return buildSchedule(getTeams(country,level))[week-1]}
 function resultId(season,country,level,week,index){return `S${season}|${country}|L${level}|W${week}|M${index}`}
 function isCurrentLive(){
+  if(onlineMode)return onlineSelectedMatches.some(m=>m.status==='live');
   return !!state.liveWeek&&state.liveWeek.season===state.season&&state.liveWeek.week===state.week;
 }
 function worldWeekPlayed(){
+  if(onlineMode)return onlineSelectedMatches.length===9&&onlineSelectedMatches.every(m=>m.status==='finished');
   for(const country of countries){
     for(let level=1;level<=5;level++){
       const fixtures=getWeekFixtures(country,level,state.week);
@@ -784,6 +843,29 @@ function priceBinary(probA,margin=1.045){
   ];
 }
 function getMatchOdds(home,away,country,level,week,index){
+  if(onlineMode){
+    const id=resultId(state.season,country,level,week,index);
+    const rows=onlineMarketsByMatch[id];
+    if(rows&&rows.length){
+      const odd=(market,selection)=>{
+        const r=rows.find(x=>x.market_key===market&&x.selection_key===selection);
+        return r?Number(r.odd).toFixed(2):'—';
+      };
+      const homeForm=getFormData(country,level,home.name,week);
+      const awayForm=getFormData(country,level,away.name,week);
+      return {
+        main:[odd('1X2','1'),odd('1X2','X'),odd('1X2','2')],
+        extra:[
+          ['1.5 Alt',odd('OU15','UNDER'),'Toplam Gol'],['1.5 Üst',odd('OU15','OVER'),'Toplam Gol'],
+          ['2.5 Alt',odd('OU25','UNDER'),'Toplam Gol'],['2.5 Üst',odd('OU25','OVER'),'Toplam Gol'],
+          ['3.5 Alt',odd('OU35','UNDER'),'Toplam Gol'],['3.5 Üst',odd('OU35','OVER'),'Toplam Gol'],
+          ['KG Var',odd('BTTS','YES'),'Karşılıklı Gol'],['KG Yok',odd('BTTS','NO'),'Karşılıklı Gol'],
+          ['1X',odd('DC','1X'),'Çifte Şans'],['12',odd('DC','12'),'Çifte Şans'],['X2',odd('DC','X2'),'Çifte Şans']
+        ],
+        homeForm,awayForm,homeEffective:home.strength,awayEffective:away.strength
+      };
+    }
+  }
   const p=marketProbabilities(home,away,country,level,week);
   const main=[
     fairOdd(p.p1,1.06,1.25,6.80),
@@ -847,11 +929,24 @@ function buildGoalEvents(homeGoals,awayGoals){
 }
 function liveMinute(){
   if(!isCurrentLive())return 0;
+  if(onlineMode){
+    const m=onlineSelectedMatches.find(x=>x.status==='live'&&x.started_at);
+    if(!m)return 0;
+    return clamp(Math.floor((Date.now()-new Date(m.started_at).getTime())/2000),0,90);
+  }
   return clamp(Math.floor((Date.now()-state.liveWeek.startedAt)/2000),0,90);
 }
 function liveSnapshot(id){
   const final=state.results[id];
   if(final)return {...final,final:true,minute:90};
+  if(onlineMode){
+    const m=onlineMatchMap[id];
+    if(!m||m.status!=='live')return null;
+    const events=onlineEventsByMatch[id]||[];
+    let homeGoals=0,awayGoals=0;
+    events.forEach(e=>{if(e.event_type==='goal'){if(e.side==='home')homeGoals++;else awayGoals++;}});
+    return {homeGoals,awayGoals,minute:liveMinute(),live:true};
+  }
   if(!isCurrentLive())return null;
   const plan=state.liveWeek.plans[id];
   if(!plan)return null;
@@ -912,6 +1007,35 @@ function renderTopState(){
 function renderLiveCenter(){
   const center=document.getElementById('liveCenter');
   const dot=document.getElementById('simDot');
+  if(onlineMode){
+    if(!isCurrentLive()){
+      center.hidden=true;dot.classList.remove('live');return;
+    }
+    center.hidden=false;dot.classList.add('live');
+    const minute=liveMinute();
+    const liveMatch=onlineSelectedMatches.find(m=>m.status==='live'&&m.started_at);
+    const elapsed=liveMatch?Date.now()-new Date(liveMatch.started_at).getTime():0;
+    const remaining=Math.max(0,180000-elapsed);
+    const sec=Math.ceil(remaining/1000);
+    const mm=String(Math.floor(sec/60)).padStart(2,'0'),ss=String(sec%60).padStart(2,'0');
+    document.getElementById('liveClock').textContent=minute>=90?"90+'":`${minute}'`;
+    document.getElementById('liveRemaining').textContent=`${mm}:${ss} kaldı`;
+    document.getElementById('liveProgressBar').style.width=`${(minute/90)*100}%`;
+    const events=[];
+    onlineSelectedMatches.forEach(m=>{
+      (onlineEventsByMatch[m.id]||[]).forEach(e=>{
+        const scorer=e.side==='home'?onlineClubsById[m.home_club_id]?.name:onlineClubsById[m.away_club_id]?.name;
+        const home=onlineClubsById[m.home_club_id]?.name||'Ev';
+        const away=onlineClubsById[m.away_club_id]?.name||'Dep';
+        events.push({minute:e.minute,text:`${scorer||'Takım'} golü`,match:`${home} - ${away}`});
+      });
+    });
+    events.sort((a,b)=>b.minute-a.minute);
+    document.getElementById('liveFeed').innerHTML=events.length
+      ?events.slice(0,6).map(e=>`<div class="live-event"><strong>⚽ ${e.minute}' ${e.text}</strong><br>${e.match}</div>`).join('')
+      :`<div class="live-event"><strong>${minute}'</strong> Henüz gol yok. AFMB sakinliğini koruyor.</div>`;
+    return;
+  }
   if(!isCurrentLive()){
     center.hidden=true;
     dot.classList.remove('live');
@@ -955,7 +1079,17 @@ function renderMatches(){
   document.getElementById('bulletinSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]} • ${state.week}. Hafta`;
   document.getElementById('standingsSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]} • Sezon ${state.season}`;
   const simBtn=document.getElementById('simulateLeague');
-  if(live){
+  if(onlineMode){
+    simBtn.disabled=true;
+    if(live){
+      simBtn.textContent=`🔴 CANLI ${minute}'`;
+      document.getElementById('simInfo').textContent=`Ortak sunucu • ${selectedCountry} ${leagueNames[selectedLevel]} canlı`;
+    }else{
+      const next=onlineSelectedMatches.find(m=>m.status==='scheduled');
+      simBtn.textContent='🌐 SUNUCU KONTROLLÜ';
+      document.getElementById('simInfo').textContent=next?`Ortak dünya • Başlangıç ${matchKickoffLabel(next.id,selectedCountry,selectedLevel)}`:'Ortak dünya • Bu lig tamamlandı';
+    }
+  }else if(live){
     simBtn.disabled=true;
     simBtn.textContent=`🔴 CANLI ${minute}'`;
     document.getElementById('simInfo').textContent=`${state.week}. Hafta canlı • Avrupa genelinde 540 maç oynanıyor`;
@@ -977,7 +1111,7 @@ function renderMatches(){
     const market=getMatchOdds(m.home,m.away,selectedCountry,selectedLevel,state.week,i);
     const locked=!!shown||live;
     const pickButton=(label,odd,marketName)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" ${locked?'disabled':''} data-id="${id}" data-label="${label}" data-market="${marketName}" data-odd="${odd}" data-match="${m.home.name} - ${m.away.name}"><small>${label}</small>${odd}</button>`;
-    const status=final?'MS':snap?`${snap.minute>=90?"90+":snap.minute}'`:kickoffLabel(selectedCountry,selectedLevel);
+    const status=final?'MS':snap?`${snap.minute>=90?"90+":snap.minute}'`:matchKickoffLabel(id,selectedCountry,selectedLevel);
     const score=shown?`${shown.homeGoals} - ${shown.awayGoals}`:'Bugün';
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
@@ -1102,6 +1236,7 @@ function hasPendingCoupon(){
   });
 }
 function rescueEligible(){
+  if(onlineMode)return false;
   return state.balance<10&&!hasPendingCoupon();
 }
 function stopRescueTimer(){
@@ -1189,7 +1324,164 @@ function stampPaper(){
   setTimeout(()=>btn.classList.remove('active'),70);
   if(rescueClicks>=20)finishRescue(true);
 }
+
+function marketPayloadForPick(p){
+  if(['1','X','2'].includes(p.label))return {match_id:p.id,market_key:'1X2',selection_key:p.label};
+  if(['1X','12','X2'].includes(p.label))return {match_id:p.id,market_key:'DC',selection_key:p.label};
+  if(p.label==='KG Var')return {match_id:p.id,market_key:'BTTS',selection_key:'YES'};
+  if(p.label==='KG Yok')return {match_id:p.id,market_key:'BTTS',selection_key:'NO'};
+  const m=p.label.match(/(1\.5|2\.5|3\.5) (Alt|Üst)/);
+  if(m)return {match_id:p.id,market_key:'OU'+m[1].replace('.',''),selection_key:m[2]==='Alt'?'UNDER':'OVER'};
+  throw new Error('Bilinmeyen market: '+p.label);
+}
+function prettyMarket(market,selection){
+  if(market==='1X2'||market==='DC')return selection;
+  if(market==='BTTS')return selection==='YES'?'KG Var':'KG Yok';
+  const line={OU15:'1.5',OU25:'2.5',OU35:'3.5'}[market];
+  if(line)return line+' '+(selection==='UNDER'?'Alt':'Üst');
+  return selection;
+}
+async function loadOnlineClubs(){
+  const first=await supabaseClient.from('clubs').select('id,country,league_level,name,attack,midfield,defense,overall,style,seed,tier').order('country').order('league_level').order('seed').range(0,999);
+  if(first.error)throw first.error;
+  const second=await supabaseClient.from('clubs').select('id,country,league_level,name,attack,midfield,defense,overall,style,seed,tier').order('country').order('league_level').order('seed').range(1000,1999);
+  if(second.error)throw second.error;
+  const all=[...(first.data||[]),...(second.data||[])];
+  onlineClubsById={};onlineClubLists={};
+  all.forEach(r=>{
+    const t={id:r.id,name:r.name,attack:r.attack,midfield:r.midfield,defense:r.defense,strength:Math.round(Number(r.overall)),style:r.style,seed:r.seed,tier:r.tier};
+    onlineClubsById[r.id]=t;
+    const k=r.country+'|'+r.league_level;
+    (onlineClubLists[k]??=[]).push(t);
+  });
+}
+async function refreshOnlineWorld(){
+  const {data,error}=await supabaseClient.from('world_state').select('*').eq('id',1).single();
+  if(error)throw error;
+  const changed=!onlineWorld||onlineWorld.season!==data.season||onlineWorld.week!==data.week;
+  onlineWorld=data;
+  state.season=data.season;state.week=data.week;state.liveWeek=null;
+  return changed;
+}
+async function refreshOnlineSelected(includeHistory=false){
+  const {data:matches,error}=await supabaseClient.from('matches')
+    .select('id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at')
+    .eq('season',state.season).eq('week',state.week).eq('country',selectedCountry).eq('league_level',selectedLevel)
+    .order('match_index');
+  if(error)throw error;
+  onlineSelectedMatches=matches||[];
+  onlineSelectedMatches.forEach(m=>onlineMatchMap[m.id]=m);
+  const ids=onlineSelectedMatches.map(m=>m.id);
+  if(ids.length){
+    const [eventsRes,marketsRes]=await Promise.all([
+      supabaseClient.from('match_events').select('id,match_id,minute,event_type,side,visible_at').in('match_id',ids).order('minute'),
+      supabaseClient.from('match_markets').select('match_id,market_key,selection_key,odd,locked').in('match_id',ids)
+    ]);
+    if(eventsRes.error)throw eventsRes.error;
+    if(marketsRes.error)throw marketsRes.error;
+    onlineEventsByMatch={};
+    (eventsRes.data||[]).forEach(e=>(onlineEventsByMatch[e.match_id]??=[]).push(e));
+    (marketsRes.data||[]).forEach(r=>(onlineMarketsByMatch[r.match_id]??=[]).push(r));
+  }
+  onlineSelectedMatches.forEach(m=>{
+    if(m.status==='finished'&&m.home_goals!=null&&m.away_goals!=null){
+      state.results[m.id]={homeGoals:m.home_goals,awayGoals:m.away_goals};
+    }
+  });
+  if(includeHistory){
+    const {data:history,error:hErr}=await supabaseClient.from('matches')
+      .select('id,home_goals,away_goals,status')
+      .eq('season',state.season).eq('country',selectedCountry).eq('league_level',selectedLevel)
+      .eq('status','finished').lte('week',state.week);
+    if(hErr)throw hErr;
+    (history||[]).forEach(m=>{state.results[m.id]={homeGoals:m.home_goals,awayGoals:m.away_goals};});
+  }
+}
+async function refreshOnlineAccount(){
+  if(!onlineSession){
+    state.coupons=[];renderWallet();renderCoupons();updateAuthUi();return;
+  }
+  const [{data:wallet,error:wErr},{data:coupons,error:cErr}]=await Promise.all([
+    supabaseClient.from('wallets').select('balance').eq('user_id',onlineSession.user.id).single(),
+    supabaseClient.from('coupons').select('id,season,week,stake,total_odds,possible_return,status,payout,created_at').order('created_at',{ascending:false}).limit(50)
+  ]);
+  if(wErr)throw wErr;if(cErr)throw cErr;
+  state.balance=Number(wallet.balance);
+  const couponIds=(coupons||[]).map(x=>x.id);
+  let selections=[];
+  if(couponIds.length){
+    const s=await supabaseClient.from('coupon_selections').select('coupon_id,match_id,market_key,selection_key,odd').in('coupon_id',couponIds);
+    if(s.error)throw s.error;
+    selections=s.data||[];
+    const matchIds=[...new Set(selections.map(x=>x.match_id))];
+    if(matchIds.length){
+      const mr=await supabaseClient.from('matches').select('id,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at').in('id',matchIds);
+      if(!mr.error)(mr.data||[]).forEach(m=>onlineMatchMap[m.id]=m);
+    }
+  }
+  state.coupons=(coupons||[]).map(coupon=>{
+    const legs=selections.filter(s=>s.coupon_id===coupon.id).map(s=>{
+      const m=onlineMatchMap[s.match_id];
+      const home=m?onlineClubsById[m.home_club_id]?.name:'';
+      const away=m?onlineClubsById[m.away_club_id]?.name:'';
+      return {id:s.match_id,match:home&&away?home+' - '+away:s.match_id,market:s.market_key,label:prettyMarket(s.market_key,s.selection_key),odd:Number(s.odd)};
+    });
+    return {id:coupon.id,picks:legs.length,stake:Number(coupon.stake),odds:Number(coupon.total_odds).toFixed(2),return:Number(coupon.possible_return),status:coupon.status,payout:Number(coupon.payout||0),season:coupon.season,week:coupon.week,created:coupon.created_at,selections:legs};
+  });
+  renderWallet();renderCoupons();renderRescue();updateAuthUi();
+}
+function updateAuthUi(message=''){
+  const status=document.getElementById('authStatus');
+  const fields=document.getElementById('authFields'),actions=document.getElementById('authActions'),signout=document.getElementById('authSignout');
+  if(onlineSession){
+    fields.style.display='none';actions.style.display='none';signout.style.display='block';
+    status.textContent=message||('Bağlı hesap: '+(onlineSession.user.email||'Afyon vatandaşı')+' • Cüzdan bulutta saklanıyor.');
+  }else{
+    fields.style.display='grid';actions.style.display='grid';signout.style.display='none';
+    status.textContent=message||'Misafir olarak ortak dünyayı izleyebilirsin; kupon için giriş gerekli.';
+  }
+}
+async function initOnline(){
+  try{
+    const {data:{session}}=await supabaseClient.auth.getSession();
+    onlineSession=session;
+    await loadOnlineClubs();
+    onlineMode=true;
+    await refreshOnlineWorld();
+    state.results={};state.liveWeek=null;
+    await refreshOnlineSelected(true);
+    await refreshOnlineAccount();
+    renderAll();
+    updateAuthUi();
+    if(onlinePollTimer)clearInterval(onlinePollTimer);
+    onlinePollTimer=setInterval(pollOnlineWorld,2000);
+  }catch(err){
+    console.error(err);
+    onlineMode=false;
+    updateAuthUi('Online bağlantı kurulamadı; local prototip açık kaldı.');
+  }
+}
+async function pollOnlineWorld(){
+  if(!onlineMode||onlinePollBusy)return;
+  onlinePollBusy=true;
+  try{
+    const changed=await refreshOnlineWorld();
+    await refreshOnlineSelected(changed);
+    onlineAccountTick++;
+    if(onlineSession&&onlineAccountTick%3===0)await refreshOnlineAccount();
+    renderTopState();renderMatches();renderStandings();renderCoupons();renderLiveCenter();
+  }catch(err){console.error('Afyon online poll',err)}
+  finally{onlinePollBusy=false}
+}
+async function placeOnlineCoupon(stake){
+  if(!onlineSession){document.getElementById('authModal').classList.add('open');toast('Kupon için Project Afyon hesabına giriş yap kankam 😄');return}
+  const payload=picks.map(marketPayloadForPick);
+  const {error}=await supabaseClient.rpc('place_coupon',{p_stake:stake,p_selections:payload});
+  if(error){toast('Kupon reddedildi: '+error.message);return}
+  picks=[];await refreshOnlineAccount();await refreshOnlineSelected(false);renderAll();toast('Online kupon kaydedildi. AFMB sunucusu şahittir. 🏛');
+}
 function renderAll(){renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();renderRescue()}
+
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
   setTimeout(()=>el.classList.remove('show'),2800);
@@ -1249,14 +1541,41 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
+document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
+document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
+document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
+document.getElementById('authLogin').addEventListener('click',async()=>{
+  const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
+  updateAuthUi('Giriş yapılıyor…');
+  const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+  if(error){updateAuthUi(error.message);return}
+  onlineSession=data.session;await refreshOnlineAccount();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
+});
+document.getElementById('authSignup').addEventListener('click',async()=>{
+  const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
+  if(password.length<6){updateAuthUi('Şifre en az 6 karakter olsun kankam.');return}
+  updateAuthUi('Hesap açılıyor…');
+  const {data,error}=await supabaseClient.auth.signUp({email,password});
+  if(error){updateAuthUi(error.message);return}
+  onlineSession=data.session||null;
+  if(onlineSession){await refreshOnlineAccount();updateAuthUi('Hesap açıldı. 10.000 ₳D cüzdan hazır.');}
+  else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
+});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;state.coupons=[];updateAuthUi();renderWallet();renderCoupons();});
+supabaseClient.auth.onAuthStateChange(async(_event,session)=>{onlineSession=session;try{if(onlineMode)await refreshOnlineAccount()}catch(e){console.error(e)}});
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
 document.getElementById('rescueStart').addEventListener('click',startRescue);
 document.getElementById('stampBtn').addEventListener('click',stampPaper);
 document.getElementById('rescueLauncher').addEventListener('click',()=>setRescuePopup(!rescuePopupOpen));
 document.getElementById('rescueClose').addEventListener('click',()=>setRescuePopup(false));
-document.getElementById('placeCoupon').addEventListener('click',()=>{
+document.getElementById('placeCoupon').addEventListener('click',async()=>{
   const stake=Math.floor(Number(document.getElementById('stakeInput').value)||0);
   if(!picks.length)return;
+  if(onlineMode){
+    if(stake<10){toast('Minimum 10 ₳D gir kankam 😄');return}
+    await placeOnlineCoupon(stake);
+    return;
+  }
   if(isCurrentLive()){toast('Maçlar başladı kankam; bülten kapandı.');return}
   if(worldWeekPlayed()){toast('Bu hafta oynandı kankam; sonraki haftaya geç.');return}
   if(stake<10){toast('Minimum 10 ₳D gir kankam 😄');return}
@@ -1272,6 +1591,7 @@ document.getElementById('placeCoupon').addEventListener('click',()=>{
 });
 
 document.getElementById('simulateLeague').addEventListener('click',()=>{
+  if(onlineMode){toast('Maçları artık ortak Afyon sunucusu başlatıyor kankam 🌐');return}
   if(isCurrentLive())return;
   if(worldWeekPlayed()){
     picks=[];
@@ -1292,13 +1612,17 @@ document.getElementById('simulateLeague').addEventListener('click',()=>{
   toast('Hakem düdüğü çaldı! 180 saniyelik canlı hafta başladı. 🔴');
 });
 
-document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',()=>{
+document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',async()=>{
   document.querySelectorAll('.country-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-  selectedCountry=b.dataset.country;picks=[];renderMatches();renderSlip();renderStandings();renderCoupons();
+  selectedCountry=b.dataset.country;picks=[];
+  if(onlineMode)await refreshOnlineSelected(true);
+  renderMatches();renderSlip();renderStandings();renderCoupons();
 }));
-document.querySelectorAll('.league-tab').forEach(b=>b.addEventListener('click',()=>{
+document.querySelectorAll('.league-tab').forEach(b=>b.addEventListener('click',async()=>{
   document.querySelectorAll('.league-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-  selectedLevel=Number(b.dataset.level);picks=[];renderMatches();renderSlip();renderStandings();renderCoupons();
+  selectedLevel=Number(b.dataset.level);picks=[];
+  if(onlineMode)await refreshOnlineSelected(true);
+  renderMatches();renderSlip();renderStandings();renderCoupons();
 }));
 
 if(isCurrentLive()&&Date.now()-state.liveWeek.startedAt>=state.liveWeek.durationMs){
@@ -1307,6 +1631,7 @@ if(isCurrentLive()&&Date.now()-state.liveWeek.startedAt>=state.liveWeek.duration
   settleCoupons();save();renderAll();
   if(isCurrentLive())startLiveTimer();
 }
+initOnline();
 
 </script>
 </body>
