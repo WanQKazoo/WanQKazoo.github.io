@@ -475,7 +475,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.23 Global Strength</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.24 Goal Markets</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1149,10 +1149,10 @@ function expectedGoals(home,away,country,level,week){
   const homeAttackEdge=(homeAtk-awayDef)/10;
   const awayAttackEdge=(awayAtk-homeDef)/10;
   const midfieldEdge=(homeMid-awayMid)/10;
-  const tempo=((home.seed*3+away.seed*5)%5-2)*.02;
+  const tempo=((home.seed*3+away.seed*5)%5-2)*.015;
 
-  const homeXg=clamp(1.42+homeAttackEdge*.22+midfieldEdge*.07+tempo,.45,2.85);
-  const awayXg=clamp(1.12+awayAttackEdge*.22-midfieldEdge*.06+tempo,.40,2.65);
+  const homeXg=clamp(1.38+homeAttackEdge*.18+midfieldEdge*.05+tempo,.58,2.45);
+  const awayXg=clamp(1.08+awayAttackEdge*.18-midfieldEdge*.045+tempo,.48,2.25);
 
   return {
     home:homeXg,
@@ -1197,14 +1197,14 @@ function marketProbabilities(home,away,country,level,week){
 function fairOdd(prob,margin,min=1.12,max=7.50){
   return clamp(1/(Math.max(.01,prob)*margin),min,max);
 }
-function priceBinary(probA,margin=1.045){
+function priceBinary(probA,margin=1.055,minA=1.50,maxA=2.35,minB=1.50,maxB=2.35){
   // İki yönlü marketler tek olasılık çiftinden fiyatlanır.
   // Böylece örn. Alt uzaklaşıyorsa Üst otomatik olarak yaklaşır; iki taraf birbirinden kopamaz.
   const a=clamp(probA,.03,.97);
   const b=1-a;
   return [
-    (1/(a*margin)).toFixed(2),
-    (1/(b*margin)).toFixed(2)
+    clamp(1/(a*margin),minA,maxA).toFixed(2),
+    clamp(1/(b*margin),minB,maxB).toFixed(2)
   ];
 }
 function getMatchOdds(home,away,country,level,week,index){
@@ -1238,10 +1238,10 @@ function getMatchOdds(home,away,country,level,week,index){
     fairOdd(p.p2,1.06,1.25,6.80)
   ].map(x=>x.toFixed(2));
 
-  const ou15=priceBinary(p.under15);
-  const ou25=priceBinary(p.under25);
-  const ou35=priceBinary(p.under35);
-  const kg=priceBinary(p.btts);
+  const ou15=priceBinary(p.under15,1.06,2.15,3.30,1.30,1.70);
+  const ou25=priceBinary(p.under25,1.055,1.55,2.35,1.55,2.35);
+  const ou35=priceBinary(p.under35,1.06,1.30,1.75,2.15,3.30);
+  const kg=priceBinary(p.btts,1.055,1.55,2.35,1.55,2.35);
 
   const extra=[
     ['1.5 Alt',ou15[0],'Toplam Gol'],
