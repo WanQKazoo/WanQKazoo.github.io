@@ -142,6 +142,25 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
   .club-grid{grid-template-columns:1fr}.league-fixture-row{grid-template-columns:52px minmax(0,1fr) 54px;padding:10px}.league-level-pills{flex-wrap:nowrap;overflow:auto;width:100%}
 }
 
+
+.brand{text-decoration:none}
+.nav-btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+[data-page-section][hidden]{display:none!important}
+body[data-page="coupons"] .layout,
+body[data-page="leagues"] .layout,
+body[data-page="news"] .layout{grid-template-columns:1fr;padding-top:24px}
+body[data-page="coupons"] .content,
+body[data-page="leagues"] .content,
+body[data-page="news"] .content{width:100%}
+body[data-page="coupons"] #couponsSection,
+body[data-page="leagues"] #leagueSection,
+body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
+@media(max-width:720px){
+  body[data-page="coupons"] .layout,
+  body[data-page="leagues"] .layout,
+  body[data-page="news"] .layout{padding-top:14px}
+}
+
 @media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
@@ -150,14 +169,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
   <div class="notice">⚠ Tamamen sanal oyun evrenidir. Gerçek para, gerçek takım, gerçek maç ve gerçek bahis bulunmaz. Afyon Dinarı'nın gerçek dünyada karşılığı yoktur.</div>
   <header>
     <div class="container nav">
-      <div class="brand"><div class="brand-mark">₳D</div><div>Project Afyon <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></div>
-      <nav class="main-nav"><button class="nav-btn active" data-nav-target="bulletinSection">⚽ Bülten</button><button class="nav-btn" data-nav-target="couponsSection">🎟 Kuponlarım</button><button class="nav-btn" data-nav-target="leagueSection">🏆 Ligler</button><button class="nav-btn" data-nav-target="newsSection">📰 Haberler</button></nav>
+      <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div>Project Afyon <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
+      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a></nav>
       <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">10.000 ₳D</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
+    <section class="hero" data-page-section="bulletin">
       <div class="hero-grid">
         <div class="hero-card">
           <div class="kicker" id="seasonKicker">SEZON 1 • HAFTA 1 / 34</div>
@@ -180,7 +199,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 
     <div class="layout">
       <div class="content">
-        <section class="section-card" id="bulletinSection">
+        <section class="section-card" id="bulletinSection" data-page-section="bulletin">
           <div class="section-title"><div><h2>⚽ En Yakındaki Maçlar</h2><p id="bulletinSub">Avrupa genelinde sıradaki karşılaşmalar</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
           <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="Tümü">🌍 Tümü</button>
@@ -220,7 +239,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
           <div id="matches"></div>
         </section>
 
-        <section class="section-card" id="leagueSection">
+        <section class="section-card" id="leagueSection" data-page-section="leagues">
           <div class="league-center-head">
             <div class="league-center-top">
               <div class="league-center-title">
@@ -260,13 +279,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
           <div class="league-pane" data-league-content="scorers"><div id="leagueScorers"></div></div>
         </section>
 
-        <section class="section-card" id="couponsSection">
-          <div class="section-title"><div><h2>🎟 Kuponlarım</h2><p>Bekleyen, kazanan ve kaybeden sanal kuponlar</p></div></div>
+        <section class="section-card" id="couponsSection" data-page-section="coupons">
+          <div class="section-title"><div><h2>🎟 Kuponlarım</h2><p>Hesabındaki bekleyen, kazanan ve kaybeden sanal kuponlar</p></div></div>
           <div class="coupon-list" id="couponList"></div>
         </section>
 
-        <section class="section-card" id="newsSection">
-          <div class="section-title"><div><h2>📰 Afyon Futbol Gündemi</h2><p>Ortak dünyadan notlar ve son derece ciddi kurum açıklamaları</p></div></div>
+        <section class="section-card" id="newsSection" data-page-section="news">
+          <div class="section-title"><div><h2>📰 Afyon Futbol Gündemi</h2><p>Project Afyon evrenindeki gelişmeler ve son derece ciddi kurum açıklamaları</p></div></div>
           <div class="news-grid">
             <article class="news-card"><span class="tag">ORTAK DÜNYA</span><h4>Sezon aynı, sonuç aynı</h4><p>Bütün oyuncular aynı fikstürü ve aynı maç sonuçlarını görüyor. Project Afyon artık tek bir ortak futbol evreni.</p></article>
             <article class="news-card"><span class="tag">FİKSTÜR</span><h4>Bülten artık saate bakıyor</h4><p>Yaklaşan karşılaşmalar kickoff saatine göre sıralanıyor; başlayan maçlar otomatik olarak kilitleniyor.</p></article>
@@ -275,7 +294,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
         </section>
       </div>
 
-      <aside class="sidebar">
+      <aside class="sidebar" data-page-section="bulletin">
         <div class="slip">
           <div class="slip-head"><strong>Kuponum</strong><span class="slip-count" id="slipCount">0 seçim</span></div>
           <div class="slip-body">
@@ -295,7 +314,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.15 League Center</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.16 Pages</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2033,13 +2052,24 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-document.querySelectorAll('[data-nav-target]').forEach(btn=>btn.addEventListener('click',()=>{
-  const target=document.getElementById(btn.dataset.navTarget);
-  if(!target)return;
-  document.querySelectorAll('[data-nav-target]').forEach(x=>x.classList.remove('active'));
-  btn.classList.add('active');
-  target.scrollIntoView({behavior:'smooth',block:'start'});
-}));
+const pageNames={bulletin:'Bülten',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler'};
+function currentPageRoute(){
+  const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
+  return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
+}
+function applyPageRoute(){
+  const page=currentPageRoute();
+  document.body.dataset.page=page;
+  document.querySelectorAll('[data-page-section]').forEach(el=>{
+    el.hidden=el.dataset.pageSection!==page;
+  });
+  document.querySelectorAll('[data-page-nav]').forEach(link=>{
+    link.classList.toggle('active',link.dataset.pageNav===page);
+  });
+  document.title='Project Afyon — '+pageNames[page];
+}
+window.addEventListener('popstate',applyPageRoute);
+applyPageRoute();
 
 document.getElementById('leagueCenterCountry').addEventListener('change',async function(e){
   selectedCountry=e.target.value;
