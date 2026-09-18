@@ -65,6 +65,37 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .online-pill{display:inline-flex;align-items:center;gap:6px;margin-left:8px;padding:4px 7px;border-radius:999px;background:#17362f;color:#8effd8;font-size:9px;font-weight:1000;letter-spacing:.6px;vertical-align:middle}
 .online-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.08)}
 
+
+.club-link{appearance:none;border:0;background:transparent;color:inherit;padding:0;margin:0;font:inherit;font-weight:inherit;text-align:left;cursor:pointer;transition:.18s}
+.club-link:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.club-modal-backdrop{display:none;position:fixed;inset:0;z-index:135;background:rgba(4,8,18,.78);backdrop-filter:blur(8px);padding:18px;overflow:auto}
+.club-modal-backdrop.open{display:grid;place-items:center}
+.club-modal{width:min(820px,100%);max-height:min(860px,calc(100vh - 36px));overflow:auto;border:1px solid #2b3955;border-radius:24px;background:#0f1829;box-shadow:0 28px 100px rgba(0,0,0,.62)}
+.club-hero{position:relative;padding:24px;background:linear-gradient(135deg,#182845,#10192a 58%,#13251f);border-bottom:1px solid var(--line)}
+.club-close{position:absolute;right:15px;top:15px;width:38px;height:38px;border:1px solid #35445f;border-radius:12px;background:#101a2c;color:#a9b7cf;font-size:23px;cursor:pointer}
+.club-identity{display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:17px;align-items:center;padding-right:44px}
+.club-crest{width:86px;height:86px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,#223b65,#17352d);border:1px solid #3a5275;font-size:25px;font-weight:1000;letter-spacing:-1px;box-shadow:inset 0 0 0 5px rgba(255,255,255,.025)}
+.club-eyebrow{font-size:10px;color:#8fa2c4;font-weight:1000;letter-spacing:.9px;text-transform:uppercase}
+.club-name{font-size:27px;font-weight:1000;line-height:1.08;margin:5px 0 8px}
+.club-tags{display:flex;gap:7px;flex-wrap:wrap}.club-tag{padding:6px 8px;border:1px solid #30415f;border-radius:999px;background:#111d31;color:#aebbd1;font-size:10px;font-weight:900}
+.club-overall{text-align:center}.club-overall strong{display:block;font-size:36px;line-height:1;color:#fff}.club-overall small{display:block;margin-top:5px;color:#7f91af;font-size:9px;font-weight:1000;letter-spacing:.8px}
+.club-body{padding:18px 20px 22px}
+.club-tabs{display:flex;gap:6px;padding:4px;border:1px solid #25334d;border-radius:14px;background:#0b1322;margin-bottom:16px;overflow:auto}
+.club-tab{flex:1;border:0;border-radius:10px;padding:10px 12px;background:transparent;color:#8191ac;font-size:11px;font-weight:1000;white-space:nowrap;cursor:pointer}.club-tab.active{background:#1c2a43;color:#fff}
+.club-pane{display:none}.club-pane.active{display:block}
+.club-rating-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
+.club-rating{padding:13px;border:1px solid #263650;border-radius:14px;background:#121e31}.club-rating small{display:block;color:#8292ad;font-size:9px;font-weight:1000;letter-spacing:.65px}.club-rating strong{display:block;font-size:22px;margin:3px 0 8px}.rating-track{height:5px;border-radius:99px;background:#26334a;overflow:hidden}.rating-track span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5fd7b0,#e9c96b)}
+.club-overview-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:11px}
+.club-panel{padding:14px;border:1px solid #263650;border-radius:15px;background:#111b2d}.club-panel h4{margin:0 0 11px;font-size:12px}.club-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.club-fact{padding:10px;border-radius:11px;background:#0c1525}.club-fact small{display:block;color:#71829f;font-size:9px}.club-fact strong{display:block;margin-top:3px;font-size:12px}
+.club-form-row{display:flex;gap:6px;flex-wrap:wrap}.form-chip{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#263249;color:#cbd5e6;font-weight:1000;font-size:11px}.form-chip.W{background:#193c32;color:#7cf0c8}.form-chip.D{background:#40391d;color:#ffe08a}.form-chip.L{background:#44242b;color:#ff9aa6}.form-chip.empty{color:#667792}
+.squad-shell{display:grid;gap:9px}.squad-line{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center;padding:12px;border:1px solid #25344f;border-radius:14px;background:#101a2c}.squad-line>strong{font-size:11px;color:#8fa1bf}.slot-row{display:flex;gap:7px;flex-wrap:wrap}.player-slot{padding:7px 9px;border-radius:9px;background:#17243b;color:#8292ad;font-size:10px;font-weight:900}.squad-note{margin-top:12px;padding:13px;border:1px dashed #3b4c68;border-radius:13px;color:#8ea0bc;font-size:11px;line-height:1.55}
+.club-fixtures{display:grid;gap:8px}.club-fixture{display:grid;grid-template-columns:68px 1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid #25344f;border-radius:13px;background:#101a2c}.club-fixture .week{font-size:10px;color:#7d8eaa;font-weight:900}.club-fixture .opponent{font-size:12px;font-weight:900}.club-fixture .venue{display:block;margin-top:2px;color:#71819d;font-size:9px}.club-fixture .result{font-weight:1000;font-size:12px;color:#dce6f5}.club-fixture.current{border-color:#4c5f80;background:#14213a}
+@media(max-width:720px){
+  .club-modal-backdrop{padding:8px;align-items:end}.club-modal{max-height:calc(100vh - 16px);border-radius:22px 22px 12px 12px}
+  .club-hero{padding:20px 16px}.club-identity{grid-template-columns:62px minmax(0,1fr);gap:12px;padding-right:36px}.club-crest{width:62px;height:62px;border-radius:18px;font-size:19px}.club-overall{grid-column:1/-1;display:flex;align-items:center;gap:8px;text-align:left}.club-overall strong{font-size:25px}.club-overall small{margin:0}.club-name{font-size:21px}
+  .club-body{padding:14px}.club-rating-grid{grid-template-columns:repeat(2,1fr)}.club-overview-grid{grid-template-columns:1fr}.club-facts{grid-template-columns:1fr 1fr}.club-fixture{grid-template-columns:54px 1fr auto}
+}
+
 @media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
@@ -172,7 +203,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.11 Online Beta</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.12 Club UI</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -218,6 +249,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
       <button class="auth-signout" id="authSignout" style="display:none">Çıkış Yap</button>
       <div class="auth-status" id="authStatus">Bağlantı hazırlanıyor…</div>
     </div>
+  </div>
+</div>
+
+<div class="club-modal-backdrop" id="clubModal">
+  <div class="club-modal">
+    <div id="clubModalContent"></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1072,6 +1109,150 @@ function renderLiveCenter(){
     ?events.slice(0,6).map(e=>`<div class="live-event"><strong>⚽ ${e.minute}' ${e.text}</strong><br>${e.match}</div>`).join('')
     :`<div class="live-event"><strong>${minute}'</strong> Henüz gol yok. Afyon Merkez Bankası sakinliğini koruyor.</div>`;
 }
+
+function clubInitials(name){
+  const parts=String(name).split(/\s+/).filter(Boolean);
+  return (parts[0]?.[0]||'A')+(parts[1]?.[0]||parts[0]?.[1]||'F');
+}
+function findClubByName(name,country=selectedCountry,level=selectedLevel){
+  return getTeams(country,level).find(t=>t.name===name)||null;
+}
+function clubTableData(country,level){
+  const teams=getTeams(country,level);
+  const schedule=buildSchedule(teams);
+  const table=Object.fromEntries(teams.map(t=>[t.name,{team:t.name,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}]));
+  for(let week=1;week<=34;week++){
+    const round=schedule[week-1];
+    if(!round)continue;
+    round.forEach((m,i)=>{
+      const id=resultId(state.season,country,level,week,i);
+      let r=state.results[id];
+      if(!r&&country===selectedCountry&&level===selectedLevel&&week===state.week&&isCurrentLive())r=liveSnapshot(id);
+      if(!r)return;
+      const h=table[m.home.name],a=table[m.away.name];
+      h.p++;a.p++;h.gf+=r.homeGoals;h.ga+=r.awayGoals;a.gf+=r.awayGoals;a.ga+=r.homeGoals;
+      if(r.homeGoals>r.awayGoals){h.w++;a.l++;h.pts+=3}
+      else if(r.homeGoals<r.awayGoals){a.w++;h.l++;a.pts+=3}
+      else{h.d++;a.d++;h.pts++;a.pts++}
+    });
+  }
+  return Object.values(table).sort((a,b)=>b.pts-a.pts||((b.gf-b.ga)-(a.gf-a.ga))||b.gf-a.gf||a.team.localeCompare(b.team,'tr'));
+}
+function clubFixturesData(teamName,country,level){
+  const teams=getTeams(country,level);
+  const schedule=buildSchedule(teams);
+  const items=[];
+  schedule.forEach((round,wi)=>round.forEach((m,mi)=>{
+    if(m.home.name!==teamName&&m.away.name!==teamName)return;
+    const week=wi+1,id=resultId(state.season,country,level,week,mi);
+    const result=state.results[id]||((country===selectedCountry&&level===selectedLevel&&week===state.week)?liveSnapshot(id):null);
+    const home=m.home.name===teamName;
+    items.push({week,id,home,opponent:home?m.away.name:m.home.name,result});
+  }));
+  return items;
+}
+function ratingCard(label,value){
+  return `<div class="club-rating"><small>${label}</small><strong>${value}</strong><div class="rating-track"><span style="width:${clamp(value,0,100)}%"></span></div></div>`;
+}
+function renderClubModalTab(tab){
+  document.querySelectorAll('.club-tab').forEach(b=>b.classList.toggle('active',b.dataset.clubTab===tab));
+  document.querySelectorAll('.club-pane').forEach(p=>p.classList.toggle('active',p.dataset.clubPane===tab));
+}
+function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
+  const club=findClubByName(teamName,country,level);
+  if(!club)return;
+  const rows=clubTableData(country,level);
+  const row=rows.find(r=>r.team===teamName);
+  const position=Math.max(1,rows.findIndex(r=>r.team===teamName)+1);
+  const formWeek=worldWeekPlayed()?state.week+1:state.week;
+  const form=getFormData(country,level,teamName,formWeek);
+  const formLetters=(form.sequence&&form.sequence!=='—'?form.sequence.split(''):[]);
+  const formHtml=[...Array(5)].map((_,i)=>{
+    const letter=formLetters[i];
+    return `<span class="form-chip ${letter||'empty'}">${letter||'·'}</span>`;
+  }).join('');
+  const fixtures=clubFixturesData(teamName,country,level);
+  const center=Math.max(0,fixtures.findIndex(x=>x.week>=state.week));
+  const fixtureSlice=fixtures.slice(Math.max(0,center-2),Math.min(fixtures.length,center+4));
+  const fixturesHtml=fixtureSlice.map(f=>{
+    let result='—';
+    if(f.result)result=f.home?`${f.result.homeGoals} - ${f.result.awayGoals}`:`${f.result.awayGoals} - ${f.result.homeGoals}`;
+    else if(f.week===state.week)result=matchKickoffLabel(f.id,country,level);
+    return `<div class="club-fixture ${f.week===state.week?'current':''}">
+      <div class="week">${f.week}. HAFTA</div>
+      <div><div class="opponent">${f.opponent}</div><span class="venue">${f.home?'Ev':'Deplasman'} • ${leagueNames[level]}</span></div>
+      <div class="result">${result}</div>
+    </div>`;
+  }).join('');
+  const tierText=club.tier==='favorite'?'Şampiyonluk adayı':club.tier==='relegation'?'Alt sıra profili':'Orta sıra profili';
+  document.getElementById('clubModalContent').innerHTML=`
+    <div class="club-hero">
+      <button class="club-close" id="clubClose" aria-label="Kapat">×</button>
+      <div class="club-identity">
+        <div class="club-crest">${clubInitials(club.name).toUpperCase()}</div>
+        <div>
+          <div class="club-eyebrow">${country} • ${leagueNames[level]}</div>
+          <div class="club-name">${club.name}</div>
+          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span><span class="club-tag">Sezon ${state.season}</span></div>
+        </div>
+        <div class="club-overall"><strong>${club.strength}</strong><small>GENEL GÜÇ</small></div>
+      </div>
+    </div>
+    <div class="club-body">
+      <div class="club-tabs">
+        <button class="club-tab active" data-club-tab="overview">Genel Bakış</button>
+        <button class="club-tab" data-club-tab="squad">Kadro</button>
+        <button class="club-tab" data-club-tab="fixtures">Fikstür</button>
+      </div>
+      <div class="club-pane active" data-club-pane="overview">
+        <div class="club-rating-grid">
+          ${ratingCard('GENEL',club.strength)}${ratingCard('ATK',club.attack)}${ratingCard('MID',club.midfield)}${ratingCard('DEF',club.defense)}
+        </div>
+        <div class="club-overview-grid">
+          <div class="club-panel">
+            <h4>Sezon Özeti</h4>
+            <div class="club-facts">
+              <div class="club-fact"><small>LİG SIRASI</small><strong>${position}. / 18</strong></div>
+              <div class="club-fact"><small>PUAN</small><strong>${row?.pts??0}</strong></div>
+              <div class="club-fact"><small>MAÇ</small><strong>${row?.p??0}</strong></div>
+              <div class="club-fact"><small>AVERAGE</small><strong>${row?(row.gf-row.ga):0}</strong></div>
+              <div class="club-fact"><small>GOL</small><strong>${row?.gf??0} / ${row?.ga??0}</strong></div>
+              <div class="club-fact"><small>OYUN KİMLİĞİ</small><strong>${club.style}</strong></div>
+            </div>
+          </div>
+          <div class="club-panel">
+            <h4>Son Form</h4>
+            <div class="club-form-row">${formHtml}</div>
+            <div class="squad-note" style="margin-top:12px">Takım gücü yalnızca tek sayı değil; ATK, MID ve DEF hatları maç motorunda ayrı ayrı eşleşir.</div>
+          </div>
+        </div>
+      </div>
+      <div class="club-pane" data-club-pane="squad">
+        <div class="squad-shell">
+          <div class="squad-line"><strong>KALECİ</strong><div class="slot-row"><span class="player-slot">GK • yakında</span><span class="player-slot">GK • yakında</span></div></div>
+          <div class="squad-line"><strong>SAVUNMA</strong><div class="slot-row"><span class="player-slot">DEF</span><span class="player-slot">DEF</span><span class="player-slot">DEF</span><span class="player-slot">DEF</span><span class="player-slot">DEF</span></div></div>
+          <div class="squad-line"><strong>ORTA SAHA</strong><div class="slot-row"><span class="player-slot">MID</span><span class="player-slot">MID</span><span class="player-slot">MID</span><span class="player-slot">MID</span><span class="player-slot">MID</span></div></div>
+          <div class="squad-line"><strong>HÜCUM</strong><div class="slot-row"><span class="player-slot">FWD</span><span class="player-slot">FWD</span><span class="player-slot">FWD</span><span class="player-slot">FWD</span></div></div>
+        </div>
+        <div class="squad-note">Bu ekran gerçek oyuncu veritabanı için hazır. Bir sonraki katmanda yaş, pozisyon, form, potansiyel, sakatlık ve kontrat verileri buraya bağlanacak.</div>
+      </div>
+      <div class="club-pane" data-club-pane="fixtures">
+        <div class="club-fixtures">${fixturesHtml||'<div class="squad-note">Fikstür hazırlanıyor.</div>'}</div>
+      </div>
+    </div>`;
+  document.getElementById('clubModal').classList.add('open');
+  document.getElementById('clubClose').addEventListener('click',closeClubModal);
+  document.querySelectorAll('.club-tab').forEach(b=>b.addEventListener('click',()=>renderClubModalTab(b.dataset.clubTab)));
+}
+function closeClubModal(){document.getElementById('clubModal').classList.remove('open')}
+function bindClubLinks(root=document){
+  root.querySelectorAll('[data-club-name]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      openClubModal(decodeURIComponent(btn.dataset.clubName),btn.dataset.clubCountry||selectedCountry,Number(btn.dataset.clubLevel||selectedLevel));
+    });
+  });
+}
 function renderMatches(){
   const fixtures=getWeekFixtures(selectedCountry,selectedLevel,state.week);
   const played=worldWeekPlayed();
@@ -1117,8 +1298,8 @@ function renderMatches(){
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • ATK ${m.home.attack} MID ${m.home.midfield} DEF ${m.home.defense} • FORM ${market.homeForm.sequence||'—'}</span>`}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • ATK ${m.away.attack} MID ${m.away.midfield} DEF ${m.away.defense} • FORM ${market.awayForm.sequence||'—'}</span>`}</div>
+        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(m.home.name)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${m.home.name}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • ATK ${m.home.attack} MID ${m.home.midfield} DEF ${m.home.defense} • FORM ${market.homeForm.sequence||'—'}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(m.away.name)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${m.away.name}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • ATK ${m.away.attack} MID ${m.away.midfield} DEF ${m.away.defense} • FORM ${market.awayForm.sequence||'—'}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,market.main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row">
@@ -1142,6 +1323,7 @@ function renderMatches(){
       </div>
     </div>`;
   }).join('');
+  bindClubLinks(document.getElementById('matches'));
   document.querySelectorAll('.odd-btn:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>togglePick(btn.dataset)));
   document.querySelectorAll('[data-market-toggle]').forEach(btn=>btn.addEventListener('click',()=>{
     const id=btn.dataset.marketToggle;
@@ -1227,8 +1409,9 @@ function renderStandings(){
   const formBeforeWeek=worldWeekPlayed()?state.week+1:state.week;
   document.getElementById('standingsWrap').innerHTML=`<table class="standings"><thead><tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th><th>FORM</th><th>P</th></tr></thead><tbody>${rows.map((r,i)=>{
     const form=getFormData(selectedCountry,selectedLevel,r.team,formBeforeWeek);
-    return `<tr class="${i<4?'top':''}"><td>${i+1}</td><td>${r.team}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga}</td><td>${form.sequence}</td><td><strong>${r.pts}</strong></td></tr>`;
+    return `<tr class="${i<4?'top':''}"><td>${i+1}</td><td><button class="club-link" data-club-name="${encodeURIComponent(r.team)}" data-club-country="${selectedCountry}" data-club-level="${selectedLevel}">${r.team}</button></td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga}</td><td>${form.sequence}</td><td><strong>${r.pts}</strong></td></tr>`;
   }).join('')}</tbody></table>`;
+  bindClubLinks(document.getElementById('standingsWrap'));
 }
 function hasPendingCoupon(){
   return state.coupons.some(c=>{
@@ -1546,6 +1729,8 @@ function startLiveTimer(){
 document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
+document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeClubModal()});
 document.getElementById('authLogin').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
   updateAuthUi('Giriş yapılıyor…');
