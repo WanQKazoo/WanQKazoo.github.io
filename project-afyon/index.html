@@ -65,6 +65,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .online-pill{display:inline-flex;align-items:center;gap:6px;margin-left:8px;padding:4px 7px;border-radius:999px;background:#17362f;color:#8effd8;font-size:9px;font-weight:1000;letter-spacing:.6px;vertical-align:middle}
 .online-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.08)}
 
+@media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
 <body>
@@ -1381,6 +1382,7 @@ async function refreshOnlineSelected(includeHistory=false){
     if(marketsRes.error)throw marketsRes.error;
     onlineEventsByMatch={};
     (eventsRes.data||[]).forEach(e=>(onlineEventsByMatch[e.match_id]??=[]).push(e));
+    ids.forEach(id=>onlineMarketsByMatch[id]=[]);
     (marketsRes.data||[]).forEach(r=>(onlineMarketsByMatch[r.match_id]??=[]).push(r));
   }
   onlineSelectedMatches.forEach(m=>{
