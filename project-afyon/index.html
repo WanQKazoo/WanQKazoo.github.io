@@ -455,6 +455,16 @@ function marketProbabilities(home,away,country,level,week){
 function fairOdd(prob,margin,min=1.12,max=7.50){
   return clamp(1/(Math.max(.01,prob)*margin),min,max);
 }
+function priceBinary(probA,margin=1.045){
+  // İki yönlü marketler tek olasılık çiftinden fiyatlanır.
+  // Böylece örn. Alt uzaklaşıyorsa Üst otomatik olarak yaklaşır; iki taraf birbirinden kopamaz.
+  const a=clamp(probA,.03,.97);
+  const b=1-a;
+  return [
+    (1/(a*margin)).toFixed(2),
+    (1/(b*margin)).toFixed(2)
+  ];
+}
 function getMatchOdds(home,away,country,level,week,index){
   const p=marketProbabilities(home,away,country,level,week);
   const main=[
@@ -462,15 +472,21 @@ function getMatchOdds(home,away,country,level,week,index){
     fairOdd(p.px,1.06,2.65,4.80),
     fairOdd(p.p2,1.06,1.25,6.80)
   ].map(x=>x.toFixed(2));
+
+  const ou15=priceBinary(p.under15);
+  const ou25=priceBinary(p.under25);
+  const ou35=priceBinary(p.under35);
+  const kg=priceBinary(p.btts);
+
   const extra=[
-    ['1.5 Alt',fairOdd(p.under15,1.045,1.12,4.80).toFixed(2),'Toplam Gol'],
-    ['1.5 Üst',fairOdd(p.over15,1.045,1.12,4.80).toFixed(2),'Toplam Gol'],
-    ['2.5 Alt',fairOdd(p.under25,1.045,1.12,4.80).toFixed(2),'Toplam Gol'],
-    ['2.5 Üst',fairOdd(p.over25,1.045,1.12,4.80).toFixed(2),'Toplam Gol'],
-    ['3.5 Alt',fairOdd(p.under35,1.045,1.12,4.80).toFixed(2),'Toplam Gol'],
-    ['3.5 Üst',fairOdd(p.over35,1.045,1.12,4.80).toFixed(2),'Toplam Gol'],
-    ['KG Var',fairOdd(p.btts,1.045,1.18,3.80).toFixed(2),'Karşılıklı Gol'],
-    ['KG Yok',fairOdd(1-p.btts,1.045,1.18,3.80).toFixed(2),'Karşılıklı Gol'],
+    ['1.5 Alt',ou15[0],'Toplam Gol'],
+    ['1.5 Üst',ou15[1],'Toplam Gol'],
+    ['2.5 Alt',ou25[0],'Toplam Gol'],
+    ['2.5 Üst',ou25[1],'Toplam Gol'],
+    ['3.5 Alt',ou35[0],'Toplam Gol'],
+    ['3.5 Üst',ou35[1],'Toplam Gol'],
+    ['KG Var',kg[0],'Karşılıklı Gol'],
+    ['KG Yok',kg[1],'Karşılıklı Gol'],
     ['1X',fairOdd(p.p1+p.px,1.035,1.08,2.35).toFixed(2),'Çifte Şans'],
     ['12',fairOdd(p.p1+p.p2,1.035,1.08,2.35).toFixed(2),'Çifte Şans'],
     ['X2',fairOdd(p.px+p.p2,1.035,1.08,2.35).toFixed(2),'Çifte Şans']
