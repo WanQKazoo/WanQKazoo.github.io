@@ -91,7 +91,18 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .club-overview-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:11px}
 .club-panel{padding:14px;border:1px solid #263650;border-radius:15px;background:#111b2d}.club-panel h4{margin:0 0 11px;font-size:12px}.club-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.club-fact{padding:10px;border-radius:11px;background:#0c1525}.club-fact small{display:block;color:#71829f;font-size:9px}.club-fact strong{display:block;margin-top:3px;font-size:12px}
 .club-form-row{display:flex;gap:6px;flex-wrap:wrap}.form-chip{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#263249;color:#cbd5e6;font-weight:1000;font-size:11px}.form-chip.W{background:#193c32;color:#7cf0c8}.form-chip.D{background:#40391d;color:#ffe08a}.form-chip.L{background:#44242b;color:#ff9aa6}.form-chip.empty{color:#667792}
-.squad-shell{display:grid;gap:9px}.squad-line{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center;padding:12px;border:1px solid #25344f;border-radius:14px;background:#101a2c}.squad-line>strong{font-size:11px;color:#8fa1bf}.slot-row{display:flex;gap:7px;flex-wrap:wrap}.player-slot{padding:7px 9px;border-radius:9px;background:#17243b;color:#8292ad;font-size:10px;font-weight:900}.squad-note{margin-top:12px;padding:13px;border:1px dashed #3b4c68;border-radius:13px;color:#8ea0bc;font-size:11px;line-height:1.55}
+.squad-shell{display:grid;gap:9px}.squad-line{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center;padding:12px;border:1px solid #25344f;border-radius:14px;background:#101a2c}.squad-line>strong{font-size:11px;color:#8fa1bf}.slot-row{display:flex;gap:7px;flex-wrap:wrap}.player-slot{padding:7px 9px;border-radius:9px;background:#17243b;color:#8292ad;font-size:10px;font-weight:900}
+.player-roster{display:grid;gap:14px}
+.player-group{display:grid;gap:7px}
+.player-group-head{display:flex;align-items:center;justify-content:space-between;color:#91a2bf;font-size:10px;font-weight:1000;letter-spacing:.8px;padding:0 2px}
+.player-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.player-card{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px;border:1px solid #283a58;border-radius:13px;background:#111d31}
+.player-shirt{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#1b2a44;color:#8da2c4;font-size:10px;font-weight:1000}
+.player-main{min-width:0}.player-main strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px}.player-main small{display:block;margin-top:3px;color:#7587a5;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-ovr{min-width:34px;text-align:center;padding:7px 5px;border-radius:9px;background:#1b382f;color:#8ff6d5;font-size:11px;font-weight:1000}
+.player-roster-note{padding:10px 12px;border:1px solid #2b3e5d;border-radius:12px;background:#0e192b;color:#7f92b0;font-size:9px;line-height:1.55}
+@media(max-width:680px){.player-list{grid-template-columns:1fr}}
+.squad-note{margin-top:12px;padding:13px;border:1px dashed #3b4c68;border-radius:13px;color:#8ea0bc;font-size:11px;line-height:1.55}
 .club-fixtures{display:grid;gap:8px}.club-fixture{display:grid;grid-template-columns:68px 1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid #25344f;border-radius:13px;background:#101a2c}.club-fixture .week{font-size:10px;color:#7d8eaa;font-weight:900}.club-fixture .opponent{font-size:12px;font-weight:900}.club-fixture .venue{display:block;margin-top:2px;color:#71819d;font-size:9px}.club-fixture .result{font-weight:1000;font-size:12px;color:#dce6f5}.club-fixture.current{border-color:#4c5f80;background:#14213a}
 @media(max-width:720px){
   .club-modal-backdrop{padding:8px;align-items:end}.club-modal{max-height:calc(100vh - 16px);border-radius:22px 22px 12px 12px}
@@ -475,7 +486,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.24 Goal Markets</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.25 Player Universe</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -935,7 +946,7 @@ let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueT
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0;
-let onlineClubLists={},onlineClubsById={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
+let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let bulletinCountry='Tümü',bulletinLevel=0;
 let leagueCenterTab='standings';
 let state={engineVersion:6,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
@@ -1485,9 +1496,34 @@ function renderClubModalTab(tab){
   document.querySelectorAll('.club-tab').forEach(b=>b.classList.toggle('active',b.dataset.clubTab===tab));
   document.querySelectorAll('.club-pane').forEach(p=>p.classList.toggle('active',p.dataset.clubPane===tab));
 }
-function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
+async function loadClubPlayers(clubId){
+  if(!clubId||!onlineMode)return [];
+  if(onlinePlayersByClub[clubId])return onlinePlayersByClub[clubId];
+  const {data,error}=await supabaseClient.from('players')
+    .select('id,shirt_number,display_name,position,nationality,age,overall,potential,form,morale,fitness,injury_weeks,contract_until_season,wage,market_value,finishing,passing,dribbling,tackling,pace,strength,goalkeeping,is_parody')
+    .eq('club_id',clubId)
+    .order('position')
+    .order('overall',{ascending:false});
+  if(error){console.error('Club players',error);return []}
+  onlinePlayersByClub[clubId]=data||[];
+  return onlinePlayersByClub[clubId];
+}
+function renderSquadPlayers(players){
+  if(!players.length)return '<div class="squad-note">Oyuncu verisi yüklenemedi. Bağlantıyı yenileyip tekrar deneyebilirsin.</div>';
+  const groups=[['GK','KALECİ'],['DEF','SAVUNMA'],['MID','ORTA SAHA'],['FWD','HÜCUM']];
+  return '<div class="player-roster">'+groups.map(([pos,label])=>{
+    const rows=players.filter(p=>p.position===pos).sort((a,b)=>b.overall-a.overall||a.shirt_number-b.shirt_number);
+    return '<div class="player-group"><div class="player-group-head"><span>'+label+'</span><span>'+rows.length+' oyuncu</span></div><div class="player-list">'+rows.map(p=>{
+      const health=Number(p.injury_weeks)>0?' • 🤕 '+p.injury_weeks+' hf':'';
+      const skill=pos==='GK'?'GK '+p.goalkeeping:pos==='DEF'?'TCK '+p.tackling:pos==='MID'?'PAS '+p.passing:'FIN '+p.finishing;
+      return '<div class="player-card" title="Form '+p.form+' • Moral '+p.morale+' • Fitness '+p.fitness+'"><span class="player-shirt">#'+p.shirt_number+'</span><span class="player-main"><strong>'+p.display_name+'</strong><small>'+p.age+' yaş • POT '+p.potential+' • '+skill+health+'</small></span><span class="player-ovr">'+p.overall+'</span></div>';
+    }).join('')+'</div></div>';
+  }).join('')+'<div class="player-roster-note">Overall ve potansiyel global Afyon ölçeğindedir. Form, moral, fitness, kontrat, maaş ve teknik özellikler oyuncu kaydında tutuluyor; transfer ve yaşlanma sistemi bu veriler üzerinden ilerleyecek.</div></div>';
+}
+async function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
   const club=findClubByName(teamName,country,level);
   if(!club)return;
+  const squad=await loadClubPlayers(club.id);
   const rows=clubTableData(country,level);
   const row=rows.find(r=>r.team===teamName);
   const position=Math.max(1,rows.findIndex(r=>r.team===teamName)+1);
@@ -1555,13 +1591,7 @@ function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
         </div>
       </div>
       <div class="club-pane" data-club-pane="squad">
-        <div class="squad-shell">
-          <div class="squad-line"><strong>KALECİ</strong><div class="slot-row"><span class="player-slot">GK • yakında</span><span class="player-slot">GK • yakında</span></div></div>
-          <div class="squad-line"><strong>SAVUNMA</strong><div class="slot-row"><span class="player-slot">DEF</span><span class="player-slot">DEF</span><span class="player-slot">DEF</span><span class="player-slot">DEF</span><span class="player-slot">DEF</span></div></div>
-          <div class="squad-line"><strong>ORTA SAHA</strong><div class="slot-row"><span class="player-slot">MID</span><span class="player-slot">MID</span><span class="player-slot">MID</span><span class="player-slot">MID</span><span class="player-slot">MID</span></div></div>
-          <div class="squad-line"><strong>HÜCUM</strong><div class="slot-row"><span class="player-slot">FWD</span><span class="player-slot">FWD</span><span class="player-slot">FWD</span><span class="player-slot">FWD</span></div></div>
-        </div>
-        <div class="squad-note">Bu ekran gerçek oyuncu veritabanı için hazır. Bir sonraki katmanda yaş, pozisyon, form, potansiyel, sakatlık ve kontrat verileri buraya bağlanacak.</div>
+        ${renderSquadPlayers(squad)}
       </div>
       <div class="club-pane" data-club-pane="fixtures">
         <div class="club-fixtures">${fixturesHtml||'<div class="squad-note">Fikstür hazırlanıyor.</div>'}</div>
@@ -1944,7 +1974,7 @@ function renderLeagueClubs(){
 function renderLeagueScorers(){
   var box=document.getElementById('leagueScorers');
   if(!box)return;
-  box.innerHTML='<div class="scorer-placeholder"><strong>⚽ Gol Krallığı hazırlanıyor</strong><p>Oyuncu veritabanını bağladığımız anda burada gerçek Project Afyon futbolcuları, gol sayıları, asistleri ve maç başına katkıları görünecek. Sahte oyuncu üretip doldurmadım; bu alan doğrudan oyuncu sistemine hazır.</p></div>';
+  box.innerHTML='<div class="scorer-placeholder"><strong>⚽ Oyuncular hazır, gol kayıtları sırada</strong><p>23.760 futbolcu artık kulüplere bağlı. Gol krallığı için sıradaki adım canlı maç olaylarında golü atan oyuncuyu kaydetmek; bu yüzden burada henüz uydurma gol sayısı göstermiyorum.</p></div>';
 }
 function renderLeagueCenter(){
   renderLeagueCenterMeta();
