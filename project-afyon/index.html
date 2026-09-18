@@ -148,13 +148,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 [data-page-section][hidden]{display:none!important}
 body[data-page="coupons"] .layout,
 body[data-page="leagues"] .layout,
-body[data-page="news"] .layout{grid-template-columns:1fr;padding-top:24px}
+body[data-page="news"] .layout,body[data-page="games"] .layout{grid-template-columns:1fr;padding-top:24px}
 body[data-page="coupons"] .content,
 body[data-page="leagues"] .content,
-body[data-page="news"] .content{width:100%}
+body[data-page="news"] .content,body[data-page="games"] .content{width:100%}
 body[data-page="coupons"] #couponsSection,
 body[data-page="leagues"] #leagueSection,
-body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
+body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-height:calc(100vh - 190px)}
 @media(max-width:720px){
   body[data-page="coupons"] .layout,
   body[data-page="leagues"] .layout,
@@ -258,6 +258,34 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
   .main-nav .nav-btn{font-size:9px!important}
 }
 
+
+.chance-hero{padding:22px;background:linear-gradient(135deg,#231b3b,#13233d 58%,#14271f);border-bottom:1px solid var(--line)}
+.chance-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.chance-eyebrow{font-size:10px;font-weight:1000;letter-spacing:1px;color:#d4a8ff}.chance-hero h2{margin:6px 0 7px;font-size:28px}.chance-hero p{margin:0;max-width:740px;color:#a8b6ce;font-size:12px;line-height:1.6}
+.chance-wallet{padding:12px 14px;border:1px solid #51476d;border-radius:14px;background:#15152a;min-width:180px}.chance-wallet small{display:block;color:#9187ad;font-size:9px;font-weight:1000}.chance-wallet strong{display:block;margin-top:4px;font-size:22px;color:var(--accent2)}
+.chance-disclaimer{margin-top:14px;padding:10px 12px;border:1px solid #514622;border-radius:12px;background:#211d11;color:#cfc299;font-size:10px;line-height:1.5}
+.chance-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px}
+.chance-card{border:1px solid #293a57;border-radius:17px;background:#111c2f;padding:15px;color:#fff;text-align:left;min-height:178px;display:flex;flex-direction:column;transition:.18s}
+.chance-card:hover{transform:translateY(-2px);border-color:#536b91;background:#14223a}.chance-card .icon{font-size:28px}.chance-card .tag{margin-top:10px;color:#8ea0bd;font-size:9px;font-weight:1000;letter-spacing:.7px}.chance-card h3{margin:5px 0 6px;font-size:15px}.chance-card p{margin:0;color:#8596b2;font-size:10px;line-height:1.5;flex:1}.chance-card .odds{margin-top:12px;color:var(--accent2);font-size:11px;font-weight:1000}
+.chance-history{padding:0 14px 14px}.chance-history-head{display:flex;align-items:center;justify-content:space-between;padding:4px 0 9px}.chance-history-head strong{font-size:12px}.chance-history-head small{color:#71819e;font-size:9px}
+.chance-history-list{display:grid;gap:7px}.chance-history-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid #25344f;border-radius:12px;background:#0f192b}.chance-history-row strong{display:block;font-size:11px}.chance-history-row small{display:block;margin-top:3px;color:#7586a2;font-size:9px}.chance-history-row .gain{font-size:11px;font-weight:1000}.chance-history-row .gain.win{color:#72efc4}.chance-history-row .gain.loss{color:#ff8f9a}
+.chance-modal-backdrop{display:none;position:fixed;inset:0;z-index:145;background:rgba(4,8,18,.82);backdrop-filter:blur(8px);padding:16px;overflow:auto}.chance-modal-backdrop.open{display:grid;place-items:center}
+.chance-modal{width:min(760px,100%);max-height:calc(100vh - 32px);overflow:auto;border:1px solid #33445f;border-radius:24px;background:#0f1829;box-shadow:0 28px 100px rgba(0,0,0,.65)}
+.chance-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#211a35,#111c30)}.chance-modal-head h3{margin:0;font-size:20px}.chance-modal-head p{margin:5px 0 0;color:#8495b1;font-size:10px}.chance-close{border:1px solid #35445f;border-radius:11px;background:#101a2c;color:#a9b7cf;width:36px;height:36px;font-size:21px}
+.chance-modal-body{padding:16px 20px 20px}.chance-controls{display:grid;grid-template-columns:150px 1fr;gap:12px;margin-bottom:14px}.chance-stake label,.chance-choice-label{display:block;color:#7f91ad;font-size:9px;font-weight:1000;margin-bottom:6px}.chance-stake input{width:100%;padding:11px 12px;border:1px solid #31415c;border-radius:11px;background:#0b1424;color:#fff}
+.chance-choices{display:flex;gap:6px;flex-wrap:wrap}.chance-choice{border:1px solid #31415b;border-radius:10px;background:#121e31;color:#aab8cd;padding:9px 10px;font-size:10px;font-weight:900}.chance-choice.selected{border-color:#67d9b7;background:#17352f;color:#8dffdc}
+.chance-stage{min-height:240px;border:1px solid #263650;border-radius:17px;background:radial-gradient(circle at 50% 20%,#182947,#0b1322 72%);padding:14px;overflow:hidden;position:relative}.chance-stage.idle{display:grid;place-items:center;color:#71829e;text-align:center;font-size:11px;line-height:1.6}
+.chance-play{width:100%;margin-top:12px;border:0;border-radius:13px;padding:13px 14px;background:var(--accent);color:#062018;font-weight:1000}.chance-play:disabled{opacity:.45}
+.chance-result{margin-top:10px;padding:11px 12px;border:1px solid #2d3d58;border-radius:12px;background:#111c2f;color:#9eacc3;font-size:11px;line-height:1.5}.chance-result.win{border-color:#2c6655;color:#8af2d0}.chance-result.loss{border-color:#62343d;color:#ff9aa6}
+.race-track{display:grid;gap:7px}.race-lane{height:24px;border-radius:999px;background:#111d31;border:1px solid #253650;position:relative;overflow:hidden}.race-lane:after{content:"";position:absolute;right:18px;top:0;bottom:0;border-right:2px dashed rgba(255,255,255,.18)}.racer{position:absolute;left:6px;top:1px;font-size:17px;transition:transform 2.1s cubic-bezier(.1,.7,.2,1)}.race-label{position:absolute;right:4px;top:4px;font-size:8px;color:#647694;font-weight:900}
+.coin-stage,.wheel-stage,.boxes-stage,.royale-stage{height:210px;display:grid;place-items:center}.big-coin{font-size:86px;transition:transform 1.2s cubic-bezier(.15,.65,.2,1)}.big-coin.spinning{transform:rotateY(1800deg) rotateZ(720deg)}
+.wheel-face{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;border:8px solid #3a3150;background:conic-gradient(#f5c36b 0 45deg,#69d9bb 45deg 90deg,#8ba7ff 90deg 135deg,#e486ff 135deg 180deg,#ff8c9b 180deg 225deg,#75c8ff 225deg 270deg,#b3e875 270deg 315deg,#f3a7d4 315deg 360deg);font-size:42px;transition:transform 1.8s cubic-bezier(.12,.72,.1,1)}.wheel-pointer{position:absolute;top:18px;font-size:25px;z-index:2}
+.boxes-stage{grid-template-columns:repeat(3,1fr);gap:12px}.memur-box{min-height:130px;border:1px solid #30415c;border-radius:14px;background:#121e31;display:grid;place-items:center;font-size:48px;position:relative}.memur-box.reveal{background:#183128}.memur-box small{position:absolute;bottom:8px;font-size:9px;color:#8090ab}
+.royale-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;width:100%}.royale-ball{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#263957;border:2px solid #415879;font-size:10px;font-weight:1000;transition:.6s}.royale-ball.out{opacity:.12;transform:scale(.65)}.royale-ball.winner{background:#2d765f;border-color:#75efc6;transform:scale(1.35);box-shadow:0 0 28px rgba(99,230,190,.25)}
+@media(max-width:1050px){.main-nav{grid-template-columns:repeat(5,minmax(0,1fr))!important}.chance-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.chance-grid{grid-template-columns:1fr 1fr;padding:10px}.chance-card{min-height:165px;padding:12px}.chance-controls{grid-template-columns:1fr}.chance-modal-backdrop{padding:7px;align-items:end}.chance-modal{border-radius:22px 22px 10px 10px;max-height:calc(100vh - 14px)}.chance-modal-body{padding:14px}.chance-stage{min-height:220px}.royale-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:430px){.chance-grid{grid-template-columns:1fr}.chance-card{min-height:145px}.main-nav .nav-btn{font-size:8px!important}.chance-hero{padding:16px}.chance-wallet{width:100%}}
+
 @media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
@@ -267,7 +295,7 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
   <header>
     <div class="container nav">
       <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div class="brand-copy"><span class="brand-title">Project Afyon</span> <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
-      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a></nav>
+      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a></nav>
       <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">10.000 ₳D</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
     </div>
   </header>
@@ -389,6 +417,34 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
             <article class="news-card afmb-news"><span class="tag">🏛 AFMB</span><h4>Finansal istikrar yakından izleniyor</h4><p>“Vatandaşlarımızın kuponu tamamladıktan sonra bir maç daha ekleme eğilimi endişeyle takip edilmektedir.”</p></article>
           </div>
         </section>
+
+        <section class="section-card" id="gamesSection" data-page-section="games">
+          <div class="chance-hero">
+            <div class="chance-hero-top">
+              <div>
+                <div class="chance-eyebrow">🎰 AFYON LUNAPARKI</div>
+                <h2>Şans Oyunları</h2>
+                <p>Futbol maçları ortak dünyada oynanır; buradaki oyunlar tamamen sana özeldir. Sonucu AFMB sunucusu belirler, animasyonu cihazın oynatır.</p>
+              </div>
+              <div class="chance-wallet"><small>₳D CÜZDANIN</small><strong id="chanceBalance">—</strong></div>
+            </div>
+            <div class="chance-disclaimer">Afyon Dinarı tamamen sanal oyun puanıdır. Gerçek para karşılığı yoktur; satın alınamaz, satılamaz, çekilemez veya transfer edilemez. Bu oyunlar diğer kullanıcılarla ortak yarış değildir.</div>
+          </div>
+          <div class="chance-grid" id="chanceGameGrid">
+            <button class="chance-card" data-open-game="marble_race"><span class="icon">🔵</span><span class="tag">8 BİLYE</span><h3>Bilye Ligi</h3><p>Devlet Mavisi mi, İhale Sarısı mı? Bilyeni seç; geri kalanını yerçekimi ve bürokrasi halletsin.</p><span class="odds">Kazanan seçim: ×7.20</span></button>
+            <button class="chance-card" data-open-game="duck_derby"><span class="icon">🦆</span><span class="tag">6 ÖRDEK</span><h3>Ördek Derbisi</h3><p>Altı ördek, sıfır taktik. Biri mutlaka öne doğru gitmeyi hatırlayacak.</p><span class="odds">Kazanan seçim: ×5.40</span></button>
+            <button class="chance-card" data-open-game="snail_league"><span class="icon">🐌</span><span class="tag">5 SALYANGOZ</span><h3>Salyangoz Premier League</h3><p>Adı yavaş, animasyonu kısa. Sportif sabır testinin en gereksiz hâli.</p><span class="odds">Kazanan seçim: ×4.50</span></button>
+            <button class="chance-card" data-open-game="afmb_wheel"><span class="icon">🏛️</span><span class="tag">AFMB ONAYLI</span><h3>AFMB Çarkı</h3><p>Evrak kayıp da olabilir, muhasebe hatasıyla ikramiye de çıkabilir.</p><span class="odds">Sonuç: ×0 — ×2.00</span></button>
+            <button class="chance-card" data-open-game="memur_box"><span class="icon">📦</span><span class="tag">3 KUTU</span><h3>Hangi Kutuda Memur Var?</h3><p>Üç kutudan birinde mesai yapan memur var. Diğerleri için öğleden sonra tekrar gel.</p><span class="odds">Doğru kutu: ×2.70</span></button>
+            <button class="chance-card" data-open-game="chicken_run"><span class="icon">🐔</span><span class="tag">6 TAVUK</span><h3>Tavuk Koşusu</h3><p>Altı tavuk start alır. Birinin neden ters yöne baktığını kimse açıklamaz.</p><span class="odds">Kazanan seçim: ×5.40</span></button>
+            <button class="chance-card" data-open-game="coin_flip"><span class="icon">🪙</span><span class="tag">KLASİK</span><h3>Yazı — Tura</h3><p>AFMB'nin teknolojik olarak en ileri ürünü: bir şey havaya atılıyor.</p><span class="odds">Doğru seçim: ×1.95</span></button>
+            <button class="chance-card" data-open-game="marble_royale"><span class="icon">🎱</span><span class="tag">16 BİLYE</span><h3>Bilye Royale</h3><p>On altı bilye girer, biri çıkar. Kimin neden elendiği hakkında itiraz kabul edilmez.</p><span class="odds">Şampiyon seçim: ×14.40</span></button>
+          </div>
+          <div class="chance-history">
+            <div class="chance-history-head"><strong>Son Oyunların</strong><small>Yalnızca sen görürsün</small></div>
+            <div class="chance-history-list" id="chanceHistory"><div class="empty">Henüz lunapark kaydı yok.</div></div>
+          </div>
+        </section>
       </div>
 
       <aside class="sidebar" data-page-section="bulletin">
@@ -411,7 +467,7 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.4 Coupon Order</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.20 Afyon Lunaparkı</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -465,6 +521,24 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
     <div id="clubModalContent"></div>
   </div>
 </div>
+
+<div class="chance-modal-backdrop" id="chanceModal">
+  <div class="chance-modal">
+    <div class="chance-modal-head">
+      <div><h3 id="chanceGameTitle">Şans Oyunu</h3><p id="chanceGameDesc">AFMB bağlantısı hazırlanıyor.</p></div>
+      <button class="chance-close" id="chanceClose">×</button>
+    </div>
+    <div class="chance-modal-body">
+      <div class="chance-controls">
+        <div class="chance-stake"><label>OYUN MİKTARI</label><input id="chanceStake" type="number" min="10" step="10" value="100"></div>
+        <div><span class="chance-choice-label">SEÇİMİN</span><div class="chance-choices" id="chanceChoices"></div></div>
+      </div>
+      <div class="chance-stage idle" id="chanceStage">Bir oyun ve seçim yap.<br>Sonucu sunucu belirleyecek. 🏛️</div>
+      <button class="chance-play" id="chancePlay">OYNA • 100 ₳D</button>
+      <div class="chance-result" id="chanceResult">Sonuç burada görünecek.</div>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -475,6 +549,18 @@ const SUPABASE_URL='https://urwldxjymmzfspicyhfs.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_Vy_LUWH2R-7dVfoQOZJT0g_t-nt-V3M';
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 const LIVE_DURATION=180000;
+
+const chanceGames={
+  marble_race:{title:'Bilye Ligi',desc:'8 bilye • kazanan seçim ×7.20',emoji:'🔵',type:'race',racer:'●',choices:[['BLUE','Devlet Mavisi'],['RED','Bordro Bordosu'],['YELLOW','İhale Sarısı'],['GREEN','Tahsis Yeşili'],['PURPLE','Müdür Moru'],['ORANGE','Dosya Turuncusu'],['WHITE','Form Beyazı'],['BLACK','Müfettiş Siyahı']]},
+  duck_derby:{title:'Ördek Derbisi',desc:'6 ördek • kazanan seçim ×5.40',emoji:'🦆',type:'race',racer:'🦆',choices:[['D1','Makbuz'],['D2','Tebligat'],['D3','Zimmet'],['D4','Dilekçe'],['D5','Mühür'],['D6','Arşiv']]},
+  snail_league:{title:'Salyangoz Premier League',desc:'5 salyangoz • kazanan seçim ×4.50',emoji:'🐌',type:'race',racer:'🐌',choices:[['S1','Ağır Abi'],['S2','Turbo Nuri'],['S3','Islak İmza'],['S4','Yavaşlatılmış Tebligat'],['S5','Ek-3 Formu']]},
+  afmb_wheel:{title:'AFMB Çarkı',desc:'Seçim yok • sonuç ×0 ile ×2.00 arası',emoji:'🏛️',type:'wheel',choices:[]},
+  memur_box:{title:'Hangi Kutuda Memur Var?',desc:'3 kutu • doğru seçim ×2.70',emoji:'📦',type:'boxes',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
+  chicken_run:{title:'Tavuk Koşusu',desc:'6 tavuk • kazanan seçim ×5.40',emoji:'🐔',type:'race',racer:'🐔',choices:[['C1','Piliç 1'],['C2','Piliç 2'],['C3','Piliç 3'],['C4','Piliç 4'],['C5','Piliç 5'],['C6','Piliç 6']]},
+  coin_flip:{title:'Yazı — Tura',desc:'Doğru seçim ×1.95',emoji:'🪙',type:'coin',choices:[['HEADS','Yazı'],['TAILS','Tura']]},
+  marble_royale:{title:'Bilye Royale',desc:'16 bilye • şampiyon seçim ×14.40',emoji:'🎱',type:'royale',choices:Array.from({length:16},(_,i)=>['R'+(i+1),'Bilye '+(i+1)])}
+};
+
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const countryFlags={'İngiltere':'🏴','Türkiye':'🇹🇷','İspanya':'🇪🇸','Almanya':'🇩🇪','İtalya':'🇮🇹','Fransa':'🇫🇷','Hollanda':'🇳🇱','Portekiz':'🇵🇹','Belçika':'🇧🇪','İskoçya':'🏴','Yunanistan':'🇬🇷','Avusturya':'🇦🇹'};
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
@@ -839,6 +925,7 @@ function getClubNames(country,level){
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
 const openCouponIds=new Set();
+let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[];
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0;
 let onlineClubLists={},onlineClubsById={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let bulletinCountry='Tümü',bulletinLevel=0;
@@ -884,8 +971,9 @@ const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function renderWallet(){
   const el=document.getElementById('walletValue');
-  if(onlineMode&&!onlineSession){el.textContent='Giriş yap';return}
+  if(onlineMode&&!onlineSession){el.textContent='Giriş yap';syncChanceWallet();return}
   el.textContent=money(state.balance);
+  syncChanceWallet();
 }
 
 function stableHash(text){
@@ -2106,6 +2194,7 @@ async function initOnline(){
     await refreshOnlineSelected(true);
     await refreshOnlineBulletin();
     await refreshOnlineAccount();
+    await refreshChanceHistory();
     renderAll();
     updateAuthUi();
     if(onlinePollTimer)clearInterval(onlinePollTimer);
@@ -2136,7 +2225,182 @@ async function placeOnlineCoupon(stake){
   if(error){toast('Kupon reddedildi: '+error.message);return}
   picks=[];await refreshOnlineAccount();await refreshOnlineSelected(false);renderAll();toast('Online kupon kaydedildi. AFMB sunucusu şahittir. 🏛');
 }
-function renderAll(){renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderLeagueCenter();renderRescue()}
+
+function chanceLabel(gameKey,value){
+  const game=chanceGames[gameKey];
+  const pair=game?.choices?.find(x=>x[0]===value);
+  if(pair)return pair[1];
+  const wheel={
+    EVRAK_KAYIP:'Evrak kayıp',
+    OGLEDEN_SONRA_GEL:'Öğleden sonra gel',
+    YARIM_MAAS:'Yarım maaş',
+    KESINTI:'Kesinti',
+    AYNEN_IADE:'Aynen iade',
+    'MESAİ':'Mesai',
+    IKRAMIYE:'İkramiye',
+    MUHASEBE_HATASI:'Muhasebe hatası'
+  };
+  return wheel[value]||value||'—';
+}
+function syncChanceWallet(){
+  const el=document.getElementById('chanceBalance');
+  if(el)el.textContent=onlineMode&&!onlineSession?'Giriş yap':money(state.balance);
+}
+async function refreshChanceHistory(){
+  if(!onlineMode||!onlineSession){onlineChanceHistory=[];renderChanceHistory();return}
+  const {data,error}=await supabaseClient.from('chance_plays')
+    .select('id,game_key,stake,choice,result,multiplier,payout,created_at')
+    .order('created_at',{ascending:false}).limit(20);
+  if(error){console.error('Chance history',error);return}
+  onlineChanceHistory=data||[];
+  renderChanceHistory();
+}
+function renderChanceHistory(){
+  const box=document.getElementById('chanceHistory');
+  if(!box)return;
+  if(!onlineSession){
+    box.innerHTML='<div class="empty">Oyun geçmişin için giriş yap.</div>';
+    return;
+  }
+  if(!onlineChanceHistory.length){
+    box.innerHTML='<div class="empty">Henüz lunapark kaydı yok. AFMB kasası huzurlu.</div>';
+    return;
+  }
+  box.innerHTML=onlineChanceHistory.map(x=>{
+    const game=chanceGames[x.game_key];
+    const net=Number(x.payout)-Number(x.stake);
+    const winner=chanceLabel(x.game_key,x.result?.winner);
+    const result=net>0?'+'+money(net):net===0?'0 ₳D':'-'+money(Math.abs(net));
+    return '<div class="chance-history-row"><div><strong>'+(game?.emoji||'🎰')+' '+(game?.title||x.game_key)+'</strong><small>'+Number(x.stake).toLocaleString('tr-TR')+' ₳D • Sonuç: '+winner+' • ×'+Number(x.multiplier).toFixed(2)+'</small></div><div class="gain '+(net>0?'win':'loss')+'">'+result+'</div></div>';
+  }).join('');
+}
+function openChanceGame(gameKey){
+  if(!chanceGames[gameKey])return;
+  activeChanceGame=gameKey;
+  activeChanceChoice=chanceGames[gameKey].choices[0]?.[0]||null;
+  const game=chanceGames[gameKey];
+  document.getElementById('chanceGameTitle').textContent=game.emoji+' '+game.title;
+  document.getElementById('chanceGameDesc').textContent=game.desc;
+  document.getElementById('chanceChoices').innerHTML=game.choices.length
+    ?game.choices.map((x,i)=>'<button class="chance-choice '+(i===0?'selected':'')+'" data-chance-choice="'+x[0]+'">'+x[1]+'</button>').join('')
+    :'<span style="color:#71819e;font-size:10px">Bu oyunda seçim yok; çark ne derse o.</span>';
+  document.querySelectorAll('[data-chance-choice]').forEach(btn=>btn.addEventListener('click',()=>{
+    if(chanceBusy)return;
+    activeChanceChoice=btn.dataset.chanceChoice;
+    document.querySelectorAll('[data-chance-choice]').forEach(x=>x.classList.toggle('selected',x===btn));
+  }));
+  prepareChanceStage(gameKey);
+  document.getElementById('chanceResult').className='chance-result';
+  document.getElementById('chanceResult').textContent='Sonuç burada görünecek.';
+  updateChancePlayLabel();
+  document.getElementById('chanceModal').classList.add('open');
+}
+function closeChanceGame(){
+  if(chanceBusy)return;
+  document.getElementById('chanceModal').classList.remove('open');
+}
+function updateChancePlayLabel(){
+  const stake=Math.max(0,Math.floor(Number(document.getElementById('chanceStake').value)||0));
+  document.getElementById('chancePlay').textContent='OYNA • '+money(stake);
+}
+function prepareChanceStage(gameKey){
+  const game=chanceGames[gameKey],stage=document.getElementById('chanceStage');
+  stage.className='chance-stage';
+  if(game.type==='race'){
+    stage.innerHTML='<div class="race-track">'+game.choices.map(x=>'<div class="race-lane" data-race-key="'+x[0]+'"><span class="racer">'+game.racer+'</span><span class="race-label">'+x[1]+'</span></div>').join('')+'</div>';
+  }else if(game.type==='coin'){
+    stage.innerHTML='<div class="coin-stage"><div class="big-coin" id="chanceCoin">🪙</div></div>';
+  }else if(game.type==='wheel'){
+    stage.innerHTML='<div class="wheel-stage"><div class="wheel-pointer">▼</div><div class="wheel-face" id="chanceWheel">🏛️</div></div>';
+  }else if(game.type==='boxes'){
+    stage.innerHTML='<div class="boxes-stage">'+game.choices.map(x=>'<div class="memur-box" data-box-key="'+x[0]+'">📦<small>'+x[1]+'</small></div>').join('')+'</div>';
+  }else if(game.type==='royale'){
+    stage.innerHTML='<div class="royale-stage"><div class="royale-grid">'+game.choices.map(x=>'<div class="royale-ball" data-royale-key="'+x[0]+'">'+x[0].replace('R','')+'</div>').join('')+'</div></div>';
+  }
+}
+const chanceWait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function animateChanceResult(gameKey,result){
+  const game=chanceGames[gameKey],winner=result.result?.winner;
+  if(game.type==='race'){
+    const racers=[...document.querySelectorAll('.race-lane')];
+    racers.forEach((lane,i)=>{
+      const key=lane.dataset.raceKey;
+      const racer=lane.querySelector('.racer');
+      const pct=key===winner?100:(55+Math.floor(Math.random()*36));
+      racer.style.transform='translateX(calc((min(100vw, 690px) - 88px) * '+(pct/100)+'))';
+    });
+    await chanceWait(2200);
+  }else if(game.type==='coin'){
+    const coin=document.getElementById('chanceCoin');
+    coin.classList.add('spinning');
+    await chanceWait(1200);
+    coin.textContent=winner==='HEADS'?'🅰️':'🅱️';
+  }else if(game.type==='wheel'){
+    const wheel=document.getElementById('chanceWheel');
+    const segment=Number(result.result?.segment||1);
+    wheel.style.transform='rotate('+(1440+(8-segment)*45)+'deg)';
+    await chanceWait(1900);
+  }else if(game.type==='boxes'){
+    await chanceWait(550);
+    document.querySelectorAll('[data-box-key]').forEach(box=>{
+      if(box.dataset.boxKey===winner){box.classList.add('reveal');box.firstChild.textContent='🧑‍💼';}
+      else box.firstChild.textContent='☕';
+    });
+    await chanceWait(650);
+  }else if(game.type==='royale'){
+    const balls=[...document.querySelectorAll('[data-royale-key]')].filter(x=>x.dataset.royaleKey!==winner);
+    for(let i=0;i<balls.length;i+=3){
+      balls.slice(i,i+3).forEach(x=>x.classList.add('out'));
+      await chanceWait(120);
+    }
+    document.querySelector('[data-royale-key="'+winner+'"]')?.classList.add('winner');
+    await chanceWait(500);
+  }
+}
+async function playChanceGame(){
+  if(chanceBusy||!activeChanceGame)return;
+  if(!onlineMode||!onlineSession){
+    document.getElementById('authModal').classList.add('open');
+    toast('₳D ile oynamak için giriş yap kankam 😄');
+    return;
+  }
+  const stake=Math.floor(Number(document.getElementById('chanceStake').value)||0);
+  if(stake<10){toast('Minimum 10 ₳D.');return}
+  if(stake>state.balance){toast('AFMB: Bu kadar ₳D yok kankam.');return}
+  chanceBusy=true;
+  document.getElementById('chancePlay').disabled=true;
+  document.getElementById('chanceResult').className='chance-result';
+  document.getElementById('chanceResult').textContent='AFMB mühür basıyor…';
+  prepareChanceStage(activeChanceGame);
+  try{
+    const {data,error}=await supabaseClient.rpc('play_chance_game',{
+      p_game_key:activeChanceGame,
+      p_stake:stake,
+      p_choice:activeChanceChoice
+    });
+    if(error)throw error;
+    await animateChanceResult(activeChanceGame,data);
+    state.balance=Number(data.balance);
+    renderWallet();syncChanceWallet();
+    const payout=Number(data.payout),net=payout-stake;
+    const winner=chanceLabel(activeChanceGame,data.result?.winner);
+    const resultBox=document.getElementById('chanceResult');
+    resultBox.className='chance-result '+(net>0?'win':'loss');
+    if(net>0)resultBox.textContent='🏆 '+winner+' • Ödeme '+money(payout)+' • Net +'+money(net);
+    else if(payout>0)resultBox.textContent='📎 '+winner+' • '+money(payout)+' geri döndü • Net -'+money(Math.abs(net));
+    else resultBox.textContent='😭 '+winner+' • '+money(stake)+' AFMB kayıtlarına geçti.';
+    await refreshChanceHistory();
+  }catch(err){
+    document.getElementById('chanceResult').className='chance-result loss';
+    document.getElementById('chanceResult').textContent='Oyun reddedildi: '+(err.message||err);
+  }finally{
+    chanceBusy=false;
+    document.getElementById('chancePlay').disabled=false;
+    updateChancePlayLabel();
+  }
+}
+
+function renderAll(){renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderLeagueCenter();renderChanceHistory();renderRescue()}
 
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
@@ -2197,7 +2461,7 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-const pageNames={bulletin:'Bülten',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler'};
+const pageNames={bulletin:'Bülten',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',games:'Şans Oyunları'};
 function currentPageRoute(){
   const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
   return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
@@ -2235,11 +2499,17 @@ document.querySelectorAll('[data-league-pane]').forEach(function(btn){
     document.querySelectorAll('[data-league-content]').forEach(function(p){p.classList.toggle('active',p.dataset.leagueContent===leagueCenterTab)});
   });
 });
+
+document.querySelectorAll('[data-open-game]').forEach(btn=>btn.addEventListener('click',()=>openChanceGame(btn.dataset.openGame)));
+document.getElementById('chanceClose').addEventListener('click',closeChanceGame);
+document.getElementById('chanceModal').addEventListener('click',e=>{if(e.target.id==='chanceModal')closeChanceGame()});
+document.getElementById('chanceStake').addEventListener('input',updateChancePlayLabel);
+document.getElementById('chancePlay').addEventListener('click',playChanceGame);
 document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
 document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeClubModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeChanceGame();}});
 document.getElementById('authLogin').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
   updateAuthUi('Giriş yapılıyor…');
@@ -2257,7 +2527,7 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   if(onlineSession){await refreshOnlineAccount();updateAuthUi('Hesap açıldı. 10.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;state.coupons=[];updateAuthUi();renderWallet();renderCoupons();});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{onlineSession=session;try{if(onlineMode)await refreshOnlineAccount()}catch(e){console.error(e)}});
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
 document.getElementById('rescueStart').addEventListener('click',startRescue);
