@@ -486,7 +486,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.25 Player Universe</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.26 26/27 Rosters</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1500,7 +1500,7 @@ async function loadClubPlayers(clubId){
   if(!clubId||!onlineMode)return [];
   if(onlinePlayersByClub[clubId])return onlinePlayersByClub[clubId];
   const {data,error}=await supabaseClient.from('players')
-    .select('id,shirt_number,display_name,position,nationality,age,overall,potential,form,morale,fitness,injury_weeks,contract_until_season,wage,market_value,finishing,passing,dribbling,tackling,pace,strength,goalkeeping,is_parody')
+    .select('id,shirt_number,display_name,position,nationality,age,overall,potential,form,morale,fitness,injury_weeks,contract_until_season,wage,market_value,finishing,passing,dribbling,tackling,pace,strength,goalkeeping,is_parody,roster_season,is_roster_mirror')
     .eq('club_id',clubId)
     .order('position')
     .order('overall',{ascending:false});
@@ -1510,15 +1510,20 @@ async function loadClubPlayers(clubId){
 }
 function renderSquadPlayers(players){
   if(!players.length)return '<div class="squad-note">Oyuncu verisi yüklenemedi. Bağlantıyı yenileyip tekrar deneyebilirsin.</div>';
+  const mirrored=players.every(p=>p.is_roster_mirror);
+  const season=players[0]?.roster_season||'2026-27';
   const groups=[['GK','KALECİ'],['DEF','SAVUNMA'],['MID','ORTA SAHA'],['FWD','HÜCUM']];
+  const note=mirrored
+    ?season+' parodi kadro • Kulübün güncel sezon analoğunun kadro yapısı Project Afyon isimleriyle yeniden kurulmuştur.'
+    :'Yerel parodi kadro • Oyuncular kulübün ülkesine uygun isim havuzundan gelir; kadroda birkaç yabancı futbolcu bulunur.';
   return '<div class="player-roster">'+groups.map(([pos,label])=>{
     const rows=players.filter(p=>p.position===pos).sort((a,b)=>b.overall-a.overall||a.shirt_number-b.shirt_number);
     return '<div class="player-group"><div class="player-group-head"><span>'+label+'</span><span>'+rows.length+' oyuncu</span></div><div class="player-list">'+rows.map(p=>{
       const health=Number(p.injury_weeks)>0?' • 🤕 '+p.injury_weeks+' hf':'';
       const skill=pos==='GK'?'GK '+p.goalkeeping:pos==='DEF'?'TCK '+p.tackling:pos==='MID'?'PAS '+p.passing:'FIN '+p.finishing;
-      return '<div class="player-card" title="Form '+p.form+' • Moral '+p.morale+' • Fitness '+p.fitness+'"><span class="player-shirt">#'+p.shirt_number+'</span><span class="player-main"><strong>'+p.display_name+'</strong><small>'+p.age+' yaş • POT '+p.potential+' • '+skill+health+'</small></span><span class="player-ovr">'+p.overall+'</span></div>';
+      return '<div class="player-card" title="Form '+p.form+' • Moral '+p.morale+' • Fitness '+p.fitness+'"><span class="player-shirt">#'+p.shirt_number+'</span><span class="player-main"><strong>'+p.display_name+'</strong><small>'+p.age+' yaş • '+p.nationality+' • POT '+p.potential+' • '+skill+health+'</small></span><span class="player-ovr">'+p.overall+'</span></div>';
     }).join('')+'</div></div>';
-  }).join('')+'<div class="player-roster-note">Overall ve potansiyel global Afyon ölçeğindedir. Form, moral, fitness, kontrat, maaş ve teknik özellikler oyuncu kaydında tutuluyor; transfer ve yaşlanma sistemi bu veriler üzerinden ilerleyecek.</div></div>';
+  }).join('')+'<div class="player-roster-note">'+note+' Overall ve potansiyel global Afyon ölçeğindedir.</div></div>';
 }
 async function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
   const club=findClubByName(teamName,country,level);
@@ -1548,6 +1553,7 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
     </div>`;
   }).join('');
   const tierText=club.tier==='favorite'?'Şampiyonluk adayı':club.tier==='relegation'?'Alt sıra profili':'Orta sıra profili';
+  const rosterTag=squad.length&&squad.every(p=>p.is_roster_mirror)?'<span class="club-tag">2026/27 PARODİ KADRO</span>':'<span class="club-tag">YEREL PARODİ KADRO</span>';
   document.getElementById('clubModalContent').innerHTML=`
     <div class="club-hero">
       <button class="club-close" id="clubClose" aria-label="Kapat">×</button>
@@ -1556,7 +1562,7 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
         <div>
           <div class="club-eyebrow">${country} • ${leagueNames[level]}</div>
           <div class="club-name">${club.name}</div>
-          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span><span class="club-tag">Sezon ${state.season}</span></div>
+          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span>${rosterTag}<span class="club-tag">Sezon ${state.season}</span></div>
         </div>
         <div class="club-overall"><strong>${club.strength}</strong><small>GLOBAL GÜÇ</small></div>
       </div>
