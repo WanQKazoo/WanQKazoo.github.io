@@ -395,6 +395,38 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
   .market-toggle-row{grid-column:1/-1;grid-row:3}.extra-markets{grid-column:1/-1;grid-row:4}
   .bulletin-group-head{position:static}
 }
+
+/* 0.27b — compact sportsbook masthead */
+body[data-page="bulletin"] .hero{padding:14px 0 12px}
+body[data-page="bulletin"] .hero-grid{grid-template-columns:minmax(0,1fr) 330px;gap:10px}
+body[data-page="bulletin"] .hero-card{padding:16px 18px;border-radius:16px;min-height:0;background:linear-gradient(120deg,#15233a,#101a2b)}
+body[data-page="bulletin"] .hero-card:after{font-size:92px;right:18px;bottom:-28px}
+body[data-page="bulletin"] .kicker{font-size:9px;letter-spacing:1.15px}
+body[data-page="bulletin"] .hero h1{margin:6px 0 5px;font-size:28px;line-height:1.02;letter-spacing:-1.2px}
+body[data-page="bulletin"] .hero p{font-size:10px;line-height:1.45;max-width:720px}
+body[data-page="bulletin"] .stats{grid-template-columns:repeat(3,auto);justify-content:start;gap:7px;margin-top:11px}
+body[data-page="bulletin"] .stat{display:flex;align-items:baseline;gap:5px;padding:6px 9px;border-radius:8px}
+body[data-page="bulletin"] .stat strong{font-size:12px}
+body[data-page="bulletin"] .stat small{font-size:8px}
+body[data-page="bulletin"] .afmb{padding:14px 15px;border-radius:16px}
+body[data-page="bulletin"] .afmb-badge{padding:5px 7px;border-radius:7px;font-size:8px}
+body[data-page="bulletin"] .afmb h3{margin:9px 0 4px;font-size:12px}
+body[data-page="bulletin"] .afmb p{font-size:9px;line-height:1.4;margin:0 0 5px}
+body[data-page="bulletin"] .afmb small{font-size:8px}
+@media(max-width:1050px){
+  body[data-page="bulletin"] .hero-grid{grid-template-columns:1fr}
+  body[data-page="bulletin"] .afmb{display:none}
+}
+@media(max-width:720px){
+  body[data-page="bulletin"] .hero{padding:8px 0}
+  body[data-page="bulletin"] .hero-card{padding:12px 13px}
+  body[data-page="bulletin"] .hero h1{font-size:21px;letter-spacing:-.7px}
+  body[data-page="bulletin"] .hero p{display:none}
+  body[data-page="bulletin"] .stats{margin-top:7px;gap:4px;overflow:hidden}
+  body[data-page="bulletin"] .stat{padding:5px 6px;white-space:nowrap}
+  body[data-page="bulletin"] .stat strong{font-size:10px}
+  body[data-page="bulletin"] .stat small{font-size:7px}
+}
 </style>
 </head>
 <body>
@@ -433,7 +465,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
     <div class="layout">
       <div class="content">
         <section class="section-card" id="bulletinSection" data-page-section="bulletin">
-          <div class="section-title"><div><h2>⚽ En Yakındaki Maçlar</h2><p id="bulletinSub">Avrupa genelinde sıradaki karşılaşmalar</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
+          <div class="section-title"><div><h2>⚽ Maç Bülteni</h2><p id="bulletinSub">Avrupa genelinde sıradaki karşılaşmalar</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
           <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="Tümü">🌍 Tümü</button>
             <button class="country-tab" data-country="İngiltere">🏴 İngiltere</button>
