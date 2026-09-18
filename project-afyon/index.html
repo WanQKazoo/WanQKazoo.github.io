@@ -29,7 +29,7 @@ header{position:sticky;top:0;z-index:30;background:rgba(11,16,32,.94);backdrop-f
 .live-center{padding:15px 18px;background:linear-gradient(135deg,#161622,#101a2d);border-bottom:1px solid var(--line)}.live-center[hidden]{display:none}.live-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.live-main{display:flex;align-items:center;gap:10px;min-width:0}.live-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 8px;border-radius:9px;background:#401821;color:#ff8f9a;font-size:10px;font-weight:1000;letter-spacing:.8px}.live-clock{font-size:24px;font-weight:1000}.live-sub{color:var(--muted);font-size:11px;font-weight:800}.live-remaining{color:#b7c4db;font-size:12px;font-weight:900;white-space:nowrap}.live-progress{height:6px;margin:12px 0;background:#202b40;border-radius:999px;overflow:hidden}.live-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#63e6be,#ffd166);border-radius:999px;transition:width .6s linear}.live-feed{display:flex;gap:8px;overflow:auto;scrollbar-width:none}.live-feed::-webkit-scrollbar{display:none}.live-event{flex:0 0 auto;max-width:280px;padding:9px 11px;border:1px solid #2b3955;border-radius:11px;background:#111a2c;font-size:11px;color:#b8c5da}.live-event strong{color:#fff}.match-live{background:linear-gradient(90deg,rgba(255,94,108,.045),transparent)}.match-live .match-meta strong{color:#ff8f9a}.match-live .team-score{color:#ffd166}@keyframes livePulse{50%{opacity:.45;transform:scale(.82)}}
 .table-wrap{overflow:auto}.standings{width:100%;border-collapse:collapse;min-width:640px}.standings th,.standings td{padding:11px 12px;border-bottom:1px solid #1e2b43;text-align:center;font-size:12px}.standings th{color:#7f90ae;background:#0d1525;font-size:10px;letter-spacing:.7px;text-transform:uppercase}.standings th:nth-child(2),.standings td:nth-child(2){text-align:left}.standings td:nth-child(1){color:#8fa0be;font-weight:900}.standings td:nth-child(2){font-weight:900}.standings tr.top td:first-child,.standings tr.top td:last-child{color:var(--accent)}.standings-empty{padding:28px;text-align:center;color:var(--muted)}
 .coupon-list{padding:14px}.coupon{display:block;padding:0 14px;border:1px solid var(--line);border-radius:15px;background:#131e33;margin-bottom:9px}.coupon:last-child{margin-bottom:0}.coupon summary{list-style:none;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:14px 0;cursor:pointer}.coupon summary::-webkit-details-marker{display:none}.coupon strong{display:block}.coupon small{color:var(--muted)}.coupon .status{align-self:center;color:var(--accent2);font-weight:950;font-size:12px}.coupon .status.won{color:var(--accent)}.coupon .status.lost{color:var(--danger)}.coupon .status.legacy{color:#7f90ae}.coupon-legs{border-top:1px solid var(--line);padding:10px 0 13px;display:grid;gap:7px}.coupon-leg{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px 10px;border-radius:11px;background:#0e1728}.leg-icon{font-weight:1000;text-align:center}.leg-icon.won{color:var(--accent)}.leg-icon.lost{color:var(--danger)}.leg-icon.pending{color:var(--accent2)}.leg-main strong{font-size:12px}.leg-main small{display:block;margin-top:2px;font-size:10px}.leg-odd{font-size:12px;color:var(--accent2);font-weight:950}.coupon-hint{padding:0 0 12px;color:#71819e;font-size:10px}
-.rescue-card{display:none;border:1px solid #5a4920;border-radius:22px;background:linear-gradient(145deg,#241f11,#121827);overflow:hidden;margin-bottom:18px}.rescue-card.show{display:block}.rescue-head{padding:18px 20px;border-bottom:1px solid #4a3d20}.rescue-head .tag{display:inline-flex;padding:6px 8px;border-radius:9px;background:#493b13;color:#ffe29a;font-size:10px;font-weight:1000;letter-spacing:.8px}.rescue-head h2{margin:10px 0 5px;font-size:20px}.rescue-head p{margin:0;color:#b9af91;font-size:12px;line-height:1.55}.rescue-body{padding:16px 20px}.rescue-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}.rescue-stat{padding:11px 12px;border:1px solid #3e3929;border-radius:12px;background:#16170f}.rescue-stat small{display:block;color:#9a927a;font-size:10px}.rescue-stat strong{font-size:19px;color:#ffe29a}.rescue-actions{display:grid;grid-template-columns:1fr 1.5fr;gap:9px}.rescue-start,.stamp-btn{border:0;border-radius:13px;padding:13px 12px;font-weight:1000}.rescue-start{background:#28334a;color:#e7eefc}.stamp-btn{background:var(--accent2);color:#2b2000;min-height:52px}.stamp-btn:disabled,.rescue-start:disabled{opacity:.38;cursor:not-allowed}.rescue-msg{margin-top:10px;color:#a9b6cc;font-size:11px;line-height:1.45}.stamp-btn.active{transform:translateY(1px)}
+.afmb-float{display:none;position:fixed;right:18px;bottom:18px;z-index:90;align-items:flex-end;flex-direction:column;gap:10px}.afmb-float.show{display:flex}.afmb-popup{display:none;width:min(370px,calc(100vw - 28px));border:1px solid #5a4920;border-radius:20px;background:linear-gradient(145deg,#241f11,#121827);box-shadow:0 22px 70px rgba(0,0,0,.5);overflow:hidden;position:relative}.afmb-popup.open{display:block;animation:afmbPop .18s ease-out}.afmb-close{position:absolute;right:10px;top:10px;width:34px;height:34px;border:1px solid #574a2a;border-radius:10px;background:#17170f;color:#c9bea0;font-size:20px;font-weight:900;z-index:2}.afmb-launcher{position:relative;display:flex;align-items:center;gap:10px;border:1px solid #665426;border-radius:18px;padding:10px 14px 10px 11px;background:linear-gradient(145deg,#3a3015,#201c10);color:#fff1bd;box-shadow:0 14px 38px rgba(0,0,0,.42);font-weight:900}.afmb-launcher .bank-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#5a4818;font-size:19px}.afmb-launcher .launcher-copy{display:grid;text-align:left;line-height:1.15}.afmb-launcher .launcher-copy strong{font-size:12px;letter-spacing:.5px}.afmb-launcher .launcher-copy small{font-size:10px;color:#c8b87b;margin-top:3px}.afmb-launcher .launcher-badge{position:absolute;right:-5px;top:-6px;width:22px;height:22px;border-radius:999px;display:grid;place-items:center;background:#ff6b6b;color:#fff;font-size:12px;border:3px solid #0b1020}.afmb-launcher.alert{animation:afmbPulse 1.5s infinite}.rescue-head{padding:18px 20px;border-bottom:1px solid #4a3d20;padding-right:54px}.rescue-head .tag{display:inline-flex;padding:6px 8px;border-radius:9px;background:#493b13;color:#ffe29a;font-size:10px;font-weight:1000;letter-spacing:.8px}.rescue-head h2{margin:10px 0 5px;font-size:20px}.rescue-head p{margin:0;color:#b9af91;font-size:12px;line-height:1.55}.rescue-body{padding:16px 20px}.rescue-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}.rescue-stat{padding:11px 12px;border:1px solid #3e3929;border-radius:12px;background:#16170f}.rescue-stat small{display:block;color:#9a927a;font-size:10px}.rescue-stat strong{font-size:19px;color:#ffe29a}.rescue-actions{display:grid;grid-template-columns:1fr 1.5fr;gap:9px}.rescue-start,.stamp-btn{border:0;border-radius:13px;padding:13px 12px;font-weight:1000}.rescue-start{background:#28334a;color:#e7eefc}.stamp-btn{background:var(--accent2);color:#2b2000;min-height:52px}.stamp-btn:disabled,.rescue-start:disabled{opacity:.38;cursor:not-allowed}.rescue-msg{margin-top:10px;color:#a9b6cc;font-size:11px;line-height:1.45}.stamp-btn.active{transform:translateY(1px)}@keyframes afmbPulse{50%{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.55),0 0 0 6px rgba(255,209,102,.08)}}@keyframes afmbPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);background:#eefbf6;color:#0c3d31;padding:13px 16px;border-radius:13px;font-weight:900;box-shadow:0 16px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;z-index:70}.toast.show{opacity:1;transform:translate(-50%,0)}
 footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-size:12px;line-height:1.6}
 @media(max-width:1050px){.hero-grid,.layout{grid-template-columns:1fr}.slip{position:static}.sidebar{order:-1}.hero-grid{gap:12px}.main-nav{display:none}}
@@ -48,7 +48,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .market-title{font-size:9px;letter-spacing:.8px;flex-wrap:wrap}
 .market-scroll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;overflow:visible;padding-bottom:0;scrollbar-width:none}
 .market-scroll .odd-btn{width:100%;min-width:0;padding:9px 6px}
-.sim-bar{padding:11px 14px;align-items:flex-start}.simulate-btn{padding:9px 11px;font-size:12px;white-space:nowrap}.live-center{padding:13px 14px}.live-top{align-items:flex-start}.live-main{gap:7px}.live-clock{font-size:21px}.live-sub{display:none}.live-remaining{font-size:10px}.live-event{max-width:230px}.team-score{font-size:17px}.coupon{padding:0 11px}.coupon summary{padding:12px 0}.coupon-leg{grid-template-columns:20px minmax(0,1fr) auto;padding:8px}.rescue-head,.rescue-body{padding-left:14px;padding-right:14px}.rescue-actions{grid-template-columns:1fr}.stamp-btn{min-height:58px}
+.sim-bar{padding:11px 14px;align-items:flex-start}.simulate-btn{padding:9px 11px;font-size:12px;white-space:nowrap}.live-center{padding:13px 14px}.live-top{align-items:flex-start}.live-main{gap:7px}.live-clock{font-size:21px}.live-sub{display:none}.live-remaining{font-size:10px}.live-event{max-width:230px}.team-score{font-size:17px}.coupon{padding:0 11px}.coupon summary{padding:12px 0}.coupon-leg{grid-template-columns:20px minmax(0,1fr) auto;padding:8px}.afmb-float{right:12px;bottom:12px}.afmb-popup{width:min(360px,calc(100vw - 24px))}.afmb-launcher{padding:9px 11px}.afmb-launcher .launcher-copy{display:none}.rescue-head,.rescue-body{padding-left:14px;padding-right:14px}.rescue-head{padding-right:52px}.rescue-actions{grid-template-columns:1fr}.stamp-btn{min-height:58px}
 }
 </style>
 </head>
@@ -134,25 +134,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
           <div class="section-title"><div><h2>🎟 Kuponlarım</h2><p>Bekleyen, kazanan ve kaybeden sanal kuponlar</p></div></div>
           <div class="coupon-list" id="couponList"></div>
         </section>
-
-        <section class="rescue-card" id="rescueCard">
-          <div class="rescue-head">
-            <span class="tag">🏛 AFMB • ACİL İSTİHDAM</span>
-            <h2>Ekonomi çöktü. İşe gidiyorsun.</h2>
-            <p>Bakiye 0 ₳D ve bekleyen kuponun yok. 10 saniyede 20 kamu evrakı damgala; AFMB sana 1.000 ₳D sanal mesai ücreti ödesin.</p>
-          </div>
-          <div class="rescue-body">
-            <div class="rescue-stats">
-              <div class="rescue-stat"><small>SÜRE</small><strong id="rescueTime">10.0 sn</strong></div>
-              <div class="rescue-stat"><small>DAMGA</small><strong id="rescueCount">0 / 20</strong></div>
-            </div>
-            <div class="rescue-actions">
-              <button class="rescue-start" id="rescueStart">Mesaiye Başla</button>
-              <button class="stamp-btn" id="stampBtn" disabled>📑 EVRAK DAMGALA</button>
-            </div>
-            <div class="rescue-msg" id="rescueMsg">AFMB Notu: “Bütçe açığını vatandaşın bilek gücüyle kapatıyoruz.”</div>
-          </div>
-        </section>
       </div>
 
       <aside class="sidebar">
@@ -175,7 +156,34 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.6</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.6.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+</div>
+
+<div class="afmb-float" id="rescueFloat">
+  <div class="afmb-popup" id="rescuePopup">
+    <button class="afmb-close" id="rescueClose" aria-label="Kapat">×</button>
+    <div class="rescue-head">
+      <span class="tag">🏛 AFMB • ACİL İSTİHDAM</span>
+      <h2>Ekonomi çöktü. İşe gidiyorsun.</h2>
+      <p>Bakiye 0 ₳D ve bekleyen kuponun yok. 10 saniyede 20 kamu evrakı damgala; AFMB sana 1.000 ₳D sanal mesai ücreti ödesin.</p>
+    </div>
+    <div class="rescue-body">
+      <div class="rescue-stats">
+        <div class="rescue-stat"><small>SÜRE</small><strong id="rescueTime">10.0 sn</strong></div>
+        <div class="rescue-stat"><small>DAMGA</small><strong id="rescueCount">0 / 20</strong></div>
+      </div>
+      <div class="rescue-actions">
+        <button class="rescue-start" id="rescueStart">Mesaiye Başla</button>
+        <button class="stamp-btn" id="stampBtn" disabled>📑 EVRAK DAMGALA</button>
+      </div>
+      <div class="rescue-msg" id="rescueMsg">AFMB Notu: “Bütçe açığını vatandaşın bilek gücüyle kapatıyoruz.”</div>
+    </div>
+  </div>
+  <button class="afmb-launcher alert" id="rescueLauncher" aria-expanded="false">
+    <span class="bank-icon">🏛</span>
+    <span class="launcher-copy"><strong>AFMB ACİL DESTEK</strong><small>1.000 ₳D kazan</small></span>
+    <span class="launcher-badge">!</span>
+  </button>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -214,7 +222,7 @@ const levelOneOverrides={
   İtalya:['Torino Wolves','Milano Nero','Roma Aurelia','Napoli Vespa','Firenze Arno','Bologna Rosso','Genova Harbor','Verona Arena'],
   Fransa:['Paris Étoile','Lyon Rhône','Marseille Bleu','Lille North','Bordeaux Vigne','Nantes Atlantique','Nice Riviera','Toulouse Violet']
 };
-let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0;
+let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false;
 let state={engineVersion:5,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
 
 try{
@@ -572,18 +580,33 @@ function rescueEligible(){
 function stopRescueTimer(){
   if(rescueTimer){clearInterval(rescueTimer);rescueTimer=null}
 }
+function setRescuePopup(open){
+  rescuePopupOpen=!!open;
+  const popup=document.getElementById('rescuePopup');
+  const launcher=document.getElementById('rescueLauncher');
+  if(popup)popup.classList.toggle('open',rescuePopupOpen);
+  if(launcher)launcher.setAttribute('aria-expanded',String(rescuePopupOpen));
+}
 function renderRescue(){
-  const card=document.getElementById('rescueCard');
+  const wrap=document.getElementById('rescueFloat');
   const start=document.getElementById('rescueStart');
   const stamp=document.getElementById('stampBtn');
-  if(!card)return;
+  if(!wrap)return;
   const eligible=rescueEligible();
-  card.classList.toggle('show',eligible);
+  wrap.classList.toggle('show',eligible);
   if(!eligible){
     stopRescueTimer();
     rescueClicks=0;rescueEndsAt=0;
+    rescuePopupOpen=false;
+    rescueAutoOpened=false;
+    setRescuePopup(false);
     return;
   }
+  if(!rescueAutoOpened){
+    rescueAutoOpened=true;
+    rescuePopupOpen=true;
+  }
+  setRescuePopup(rescuePopupOpen);
   if(!rescueEndsAt){
     document.getElementById('rescueTime').textContent='10.0 sn';
     document.getElementById('rescueCount').textContent='0 / 20';
@@ -702,6 +725,8 @@ function startLiveTimer(){
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
 document.getElementById('rescueStart').addEventListener('click',startRescue);
 document.getElementById('stampBtn').addEventListener('click',stampPaper);
+document.getElementById('rescueLauncher').addEventListener('click',()=>setRescuePopup(!rescuePopupOpen));
+document.getElementById('rescueClose').addEventListener('click',()=>setRescuePopup(false));
 document.getElementById('placeCoupon').addEventListener('click',()=>{
   const stake=Math.floor(Number(document.getElementById('stakeInput').value)||0);
   if(!picks.length)return;
