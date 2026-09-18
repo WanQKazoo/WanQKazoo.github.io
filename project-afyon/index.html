@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.10.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.10.2</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -273,6 +273,29 @@ const countryClubWords={
   Avusturya:['SV','FC','SC','Union','Kickers','Sportklub','1919','Blau-Weiss']
 };
 
+const topTierStrengthOverrides={
+  Türkiye:{
+    'Galata Aslanları':91,
+    'Kadıköy Feneri':90,
+    'Boğaziçi Kartalları':85,
+    'Karadeniz Fırtınası':84,
+    'Başakşehir Birlik':81,
+    'İzmir Körfez':80,
+    'Samsun Kızıl Liman':80,
+    'Eyüp Haliç':78,
+    'Kocaeli Körfez':78,
+    'Gaziantep Fıstıkspor':77,
+    'Konya Bozkır':76,
+    'Rize Çay Birliği':76,
+    'Alanya Sahil':75,
+    'Ankara Gençlik':74,
+    'Kasımpaşa Tersane':74,
+    'Diyarbakır Surlar':72,
+    'Erzurum Ayaz':71,
+    'Çorum Leblebi':70
+  }
+};
+
 const countryAreaTags={
   İngiltere:['North','Vale','Park','Heath','Bridge','Meadow'],
   Türkiye:['Ova','Kale','Vadi','Sahil','Yıldız','Hisar'],
@@ -369,7 +392,8 @@ function getTeams(country,level){
 
   return names.map((name,i)=>{
     const offset=profile[(i*5+rotation)%profile.length];
-    const target=clamp(base+offset,45,92);
+    const override=level===1?topTierStrengthOverrides[country]?.[name]:undefined;
+    const target=Number.isFinite(override)?override:clamp(base+offset,45,92);
     const style=styleProfiles[stableHash(country+'|'+level+'|'+name+'|style')%styleProfiles.length];
 
     // Küçük deterministik sapma: aynı stile sahip kulüpler birebir kopya olmasın.
