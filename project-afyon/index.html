@@ -1693,11 +1693,15 @@ function renderCoupons(){
         const serverFinal=serverMatch&&serverMatch.status==='finished'&&serverMatch.home_goals!=null&&serverMatch.away_goals!=null
           ?{homeGoals:Number(serverMatch.home_goals),awayGoals:Number(serverMatch.away_goals)}
           :null;
-        const final=state.results[s.id]||serverFinal;
+        const final=s.final||state.results[s.id]||serverFinal;
         const live=liveSnapshot(s.id);
         const legState=final?(isPickWinner(s.label,final)?'won':'lost'):'pending';
         const icon=legState==='won'?'✓':legState==='lost'?'×':'•';
-        const score=final?`${final.homeGoals}-${final.awayGoals}`:live?`CANLI ${live.minute}' • ${live.homeGoals}-${live.awayGoals}`:'Bekliyor';
+        const score=final
+          ?`MS • ${final.homeGoals}-${final.awayGoals}`
+          :live
+            ?`CANLI ${live.minute}' • ${live.homeGoals}-${live.awayGoals}`
+            :(s.matchStatus==='finished'?'MS':'Bekliyor');
         return `<div class="coupon-leg"><div class="leg-icon ${legState}">${icon}</div><div class="leg-main"><strong>${s.match}</strong><small>${s.market} • ${s.label} • ${score}</small></div><div class="leg-odd">${Number(s.odd).toFixed(2)}</div></div>`;
       }).join('')+'</div>';
     }
@@ -2060,7 +2064,17 @@ async function refreshOnlineAccount(){
       const m=onlineMatchMap[s.match_id];
       const home=m?onlineClubsById[m.home_club_id]?.name:'';
       const away=m?onlineClubsById[m.away_club_id]?.name:'';
-      return {id:s.match_id,match:home&&away?home+' - '+away:s.match_id,market:s.market_key,label:prettyMarket(s.market_key,s.selection_key),odd:Number(s.odd)};
+      return {
+        id:s.match_id,
+        match:home&&away?home+' - '+away:s.match_id,
+        market:s.market_key,
+        label:prettyMarket(s.market_key,s.selection_key),
+        odd:Number(s.odd),
+        matchStatus:m?.status||'scheduled',
+        final:m&&m.status==='finished'&&m.home_goals!=null&&m.away_goals!=null
+          ?{homeGoals:Number(m.home_goals),awayGoals:Number(m.away_goals)}
+          :null
+      };
     });
     return {id:coupon.id,picks:legs.length,stake:Number(coupon.stake),odds:Number(coupon.total_odds).toFixed(2),return:Number(coupon.possible_return),status:coupon.status,payout:Number(coupon.payout||0),season:coupon.season,week:coupon.week,created:coupon.created_at,selections:legs};
   });
