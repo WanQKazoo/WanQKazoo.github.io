@@ -27,7 +27,7 @@ header{position:sticky;top:0;z-index:30;background:rgba(11,16,32,.94);backdrop-f
 .match{display:grid;grid-template-columns:120px minmax(220px,1fr) repeat(3,88px);gap:10px;align-items:center;padding:15px 18px;border-top:1px solid #1e2b43}.match:first-child{border-top:0}.match-meta small{display:block;color:var(--muted);font-size:11px}.match-meta strong{font-size:12px}.teams{display:grid;gap:5px}.team{display:flex;align-items:center;gap:8px;font-weight:850}.dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}.form{margin-left:auto;font-size:10px;color:#8fa0be;letter-spacing:1px}.odd-btn{border:1px solid #2b3a58;background:#17243b;color:#fff;border-radius:12px;padding:11px 8px;font-weight:900;min-width:74px}.odd-btn:hover,.odd-btn.selected{background:#244d46;border-color:var(--accent);color:#a8ffe3}.odd-btn small{display:block;font-size:9px;color:#7f90ae;margin-bottom:3px}.odd-btn.selected small{color:#b8eadb}.extra-markets{grid-column:1/-1;margin-top:4px;padding-top:11px;border-top:1px dashed #26344f}.market-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#7f90ae;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:1px}.market-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:thin}.market-scroll .odd-btn{flex:0 0 auto;padding:9px 11px;background:#111b2f}.market-scroll .odd-btn:hover,.market-scroll .odd-btn.selected{background:#244d46}.odd-btn:disabled{opacity:.42;cursor:not-allowed}.team-score{margin-left:auto;min-width:24px;text-align:center;font-size:18px;font-weight:1000;color:#fff}.match-finished .teams{color:#dfe9fb}.match-finished .match-meta strong{color:var(--accent)}
 .sim-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:#0b1322;border-bottom:1px solid var(--line)}.sim-info{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:12px;font-weight:800}.sim-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}.simulate-btn{border:0;border-radius:12px;padding:10px 14px;background:var(--accent2);color:#291e00;font-weight:950}.simulate-btn:disabled{background:#233149;color:#74839e;cursor:not-allowed}
 .table-wrap{overflow:auto}.standings{width:100%;border-collapse:collapse;min-width:640px}.standings th,.standings td{padding:11px 12px;border-bottom:1px solid #1e2b43;text-align:center;font-size:12px}.standings th{color:#7f90ae;background:#0d1525;font-size:10px;letter-spacing:.7px;text-transform:uppercase}.standings th:nth-child(2),.standings td:nth-child(2){text-align:left}.standings td:nth-child(1){color:#8fa0be;font-weight:900}.standings td:nth-child(2){font-weight:900}.standings tr.top td:first-child,.standings tr.top td:last-child{color:var(--accent)}.standings-empty{padding:28px;text-align:center;color:var(--muted)}
-.coupon-list{padding:14px}.coupon{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px;border:1px solid var(--line);border-radius:15px;background:#131e33;margin-bottom:9px}.coupon:last-child{margin-bottom:0}.coupon strong{display:block}.coupon small{color:var(--muted)}.coupon .status{align-self:center;color:var(--accent2);font-weight:950;font-size:12px}.coupon .status.won{color:var(--accent)}.coupon .status.lost{color:var(--danger)}.coupon .status.legacy{color:#7f90ae}
+.coupon-list{padding:14px}.coupon{display:block;padding:0 14px;border:1px solid var(--line);border-radius:15px;background:#131e33;margin-bottom:9px}.coupon:last-child{margin-bottom:0}.coupon summary{list-style:none;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:14px 0;cursor:pointer}.coupon summary::-webkit-details-marker{display:none}.coupon strong{display:block}.coupon small{color:var(--muted)}.coupon .status{align-self:center;color:var(--accent2);font-weight:950;font-size:12px}.coupon .status.won{color:var(--accent)}.coupon .status.lost{color:var(--danger)}.coupon .status.legacy{color:#7f90ae}.coupon-legs{border-top:1px solid var(--line);padding:10px 0 13px;display:grid;gap:7px}.coupon-leg{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px 10px;border-radius:11px;background:#0e1728}.leg-icon{font-weight:1000;text-align:center}.leg-icon.won{color:var(--accent)}.leg-icon.lost{color:var(--danger)}.leg-icon.pending{color:var(--accent2)}.leg-main strong{font-size:12px}.leg-main small{display:block;margin-top:2px;font-size:10px}.leg-odd{font-size:12px;color:var(--accent2);font-weight:950}.coupon-hint{padding:0 0 12px;color:#71819e;font-size:10px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);background:#eefbf6;color:#0c3d31;padding:13px 16px;border-radius:13px;font-weight:900;box-shadow:0 16px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;z-index:70}.toast.show{opacity:1;transform:translate(-50%,0)}
 footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-size:12px;line-height:1.6}
 @media(max-width:1050px){.hero-grid,.layout{grid-template-columns:1fr}.slip{position:static}.sidebar{order:-1}.hero-grid{gap:12px}.main-nav{display:none}}
@@ -46,7 +46,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .market-title{font-size:9px;letter-spacing:.8px;flex-wrap:wrap}
 .market-scroll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;overflow:visible;padding-bottom:0;scrollbar-width:none}
 .market-scroll .odd-btn{width:100%;min-width:0;padding:9px 6px}
-.sim-bar{padding:11px 14px}.simulate-btn{padding:9px 11px;font-size:12px}.team-score{font-size:17px}
+.sim-bar{padding:11px 14px}.simulate-btn{padding:9px 11px;font-size:12px}.team-score{font-size:17px}.coupon{padding:0 11px}.coupon summary{padding:12px 0}.coupon-leg{grid-template-columns:20px minmax(0,1fr) auto;padding:8px}
 }
 </style>
 </head>
@@ -65,11 +65,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-card">
-          <div class="kicker">SEZON 1 • HAFTA 7</div>
+          <div class="kicker" id="seasonKicker">SEZON 1 • HAFTA 1 / 14</div>
           <h1>Avrupa futbolu.<br><span>Tamamı uydurma.</span></h1>
           <p>12 ülke, ülke başına 5 lig, yüzlerce hayali kulüp ve kendi kendine yaşayan bir futbol dünyası. Sen sadece istatistiğe bak, tahminini yap ve Afyon Dinarı'nı korumaya çalış.</p>
           <div class="stats">
-            <div class="stat"><strong>1.084</strong><small>Hayali kulüp</small></div>
+            <div class="stat"><strong>480</strong><small>Hayali kulüp</small></div>
             <div class="stat"><strong>5</strong><small>Lig seviyesi / ülke</small></div>
             <div class="stat"><strong>100%</strong><small>Gerçek paradan bağımsız</small></div>
           </div>
@@ -86,7 +86,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     <div class="layout">
       <div class="content">
         <section class="section-card">
-          <div class="section-title"><div><h2>⚽ Günün Bülteni</h2><p id="bulletinSub">İngiltere • Crown League • 7. Hafta</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
+          <div class="section-title"><div><h2>⚽ Günün Bülteni</h2><p id="bulletinSub">İngiltere • Crown League • 1. Hafta</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
           <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="İngiltere">🏴 İngiltere</button>
             <button class="country-tab" data-country="Türkiye">🇹🇷 Türkiye</button>
@@ -94,6 +94,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
             <button class="country-tab" data-country="Almanya">🇩🇪 Almanya</button>
             <button class="country-tab" data-country="İtalya">🇮🇹 İtalya</button>
             <button class="country-tab" data-country="Fransa">🇫🇷 Fransa</button>
+            <button class="country-tab" data-country="Hollanda">🇳🇱 Hollanda</button>
+            <button class="country-tab" data-country="Portekiz">🇵🇹 Portekiz</button>
+            <button class="country-tab" data-country="Belçika">🇧🇪 Belçika</button>
+            <button class="country-tab" data-country="İskoçya">🏴 İskoçya</button>
+            <button class="country-tab" data-country="Yunanistan">🇬🇷 Yunanistan</button>
+            <button class="country-tab" data-country="Avusturya">🇦🇹 Avusturya</button>
           </div>
           <div class="league-tabs" id="leagueTabs">
             <button class="league-tab active" data-level="1">1. Lig</button>
@@ -103,8 +109,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
             <button class="league-tab" data-level="5">5. Lig</button>
           </div>
           <div class="sim-bar">
-            <div class="sim-info"><span class="sim-dot"></span><span id="simInfo">7. Hafta • 4 maç oynanmayı bekliyor</span></div>
-            <button class="simulate-btn" id="simulateLeague">🎲 Bu Ligi Oynat</button>
+            <div class="sim-info"><span class="sim-dot"></span><span id="simInfo">1. Hafta • Avrupa genelinde maçlar bekliyor</span></div>
+            <button class="simulate-btn" id="simulateLeague">🎲 Haftayı Oynat</button>
           </div>
           <div id="matches"></div>
         </section>
@@ -140,78 +146,152 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.3</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.4</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
+
 const STORAGE_KEY='projectAfyonPrototypeV1';
-const worlds={
-  İngiltere:[
-    ['Northbridge Athletic','Birmingham Ravens',1.82,3.30,4.15],
-    ['East London Pigeons','Manchester Forge',2.10,3.05,3.40],
-    ['Bristol Crown','Yorkshire Miners',1.61,3.75,5.20],
-    ['Rivergate FC','Westham Borough',2.52,3.20,2.60]
-  ],
-  Türkiye:[
-    ['Adana Toros','Ankara Vadi',1.74,3.42,4.45],
-    ['İzmir Körfez','Bursa Çınar',2.06,3.18,3.48],
-    ['Konya Ovası SK','Mersin Liman',1.95,3.10,3.85],
-    ['Trabzon Fırtına','Eskişehir Ray',1.67,3.60,4.95]
-  ],
-  İspanya:[
-    ['Madrid Sol','Valencia Naranja',1.58,3.88,5.35],
-    ['Bilbao Forge','Sevilla Palms',2.31,3.08,2.98],
-    ['Catalunya Azul','Granada Hills',1.72,3.54,4.62],
-    ['Costa Verde','Zaragoza Lions',2.44,3.02,2.83]
-  ],
-  Almanya:[
-    ['Berlin Adler','Rhein Stahl',1.92,3.42,3.62],
-    ['Munich Werk','Hamburg Dockers',1.55,4.05,5.40],
-    ['Dortmund Coal','Leipzig Pulse',2.18,3.35,3.02],
-    ['Bremen North','Frankfurt Towers',2.61,3.12,2.58]
-  ],
-  İtalya:[
-    ['Torino Wolves','Milano Nero',2.22,3.05,3.15],
-    ['Roma Aurelia','Napoli Vespa',1.88,3.36,3.86],
-    ['Firenze Arno','Bologna Rosso',2.02,3.17,3.60],
-    ['Genova Harbor','Verona Arena',2.48,3.00,2.78]
-  ],
-  Fransa:[
-    ['Paris Étoile','Lyon Rhône',1.69,3.58,4.70],
-    ['Marseille Bleu','Lille North',2.08,3.21,3.42],
-    ['Bordeaux Vigne','Nantes Atlantique',2.36,3.08,2.91],
-    ['Nice Riviera','Toulouse Violet',1.97,3.29,3.66]
-  ]
-};
+const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
-let selectedCountry='İngiltere', selectedLevel=1, picks=[];
-let state={balance:10000,coupons:[],results:{}};
+const countryRoots={
+  İngiltere:['Northbridge','Birmingham','East London','Manchester','Bristol','Yorkshire','Rivergate','Westham'],
+  Türkiye:['Adana','Ankara','İzmir','Bursa','Konya','Mersin','Trabzon','Eskişehir'],
+  İspanya:['Madrid','Valencia','Bilbao','Sevilla','Catalunya','Granada','Costa Verde','Zaragoza'],
+  Almanya:['Berlin','Rhein','Munich','Hamburg','Dortmund','Leipzig','Bremen','Frankfurt'],
+  İtalya:['Torino','Milano','Roma','Napoli','Firenze','Bologna','Genova','Verona'],
+  Fransa:['Paris','Lyon','Marseille','Lille','Bordeaux','Nantes','Nice','Toulouse'],
+  Hollanda:['Amsterdam','Rotterdam','Utrecht','Eindhoven','Groningen','Leiden','Arnhem','Breda'],
+  Portekiz:['Lisboa','Porto','Braga','Coimbra','Faro','Setúbal','Aveiro','Guimarães'],
+  Belçika:['Brussels','Antwerp','Ghent','Bruges','Liège','Leuven','Namur','Mechelen'],
+  İskoçya:['Edinburgh','Glasgow','Aberdeen','Dundee','Highland','Falkirk','Perth','Stirling'],
+  Yunanistan:['Athens','Piraeus','Thessaloniki','Patras','Larissa','Volos','Crete','Rhodes'],
+  Avusturya:['Vienna','Salzburg','Graz','Linz','Tirol','Klagenfurt','Innsbruck','Wels']
+};
+const levelSuffixes={
+  1:['Athletic','Ravens','United','Forge','Crown','Miners','FC','Borough'],
+  2:['City','Wanderers','Rovers','Sporting','Town','Olympic','Union','Vale'],
+  3:['Academy','Harbor','Rail','Lions','North','Dynamo','Stars','County'],
+  4:['Reserves','Workers','Eagles','Racing','Heights','Meadow','Phoenix','Bridge'],
+  5:['Sunday','Amateurs','Old Boys','Village','Locals','XI','Friends','Garage']
+};
+const levelOneOverrides={
+  İngiltere:['Northbridge Athletic','Birmingham Ravens','East London Pigeons','Manchester Forge','Bristol Crown','Yorkshire Miners','Rivergate FC','Westham Borough'],
+  Türkiye:['Adana Toros','Ankara Vadi','İzmir Körfez','Bursa Çınar','Konya Ovası SK','Mersin Liman','Trabzon Fırtına','Eskişehir Ray'],
+  İspanya:['Madrid Sol','Valencia Naranja','Bilbao Forge','Sevilla Palms','Catalunya Azul','Granada Hills','Costa Verde','Zaragoza Lions'],
+  Almanya:['Berlin Adler','Rhein Stahl','Munich Werk','Hamburg Dockers','Dortmund Coal','Leipzig Pulse','Bremen North','Frankfurt Towers'],
+  İtalya:['Torino Wolves','Milano Nero','Roma Aurelia','Napoli Vespa','Firenze Arno','Bologna Rosso','Genova Harbor','Verona Arena'],
+  Fransa:['Paris Étoile','Lyon Rhône','Marseille Bleu','Lille North','Bordeaux Vigne','Nantes Atlantique','Nice Riviera','Toulouse Violet']
+};
+let selectedCountry='İngiltere',selectedLevel=1,picks=[];
+let state={engineVersion:4,balance:10000,coupons:[],results:{},season:1,week:1};
+
 try{
   const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
-  if(saved)state={...state,...saved,results:saved.results||{}};
+  if(saved){
+    if(saved.engineVersion===4){
+      state={...state,...saved,results:saved.results||{},coupons:saved.coupons||[]};
+    }else{
+      state.balance=Number.isFinite(saved.balance)?saved.balance:10000;
+      state.coupons=(saved.coupons||[]).map(c=>{
+        if(c.status==='won'||c.status==='lost'||c.status==='legacy')return c;
+        return {...c,status:'legacy'};
+      });
+    }
+  }
 }catch(e){}
+
 const money=n=>new Intl.NumberFormat('tr-TR').format(Math.round(n))+' ₳D';
-const fixtureId=(country,level,i)=>`${country}-${level}-${i}`;
-const leagueResultIds=()=>worlds[selectedCountry].map((_,i)=>fixtureId(selectedCountry,selectedLevel,i));
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function renderWallet(){document.getElementById('walletValue').textContent=money(state.balance)}
+
+function getTeams(country,level){
+  const roots=countryRoots[country];
+  const names=level===1&&levelOneOverrides[country]
+    ?levelOneOverrides[country]
+    :roots.map((root,i)=>`${root} ${levelSuffixes[level][i]}`);
+  const base=88-(level-1)*8;
+  return names.map((name,i)=>({
+    name,
+    strength:clamp(base+((i*7+level*3)%13)-6,45,92),
+    seed:i
+  }));
+}
+
+function buildSchedule(teams){
+  let rotation=teams.map((_,i)=>i);
+  const first=[];
+  for(let round=0;round<7;round++){
+    const matches=[];
+    for(let i=0;i<4;i++){
+      let a=rotation[i],b=rotation[7-i];
+      if((round+i)%2===1)[a,b]=[b,a];
+      matches.push({home:teams[a],away:teams[b]});
+    }
+    first.push(matches);
+    rotation=[rotation[0],rotation[7],...rotation.slice(1,7)];
+  }
+  return first.concat(first.map(round=>round.map(m=>({home:m.away,away:m.home}))));
+}
+
+function getWeekFixtures(country,level,week){
+  return buildSchedule(getTeams(country,level))[week-1];
+}
+function resultId(season,country,level,week,index){
+  return `S${season}|${country}|L${level}|W${week}|M${index}`;
+}
+function currentIds(country=selectedCountry,level=selectedLevel){
+  return getWeekFixtures(country,level,state.week).map((_,i)=>resultId(state.season,country,level,state.week,i));
+}
+function worldWeekPlayed(){
+  for(const country of countries){
+    for(let level=1;level<=5;level++){
+      const fixtures=getWeekFixtures(country,level,state.week);
+      for(let i=0;i<fixtures.length;i++){
+        if(!state.results[resultId(state.season,country,level,state.week,i)])return false;
+      }
+    }
+  }
+  return true;
+}
+
 function poisson(lambda){
   const L=Math.exp(-lambda);let k=0,p=1;
-  do{k++;p*=Math.random()}while(p>L&&k<8);
-  return Math.min(6,k-1);
+  do{k++;p*=Math.random()}while(p>L&&k<9);
+  return Math.min(7,k-1);
 }
-function simulateScore(match){
-  const [, ,o1,ox,o2]=match;
-  const p1=1/o1,px=1/ox,p2=1/o2,sum=p1+px+p2;
-  const h=p1/sum,a=p2/sum;
-  const levelBoost=(selectedLevel-1)*.025;
-  let hg=poisson(.72+h*1.55+levelBoost);
-  let ag=poisson(.58+a*1.45+levelBoost);
-  if(Math.random()<.08){hg=Math.min(6,hg+1)}
-  if(Math.random()<.07){ag=Math.min(6,ag+1)}
-  return [hg,ag];
+function getMatchOdds(home,away,week,index){
+  const diff=(home.strength+4)-away.strength;
+  const homeRaw=Math.exp(diff/18+.22);
+  const awayRaw=Math.exp(-diff/18);
+  const drawRaw=1.18+Math.max(0,1-Math.abs(diff)/24)*.24;
+  const sum=homeRaw+awayRaw+drawRaw;
+  const margin=1.075;
+  const o1=clamp(1/((homeRaw/sum)*margin),1.18,8.8);
+  const ox=clamp(1/((drawRaw/sum)*margin),2.45,5.4);
+  const o2=clamp(1/((awayRaw/sum)*margin),1.22,9.2);
+  const swing=((week+index+home.seed+away.seed)%5)*.035;
+  return {
+    main:[o1,ox,o2].map(x=>x.toFixed(2)),
+    extra:[
+      ['1.5 Alt',(2.68+swing).toFixed(2)],['1.5 Üst',(1.43-swing/3).toFixed(2)],
+      ['2.5 Alt',(1.83+swing).toFixed(2)],['2.5 Üst',(1.90-swing/3).toFixed(2)],
+      ['3.5 Alt',(1.36+swing/3).toFixed(2)],['3.5 Üst',(2.78-swing).toFixed(2)],
+      ['KG Var',(1.75+swing/2).toFixed(2)],['KG Yok',(2.00-swing/3).toFixed(2)],
+      ['1X',clamp(1.12+o2/18,1.14,1.62).toFixed(2)],
+      ['12',clamp(1.18+ox/20,1.25,1.58).toFixed(2)],
+      ['X2',clamp(1.13+o1/18,1.14,1.68).toFixed(2)]
+    ]
+  };
+}
+function simulateScore(home,away){
+  const diff=(home.strength+4)-away.strength;
+  const homeLambda=clamp(1.42+diff*.018,.45,2.85);
+  const awayLambda=clamp(1.10-diff*.014,.35,2.45);
+  return [poisson(homeLambda),poisson(awayLambda)];
 }
 function isPickWinner(label,result){
   const h=result.homeGoals,a=result.awayGoals,total=h+a;
@@ -233,7 +313,7 @@ function isPickWinner(label,result){
 function settleCoupons(){
   let payoutTotal=0;
   state.coupons.forEach(c=>{
-    if(c.status==='won'||c.status==='lost')return;
+    if(c.status==='won'||c.status==='lost'||c.status==='legacy')return;
     if(!Array.isArray(c.selections)||!c.selections.length){c.status='legacy';return}
     let hasLoss=false,allPlayed=true;
     c.selections.forEach(s=>{
@@ -254,42 +334,42 @@ function settleCoupons(){
   });
   return payoutTotal;
 }
+
+function renderTopState(){
+  document.getElementById('seasonKicker').textContent=`SEZON ${state.season} • HAFTA ${state.week} / 14`;
+}
 function renderMatches(){
-  const base=worlds[selectedCountry];
-  const factor=1+(selectedLevel-1)*.035;
-  document.getElementById('bulletinSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]} • 7. Hafta`;
-  document.getElementById('standingsSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]}`;
-  const playedCount=leagueResultIds().filter(id=>state.results[id]).length;
+  const fixtures=getWeekFixtures(selectedCountry,selectedLevel,state.week);
+  const played=worldWeekPlayed();
+  document.getElementById('bulletinSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]} • ${state.week}. Hafta`;
+  document.getElementById('standingsSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]} • Sezon ${state.season}`;
   const simBtn=document.getElementById('simulateLeague');
-  simBtn.disabled=playedCount===base.length;
-  simBtn.textContent=playedCount===base.length?'✓ Lig Sonuçlandı':'🎲 Bu Ligi Oynat';
-  document.getElementById('simInfo').textContent=playedCount===base.length?'7. Hafta • 4/4 maç tamamlandı':`7. Hafta • ${base.length-playedCount} maç oynanmayı bekliyor`;
-  document.getElementById('matches').innerHTML=base.map((m,i)=>{
-    const [home,away,o1,ox,o2]=m;
-    const odds=[o1,ox,o2].map(x=>(x*factor).toFixed(2));
-    const id=fixtureId(selectedCountry,selectedLevel,i);
+  if(played){
+    simBtn.disabled=false;
+    simBtn.textContent=state.week===14?`🏁 Sezon ${state.season+1}'e Geç`:`➡️ ${state.week+1}. Haftaya Geç`;
+    document.getElementById('simInfo').textContent=`${state.week}. Hafta tamamlandı • Sonuçlar kesinleşti`;
+  }else{
+    simBtn.disabled=false;
+    simBtn.textContent=`🎲 ${state.week}. Haftayı Oynat`;
+    document.getElementById('simInfo').textContent=`${state.week}. Hafta • Avrupa genelinde 240 maç bekliyor`;
+  }
+  document.getElementById('matches').innerHTML=fixtures.map((m,i)=>{
+    const id=resultId(state.season,selectedCountry,selectedLevel,state.week,i);
     const result=state.results[id];
-    const swing=((i+selectedLevel)%4)*.04;
-    const extra=[
-      ['1.5 Alt',(2.70+swing).toFixed(2)],['1.5 Üst',(1.42-swing/2).toFixed(2)],
-      ['2.5 Alt',(1.82+swing).toFixed(2)],['2.5 Üst',(1.91-swing/2).toFixed(2)],
-      ['3.5 Alt',(1.35+swing/2).toFixed(2)],['3.5 Üst',(2.85-swing).toFixed(2)],
-      ['KG Var',(1.74+swing).toFixed(2)],['KG Yok',(2.02-swing/2).toFixed(2)],
-      ['1X',(1.28+swing/3).toFixed(2)],['12',(1.34+swing/3).toFixed(2)],['X2',(1.48-swing/3).toFixed(2)]
-    ];
-    const pickButton=(label,odd,market)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" ${result?'disabled':''} data-id="${id}" data-label="${label}" data-market="${market}" data-odd="${odd}" data-match="${home} - ${away}"><small>${label}</small>${odd}</button>`;
+    const market=getMatchOdds(m.home,m.away,state.week,i);
+    const pickButton=(label,odd,marketName)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" ${result?'disabled':''} data-id="${id}" data-label="${label}" data-market="${marketName}" data-odd="${odd}" data-match="${m.home.name} - ${m.away.name}"><small>${label}</small>${odd}</button>`;
     return `<div class="match ${result?'match-finished':''}">
       <div class="match-meta"><strong>${result?'MS':(19+i)+':00'}</strong><small>${result?result.homeGoals+' - '+result.awayGoals:'Bugün'}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span>${home}${result?`<span class="team-score">${result.homeGoals}</span>`:'<span class="form">W W D W L</span>'}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span>${away}${result?`<span class="team-score">${result.awayGoals}</span>`:'<span class="form">L D W L D</span>'}</div>
+        <div class="team"><span class="dot"></span>${m.home.name}${result?`<span class="team-score">${result.homeGoals}</span>`:'<span class="form">FORM '+m.home.strength+'</span>'}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${result?`<span class="team-score">${result.awayGoals}</span>`:'<span class="form">FORM '+m.away.strength+'</span>'}</div>
       </div>
-      ${['1','X','2'].map((label,j)=>pickButton(label,odds[j],'Maç Sonucu')).join('')}
+      ${['1','X','2'].map((label,j)=>pickButton(label,market.main[j],'Maç Sonucu')).join('')}
       <div class="extra-markets">
         <div class="market-title">＋ Diğer Marketler <span>• Gol / KG / Çifte Şans</span></div>
-        <div class="market-scroll">${extra.map(x=>pickButton(x[0],x[1],x[0].startsWith('KG')?'Karşılıklı Gol':(x[0]==='1X'||x[0]==='12'||x[0]==='X2')?'Çifte Şans':'Toplam Gol')).join('')}</div>
+        <div class="market-scroll">${market.extra.map(x=>pickButton(x[0],x[1],x[0].startsWith('KG')?'Karşılıklı Gol':(x[0]==='1X'||x[0]==='12'||x[0]==='X2')?'Çifte Şans':'Toplam Gol')).join('')}</div>
       </div>
-    </div>`
+    </div>`;
   }).join('');
   document.querySelectorAll('.odd-btn:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>togglePick(btn.dataset)));
 }
@@ -298,17 +378,25 @@ function togglePick(d){
   if(existing>=0&&picks[existing].label===d.label)picks.splice(existing,1);
   else{
     if(existing>=0)picks.splice(existing,1);
-    picks.push({id:d.id,label:d.label,market:d.market||'Maç Sonucu',odd:Number(d.odd),match:d.match,country:selectedCountry,level:selectedLevel});
+    picks.push({
+      id:d.id,label:d.label,market:d.market||'Maç Sonucu',odd:Number(d.odd),match:d.match,
+      country:selectedCountry,level:selectedLevel,season:state.season,week:state.week
+    });
   }
   renderMatches();renderSlip();
 }
 function renderSlip(){
   const box=document.getElementById('slipItems'),controls=document.getElementById('slipControls');
   document.getElementById('slipCount').textContent=picks.length+' seçim';
-  if(!picks.length){box.innerHTML='<div class="empty">Bültenden bir oran seç.<br>Kupon burada oluşacak. 👇</div>';controls.style.display='none';return}
+  if(!picks.length){
+    box.innerHTML='<div class="empty">Bültenden bir oran seç.<br>Kupon burada oluşacak. 👇</div>';
+    controls.style.display='none';return;
+  }
   controls.style.display='block';
-  box.innerHTML=picks.map((p,i)=>`<div class="pick-row"><div class="pick-row-top"><strong>${p.match}</strong><button data-remove="${i}">×</button></div><small>${p.country} • ${leagueNames[p.level]} • ${p.market||'Maç Sonucu'}</small><div class="odds-line"><span>Seçim: ${p.label}</span><b>${p.odd.toFixed(2)}</b></div></div>`).join('');
-  box.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{picks.splice(Number(b.dataset.remove),1);renderMatches();renderSlip()}));
+  box.innerHTML=picks.map((p,i)=>`<div class="pick-row"><div class="pick-row-top"><strong>${p.match}</strong><button data-remove="${i}">×</button></div><small>${p.country} • ${leagueNames[p.level]} • ${p.week}. Hafta • ${p.market}</small><div class="odds-line"><span>Seçim: ${p.label}</span><b>${p.odd.toFixed(2)}</b></div></div>`).join('');
+  box.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{
+    picks.splice(Number(b.dataset.remove),1);renderMatches();renderSlip();
+  }));
   updateSlipMath();
 }
 function updateSlipMath(){
@@ -319,63 +407,98 @@ function updateSlipMath(){
 }
 function renderCoupons(){
   const list=document.getElementById('couponList');
-  if(!state.coupons.length){list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';return}
+  if(!state.coupons.length){
+    list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';return;
+  }
   list.innerHTML=state.coupons.slice().reverse().map(c=>{
     const status=c.status||(!c.selections?'legacy':'pending');
     const statusText=status==='won'?'KAZANDI':status==='lost'?'KAYBETTİ':status==='legacy'?'ESKİ KUPON':'BEKLİYOR';
     const extra=status==='won'&&c.payout?` • Ödeme ${money(c.payout)}`:'';
-    return `<div class="coupon"><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}${extra}</small></div><div class="status ${status}">${statusText}</div></div>`
+    let legs='<div class="coupon-hint">Bu kupon eski prototipten geldiği için maç detayları tutulmamış.</div>';
+    if(Array.isArray(c.selections)&&c.selections.length){
+      legs='<div class="coupon-legs">'+c.selections.map(s=>{
+        const r=state.results[s.id];
+        const legState=!r?'pending':isPickWinner(s.label,r)?'won':'lost';
+        const icon=legState==='won'?'✓':legState==='lost'?'×':'•';
+        const score=r?`${r.homeGoals}-${r.awayGoals}`:'Bekliyor';
+        return `<div class="coupon-leg"><div class="leg-icon ${legState}">${icon}</div><div class="leg-main"><strong>${s.match}</strong><small>${s.market} • ${s.label} • ${score}</small></div><div class="leg-odd">${Number(s.odd).toFixed(2)}</div></div>`;
+      }).join('')+'</div>';
+    }
+    return `<details class="coupon"><summary><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}${extra}</small></div><div class="status ${status}">${statusText}</div></summary>${legs}</details>`;
   }).join('');
 }
 function renderStandings(){
-  const teams=[];
-  worlds[selectedCountry].forEach(m=>{teams.push(m[0],m[1])});
-  const table=Object.fromEntries(teams.map(t=>[t,{team:t,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}]));
-  worlds[selectedCountry].forEach((m,i)=>{
-    const r=state.results[fixtureId(selectedCountry,selectedLevel,i)];
-    if(!r)return;
-    const h=table[m[0]],a=table[m[1]];
-    h.p++;a.p++;h.gf+=r.homeGoals;h.ga+=r.awayGoals;a.gf+=r.awayGoals;a.ga+=r.homeGoals;
-    if(r.homeGoals>r.awayGoals){h.w++;a.l++;h.pts+=3}
-    else if(r.homeGoals<r.awayGoals){a.w++;h.l++;a.pts+=3}
-    else{h.d++;a.d++;h.pts++;a.pts++}
-  });
+  const teams=getTeams(selectedCountry,selectedLevel);
+  const schedule=buildSchedule(teams);
+  const table=Object.fromEntries(teams.map(t=>[t.name,{team:t.name,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}]));
+  for(let week=1;week<=14;week++){
+    schedule[week-1].forEach((m,i)=>{
+      const r=state.results[resultId(state.season,selectedCountry,selectedLevel,week,i)];
+      if(!r)return;
+      const h=table[m.home.name],a=table[m.away.name];
+      h.p++;a.p++;h.gf+=r.homeGoals;h.ga+=r.awayGoals;a.gf+=r.awayGoals;a.ga+=r.homeGoals;
+      if(r.homeGoals>r.awayGoals){h.w++;a.l++;h.pts+=3}
+      else if(r.homeGoals<r.awayGoals){a.w++;h.l++;a.pts+=3}
+      else{h.d++;a.d++;h.pts++;a.pts++}
+    });
+  }
   const rows=Object.values(table).sort((a,b)=>b.pts-a.pts||((b.gf-b.ga)-(a.gf-a.ga))||b.gf-a.gf||a.team.localeCompare(b.team,'tr'));
   document.getElementById('standingsWrap').innerHTML=`<table class="standings"><thead><tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th><th>P</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${i<2?'top':''}"><td>${i+1}</td><td>${r.team}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga}</td><td><strong>${r.pts}</strong></td></tr>`).join('')}</tbody></table>`;
 }
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600)}
+function renderAll(){
+  renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();
+}
+function toast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2800);
+}
+function simulateWholeWeek(){
+  for(const country of countries){
+    for(let level=1;level<=5;level++){
+      const fixtures=getWeekFixtures(country,level,state.week);
+      fixtures.forEach((m,i)=>{
+        const id=resultId(state.season,country,level,state.week,i);
+        if(state.results[id])return;
+        const [homeGoals,awayGoals]=simulateScore(m.home,m.away);
+        state.results[id]={homeGoals,awayGoals};
+      });
+    }
+  }
+}
 
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
 document.getElementById('placeCoupon').addEventListener('click',()=>{
   const stake=Math.floor(Number(document.getElementById('stakeInput').value)||0);
   if(!picks.length)return;
+  if(worldWeekPlayed()){toast('Bu hafta oynandı kankam; sonraki haftaya geç.');return}
   if(stake<10){toast('Minimum 10 ₳D gir kankam 😄');return}
   if(stake>state.balance){toast('Afyon Dinarı yetmedi. Merkez Bankası para basmıyor.');return}
   const odds=picks.reduce((a,p)=>a*p.odd,1);
   state.balance-=stake;
   state.coupons.push({
     id:Date.now(),picks:picks.length,stake,odds:odds.toFixed(2),return:stake*odds,
-    selections:picks.map(p=>({...p})),status:'pending',paid:false,created:new Date().toISOString()
+    selections:picks.map(p=>({...p})),status:'pending',paid:false,
+    season:state.season,week:state.week,created:new Date().toISOString()
   });
-  save();picks=[];renderWallet();renderMatches();renderSlip();renderCoupons();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
+  save();picks=[];renderAll();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
 });
+
 document.getElementById('simulateLeague').addEventListener('click',()=>{
-  const ids=leagueResultIds();
-  let played=0;
-  worlds[selectedCountry].forEach((m,i)=>{
-    const id=ids[i];
-    if(state.results[id])return;
-    const [homeGoals,awayGoals]=simulateScore(m);
-    state.results[id]={home:m[0],away:m[1],homeGoals,awayGoals,playedAt:new Date().toISOString()};
-    played++;
-  });
-  if(!played)return;
-  picks=picks.filter(p=>!ids.includes(p.id));
+  if(worldWeekPlayed()){
+    picks=[];
+    if(state.week===14){state.season++;state.week=1}
+    else state.week++;
+    save();renderAll();
+    toast(state.week===1?`Sezon ${state.season} başladı. Defterler sıfırlandı. ⚽`:`${state.week}. hafta bülteni açıldı. 📋`);
+    return;
+  }
+  simulateWholeWeek();
+  picks=[];
   const payout=settleCoupons();
-  save();
-  renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();
-  toast(payout>0?`Maçlar bitti! ${money(payout)} hesabına geçti. 🏆`:'Maçlar bitti. AFMB kupon dosyalarını inceliyor. ⚽');
+  save();renderAll();
+  toast(payout>0?`Hafta bitti! ${money(payout)} hesabına geçti. 🏆`:'Hafta bitti. AFMB kupon dosyalarını kapattı. ⚽');
 });
+
 document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.country-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
   selectedCountry=b.dataset.country;picks=[];renderMatches();renderSlip();renderStandings();
@@ -385,7 +508,8 @@ document.querySelectorAll('.league-tab').forEach(b=>b.addEventListener('click',(
   selectedLevel=Number(b.dataset.level);picks=[];renderMatches();renderSlip();renderStandings();
 }));
 
-settleCoupons();save();renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();
+settleCoupons();save();renderAll();
+
 </script>
 </body>
 </html>
