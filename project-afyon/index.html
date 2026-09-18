@@ -117,6 +117,31 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
   .bulletin-group-head{top:64px}
 }
 
+
+.league-center-head{padding:18px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#15233c,#101a2d)}
+.league-center-top{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.league-center-title .eyebrow{color:var(--accent);font-size:10px;font-weight:1000;letter-spacing:1px;text-transform:uppercase}
+.league-center-title h2{margin:5px 0 4px;font-size:24px}.league-center-title p{margin:0;color:var(--muted);font-size:11px}
+.league-center-select{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.league-center-select select{background:#0c1525;color:#eef3ff;border:1px solid #31415d;border-radius:11px;padding:10px 12px;font-weight:850;outline:none}
+.league-level-pills{display:flex;gap:6px;flex-wrap:wrap}.league-level-pill{border:1px solid #2d3c58;border-radius:10px;background:#111c2f;color:#8798b5;padding:9px 11px;font-size:10px;font-weight:1000}.league-level-pill.active{background:#203451;color:#fff;border-color:#426086}
+.league-summary{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:9px;margin-top:16px}
+.league-summary-main,.league-summary-stat{border:1px solid #2a3954;border-radius:15px;background:rgba(9,17,31,.58);padding:13px}
+.league-summary-main strong{display:block;font-size:18px}.league-summary-main small,.league-summary-stat small{color:#7f91ad;font-size:9px;font-weight:900}.league-summary-stat strong{display:block;margin-top:4px;font-size:19px}
+.league-center-tabs{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line);overflow:auto;scrollbar-width:none}.league-center-tabs::-webkit-scrollbar{display:none}
+.league-center-tab{border:0;border-radius:10px;background:#111b2d;color:#7f90ae;padding:10px 12px;font-size:10px;font-weight:1000;white-space:nowrap}.league-center-tab.active{background:#20314e;color:#fff}
+.league-pane{display:none}.league-pane.active{display:block}
+.league-fixtures{padding:14px;display:grid;gap:14px}.league-week-block{border:1px solid #263650;border-radius:15px;overflow:hidden;background:#101a2c}.league-week-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#0d1626;border-bottom:1px solid #24324b}.league-week-head strong{font-size:11px}.league-week-head small{color:#7d8eaa;font-size:9px}
+.league-fixture-row{display:grid;grid-template-columns:64px minmax(0,1fr) 68px;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid #1e2b42}.league-fixture-row:last-child{border-bottom:0}.league-fixture-row.current{background:#13213a}.league-fixture-time{font-size:10px;font-weight:1000;color:#8fa0bd}.league-fixture-teams{font-size:11px;font-weight:900}.league-fixture-teams span{color:#6f819e;font-weight:700}.league-fixture-score{text-align:right;font-size:12px;font-weight:1000}
+.form-table{width:100%;border-collapse:collapse;min-width:520px}.form-table th,.form-table td{padding:11px 12px;border-bottom:1px solid #1e2b43;font-size:11px}.form-table th{background:#0d1525;color:#7f90ae;font-size:9px;text-transform:uppercase;letter-spacing:.6px}.form-table th:nth-child(2),.form-table td:nth-child(2){text-align:left}.form-table td{text-align:center}
+.form-mini{display:flex;gap:4px;justify-content:center}.form-mini span{width:23px;height:23px;border-radius:7px;display:grid;place-items:center;background:#263249;color:#cbd5e6;font-size:9px;font-weight:1000}.form-mini .W{background:#193c32;color:#7cf0c8}.form-mini .D{background:#40391d;color:#ffe08a}.form-mini .L{background:#44242b;color:#ff9aa6}
+.club-grid{padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.club-grid-card{border:1px solid #263650;border-radius:14px;background:#111c2f;padding:12px;cursor:pointer;display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;text-align:left;color:#fff}.club-grid-card:hover{border-color:#45617f;background:#14223a}.club-grid-crest{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:#203451;font-size:13px;font-weight:1000}.club-grid-main strong{display:block;font-size:11px}.club-grid-main small{display:block;margin-top:4px;color:#7f90ae;font-size:9px}.club-grid-rating{font-size:18px;font-weight:1000;color:var(--accent2)}
+.scorer-placeholder{margin:14px;padding:22px;border:1px dashed #3a4a67;border-radius:15px;background:#0f1829;text-align:center}.scorer-placeholder strong{display:block;font-size:16px}.scorer-placeholder p{max-width:540px;margin:8px auto 0;color:#8394b0;font-size:11px;line-height:1.6}
+@media(max-width:720px){
+  .league-center-head{padding:15px}.league-center-title h2{font-size:21px}.league-center-select{width:100%}.league-center-select select{width:100%}
+  .league-summary{grid-template-columns:1fr 1fr}.league-summary-main{grid-column:1/-1}
+  .club-grid{grid-template-columns:1fr}.league-fixture-row{grid-template-columns:52px minmax(0,1fr) 54px;padding:10px}.league-level-pills{flex-wrap:nowrap;overflow:auto;width:100%}
+}
+
 @media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
@@ -196,8 +221,43 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
         </section>
 
         <section class="section-card" id="leagueSection">
-          <div class="section-title"><div><h2>🏆 Puan Durumu</h2><p id="standingsSub">İngiltere • Crown League</p></div></div>
-          <div class="table-wrap" id="standingsWrap"></div>
+          <div class="league-center-head">
+            <div class="league-center-top">
+              <div class="league-center-title">
+                <div class="eyebrow">🏆 LİG MERKEZİ</div>
+                <h2 id="leagueCenterName">İngiltere • Crown League</h2>
+                <p id="standingsSub">Sezon 1 • 18 kulüp • 34 hafta</p>
+              </div>
+              <div class="league-center-select">
+                <select id="leagueCenterCountry" aria-label="Ülke seç"></select>
+              </div>
+            </div>
+            <div class="league-level-pills" id="leagueCenterLevels">
+              <button class="league-level-pill active" data-center-level="1">1. Lig</button>
+              <button class="league-level-pill" data-center-level="2">2. Lig</button>
+              <button class="league-level-pill" data-center-level="3">3. Lig</button>
+              <button class="league-level-pill" data-center-level="4">4. Lig</button>
+              <button class="league-level-pill" data-center-level="5">5. Lig</button>
+            </div>
+            <div class="league-summary">
+              <div class="league-summary-main"><small>LİG</small><strong id="leagueSummaryName">Crown League</strong><small id="leagueSummaryMeta">İngiltere • Sezon 1</small></div>
+              <div class="league-summary-stat"><small>HAFTA</small><strong id="leagueSummaryWeek">1 / 34</strong></div>
+              <div class="league-summary-stat"><small>KULÜP</small><strong>18</strong></div>
+              <div class="league-summary-stat"><small>MAÇ / SEZON</small><strong>306</strong></div>
+            </div>
+          </div>
+          <div class="league-center-tabs">
+            <button class="league-center-tab active" data-league-pane="standings">Puan Durumu</button>
+            <button class="league-center-tab" data-league-pane="fixtures">Fikstür</button>
+            <button class="league-center-tab" data-league-pane="form">Form</button>
+            <button class="league-center-tab" data-league-pane="clubs">Kulüpler</button>
+            <button class="league-center-tab" data-league-pane="scorers">Gol Krallığı</button>
+          </div>
+          <div class="league-pane active" data-league-content="standings"><div class="table-wrap" id="standingsWrap"></div></div>
+          <div class="league-pane" data-league-content="fixtures"><div class="league-fixtures" id="leagueFixtures"></div></div>
+          <div class="league-pane" data-league-content="form"><div class="table-wrap" id="leagueForm"></div></div>
+          <div class="league-pane" data-league-content="clubs"><div class="club-grid" id="leagueClubs"></div></div>
+          <div class="league-pane" data-league-content="scorers"><div id="leagueScorers"></div></div>
         </section>
 
         <section class="section-card" id="couponsSection">
@@ -235,7 +295,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.14 Bulletin Flow</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.15 League Center</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -665,6 +725,7 @@ let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueT
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0;
 let onlineClubLists={},onlineClubsById={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let bulletinCountry='Tümü',bulletinLevel=0;
+let leagueCenterTab='standings';
 let state={engineVersion:6,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
 
 try{
@@ -1538,6 +1599,100 @@ function renderStandings(){
   }).join('')}</tbody></table>`;
   bindClubLinks(document.getElementById('standingsWrap'));
 }
+function formScore(sequence){
+  if(!sequence||sequence==='—')return 0;
+  return sequence.split('').reduce(function(sum,x){return sum+(x==='W'?3:x==='D'?1:0)},0);
+}
+function renderLeagueCenterMeta(){
+  var countrySelect=document.getElementById('leagueCenterCountry');
+  if(countrySelect){
+    if(!countrySelect.options.length){
+      countrySelect.innerHTML=countries.map(function(country){
+        return '<option value="'+country+'">'+(countryFlags[country]||'⚽')+' '+country+'</option>';
+      }).join('');
+    }
+    countrySelect.value=selectedCountry;
+  }
+  document.querySelectorAll('[data-center-level]').forEach(function(btn){
+    btn.classList.toggle('active',Number(btn.dataset.centerLevel)===selectedLevel);
+  });
+  var title=document.getElementById('leagueCenterName');
+  if(title)title.textContent=selectedCountry+' • '+leagueNames[selectedLevel];
+  var sub=document.getElementById('standingsSub');
+  if(sub)sub.textContent='Sezon '+state.season+' • 18 kulüp • 34 hafta';
+  var name=document.getElementById('leagueSummaryName');
+  if(name)name.textContent=leagueNames[selectedLevel];
+  var meta=document.getElementById('leagueSummaryMeta');
+  if(meta)meta.textContent=selectedCountry+' • Sezon '+state.season;
+  var week=document.getElementById('leagueSummaryWeek');
+  if(week)week.textContent=state.week+' / 34';
+}
+function renderLeagueFixtures(){
+  var box=document.getElementById('leagueFixtures');
+  if(!box)return;
+  var teams=getTeams(selectedCountry,selectedLevel);
+  var schedule=buildSchedule(teams);
+  var from=Math.max(1,state.week-1),to=Math.min(34,state.week+2);
+  var html='';
+  for(var week=from;week<=to;week++){
+    html+='<div class="league-week-block"><div class="league-week-head"><strong>'+week+'. Hafta</strong><small>'+(week===state.week?'GÜNCEL HAFTA':'SEZON '+state.season)+'</small></div>';
+    schedule[week-1].forEach(function(m,i){
+      var id=resultId(state.season,selectedCountry,selectedLevel,week,i);
+      var r=state.results[id];
+      if(!r&&week===state.week&&onlineMode){
+        var server=onlineMatchMap[id];
+        if(server&&server.status==='finished'&&server.home_goals!=null)r={homeGoals:server.home_goals,awayGoals:server.away_goals};
+      }
+      var time=week===state.week?matchKickoffLabel(id,selectedCountry,selectedLevel):kickoffLabel(selectedCountry,selectedLevel);
+      var score=r?(r.homeGoals+' - '+r.awayGoals):(week<state.week?'—':time);
+      html+='<div class="league-fixture-row '+(week===state.week?'current':'')+'"><div class="league-fixture-time">'+(r?'MS':time)+'</div><div class="league-fixture-teams"><button class="club-link" data-club-name="'+encodeURIComponent(m.home.name)+'" data-club-country="'+selectedCountry+'" data-club-level="'+selectedLevel+'">'+m.home.name+'</button> <span>vs</span> <button class="club-link" data-club-name="'+encodeURIComponent(m.away.name)+'" data-club-country="'+selectedCountry+'" data-club-level="'+selectedLevel+'">'+m.away.name+'</button></div><div class="league-fixture-score">'+score+'</div></div>';
+    });
+    html+='</div>';
+  }
+  box.innerHTML=html;
+  bindClubLinks(box);
+}
+function renderLeagueForm(){
+  var box=document.getElementById('leagueForm');
+  if(!box)return;
+  var teams=getTeams(selectedCountry,selectedLevel);
+  var before=worldWeekPlayed()?state.week+1:state.week;
+  var rows=teams.map(function(team){
+    var form=getFormData(selectedCountry,selectedLevel,team.name,before);
+    return {team:team,sequence:form.sequence||'—',score:formScore(form.sequence||'')};
+  }).sort(function(a,b){return b.score-a.score||b.team.strength-a.team.strength});
+  box.innerHTML='<table class="form-table"><thead><tr><th>#</th><th>Takım</th><th>Son 5</th><th>Form Puanı</th><th>Güç</th></tr></thead><tbody>'+rows.map(function(r,i){
+    var letters=r.sequence==='—'?[]:r.sequence.split('');
+    var chips=[0,1,2,3,4].map(function(idx){var x=letters[idx]||'·';return '<span class="'+(x==='W'||x==='D'||x==='L'?x:'')+'">'+x+'</span>';}).join('');
+    return '<tr><td>'+(i+1)+'</td><td><button class="club-link" data-club-name="'+encodeURIComponent(r.team.name)+'" data-club-country="'+selectedCountry+'" data-club-level="'+selectedLevel+'">'+r.team.name+'</button></td><td><div class="form-mini">'+chips+'</div></td><td><strong>'+r.score+'</strong></td><td>'+r.team.strength+'</td></tr>';
+  }).join('')+'</tbody></table>';
+  bindClubLinks(box);
+}
+function renderLeagueClubs(){
+  var box=document.getElementById('leagueClubs');
+  if(!box)return;
+  var teams=getTeams(selectedCountry,selectedLevel).slice().sort(function(a,b){return b.strength-a.strength});
+  box.innerHTML=teams.map(function(t){
+    return '<button class="club-grid-card" data-club-name="'+encodeURIComponent(t.name)+'" data-club-country="'+selectedCountry+'" data-club-level="'+selectedLevel+'"><span class="club-grid-crest">'+clubInitials(t.name).toUpperCase()+'</span><span class="club-grid-main"><strong>'+t.name+'</strong><small>'+t.style+' • ATK '+t.attack+' • MID '+t.midfield+' • DEF '+t.defense+'</small></span><span class="club-grid-rating">'+t.strength+'</span></button>';
+  }).join('');
+  bindClubLinks(box);
+}
+function renderLeagueScorers(){
+  var box=document.getElementById('leagueScorers');
+  if(!box)return;
+  box.innerHTML='<div class="scorer-placeholder"><strong>⚽ Gol Krallığı hazırlanıyor</strong><p>Oyuncu veritabanını bağladığımız anda burada gerçek Project Afyon futbolcuları, gol sayıları, asistleri ve maç başına katkıları görünecek. Sahte oyuncu üretip doldurmadım; bu alan doğrudan oyuncu sistemine hazır.</p></div>';
+}
+function renderLeagueCenter(){
+  renderLeagueCenterMeta();
+  renderStandings();
+  renderLeagueFixtures();
+  renderLeagueForm();
+  renderLeagueClubs();
+  renderLeagueScorers();
+  document.querySelectorAll('[data-league-pane]').forEach(function(btn){btn.classList.toggle('active',btn.dataset.leaguePane===leagueCenterTab)});
+  document.querySelectorAll('[data-league-content]').forEach(function(pane){pane.classList.toggle('active',pane.dataset.leagueContent===leagueCenterTab)});
+}
+
 function hasPendingCoupon(){
   return state.coupons.some(c=>{
     if(c.status==='pending')return true;
@@ -1806,7 +1961,7 @@ async function pollOnlineWorld(){
     await refreshOnlineBulletin();
     onlineAccountTick++;
     if(onlineSession&&onlineAccountTick%3===0)await refreshOnlineAccount();
-    renderTopState();renderMatches();renderStandings();renderCoupons();renderLiveCenter();
+    renderTopState();renderMatches();renderLeagueCenter();renderCoupons();renderLiveCenter();
   }catch(err){console.error('Afyon online poll',err)}
   finally{onlinePollBusy=false}
 }
@@ -1817,7 +1972,7 @@ async function placeOnlineCoupon(stake){
   if(error){toast('Kupon reddedildi: '+error.message);return}
   picks=[];await refreshOnlineAccount();await refreshOnlineSelected(false);renderAll();toast('Online kupon kaydedildi. AFMB sunucusu şahittir. 🏛');
 }
-function renderAll(){renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();renderRescue()}
+function renderAll(){renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderLeagueCenter();renderRescue()}
 
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
@@ -1870,7 +2025,7 @@ function tickLive(){
   }
   renderMatches();
   renderCoupons();
-  renderStandings();
+  renderLeagueCenter();
   renderRescue();
 }
 function startLiveTimer(){
@@ -1885,6 +2040,26 @@ document.querySelectorAll('[data-nav-target]').forEach(btn=>btn.addEventListener
   btn.classList.add('active');
   target.scrollIntoView({behavior:'smooth',block:'start'});
 }));
+
+document.getElementById('leagueCenterCountry').addEventListener('change',async function(e){
+  selectedCountry=e.target.value;
+  if(onlineMode)await refreshOnlineSelected(true);
+  renderLeagueCenter();
+});
+document.querySelectorAll('[data-center-level]').forEach(function(btn){
+  btn.addEventListener('click',async function(){
+    selectedLevel=Number(btn.dataset.centerLevel);
+    if(onlineMode)await refreshOnlineSelected(true);
+    renderLeagueCenter();
+  });
+});
+document.querySelectorAll('[data-league-pane]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    leagueCenterTab=btn.dataset.leaguePane;
+    document.querySelectorAll('[data-league-pane]').forEach(function(x){x.classList.toggle('active',x===btn)});
+    document.querySelectorAll('[data-league-content]').forEach(function(p){p.classList.toggle('active',p.dataset.leagueContent===leagueCenterTab)});
+  });
+});
 document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
@@ -1966,7 +2141,7 @@ document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',
     if(onlineMode)await refreshOnlineSelected(true);
   }
   if(onlineMode)await refreshOnlineBulletin();
-  renderMatches();renderSlip();renderStandings();renderCoupons();
+  renderMatches();renderSlip();renderLeagueCenter();renderCoupons();
 }));
 document.querySelectorAll('.league-tab').forEach(b=>b.addEventListener('click',async()=>{
   document.querySelectorAll('.league-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
