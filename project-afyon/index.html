@@ -24,8 +24,10 @@ header{position:sticky;top:0;z-index:30;background:rgba(11,16,32,.94);backdrop-f
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;padding-bottom:50px}.content{min-width:0}.sidebar{position:relative}.slip{position:sticky;top:92px;border:1px solid var(--line);border-radius:22px;background:#101827;box-shadow:var(--shadow);overflow:hidden}.slip-head{padding:17px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.slip-head strong{font-size:17px}.slip-count{background:var(--accent);color:#062018;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:950}.slip-body{padding:14px}.empty{padding:30px 16px;text-align:center;color:var(--muted);line-height:1.55}.pick-row{padding:12px;border-radius:14px;background:#162238;margin-bottom:9px;border:1px solid #263752}.pick-row-top{display:flex;justify-content:space-between;gap:8px}.pick-row strong{font-size:13px}.pick-row button{border:0;background:transparent;color:#ff8d8d;font-weight:900}.pick-row small{color:var(--muted);display:block;margin-top:4px}.odds-line{display:flex;justify-content:space-between;margin-top:8px;font-size:13px}.odds-line b{color:var(--accent2)}
 .slip-summary{border-top:1px solid var(--line);padding-top:13px;margin-top:8px}.summary-line{display:flex;justify-content:space-between;padding:6px 0;color:#bcc9df}.stake-wrap{margin-top:10px;display:grid;grid-template-columns:1fr 84px;gap:8px}.stake-wrap input{width:100%;background:#0b1220;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}.stake-wrap span{display:grid;place-items:center;background:#17233a;border-radius:12px;color:var(--accent2);font-weight:900}.place-btn{width:100%;border:0;border-radius:13px;padding:13px;margin-top:10px;background:var(--accent);color:#062018;font-weight:950}.place-btn:disabled{opacity:.35;cursor:not-allowed}.slip-note{font-size:10px;color:#71819e;line-height:1.45;margin:10px 2px 2px}
 .section-card{border:1px solid var(--line);border-radius:22px;background:#101827;overflow:hidden;margin-bottom:18px}.section-title{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.section-title h2{margin:0;font-size:20px}.section-title p{margin:3px 0 0;color:var(--muted);font-size:12px}.country-tabs{display:flex;gap:8px;overflow:auto;padding:13px 18px;border-bottom:1px solid var(--line)}.country-tab,.league-tab{border:1px solid var(--line);background:#111b2f;color:#9faeca;border-radius:999px;padding:9px 12px;white-space:nowrap;font-weight:850;font-size:12px}.country-tab.active,.league-tab.active{background:var(--accent);color:#062018;border-color:var(--accent)}.league-tabs{display:flex;gap:7px;overflow:auto;padding:12px 18px;background:#0d1525}
-.match{display:grid;grid-template-columns:120px minmax(220px,1fr) repeat(3,88px);gap:10px;align-items:center;padding:15px 18px;border-top:1px solid #1e2b43}.match:first-child{border-top:0}.match-meta small{display:block;color:var(--muted);font-size:11px}.match-meta strong{font-size:12px}.teams{display:grid;gap:5px}.team{display:flex;align-items:center;gap:8px;font-weight:850}.dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}.form{margin-left:auto;font-size:10px;color:#8fa0be;letter-spacing:1px}.odd-btn{border:1px solid #2b3a58;background:#17243b;color:#fff;border-radius:12px;padding:11px 8px;font-weight:900;min-width:74px}.odd-btn:hover,.odd-btn.selected{background:#244d46;border-color:var(--accent);color:#a8ffe3}.odd-btn small{display:block;font-size:9px;color:#7f90ae;margin-bottom:3px}.odd-btn.selected small{color:#b8eadb}.extra-markets{grid-column:1/-1;margin-top:4px;padding-top:11px;border-top:1px dashed #26344f}.market-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#7f90ae;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:1px}.market-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:thin}.market-scroll .odd-btn{flex:0 0 auto;padding:9px 11px;background:#111b2f}.market-scroll .odd-btn:hover,.market-scroll .odd-btn.selected{background:#244d46}
-.coupon-list{padding:14px}.coupon{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px;border:1px solid var(--line);border-radius:15px;background:#131e33;margin-bottom:9px}.coupon:last-child{margin-bottom:0}.coupon strong{display:block}.coupon small{color:var(--muted)}.coupon .status{align-self:center;color:var(--accent2);font-weight:950;font-size:12px}
+.match{display:grid;grid-template-columns:120px minmax(220px,1fr) repeat(3,88px);gap:10px;align-items:center;padding:15px 18px;border-top:1px solid #1e2b43}.match:first-child{border-top:0}.match-meta small{display:block;color:var(--muted);font-size:11px}.match-meta strong{font-size:12px}.teams{display:grid;gap:5px}.team{display:flex;align-items:center;gap:8px;font-weight:850}.dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}.form{margin-left:auto;font-size:10px;color:#8fa0be;letter-spacing:1px}.odd-btn{border:1px solid #2b3a58;background:#17243b;color:#fff;border-radius:12px;padding:11px 8px;font-weight:900;min-width:74px}.odd-btn:hover,.odd-btn.selected{background:#244d46;border-color:var(--accent);color:#a8ffe3}.odd-btn small{display:block;font-size:9px;color:#7f90ae;margin-bottom:3px}.odd-btn.selected small{color:#b8eadb}.extra-markets{grid-column:1/-1;margin-top:4px;padding-top:11px;border-top:1px dashed #26344f}.market-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#7f90ae;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:1px}.market-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:thin}.market-scroll .odd-btn{flex:0 0 auto;padding:9px 11px;background:#111b2f}.market-scroll .odd-btn:hover,.market-scroll .odd-btn.selected{background:#244d46}.odd-btn:disabled{opacity:.42;cursor:not-allowed}.team-score{margin-left:auto;min-width:24px;text-align:center;font-size:18px;font-weight:1000;color:#fff}.match-finished .teams{color:#dfe9fb}.match-finished .match-meta strong{color:var(--accent)}
+.sim-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:#0b1322;border-bottom:1px solid var(--line)}.sim-info{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:12px;font-weight:800}.sim-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}.simulate-btn{border:0;border-radius:12px;padding:10px 14px;background:var(--accent2);color:#291e00;font-weight:950}.simulate-btn:disabled{background:#233149;color:#74839e;cursor:not-allowed}
+.table-wrap{overflow:auto}.standings{width:100%;border-collapse:collapse;min-width:640px}.standings th,.standings td{padding:11px 12px;border-bottom:1px solid #1e2b43;text-align:center;font-size:12px}.standings th{color:#7f90ae;background:#0d1525;font-size:10px;letter-spacing:.7px;text-transform:uppercase}.standings th:nth-child(2),.standings td:nth-child(2){text-align:left}.standings td:nth-child(1){color:#8fa0be;font-weight:900}.standings td:nth-child(2){font-weight:900}.standings tr.top td:first-child,.standings tr.top td:last-child{color:var(--accent)}.standings-empty{padding:28px;text-align:center;color:var(--muted)}
+.coupon-list{padding:14px}.coupon{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px;border:1px solid var(--line);border-radius:15px;background:#131e33;margin-bottom:9px}.coupon:last-child{margin-bottom:0}.coupon strong{display:block}.coupon small{color:var(--muted)}.coupon .status{align-self:center;color:var(--accent2);font-weight:950;font-size:12px}.coupon .status.won{color:var(--accent)}.coupon .status.lost{color:var(--danger)}.coupon .status.legacy{color:#7f90ae}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);background:#eefbf6;color:#0c3d31;padding:13px 16px;border-radius:13px;font-weight:900;box-shadow:0 16px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;z-index:70}.toast.show{opacity:1;transform:translate(-50%,0)}
 footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-size:12px;line-height:1.6}
 @media(max-width:1050px){.hero-grid,.layout{grid-template-columns:1fr}.slip{position:static}.sidebar{order:-1}.hero-grid{gap:12px}.main-nav{display:none}}
@@ -44,6 +46,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .market-title{font-size:9px;letter-spacing:.8px;flex-wrap:wrap}
 .market-scroll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;overflow:visible;padding-bottom:0;scrollbar-width:none}
 .market-scroll .odd-btn{width:100%;min-width:0;padding:9px 6px}
+.sim-bar{padding:11px 14px}.simulate-btn{padding:9px 11px;font-size:12px}.team-score{font-size:17px}
 }
 </style>
 </head>
@@ -99,11 +102,20 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
             <button class="league-tab" data-level="4">4. Lig</button>
             <button class="league-tab" data-level="5">5. Lig</button>
           </div>
+          <div class="sim-bar">
+            <div class="sim-info"><span class="sim-dot"></span><span id="simInfo">7. Hafta • 4 maç oynanmayı bekliyor</span></div>
+            <button class="simulate-btn" id="simulateLeague">🎲 Bu Ligi Oynat</button>
+          </div>
           <div id="matches"></div>
         </section>
 
         <section class="section-card">
-          <div class="section-title"><div><h2>🎟 Açık Kuponlarım</h2><p>Bu cihazda kayıtlı prototip kuponlar</p></div></div>
+          <div class="section-title"><div><h2>🏆 Puan Durumu</h2><p id="standingsSub">İngiltere • Crown League</p></div></div>
+          <div class="table-wrap" id="standingsWrap"></div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-title"><div><h2>🎟 Kuponlarım</h2><p>Bekleyen, kazanan ve kaybeden sanal kuponlar</p></div></div>
           <div class="coupon-list" id="couponList"></div>
         </section>
       </div>
@@ -128,7 +140,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.2.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.3</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -174,20 +186,89 @@ const worlds={
 };
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
 let selectedCountry='İngiltere', selectedLevel=1, picks=[];
-let state={balance:10000,coupons:[]};
-try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));if(saved)state={...state,...saved}}catch(e){}
+let state={balance:10000,coupons:[],results:{}};
+try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if(saved)state={...state,...saved,results:saved.results||{}};
+}catch(e){}
 const money=n=>new Intl.NumberFormat('tr-TR').format(Math.round(n))+' ₳D';
+const fixtureId=(country,level,i)=>`${country}-${level}-${i}`;
+const leagueResultIds=()=>worlds[selectedCountry].map((_,i)=>fixtureId(selectedCountry,selectedLevel,i));
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function renderWallet(){document.getElementById('walletValue').textContent=money(state.balance)}
+function poisson(lambda){
+  const L=Math.exp(-lambda);let k=0,p=1;
+  do{k++;p*=Math.random()}while(p>L&&k<8);
+  return Math.min(6,k-1);
+}
+function simulateScore(match){
+  const [, ,o1,ox,o2]=match;
+  const p1=1/o1,px=1/ox,p2=1/o2,sum=p1+px+p2;
+  const h=p1/sum,a=p2/sum;
+  const levelBoost=(selectedLevel-1)*.025;
+  let hg=poisson(.72+h*1.55+levelBoost);
+  let ag=poisson(.58+a*1.45+levelBoost);
+  if(Math.random()<.08){hg=Math.min(6,hg+1)}
+  if(Math.random()<.07){ag=Math.min(6,ag+1)}
+  return [hg,ag];
+}
+function isPickWinner(label,result){
+  const h=result.homeGoals,a=result.awayGoals,total=h+a;
+  if(label==='1')return h>a;
+  if(label==='X')return h===a;
+  if(label==='2')return a>h;
+  if(label==='1X')return h>=a;
+  if(label==='12')return h!==a;
+  if(label==='X2')return a>=h;
+  if(label==='KG Var')return h>0&&a>0;
+  if(label==='KG Yok')return h===0||a===0;
+  const m=label.match(/(1\.5|2\.5|3\.5) (Alt|Üst)/);
+  if(m){
+    const line=Number(m[1]);
+    return m[2]==='Alt'?total<line:total>line;
+  }
+  return false;
+}
+function settleCoupons(){
+  let payoutTotal=0;
+  state.coupons.forEach(c=>{
+    if(c.status==='won'||c.status==='lost')return;
+    if(!Array.isArray(c.selections)||!c.selections.length){c.status='legacy';return}
+    let hasLoss=false,allPlayed=true;
+    c.selections.forEach(s=>{
+      const r=state.results[s.id];
+      if(!r){allPlayed=false;return}
+      if(!isPickWinner(s.label,r))hasLoss=true;
+    });
+    if(hasLoss)c.status='lost';
+    else if(allPlayed){
+      c.status='won';
+      if(!c.paid){
+        c.payout=Math.round(c.return);
+        state.balance+=c.payout;
+        payoutTotal+=c.payout;
+        c.paid=true;
+      }
+    }else c.status='pending';
+  });
+  return payoutTotal;
+}
 function renderMatches(){
   const base=worlds[selectedCountry];
   const factor=1+(selectedLevel-1)*.035;
   document.getElementById('bulletinSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]} • 7. Hafta`;
+  document.getElementById('standingsSub').textContent=`${selectedCountry} • ${leagueNames[selectedLevel]}`;
+  const playedCount=leagueResultIds().filter(id=>state.results[id]).length;
+  const simBtn=document.getElementById('simulateLeague');
+  simBtn.disabled=playedCount===base.length;
+  simBtn.textContent=playedCount===base.length?'✓ Lig Sonuçlandı':'🎲 Bu Ligi Oynat';
+  document.getElementById('simInfo').textContent=playedCount===base.length?'7. Hafta • 4/4 maç tamamlandı':`7. Hafta • ${base.length-playedCount} maç oynanmayı bekliyor`;
   document.getElementById('matches').innerHTML=base.map((m,i)=>{
     const [home,away,o1,ox,o2]=m;
     const odds=[o1,ox,o2].map(x=>(x*factor).toFixed(2));
-    const id=`${selectedCountry}-${selectedLevel}-${i}`;
+    const id=fixtureId(selectedCountry,selectedLevel,i);
+    const result=state.results[id];
     const swing=((i+selectedLevel)%4)*.04;
     const extra=[
       ['1.5 Alt',(2.70+swing).toFixed(2)],['1.5 Üst',(1.42-swing/2).toFixed(2)],
@@ -196,12 +277,12 @@ function renderMatches(){
       ['KG Var',(1.74+swing).toFixed(2)],['KG Yok',(2.02-swing/2).toFixed(2)],
       ['1X',(1.28+swing/3).toFixed(2)],['12',(1.34+swing/3).toFixed(2)],['X2',(1.48-swing/3).toFixed(2)]
     ];
-    const pickButton=(label,odd,market)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" data-id="${id}" data-label="${label}" data-market="${market}" data-odd="${odd}" data-match="${home} - ${away}"><small>${label}</small>${odd}</button>`;
-    return `<div class="match">
-      <div class="match-meta"><strong>${19+i}:00</strong><small>Bugün</small></div>
+    const pickButton=(label,odd,market)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" ${result?'disabled':''} data-id="${id}" data-label="${label}" data-market="${market}" data-odd="${odd}" data-match="${home} - ${away}"><small>${label}</small>${odd}</button>`;
+    return `<div class="match ${result?'match-finished':''}">
+      <div class="match-meta"><strong>${result?'MS':(19+i)+':00'}</strong><small>${result?result.homeGoals+' - '+result.awayGoals:'Bugün'}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span>${home}<span class="form">W W D W L</span></div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span>${away}<span class="form">L D W L D</span></div>
+        <div class="team"><span class="dot"></span>${home}${result?`<span class="team-score">${result.homeGoals}</span>`:'<span class="form">W W D W L</span>'}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span>${away}${result?`<span class="team-score">${result.awayGoals}</span>`:'<span class="form">L D W L D</span>'}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,odds[j],'Maç Sonucu')).join('')}
       <div class="extra-markets">
@@ -210,7 +291,7 @@ function renderMatches(){
       </div>
     </div>`
   }).join('');
-  document.querySelectorAll('.odd-btn').forEach(btn=>btn.addEventListener('click',()=>togglePick(btn.dataset)));
+  document.querySelectorAll('.odd-btn:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>togglePick(btn.dataset)));
 }
 function togglePick(d){
   const existing=picks.findIndex(p=>p.id===d.id);
@@ -238,10 +319,32 @@ function updateSlipMath(){
 }
 function renderCoupons(){
   const list=document.getElementById('couponList');
-  if(!state.coupons.length){list.innerHTML='<div class="empty">Henüz açık kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';return}
-  list.innerHTML=state.coupons.slice().reverse().map(c=>`<div class="coupon"><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}</small></div><div class="status">BEKLİYOR</div></div>`).join('');
+  if(!state.coupons.length){list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';return}
+  list.innerHTML=state.coupons.slice().reverse().map(c=>{
+    const status=c.status||(!c.selections?'legacy':'pending');
+    const statusText=status==='won'?'KAZANDI':status==='lost'?'KAYBETTİ':status==='legacy'?'ESKİ KUPON':'BEKLİYOR';
+    const extra=status==='won'&&c.payout?` • Ödeme ${money(c.payout)}`:'';
+    return `<div class="coupon"><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}${extra}</small></div><div class="status ${status}">${statusText}</div></div>`
+  }).join('');
 }
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2300)}
+function renderStandings(){
+  const teams=[];
+  worlds[selectedCountry].forEach(m=>{teams.push(m[0],m[1])});
+  const table=Object.fromEntries(teams.map(t=>[t,{team:t,p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}]));
+  worlds[selectedCountry].forEach((m,i)=>{
+    const r=state.results[fixtureId(selectedCountry,selectedLevel,i)];
+    if(!r)return;
+    const h=table[m[0]],a=table[m[1]];
+    h.p++;a.p++;h.gf+=r.homeGoals;h.ga+=r.awayGoals;a.gf+=r.awayGoals;a.ga+=r.homeGoals;
+    if(r.homeGoals>r.awayGoals){h.w++;a.l++;h.pts+=3}
+    else if(r.homeGoals<r.awayGoals){a.w++;h.l++;a.pts+=3}
+    else{h.d++;a.d++;h.pts++;a.pts++}
+  });
+  const rows=Object.values(table).sort((a,b)=>b.pts-a.pts||((b.gf-b.ga)-(a.gf-a.ga))||b.gf-a.gf||a.team.localeCompare(b.team,'tr'));
+  document.getElementById('standingsWrap').innerHTML=`<table class="standings"><thead><tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th><th>P</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${i<2?'top':''}"><td>${i+1}</td><td>${r.team}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga}</td><td><strong>${r.pts}</strong></td></tr>`).join('')}</tbody></table>`;
+}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600)}
+
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
 document.getElementById('placeCoupon').addEventListener('click',()=>{
   const stake=Math.floor(Number(document.getElementById('stakeInput').value)||0);
@@ -250,12 +353,39 @@ document.getElementById('placeCoupon').addEventListener('click',()=>{
   if(stake>state.balance){toast('Afyon Dinarı yetmedi. Merkez Bankası para basmıyor.');return}
   const odds=picks.reduce((a,p)=>a*p.odd,1);
   state.balance-=stake;
-  state.coupons.push({id:Date.now(),picks:picks.length,stake,odds:odds.toFixed(2),return:stake*odds,created:new Date().toISOString()});
+  state.coupons.push({
+    id:Date.now(),picks:picks.length,stake,odds:odds.toFixed(2),return:stake*odds,
+    selections:picks.map(p=>({...p})),status:'pending',paid:false,created:new Date().toISOString()
+  });
   save();picks=[];renderWallet();renderMatches();renderSlip();renderCoupons();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
 });
-document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.country-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedCountry=b.dataset.country;picks=[];renderMatches();renderSlip()}));
-document.querySelectorAll('.league-tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.league-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedLevel=Number(b.dataset.level);picks=[];renderMatches();renderSlip()}));
-renderWallet();renderMatches();renderSlip();renderCoupons();
+document.getElementById('simulateLeague').addEventListener('click',()=>{
+  const ids=leagueResultIds();
+  let played=0;
+  worlds[selectedCountry].forEach((m,i)=>{
+    const id=ids[i];
+    if(state.results[id])return;
+    const [homeGoals,awayGoals]=simulateScore(m);
+    state.results[id]={home:m[0],away:m[1],homeGoals,awayGoals,playedAt:new Date().toISOString()};
+    played++;
+  });
+  if(!played)return;
+  picks=picks.filter(p=>!ids.includes(p.id));
+  const payout=settleCoupons();
+  save();
+  renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();
+  toast(payout>0?`Maçlar bitti! ${money(payout)} hesabına geçti. 🏆`:'Maçlar bitti. AFMB kupon dosyalarını inceliyor. ⚽');
+});
+document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.country-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  selectedCountry=b.dataset.country;picks=[];renderMatches();renderSlip();renderStandings();
+}));
+document.querySelectorAll('.league-tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.league-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  selectedLevel=Number(b.dataset.level);picks=[];renderMatches();renderSlip();renderStandings();
+}));
+
+settleCoupons();save();renderWallet();renderMatches();renderSlip();renderCoupons();renderStandings();
 </script>
 </body>
 </html>
