@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.7</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.7.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -165,7 +165,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     <div class="rescue-head">
       <span class="tag">🏛 AFMB • ACİL İSTİHDAM</span>
       <h2>Ekonomi çöktü. İşe gidiyorsun.</h2>
-      <p>Bakiye 0 ₳D ve bekleyen kuponun yok. 10 saniyede 20 kamu evrakı damgala; AFMB sana 1.000 ₳D sanal mesai ücreti ödesin.</p>
+      <p>Bakiye 10 ₳D altına düştü ve bekleyen kuponun yok. 10 saniyede 20 kamu evrakı damgala; AFMB sana 1.000 ₳D sanal mesai ücreti ödesin.</p>
     </div>
     <div class="rescue-body">
       <div class="rescue-stats">
@@ -643,7 +643,7 @@ function hasPendingCoupon(){
   });
 }
 function rescueEligible(){
-  return state.balance<=0&&!hasPendingCoupon();
+  return state.balance<10&&!hasPendingCoupon();
 }
 function stopRescueTimer(){
   if(rescueTimer){clearInterval(rescueTimer);rescueTimer=null}
