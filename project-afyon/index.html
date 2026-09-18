@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.8.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.9</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -280,15 +280,38 @@ function getTeams(country,level){
     :generated;
 
   // 4 şampiyonluk adayı, 10 orta sıra, 4 küme hattı profili.
+  // Takımın gerçek gücü ATK + MID + DEF ortalamasıdır; stil toplam gücü bedavadan artırmaz.
   const profile=[10,8,7,6,3,2,1,1,0,0,-1,-1,-2,-3,-6,-7,-9,-10];
+  const styleProfiles=[
+    {name:'Dengeli',atk:0,mid:0,def:0},
+    {name:'Hücumcu',atk:7,mid:1,def:-8},
+    {name:'Savunmacı',atk:-6,mid:1,def:5},
+    {name:'Kontrol',atk:-2,mid:6,def:-4},
+    {name:'Kontra',atk:5,mid:-5,def:0},
+    {name:'Kaotik',atk:6,mid:-2,def:-4}
+  ];
   const base=80-(level-1)*5;
   const rotation=stableHash(country+'|'+level)%profile.length;
 
   return names.map((name,i)=>{
     const offset=profile[(i*5+rotation)%profile.length];
+    const target=clamp(base+offset,45,92);
+    const style=styleProfiles[stableHash(country+'|'+level+'|'+name+'|style')%styleProfiles.length];
+
+    // Küçük deterministik sapma: aynı stile sahip kulüpler birebir kopya olmasın.
+    const jitter=((stableHash(name+'|lines')%5)-2);
+    const attack=clamp(Math.round(target+style.atk+jitter),40,96);
+    const midfield=clamp(Math.round(target+style.mid-Math.sign(jitter)),40,96);
+    const defense=clamp(Math.round(target+style.def),40,96);
+    const strength=Math.round((attack+midfield+defense)/3);
+
     return {
       name,
-      strength:clamp(base+offset,45,92),
+      attack,
+      midfield,
+      defense,
+      strength,
+      style:style.name,
       seed:i,
       tier:offset>=6?'favorite':offset<=-6?'relegation':'mid'
     };
@@ -370,14 +393,32 @@ function getFormData(country,level,teamName,beforeWeek){
 function expectedGoals(home,away,country,level,week){
   const homeForm=getFormData(country,level,home.name,week);
   const awayForm=getFormData(country,level,away.name,week);
-  const homeEffective=home.strength+homeForm.modifier;
-  const awayEffective=away.strength+awayForm.modifier;
-  const ratingDiff=(homeEffective-awayEffective)/10;
-  const tempo=((home.seed*3+away.seed*5)%5-2)*.025;
+
+  // Form tek bir "güç +" sayısına dönüşmüyor; üç hatta farklı ağırlıklarla yansıyor.
+  const homeAtk=home.attack+homeForm.modifier*.70;
+  const homeMid=home.midfield+homeForm.modifier*.50;
+  const homeDef=home.defense+homeForm.modifier*.45;
+  const awayAtk=away.attack+awayForm.modifier*.70;
+  const awayMid=away.midfield+awayForm.modifier*.50;
+  const awayDef=away.defense+awayForm.modifier*.45;
+
+  // Gol beklentisi doğrudan hücum-savunma eşleşmesinden doğuyor.
+  // Böylece ATK yüksek / DEF düşük takımların maçları doğal olarak daha "üstlük" oluyor.
+  const homeAttackEdge=(homeAtk-awayDef)/10;
+  const awayAttackEdge=(awayAtk-homeDef)/10;
+  const midfieldEdge=(homeMid-awayMid)/10;
+  const tempo=((home.seed*3+away.seed*5)%5-2)*.02;
+
+  const homeXg=clamp(1.42+homeAttackEdge*.22+midfieldEdge*.07+tempo,.45,2.85);
+  const awayXg=clamp(1.12+awayAttackEdge*.22-midfieldEdge*.06+tempo,.40,2.65);
+
   return {
-    home:clamp(1.45+ratingDiff*.20+tempo,.65,2.35),
-    away:clamp(1.15-ratingDiff*.17+tempo,.55,2.10),
-    homeForm,awayForm,homeEffective,awayEffective
+    home:homeXg,
+    away:awayXg,
+    homeForm,
+    awayForm,
+    homeEffective:home.strength+homeForm.modifier,
+    awayEffective:away.strength+awayForm.modifier
   };
 }
 function poissonProbability(lambda,k){
@@ -440,9 +481,24 @@ function getMatchOdds(home,away,country,level,week,index){
     homeEffective:p.xg.homeEffective,awayEffective:p.xg.awayEffective
   };
 }
+function matchDayShock(){
+  // Ortalama 1.00; çoğu gün küçük, nadiren belirgin performans sapması.
+  const centered=(Math.random()+Math.random()+Math.random()+Math.random()-2)/2;
+  return clamp(1+centered*.20,.78,1.24);
+}
 function simulateScore(home,away,country,level,week){
   const xg=expectedGoals(home,away,country,level,week);
-  return [poisson(xg.home),poisson(xg.away)];
+
+  // Oran motorunun bilemediği maç-günü faktörü + Poisson varyansı.
+  // Güçlü favori avantajlı kalır ama hiçbir maç "garanti" olmaz.
+  const tempoShock=.93+Math.random()*.14;
+  const homeShock=matchDayShock();
+  const awayShock=matchDayShock();
+
+  return [
+    poisson(xg.home*tempoShock*homeShock),
+    poisson(xg.away*tempoShock*awayShock)
+  ];
 }
 function buildGoalEvents(homeGoals,awayGoals){
   const events=[];
@@ -592,8 +648,8 @@ function renderMatches(){
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • FORM ${market.homeForm.sequence}</span>`}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • FORM ${market.awayForm.sequence}</span>`}</div>
+        <div class="team"><span class="dot"></span>${m.home.name}${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form">GÜÇ ${m.home.strength} • ATK ${m.home.attack} MID ${m.home.midfield} DEF ${m.home.defense} • FORM ${market.homeForm.sequence||'—'}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span>${m.away.name}${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form">GÜÇ ${m.away.strength} • ATK ${m.away.attack} MID ${m.away.midfield} DEF ${m.away.defense} • FORM ${market.awayForm.sequence||'—'}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,market.main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row">
