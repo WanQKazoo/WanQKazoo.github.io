@@ -411,7 +411,7 @@ body[data-page="news"] #newsSection{min-height:calc(100vh - 190px)}
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.2 Coupon UI</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.16.3 Coupon Results</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1689,7 +1689,11 @@ function renderCoupons(){
     let legs='<div class="coupon-hint">Bu kupon eski prototipten geldiği için maç detayları tutulmamış.</div>';
     if(Array.isArray(c.selections)&&c.selections.length){
       legs='<div class="coupon-legs">'+c.selections.map(s=>{
-        const final=state.results[s.id];
+        const serverMatch=onlineMode?onlineMatchMap[s.id]:null;
+        const serverFinal=serverMatch&&serverMatch.status==='finished'&&serverMatch.home_goals!=null&&serverMatch.away_goals!=null
+          ?{homeGoals:Number(serverMatch.home_goals),awayGoals:Number(serverMatch.away_goals)}
+          :null;
+        const final=state.results[s.id]||serverFinal;
         const live=liveSnapshot(s.id);
         const legState=final?(isPickWinner(s.label,final)?'won':'lost'):'pending';
         const icon=legState==='won'?'✓':legState==='lost'?'×':'•';
@@ -2043,7 +2047,12 @@ async function refreshOnlineAccount(){
     const matchIds=[...new Set(selections.map(x=>x.match_id))];
     if(matchIds.length){
       const mr=await supabaseClient.from('matches').select('id,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at').in('id',matchIds);
-      if(!mr.error)(mr.data||[]).forEach(m=>onlineMatchMap[m.id]=m);
+      if(!mr.error)(mr.data||[]).forEach(m=>{
+        onlineMatchMap[m.id]=m;
+        if(m.status==='finished'&&m.home_goals!=null&&m.away_goals!=null){
+          state.results[m.id]={homeGoals:Number(m.home_goals),awayGoals:Number(m.away_goals)};
+        }
+      });
     }
   }
   state.coupons=(coupons||[]).map(coupon=>{
