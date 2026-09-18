@@ -277,7 +277,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
 .chance-stage{min-height:240px;border:1px solid #263650;border-radius:17px;background:radial-gradient(circle at 50% 20%,#182947,#0b1322 72%);padding:14px;overflow:hidden;position:relative}.chance-stage.idle{display:grid;place-items:center;color:#71829e;text-align:center;font-size:11px;line-height:1.6}
 .chance-play{width:100%;margin-top:12px;border:0;border-radius:13px;padding:13px 14px;background:var(--accent);color:#062018;font-weight:1000}.chance-play:disabled{opacity:.45}
 .chance-result{margin-top:10px;padding:11px 12px;border:1px solid #2d3d58;border-radius:12px;background:#111c2f;color:#9eacc3;font-size:11px;line-height:1.5}.chance-result.win{border-color:#2c6655;color:#8af2d0}.chance-result.loss{border-color:#62343d;color:#ff9aa6}
-.race-track{display:grid;gap:7px}.race-lane{height:24px;border-radius:999px;background:#111d31;border:1px solid #253650;position:relative;overflow:hidden}.race-lane:after{content:"";position:absolute;right:18px;top:0;bottom:0;border-right:2px dashed rgba(255,255,255,.18)}.racer{position:absolute;left:6px;top:1px;font-size:17px;transition:transform 2.1s cubic-bezier(.1,.7,.2,1)}.race-label{position:absolute;right:4px;top:4px;font-size:8px;color:#647694;font-weight:900}
+.race-track{display:grid;gap:7px}.race-lane{height:24px;border-radius:999px;background:#111d31;border:1px solid #253650;position:relative;overflow:hidden}.race-lane:after{content:"";position:absolute;right:18px;top:0;bottom:0;border-right:2px dashed rgba(255,255,255,.18)}.racer{position:absolute;left:6px;top:1px;font-size:17px;transition:left 2.1s cubic-bezier(.1,.7,.2,1)}.race-label{position:absolute;right:4px;top:4px;font-size:8px;color:#647694;font-weight:900}
 .coin-stage,.wheel-stage,.boxes-stage,.royale-stage{height:210px;display:grid;place-items:center}.big-coin{font-size:86px;transition:transform 1.2s cubic-bezier(.15,.65,.2,1)}.big-coin.spinning{transform:rotateY(1800deg) rotateZ(720deg)}
 .wheel-face{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;border:8px solid #3a3150;background:conic-gradient(#f5c36b 0 45deg,#69d9bb 45deg 90deg,#8ba7ff 90deg 135deg,#e486ff 135deg 180deg,#ff8c9b 180deg 225deg,#75c8ff 225deg 270deg,#b3e875 270deg 315deg,#f3a7d4 315deg 360deg);font-size:42px;transition:transform 1.8s cubic-bezier(.12,.72,.1,1)}.wheel-pointer{position:absolute;top:18px;font-size:25px;z-index:2}
 .boxes-stage{grid-template-columns:repeat(3,1fr);gap:12px}.memur-box{min-height:130px;border:1px solid #30415c;border-radius:14px;background:#121e31;display:grid;place-items:center;font-size:48px;position:relative}.memur-box.reveal{background:#183128}.memur-box small{position:absolute;bottom:8px;font-size:9px;color:#8090ab}
@@ -2326,8 +2326,8 @@ async function animateChanceResult(gameKey,result){
     racers.forEach((lane,i)=>{
       const key=lane.dataset.raceKey;
       const racer=lane.querySelector('.racer');
-      const pct=key===winner?100:(55+Math.floor(Math.random()*36));
-      racer.style.transform='translateX(calc((min(100vw, 690px) - 88px) * '+(pct/100)+'))';
+      const pct=key===winner?91:(52+Math.floor(Math.random()*34));
+      racer.style.left=pct+'%';
     });
     await chanceWait(2200);
   }else if(game.type==='coin'){
