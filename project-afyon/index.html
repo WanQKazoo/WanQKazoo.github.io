@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.9</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.9.1</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -193,6 +193,27 @@ const STORAGE_KEY='projectAfyonPrototypeV2';
 const LIVE_DURATION=180000;
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
 const leagueNames={1:'Crown League',2:'National Division',3:'Regional Premier',4:'County League',5:'Sunday Elite'};
+const crownKickoffMinutes={
+  'Avusturya':19*60,
+  'İskoçya':19*60+15,
+  'Belçika':19*60+30,
+  'Hollanda':19*60+45,
+  'Türkiye':20*60,
+  'İngiltere':20*60+15,
+  'İspanya':20*60+30,
+  'Almanya':20*60+45,
+  'İtalya':21*60,
+  'Fransa':21*60+15,
+  'Portekiz':21*60+30,
+  'Yunanistan':21*60+45
+};
+function kickoffLabel(country,level){
+  const crown=crownKickoffMinutes[country]??20*60;
+  const total=crown-(level-1)*15;
+  const hh=String(Math.floor(total/60)%24).padStart(2,'0');
+  const mm=String(total%60).padStart(2,'0');
+  return `${hh}:${mm}`;
+}
 const countryRoots={
   İngiltere:['Northbridge','Birmingham','East London','Manchester','Bristol','Yorkshire','Rivergate','Westham','Liverpool Bay','Nottingham','Leeds Park','Newcastle Tyne','Sheffield Steel','Leicester Vale','Brighton Coast','Wolverton','Southampton Dock','Burnley Moor'],
   Türkiye:['Adana','Ankara','İzmir','Bursa','Konya','Mersin','Trabzon','Eskişehir','Antalya','Samsun','Kayseri','Gaziantep','Sakarya','Kocaeli','Manisa','Denizli','Balıkesir','Malatya'],
@@ -659,7 +680,7 @@ function renderMatches(){
     const market=getMatchOdds(m.home,m.away,selectedCountry,selectedLevel,state.week,i);
     const locked=!!shown||live;
     const pickButton=(label,odd,marketName)=>`<button class="odd-btn ${picks.some(p=>p.id===id&&p.label===label)?'selected':''}" ${locked?'disabled':''} data-id="${id}" data-label="${label}" data-market="${marketName}" data-odd="${odd}" data-match="${m.home.name} - ${m.away.name}"><small>${label}</small>${odd}</button>`;
-    const status=final?'MS':snap?`${snap.minute>=90?"90+":snap.minute}'`:(19+i)+':00';
+    const status=final?'MS':snap?`${snap.minute>=90?"90+":snap.minute}'`:kickoffLabel(selectedCountry,selectedLevel);
     const score=shown?`${shown.homeGoals} - ${shown.awayGoals}`:'Bugün';
     return `<div class="match ${final?'match-finished':''} ${snap&&!final?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small></div>
