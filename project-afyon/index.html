@@ -99,6 +99,24 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
   .club-body{padding:14px}.club-rating-grid{grid-template-columns:repeat(2,1fr)}.club-overview-grid{grid-template-columns:1fr}.club-facts{grid-template-columns:1fr 1fr}.club-fixture{grid-template-columns:54px 1fr auto}
 }
 
+
+.bulletin-group-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 18px;background:#0d1626;border-top:1px solid var(--line);border-bottom:1px solid #1f2c43;position:sticky;top:72px;z-index:8}
+.bulletin-group-head strong{font-size:12px;letter-spacing:.3px}.bulletin-group-head small{color:#7f91ad;font-size:10px;font-weight:850}
+.bulletin-group-head.live{background:#17131e}.bulletin-group-head.live strong{color:#ff8f9a}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
+.news-card{padding:14px;border:1px solid #263650;border-radius:15px;background:#111c2f;min-height:118px}
+.news-card .tag{display:inline-flex;padding:5px 7px;border-radius:8px;background:#1d2a43;color:#9db2d4;font-size:9px;font-weight:1000;letter-spacing:.6px}
+.news-card h4{margin:10px 0 6px;font-size:14px}.news-card p{margin:0;color:#91a2bd;font-size:11px;line-height:1.55}
+.news-card.afmb-news{border-color:#514622;background:linear-gradient(145deg,#211d11,#111928)}.news-card.afmb-news .tag{background:#423814;color:#ffe39a}
+@media(max-width:1050px){
+  body{padding-bottom:76px}
+  .main-nav{display:grid!important;grid-template-columns:repeat(4,1fr);position:fixed;left:10px;right:10px;bottom:10px;z-index:75;margin:0;padding:6px;border:1px solid #2a3852;border-radius:16px;background:rgba(11,16,32,.96);backdrop-filter:blur(16px);box-shadow:0 14px 45px rgba(0,0,0,.42)}
+  .main-nav .nav-btn{padding:10px 5px;font-size:10px}
+  .afmb-float{bottom:82px}
+  .news-grid{grid-template-columns:1fr}
+  .bulletin-group-head{top:64px}
+}
+
 @media(max-width:720px){.auth-profile{display:grid!important}}
 </style>
 </head>
@@ -108,7 +126,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
   <header>
     <div class="container nav">
       <div class="brand"><div class="brand-mark">₳D</div><div>Project Afyon <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></div>
-      <nav class="main-nav"><button class="nav-btn active">Bülten</button><button class="nav-btn">Kuponlarım</button><button class="nav-btn">Ligler</button><button class="nav-btn">Haberler</button></nav>
+      <nav class="main-nav"><button class="nav-btn active" data-nav-target="bulletinSection">⚽ Bülten</button><button class="nav-btn" data-nav-target="couponsSection">🎟 Kuponlarım</button><button class="nav-btn" data-nav-target="leagueSection">🏆 Ligler</button><button class="nav-btn" data-nav-target="newsSection">📰 Haberler</button></nav>
       <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">10.000 ₳D</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
     </div>
   </header>
@@ -137,7 +155,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 
     <div class="layout">
       <div class="content">
-        <section class="section-card">
+        <section class="section-card" id="bulletinSection">
           <div class="section-title"><div><h2>⚽ En Yakındaki Maçlar</h2><p id="bulletinSub">Avrupa genelinde sıradaki karşılaşmalar</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
           <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="Tümü">🌍 Tümü</button>
@@ -177,14 +195,23 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
           <div id="matches"></div>
         </section>
 
-        <section class="section-card">
+        <section class="section-card" id="leagueSection">
           <div class="section-title"><div><h2>🏆 Puan Durumu</h2><p id="standingsSub">İngiltere • Crown League</p></div></div>
           <div class="table-wrap" id="standingsWrap"></div>
         </section>
 
-        <section class="section-card">
+        <section class="section-card" id="couponsSection">
           <div class="section-title"><div><h2>🎟 Kuponlarım</h2><p>Bekleyen, kazanan ve kaybeden sanal kuponlar</p></div></div>
           <div class="coupon-list" id="couponList"></div>
+        </section>
+
+        <section class="section-card" id="newsSection">
+          <div class="section-title"><div><h2>📰 Afyon Futbol Gündemi</h2><p>Ortak dünyadan notlar ve son derece ciddi kurum açıklamaları</p></div></div>
+          <div class="news-grid">
+            <article class="news-card"><span class="tag">ORTAK DÜNYA</span><h4>Sezon aynı, sonuç aynı</h4><p>Bütün oyuncular aynı fikstürü ve aynı maç sonuçlarını görüyor. Project Afyon artık tek bir ortak futbol evreni.</p></article>
+            <article class="news-card"><span class="tag">FİKSTÜR</span><h4>Bülten artık saate bakıyor</h4><p>Yaklaşan karşılaşmalar kickoff saatine göre sıralanıyor; başlayan maçlar otomatik olarak kilitleniyor.</p></article>
+            <article class="news-card afmb-news"><span class="tag">🏛 AFMB</span><h4>Finansal istikrar yakından izleniyor</h4><p>“Vatandaşlarımızın kuponu tamamladıktan sonra bir maç daha ekleme eğilimi endişeyle takip edilmektedir.”</p></article>
+          </div>
         </section>
       </div>
 
@@ -208,7 +235,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
     </div>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.13 Bulletin</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.14 Bulletin Flow</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1319,6 +1346,24 @@ function renderOnlineBulletin(){
       </div>
     </div>`;
   }).join('');
+
+  let lastGroup=null;
+  const cards=[...wrap.querySelectorAll(':scope > .match')];
+  cards.forEach((card,idx)=>{
+    const m=onlineBulletinMatches[idx];
+    if(!m)return;
+    const groupKey=m.status==='live'?'LIVE':matchKickoffLabel(m.id,m.country,m.league_level);
+    if(groupKey===lastGroup)return;
+    const count=onlineBulletinMatches.filter(x=>{
+      const k=x.status==='live'?'LIVE':matchKickoffLabel(x.id,x.country,x.league_level);
+      return k===groupKey;
+    }).length;
+    const liveGroup=groupKey==='LIVE';
+    const label=liveGroup?'🔴 ŞİMDİ CANLI':'⏱ '+groupKey;
+    card.insertAdjacentHTML('beforebegin','<div class="bulletin-group-head '+(liveGroup?'live':'')+'"><strong>'+label+'</strong><small>'+count+' maç</small></div>');
+    lastGroup=groupKey;
+  });
+
   bindClubLinks(wrap);
   wrap.querySelectorAll('.odd-btn:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>togglePick(btn.dataset)));
   wrap.querySelectorAll('[data-market-toggle]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -1410,7 +1455,10 @@ function renderMatches(){
   renderLiveCenter();
 }
 function togglePick(d){
-  if(isCurrentLive())return;
+  if(onlineMode){
+    const target=onlineMatchMap[d.id];
+    if(!target||target.status!=='scheduled')return;
+  }else if(isCurrentLive())return;
   const existing=picks.findIndex(p=>p.id===d.id);
   if(existing>=0&&picks[existing].label===d.label)picks.splice(existing,1);
   else{
@@ -1830,6 +1878,13 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
+document.querySelectorAll('[data-nav-target]').forEach(btn=>btn.addEventListener('click',()=>{
+  const target=document.getElementById(btn.dataset.navTarget);
+  if(!target)return;
+  document.querySelectorAll('[data-nav-target]').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  target.scrollIntoView({behavior:'smooth',block:'start'});
+}));
 document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
