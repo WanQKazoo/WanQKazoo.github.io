@@ -4047,7 +4047,6 @@ async function refreshOnlineBoxing(force=false){
   onlineBoxingFighters=fightersRes.data||[];
   onlineBoxingBouts=boutsRes.data||[];
   boxingLastRefresh=now;
-  if(activeBoxingBoutId)await refreshBoxingBoutDetail();
   renderBoxing();
 }
 function boxingFighter(id){return onlineBoxingFighters.find(f=>f.id===id)||null}
