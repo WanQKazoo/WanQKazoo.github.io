@@ -428,29 +428,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   body[data-page="bulletin"] .stat small{font-size:7px}
 }
 
-/* ===== Prototype 0.28 — Multi-sport bulletin ===== */
-.sport-tabs{display:flex;gap:7px;padding:10px 14px;background:#080f1a;border-bottom:1px solid #1d2a40;overflow:auto;scrollbar-width:none}
-.sport-tabs::-webkit-scrollbar{display:none}
-.sport-tab{display:flex;align-items:center;gap:7px;border:1px solid #263650;border-radius:10px;background:#101a2c;color:#8496b3;padding:8px 11px;white-space:nowrap;font-size:10px;font-weight:1000}
-.sport-tab small{font-size:7px;color:#60738f;font-weight:900;letter-spacing:.4px}
-.sport-tab.active{background:#1a3045;border-color:#4b6c83;color:#fff;box-shadow:inset 0 0 0 1px rgba(116,192,252,.08)}
-.sport-tab[data-sport="efootball"].active{background:#2a2344;border-color:#7661ad;color:#efe8ff}
-.sport-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 6px;border-radius:6px;font-size:7px;font-weight:1000;letter-spacing:.45px;text-transform:uppercase}
-.sport-badge.football{background:#173529;color:#7ce7c2}
-.sport-badge.efootball{background:#30244d;color:#c8b0ff}
-.match.efootball{box-shadow:inset 3px 0 #8d70d7}
-.match.efootball .dot{background:#b299ff!important}
-.match.efootball .match-meta strong{background:#2c2448;color:#d8c9ff}
-.match.efootball .form{border-color:#40355f;background:#19172a;color:#9388b4}
-.bulletin-group-head.efootball{background:#171529;border-top-color:#493b6d}
-.bulletin-group-head.efootball strong{color:#cbb9ff}
-.sport-live-note{color:#8b9bb4;font-size:8px;font-weight:900}
-@media(max-width:720px){
-  .sport-tabs{padding:8px 10px}
-  .sport-tab{padding:7px 9px;font-size:9px}
-  .sport-tab small{display:none}
-}
-</style>
+/* ===== Prototype 0.29 Living Coupon</style>
 </head>
 <body>
 <div class="app">
@@ -642,10 +620,13 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
         </div>
       </aside>
     </div>
-    <button class="mobile-slip-launcher" id="mobileSlipLauncher" type="button"><span>🎟 Kuponum</span><strong id="mobileSlipText">0 seçim</strong></button>
+    <button class="mobile-slip-launcher" id="mobileSlipLauncher" type="button">
+      <span class="mobile-slip-title">🎟 Kuponum</span>
+      <span class="mobile-slip-copy"><strong id="mobileSlipText">0 seçim</strong><small id="mobileSlipSub">Bültenden seçim yap</small></span>
+    </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.28.1 Multi-Sport</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.29 Living Coupon</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1977,16 +1958,148 @@ function togglePick(d){
   }
   renderMatches();renderSlip();
 }
+function couponLegRuntime(selection){
+  const serverMatch=onlineMode?onlineMatchMap[selection.id]:null;
+  const serverFinal=serverMatch&&serverMatch.status==='finished'&&serverMatch.home_goals!=null&&serverMatch.away_goals!=null
+    ?{homeGoals:Number(serverMatch.home_goals),awayGoals:Number(serverMatch.away_goals)}
+    :null;
+  const final=selection.final||state.results[selection.id]||serverFinal;
+  if(final){
+    return {state:isPickWinner(selection.label,final)?'won':'lost',final,match:serverMatch};
+  }
+  const isLive=serverMatch?.status==='live'||!!liveSnapshot(selection.id);
+  return {state:isLive?'live':'waiting',final:null,match:serverMatch};
+}
+function couponRuntime(coupon){
+  const selections=Array.isArray(coupon?.selections)?coupon.selections:[];
+  const summary={won:0,lost:0,live:0,waiting:0,total:selections.length,lastLeg:false,lastSelection:null};
+  selections.forEach(s=>{
+    const runtime=couponLegRuntime(s);
+    summary[runtime.state]++;
+  });
+  const remaining=summary.live+summary.waiting;
+  if(summary.lost===0&&summary.total>0&&summary.won===summary.total-1&&remaining===1){
+    summary.lastLeg=true;
+    summary.lastSelection=selections.find(s=>{
+      const state=couponLegRuntime(s).state;
+      return state==='live'||state==='waiting';
+    })||null;
+  }
+  return summary;
+}
+function getLivingCoupon(){
+  const pending=state.coupons.filter(c=>c.status==='pending'&&Array.isArray(c.selections)&&c.selections.length);
+  if(!pending.length)return null;
+  pending.sort((a,b)=>{
+    const ar=couponRuntime(a),br=couponRuntime(b);
+    if((br.live>0)!==(ar.live>0))return (br.live>0?1:0)-(ar.live>0?1:0);
+    if(br.lastLeg!==ar.lastLeg)return Number(br.lastLeg)-Number(ar.lastLeg);
+    return (new Date(b.created||0).getTime()||0)-(new Date(a.created||0).getTime()||0);
+  });
+  return pending[0];
+}
+function livingCouponCopy(coupon){
+  if(!coupon)return null;
+  const r=couponRuntime(coupon);
+  let headline='';
+  if(r.lastLeg){
+    const runtime=r.lastSelection?couponLegRuntime(r.lastSelection):null;
+    headline=runtime?.state==='live'?'🔥 SON AYAK CANLI':'⏳ SON AYAK BEKLİYOR';
+  }else{
+    const parts=[];
+    if(r.won)parts.push('🟢 '+r.won+' tuttu');
+    if(r.live)parts.push('🔴 '+r.live+' canlı');
+    if(r.waiting)parts.push('⏳ '+r.waiting+' bekliyor');
+    headline=parts.join(' • ')||'Kupon takipte';
+  }
+  const activeCount=state.coupons.filter(c=>c.status==='pending'&&Array.isArray(c.selections)&&c.selections.length).length;
+  const matchName=r.lastLeg&&r.lastSelection?r.lastSelection.match:null;
+  const sub=matchName
+    ?matchName
+    :`Olası dönüş ${money(coupon.return)}${activeCount>1?' • +'+(activeCount-1)+' aktif kupon':''}`;
+  return {coupon,r,headline,sub,activeCount};
+}
+function openLivingCoupon(coupon){
+  if(!coupon)return;
+  const key=String(coupon.id??coupon.created??'');
+  if(key)openCouponIds.add(key);
+  const url=new URL(window.location.href);
+  url.searchParams.set('page','coupons');
+  history.pushState({page:'coupons'},'',url);
+  applyPageRoute();
+  renderCoupons();
+  requestAnimationFrame(()=>{
+    const target=document.querySelector(`details[data-coupon-key="${CSS.escape(key)}"]`);
+    if(target){
+      target.open=true;
+      target.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  });
+}
+function renderLivingCouponLauncher(){
+  const launcher=document.getElementById('mobileSlipLauncher');
+  const text=document.getElementById('mobileSlipText');
+  const sub=document.getElementById('mobileSlipSub');
+  if(!launcher||!text)return;
+
+  launcher.classList.remove('has-picks','has-live-coupon','last-leg','coupon-danger');
+
+  if(picks.length){
+    const total=picks.reduce((a,p)=>a*p.odd,1);
+    launcher.dataset.mode='slip';
+    launcher.classList.add('has-picks');
+    text.textContent=picks.length+' seçim • '+total.toFixed(2);
+    if(sub)sub.textContent='Kuponu aç';
+    return;
+  }
+
+  const living=getLivingCoupon();
+  const copy=livingCouponCopy(living);
+  if(copy){
+    launcher.dataset.mode='living';
+    launcher.classList.add('has-live-coupon');
+    if(copy.r.lastLeg)launcher.classList.add('last-leg');
+    if(copy.r.lost)launcher.classList.add('coupon-danger');
+    text.textContent=copy.headline;
+    if(sub)sub.textContent=copy.sub;
+    return;
+  }
+
+  launcher.dataset.mode='slip';
+  text.textContent='0 seçim';
+  if(sub)sub.textContent='Bültenden seçim yap';
+}
 function renderSlip(){
   const box=document.getElementById('slipItems'),controls=document.getElementById('slipControls');
-  const launcher=document.getElementById('mobileSlipLauncher'),mobileText=document.getElementById('mobileSlipText');
   document.getElementById('slipCount').textContent=picks.length+' seçim';
-  if(launcher)launcher.classList.toggle('has-picks',picks.length>0);
-  if(mobileText)mobileText.textContent=picks.length?picks.length+' seçim':'0 seçim';
+  renderLivingCouponLauncher();
+
   if(!picks.length){
-    box.innerHTML='<div class="empty"><span class="slip-empty-icon">🎯</span><strong>Kuponun boş</strong><small>Bültenden bir orana dokun.<br>Seçimin burada görünecek.</small></div>';
-    controls.style.display='none';return;
+    const living=getLivingCoupon();
+    const copy=livingCouponCopy(living);
+    if(copy){
+      const r=copy.r;
+      box.innerHTML=`<div class="living-coupon-card ${r.lastLeg?'last-leg':''}" id="livingCouponCard">
+        <div class="living-coupon-kicker"><span>🎟 AKTİF KUPON • ${copy.coupon.picks} AYAK</span><b>${Number(copy.coupon.odds).toFixed(2)}</b></div>
+        <h4>${copy.headline}</h4>
+        <div class="living-coupon-states">
+          ${r.won?`<span class="living-state won">✓ ${r.won} tuttu</span>`:''}
+          ${r.live?`<span class="living-state live">● ${r.live} canlı</span>`:''}
+          ${r.waiting?`<span class="living-state waiting">◷ ${r.waiting} bekliyor</span>`:''}
+        </div>
+        <div class="living-coupon-foot">
+          <div><small>OLASI DÖNÜŞ</small><strong>${money(copy.coupon.return)}</strong></div>
+          <span class="living-coupon-open">DETAYI AÇ →</span>
+        </div>
+      </div>`;
+      document.getElementById('livingCouponCard')?.addEventListener('click',()=>openLivingCoupon(living));
+    }else{
+      box.innerHTML='<div class="empty"><span class="slip-empty-icon">🎯</span><strong>Kuponun boş</strong><small>Bültenden bir orana dokun.<br>Seçimin burada görünecek.</small></div>';
+    }
+    controls.style.display='none';
+    return;
   }
+
   controls.style.display='block';
   box.innerHTML=picks.map((p,i)=>`<div class="pick-row">
     <div class="pick-row-top"><strong>${p.match}</strong><button data-remove="${i}" aria-label="Seçimi kaldır">×</button></div>
@@ -2005,8 +2118,7 @@ function updateSlipMath(){
   document.getElementById('possibleReturn').textContent=money(total*stake);
   const place=document.getElementById('placeCoupon');
   if(place)place.textContent=stake>0?'KUPONU OYNA • '+money(stake):'KUPONU OYNA';
-  const mobileText=document.getElementById('mobileSlipText');
-  if(mobileText&&picks.length)mobileText.textContent=picks.length+' seçim • '+total.toFixed(2);
+  renderLivingCouponLauncher();
 }
 function renderCoupons(){
   const list=document.getElementById('couponList');
@@ -2496,7 +2608,7 @@ async function pollOnlineWorld(){
     await refreshOnlineBulletin();
     onlineAccountTick++;
     if(onlineSession&&onlineAccountTick%3===0)await refreshOnlineAccount();
-    renderTopState();renderMatches();renderLeagueCenter();renderCoupons();renderLiveCenter();
+    renderTopState();renderMatches();renderLeagueCenter();renderCoupons();renderSlip();renderLiveCenter();
   }catch(err){console.error('Afyon online poll',err)}
   finally{onlinePollBusy=false}
 }
@@ -2505,7 +2617,12 @@ async function placeOnlineCoupon(stake){
   const payload=picks.map(marketPayloadForPick);
   const {error}=await supabaseClient.rpc('place_coupon',{p_stake:stake,p_selections:payload});
   if(error){toast('Kupon reddedildi: '+error.message);return}
-  picks=[];await refreshOnlineAccount();await refreshOnlineSelected(false);renderAll();toast('Online kupon kaydedildi. AFMB sunucusu şahittir. 🏛');
+  picks=[];
+  document.querySelector('.sidebar[data-page-section="bulletin"]')?.classList.remove('mobile-open');
+  await refreshOnlineAccount();
+  await refreshOnlineSelected(false);
+  renderAll();
+  toast('Kupon canlı takibe alındı. Alt bardan izleyebilirsin. 🎟');
 }
 
 function chanceLabel(gameKey,value){
@@ -3057,6 +3174,10 @@ document.querySelectorAll('.stake-preset').forEach(btn=>btn.addEventListener('cl
   updateSlipMath();
 }));
 document.getElementById('mobileSlipLauncher').addEventListener('click',()=>{
+  if(!picks.length){
+    const living=getLivingCoupon();
+    if(living){openLivingCoupon(living);return;}
+  }
   const sidebar=document.querySelector('.sidebar[data-page-section="bulletin"]');
   sidebar.classList.toggle('mobile-open');
 });
