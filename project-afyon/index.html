@@ -2185,8 +2185,58 @@ function clubInitials(name){
   const parts=String(name).split(/\s+/).filter(Boolean);
   return (parts[0]?.[0]||'A')+(parts[1]?.[0]||parts[0]?.[1]||'F');
 }
-function findClubByName(name,country=selectedCountry,level=selectedLevel){
+function findClubByName(name,country=selectedCountry,level=selectedLevel,clubId=null){
+  if(onlineMode){
+    if(clubId&&onlineClubsById[clubId])return onlineClubsById[clubId];
+    const onlineClub=Object.values(onlineClubsById).find(function(t){
+      return t.name===name
+        && (!country||t.country===country)
+        && (!level||level===0||Number(t.leagueLevel)===Number(level));
+    });
+    if(onlineClub)return onlineClub;
+  }
   return getTeams(country,level).find(t=>t.name===name)||null;
+}
+async function loadOnlineClubFixtures(clubId,sport='football'){
+  if(!onlineMode||!clubId)return [];
+  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
+  const {data,error}=await supabaseClient.from('matches')
+    .select(fields)
+    .eq('season',state.season)
+    .eq('sport',sport)
+    .or('home_club_id.eq.'+clubId+',away_club_id.eq.'+clubId)
+    .order('kickoff_at',{ascending:true})
+    .limit(sport==='efootball'?1000:100);
+  if(error){console.error('Club fixtures',error);return []}
+  const rows=data||[];
+  rows.forEach(function(m){onlineMatchMap[m.id]=m});
+  return rows;
+}
+function onlineClubFixtureItems(matches,clubId,sport='football'){
+  return (matches||[]).map(function(m){
+    const home=m.home_club_id===clubId;
+    const opponentId=home?m.away_club_id:m.home_club_id;
+    const opponent=onlineClubsById[opponentId];
+    const snap=m.status==='live'?liveSnapshot(m.id):null;
+    let result=null;
+    if(m.status==='finished'&&m.home_goals!=null&&m.away_goals!=null){
+      result={homeGoals:Number(m.home_goals),awayGoals:Number(m.away_goals)};
+    }else if(snap){
+      result={homeGoals:Number(snap.homeGoals),awayGoals:Number(snap.awayGoals),live:true,minute:Number(snap.minute||0)};
+    }
+    return {
+      id:m.id,
+      week:Number(m.week||0),
+      home,
+      opponent:sportTeamName(opponent?.name||'Rakip',sport),
+      result,
+      status:m.status,
+      kickoff_at:m.kickoff_at,
+      country:m.country,
+      level:Number(m.league_level||0),
+      sport
+    };
+  });
 }
 function clubTableData(country,level){
   const teams=getTeams(country,level);
@@ -2258,42 +2308,106 @@ function renderSquadPlayers(players){
     }).join('')+'</div></div>';
   }).join('')+'<div class="player-roster-note">'+note+' Overall ve potansiyel global Afyon ölçeğindedir.</div></div>';
 }
-async function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
-  const club=findClubByName(teamName,country,level);
+async function openClubModal(teamName,country=selectedCountry,level=selectedLevel,clubId=null,sport='football'){
+  const club=findClubByName(teamName,country,level,clubId);
   if(!club)return;
-  const rows=clubTableData(country,level);
-  const row=rows.find(r=>r.team===teamName);
-  const position=Math.max(1,rows.findIndex(r=>r.team===teamName)+1);
-  const formWeek=worldWeekPlayed()?state.week+1:state.week;
-  const form=getFormData(country,level,teamName,formWeek);
-  const formLetters=(form.sequence&&form.sequence!=='—'?form.sequence.split(''):[]);
+  const effectiveLevel=Number(club.leagueLevel||level||1);
+  const competition=sport==='efootball'?'eFootball Arena':(leagueNames[effectiveLevel]||effectiveLevel+'. Lig');
+
+  let rows=[],row=null,position='—',fixtures=[];
+  if(onlineMode&&club.id){
+    const serverMatches=await loadOnlineClubFixtures(club.id,sport);
+    fixtures=onlineClubFixtureItems(serverMatches,club.id,sport);
+
+    if(sport==='football'){
+      rows=clubTableData(country,effectiveLevel);
+      row=rows.find(r=>r.team===teamName)||null;
+      const pos=rows.findIndex(r=>r.team===teamName);
+      position=pos>=0?String(pos+1):'—';
+    }
+  }else{
+    rows=clubTableData(country,effectiveLevel);
+    row=rows.find(r=>r.team===teamName);
+    const pos=rows.findIndex(r=>r.team===teamName);
+    position=pos>=0?String(pos+1):'—';
+    fixtures=clubFixturesData(teamName,country,effectiveLevel);
+  }
+
+  const completed=fixtures.filter(function(f){return f.status==='finished'||(f.result&&!f.result.live)});
+  const lastFive=completed.slice(-5);
+  const formLetters=lastFive.map(function(f){
+    if(!f.result)return '';
+    const gf=f.home?f.result.homeGoals:f.result.awayGoals;
+    const ga=f.home?f.result.awayGoals:f.result.homeGoals;
+    return gf>ga?'W':gf<ga?'L':'D';
+  });
   const formHtml=[...Array(5)].map((_,i)=>{
     const letter=formLetters[i];
-    return `<span class="form-chip ${letter||'empty'}">${letter||'·'}</span>`;
+    return '<span class="form-chip '+(letter||'empty')+'">'+(letter||'·')+'</span>';
   }).join('');
-  const fixtures=clubFixturesData(teamName,country,level);
-  const center=Math.max(0,fixtures.findIndex(x=>x.week>=state.week));
-  const fixtureSlice=fixtures.slice(Math.max(0,center-2),Math.min(fixtures.length,center+4));
-  const fixturesHtml=fixtureSlice.map(f=>{
+
+  let fixtureSlice=[];
+  if(onlineMode&&club.id){
+    const liveIndex=fixtures.findIndex(f=>f.status==='live');
+    const nextIndex=fixtures.findIndex(f=>f.status==='scheduled');
+    const center=liveIndex>=0?liveIndex:(nextIndex>=0?nextIndex:Math.max(0,fixtures.length-1));
+    fixtureSlice=fixtures.slice(Math.max(0,center-3),Math.min(fixtures.length,center+6));
+  }else{
+    const center=Math.max(0,fixtures.findIndex(x=>x.week>=state.week));
+    fixtureSlice=fixtures.slice(Math.max(0,center-2),Math.min(fixtures.length,center+4));
+  }
+
+  const fixturesHtml=fixtureSlice.map(function(f){
     let result='—';
-    if(f.result)result=f.home?`${f.result.homeGoals} - ${f.result.awayGoals}`:`${f.result.awayGoals} - ${f.result.homeGoals}`;
-    else if(f.week===state.week)result=matchKickoffLabel(f.id,country,level);
-    return `<div class="club-fixture ${f.week===state.week?'current':''}">
-      <div class="week">${f.week}. HAFTA</div>
-      <div><div class="opponent">${f.opponent}</div><span class="venue">${f.home?'Ev':'Deplasman'} • ${leagueNames[level]}</span></div>
-      <div class="result">${result}</div>
-    </div>`;
+    if(f.result){
+      const score=f.home
+        ?f.result.homeGoals+' - '+f.result.awayGoals
+        :f.result.awayGoals+' - '+f.result.homeGoals;
+      result=f.result.live?((f.result.minute>=90?'90+':f.result.minute)+"' "+score):score;
+    }else if(f.kickoff_at){
+      result=formatIstanbulTime(f.kickoff_at);
+    }else if(f.week===state.week){
+      result=matchKickoffLabel(f.id,country,effectiveLevel);
+    }
+
+    let fixtureLabel=f.week?f.week+'. HAFTA':'MAÇ';
+    if(f.sport==='efootball'&&f.kickoff_at){
+      fixtureLabel=new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'short'}).format(new Date(f.kickoff_at)).toUpperCase();
+    }
+    const current=f.status==='live'||(f.sport!=='efootball'&&f.week===state.week);
+    const statusText=f.status==='live'?'CANLI':f.status==='finished'?'Bitti':f.status==='scheduled'?'Yaklaşan':'';
+    return '<div class="club-fixture '+(current?'current':'')+'">'+
+      '<div class="week">'+fixtureLabel+'</div>'+
+      '<div><div class="opponent">'+f.opponent+'</div><span class="venue">'+(f.home?'Ev':'Deplasman')+' • '+competition+(statusText?' • '+statusText:'')+'</span></div>'+
+      '<div class="result">'+result+'</div>'+
+    '</div>';
   }).join('');
+
   const tierText=club.tier==='favorite'?'Şampiyonluk adayı':club.tier==='relegation'?'Alt sıra profili':'Orta sıra profili';
+  const played=completed.length;
+  let summary=row;
+  if(onlineMode&&club.id&&fixtures.length){
+    summary={p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};
+    completed.forEach(function(f){
+      if(!f.result)return;
+      const gf=f.home?f.result.homeGoals:f.result.awayGoals;
+      const ga=f.home?f.result.awayGoals:f.result.homeGoals;
+      summary.p++;summary.gf+=gf;summary.ga+=ga;
+      if(gf>ga){summary.w++;summary.pts+=3}
+      else if(gf<ga)summary.l++;
+      else{summary.d++;summary.pts++}
+    });
+  }
+
   document.getElementById('clubModalContent').innerHTML=`
     <div class="club-hero">
       <button class="club-close" id="clubClose" aria-label="Kapat">×</button>
       <div class="club-identity">
         <div class="club-crest">${clubInitials(club.name).toUpperCase()}</div>
         <div>
-          <div class="club-eyebrow">${country} • ${leagueNames[level]}</div>
-          <div class="club-name">${club.name}</div>
-          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span><span class="club-tag">Sezon ${state.season}</span></div>
+          <div class="club-eyebrow">${country} • ${competition}</div>
+          <div class="club-name">${sportTeamName(club.name,sport)}</div>
+          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span><span class="club-tag">${sport==='efootball'?'Arena':'Sezon '+state.season}</span></div>
         </div>
         <div class="club-overall"><strong>${club.strength}</strong><small>GLOBAL GÜÇ</small></div>
       </div>
@@ -2309,25 +2423,25 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
         </div>
         <div class="club-overview-grid">
           <div class="club-panel">
-            <h4>Sezon Özeti</h4>
+            <h4>${sport==='efootball'?'Arena Özeti':'Sezon Özeti'}</h4>
             <div class="club-facts">
-              <div class="club-fact"><small>LİG SIRASI</small><strong>${position}. / 18</strong></div>
-              <div class="club-fact"><small>PUAN</small><strong>${row?.pts??0}</strong></div>
-              <div class="club-fact"><small>MAÇ</small><strong>${row?.p??0}</strong></div>
-              <div class="club-fact"><small>AVERAGE</small><strong>${row?(row.gf-row.ga):0}</strong></div>
-              <div class="club-fact"><small>GOL</small><strong>${row?.gf??0} / ${row?.ga??0}</strong></div>
+              <div class="club-fact"><small>${sport==='efootball'?'ARENA':'LİG SIRASI'}</small><strong>${sport==='efootball'?'Sürekli':position+' / 18'}</strong></div>
+              <div class="club-fact"><small>PUAN</small><strong>${sport==='efootball'?'—':(summary?.pts??0)}</strong></div>
+              <div class="club-fact"><small>MAÇ</small><strong>${summary?.p??played}</strong></div>
+              <div class="club-fact"><small>AVERAGE</small><strong>${summary?summary.gf-summary.ga:0}</strong></div>
+              <div class="club-fact"><small>GOL</small><strong>${summary?.gf??0} / ${summary?.ga??0}</strong></div>
               <div class="club-fact"><small>OYUN KİMLİĞİ</small><strong>${club.style}</strong></div>
             </div>
           </div>
           <div class="club-panel">
             <h4>Son Form</h4>
             <div class="club-form-row">${formHtml}</div>
-            <div class="squad-note" style="margin-top:12px">Global güç bütün Afyon evreninde aynı cetveli kullanır; ATK, MID ve DEF hatları maç motorunda ayrıca eşleşir.</div>
+            <div class="squad-note" style="margin-top:12px">${sport==='efootball'?'eFootball Arena sonuçları gün boyunca akar; lig ve sezon sıralaması tutulmaz.':'Global güç bütün Afyon evreninde aynı cetveli kullanır; ATK, MID ve DEF hatları maç motorunda ayrıca eşleşir.'}</div>
           </div>
         </div>
       </div>
       <div class="club-pane" data-club-pane="fixtures">
-        <div class="club-fixtures">${fixturesHtml||'<div class="squad-note">Fikstür hazırlanıyor.</div>'}</div>
+        <div class="club-fixtures">${fixturesHtml||'<div class="squad-note">Bu kulüp için maç kaydı bulunamadı.</div>'}</div>
       </div>
     </div>`;
   document.getElementById('clubModal').classList.add('open');
@@ -2339,7 +2453,13 @@ function bindClubLinks(root=document){
   root.querySelectorAll('[data-club-name]').forEach(btn=>{
     btn.addEventListener('click',e=>{
       e.stopPropagation();
-      openClubModal(decodeURIComponent(btn.dataset.clubName),btn.dataset.clubCountry||selectedCountry,Number(btn.dataset.clubLevel||selectedLevel));
+      openClubModal(
+        decodeURIComponent(btn.dataset.clubName),
+        btn.dataset.clubCountry||selectedCountry,
+        Number(btn.dataset.clubLevel||selectedLevel),
+        btn.dataset.clubId||null,
+        btn.dataset.clubSport||'football'
+      );
     });
   });
 }
@@ -2444,8 +2564,8 @@ function renderMatchCenter(){
     return '<div class="match-center-row '+m.status+'">'+
       '<div class="match-center-status"><strong>'+status+'</strong><small>'+statusSub+'</small></div>'+
       '<div class="match-center-teams">'+
-        '<div class="match-center-team"><span class="dot"></span><button class="club-link" data-club-name="'+encodeURIComponent(home.name)+'" data-club-country="'+m.country+'" data-club-level="'+m.league_level+'">'+homeName+'</button></div>'+
-        '<div class="match-center-team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="'+encodeURIComponent(away.name)+'" data-club-country="'+m.country+'" data-club-level="'+m.league_level+'">'+awayName+'</button></div>'+
+        '<div class="match-center-team"><span class="dot"></span><button class="club-link" data-club-name="'+encodeURIComponent(home.name)+'" data-club-id="'+home.id+'" data-club-sport="'+sport+'" data-club-country="'+m.country+'" data-club-level="'+m.league_level+'">'+homeName+'</button></div>'+
+        '<div class="match-center-team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="'+encodeURIComponent(away.name)+'" data-club-id="'+away.id+'" data-club-sport="'+sport+'" data-club-country="'+m.country+'" data-club-level="'+m.league_level+'">'+awayName+'</button></div>'+
       '</div>'+score+
     '</div>';
   };
@@ -2743,8 +2863,8 @@ function renderOnlineBulletin(){
     return `<div class="match ${sport==='efootball'?'efootball':''} ${m.status==='live'?'match-live':''}">
       <div class="match-meta"><strong>${status}</strong><small>${score}</small><small class="match-context">${context}</small></div>
       <div class="teams">
-        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(home.name)}" data-club-country="${m.country}" data-club-level="${m.league_level}">${homeLabel}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form" title="ATK ${home.attack} • MID ${home.midfield} • DEF ${home.defense}">GÜÇ ${home.strength}</span>`}</div>
-        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(away.name)}" data-club-country="${m.country}" data-club-level="${m.league_level}">${awayLabel}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form" title="ATK ${away.attack} • MID ${away.midfield} • DEF ${away.defense}">GÜÇ ${away.strength}</span>`}</div>
+        <div class="team"><span class="dot"></span><button class="club-link" data-club-name="${encodeURIComponent(home.name)}" data-club-id="${home.id}" data-club-sport="${sport}" data-club-country="${m.country}" data-club-level="${m.league_level}">${homeLabel}</button>${shown?`<span class="team-score">${shown.homeGoals}</span>`:`<span class="form" title="ATK ${home.attack} • MID ${home.midfield} • DEF ${home.defense}">GÜÇ ${home.strength}</span>`}</div>
+        <div class="team"><span class="dot" style="background:#74c0fc"></span><button class="club-link" data-club-name="${encodeURIComponent(away.name)}" data-club-id="${away.id}" data-club-sport="${sport}" data-club-country="${m.country}" data-club-level="${m.league_level}">${awayLabel}</button>${shown?`<span class="team-score">${shown.awayGoals}</span>`:`<span class="form" title="ATK ${away.attack} • MID ${away.midfield} • DEF ${away.defense}">GÜÇ ${away.strength}</span>`}</div>
       </div>
       ${['1','X','2'].map((label,j)=>pickButton(label,main[j],'Maç Sonucu')).join('')}
       <div class="market-toggle-row"><button class="market-toggle" data-market-toggle="${id}" aria-expanded="${openMarkets.has(id)}"><span>${openMarkets.has(id)?'−':'＋'} Diğer Marketler</span><small>Gol • KG • Çifte Şans</small></button></div>
@@ -3365,7 +3485,7 @@ async function loadOnlineClubs(){
   const all=[...(first.data||[]),...(second.data||[])];
   onlineClubsById={};onlineClubLists={};
   all.forEach(r=>{
-    const t={id:r.id,name:r.name,attack:r.attack,midfield:r.midfield,defense:r.defense,strength:Math.round(Number(r.overall)),style:r.style,seed:r.seed,tier:r.tier};
+    const t={id:r.id,name:r.name,country:r.country,leagueLevel:Number(r.league_level),attack:r.attack,midfield:r.midfield,defense:r.defense,strength:Math.round(Number(r.overall)),style:r.style,seed:r.seed,tier:r.tier};
     onlineClubsById[r.id]=t;
     const k=r.country+'|'+r.league_level;
     (onlineClubLists[k]??=[]).push(t);
