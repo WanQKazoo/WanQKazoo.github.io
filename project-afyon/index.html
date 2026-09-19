@@ -1110,7 +1110,7 @@ function getClubNames(country,level){
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
-let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false;
+let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let bulletinCountry='Tümü',bulletinLevel=0,bulletinSport='all';
 let leagueCenterTab='standings';
@@ -1153,15 +1153,36 @@ const money=n=>new Intl.NumberFormat('tr-TR').format(Math.round(n))+' ₳D';
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function setOnlineBalance(value){
+  const next=Number(value);
+  if(!Number.isFinite(next))return;
+  onlineAuthoritativeBalance=next;
+  state.balance=next;
+  walletHydrated=true;
+}
 function renderWallet(){
   const el=document.getElementById('walletValue');
-  if(!walletHydrated){
-    el.textContent='…';
+  if(onlineSession){
+    if(Number.isFinite(onlineAuthoritativeBalance)){
+      el.textContent=money(onlineAuthoritativeBalance);
+    }else{
+      el.textContent=onlineBootstrapFailed?'Bağlantı…':'…';
+    }
+    syncChanceWallet();
     return;
   }
-  if(onlineMode&&!onlineSession){
+  if(onlineMode){
     el.textContent='Giriş yap';
     syncChanceWallet();
+    return;
+  }
+  if(onlineBootstrapFailed){
+    el.textContent='Bağlantı…';
+    syncChanceWallet();
+    return;
+  }
+  if(!walletHydrated){
+    el.textContent='…';
     return;
   }
   el.textContent=money(state.balance);
@@ -2385,8 +2406,8 @@ async function refreshOnlineAccount(){
     supabaseClient.from('coupons').select('id,season,week,stake,total_odds,possible_return,status,payout,created_at').order('created_at',{ascending:false}).limit(50)
   ]);
   if(wErr)throw wErr;if(cErr)throw cErr;
-  state.balance=Number(wallet.balance);
-  walletHydrated=true;
+  setOnlineBalance(wallet.balance);
+  onlineBootstrapFailed=false;
   const couponIds=(coupons||[]).map(x=>x.id);
   let selections=[];
   if(couponIds.length){
@@ -2439,6 +2460,9 @@ function updateAuthUi(message=''){
   }
 }
 async function initOnline(){
+  onlineBootstrapFailed=false;
+  walletHydrated=false;
+  renderWallet();
   try{
     const {data:{session}}=await supabaseClient.auth.getSession();
     onlineSession=session;
@@ -2456,10 +2480,11 @@ async function initOnline(){
     onlinePollTimer=setInterval(pollOnlineWorld,2000);
   }catch(err){
     console.error(err);
+    onlineBootstrapFailed=true;
     onlineMode=false;
-    walletHydrated=true;
+    walletHydrated=false;
     renderWallet();
-    updateAuthUi('Online bağlantı kurulamadı; local prototip açık kaldı.');
+    updateAuthUi('Online bağlantı kurulamadı; sunucu bakiyesi gelene kadar cüzdan gizlendi.');
   }
 }
 async function pollOnlineWorld(){
@@ -2505,7 +2530,14 @@ function cardLabel(rank){
 }
 function syncChanceWallet(){
   const el=document.getElementById('chanceBalance');
-  if(el)el.textContent=onlineMode&&!onlineSession?'Giriş yap':money(state.balance);
+  if(!el)return;
+  if(onlineSession){
+    el.textContent=Number.isFinite(onlineAuthoritativeBalance)?money(onlineAuthoritativeBalance):(onlineBootstrapFailed?'Bağlantı…':'…');
+    return;
+  }
+  if(onlineMode){el.textContent='Giriş yap';return;}
+  if(onlineBootstrapFailed){el.textContent='Bağlantı…';return;}
+  el.textContent=money(state.balance);
 }
 async function refreshChanceHistory(){
   if(!onlineMode||!onlineSession){onlineChanceHistory=[];renderChanceHistory();return}
@@ -2668,7 +2700,7 @@ async function startChanceSession(){
     const {data,error}=await supabaseClient.rpc('start_chance_session',{p_game_key:activeChanceGame,p_stake:stake});
     if(error)throw error;
     activeChanceSession={...data,status:'active'};
-    state.balance=Number(data.balance);
+    setOnlineBalance(data.balance);
     renderWallet();
     document.getElementById('chanceStake').disabled=true;
     prepareChanceStage(activeChanceGame);
@@ -2738,7 +2770,7 @@ async function guessHighCard(choice){
       setChanceResult('Kart ters köşe yaptı. Seri '+Number(data.streak||0)+' ile bitti.','loss');
       await finishChanceSession(false);
     }else if(data.status==='won'){
-      state.balance=Number(data.balance);renderWallet();
+      setOnlineBalance(data.balance);renderWallet();
       document.getElementById('highCardMeta').textContent='6/6 • TAM SERİ';
       setChanceResult('🏆 6 doğru! Otomatik ödeme '+money(data.payout)+' • ×'+Number(data.multiplier).toFixed(2),'win');
       await finishChanceSession(true);
@@ -2801,7 +2833,7 @@ async function cashOutChanceSession(){
       await finishChanceSession(false);
       return;
     }
-    if(data.balance!=null){state.balance=Number(data.balance);renderWallet()}
+    if(data.balance!=null){setOnlineBalance(data.balance);renderWallet()}
     clearRocketTimers();
     setChanceResult('💰 Parayı aldın: '+money(data.payout)+' • ×'+Number(data.multiplier).toFixed(2),'win');
     await finishChanceSession(true);
@@ -2830,7 +2862,7 @@ async function playSingleChanceGame(){
     const {data,error}=await supabaseClient.rpc('play_chance_game',{p_game_key:activeChanceGame,p_stake:stake,p_choice:activeChanceChoice});
     if(error)throw error;
     await animateChanceResult(activeChanceGame,data);
-    state.balance=Number(data.balance);renderWallet();
+    setOnlineBalance(data.balance);renderWallet();
     const payout=Number(data.payout),net=payout-stake;
     const winner=activeChanceGame==='bureaucracy_hurdles'
       ?Number(data.result?.hurdles||0)+' engel'
@@ -2939,6 +2971,7 @@ function applyPageRoute(){
     link.classList.toggle('active',link.dataset.pageNav===page);
   });
   document.title='Project Afyon — '+pageNames[page];
+  renderWallet();
 }
 window.addEventListener('popstate',applyPageRoute);
 document.querySelectorAll('[data-page-nav]').forEach(link=>{
@@ -3002,8 +3035,21 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   if(onlineSession){await refreshOnlineAccount();updateAuthUi('Hesap açıldı. 10.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();});
-supabaseClient.auth.onAuthStateChange(async(_event,session)=>{onlineSession=session;try{if(onlineMode){await refreshOnlineAccount();await refreshChanceHistory();}}catch(e){console.error(e)}});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();});
+supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
+  onlineSession=session;
+  if(!session){
+    onlineAuthoritativeBalance=null;
+    if(onlineMode)walletHydrated=true;
+    renderWallet();
+  }
+  try{
+    if(onlineMode){await refreshOnlineAccount();await refreshChanceHistory();}
+  }catch(e){
+    console.error(e);
+    if(session&&!Number.isFinite(onlineAuthoritativeBalance)){onlineBootstrapFailed=true;renderWallet();}
+  }
+});
 document.getElementById('stakeInput').addEventListener('input',updateSlipMath);
 document.querySelectorAll('.stake-preset').forEach(btn=>btn.addEventListener('click',()=>{
   const input=document.getElementById('stakeInput');
