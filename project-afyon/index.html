@@ -37,16 +37,22 @@ header{position:sticky;top:0;z-index:30;background:rgba(11,16,32,.94);backdrop-f
 .match-center-filters{display:flex;gap:7px;padding:12px 18px;border-bottom:1px solid var(--line);overflow:auto;background:#0b1321;scrollbar-width:none}.match-center-filters::-webkit-scrollbar{display:none}.match-center-filter{white-space:nowrap;border:1px solid #2b3a58;border-radius:999px;background:#111b2f;color:#9faeca;padding:8px 11px;font-size:11px;font-weight:900}.match-center-filter.active{background:var(--accent);border-color:var(--accent);color:#062018}.match-center-filter .count{display:inline-grid;place-items:center;min-width:18px;height:18px;margin-left:4px;padding:0 5px;border-radius:999px;background:rgba(255,255,255,.08);font-size:9px}.match-center-filter.active .count{background:rgba(6,32,24,.13)}
 .match-center-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 18px;color:#8293b0;background:#0b1322;border-bottom:1px solid #1e2b43;font-size:10px;font-weight:850}
 .match-center-toggle-all{border:1px solid #2b3a58;border-radius:9px;background:#111b2f;color:#9fb0ca;padding:7px 9px;font-size:9px;font-weight:950;white-space:nowrap}.match-center-toggle-all:hover{border-color:#49627f;color:#fff}
-.match-center-list{padding:12px;background:#0a1220}.match-center-group{overflow:hidden;margin-bottom:10px;border:1px solid #26344f;border-radius:15px;background:#0e1728}.match-center-group:last-child{margin-bottom:0}
-.match-center-group-head{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;border:0;border-bottom:1px solid #26344f;background:linear-gradient(180deg,#17243a,#121c30);color:#fff;padding:12px 14px;text-align:left}.match-center-group-head:hover{background:linear-gradient(180deg,#1b2a43,#152039)}.match-center-group.collapsed .match-center-group-head{border-bottom:0}
-.match-center-group-title{display:flex;align-items:center;gap:9px;min-width:0}.match-center-group-flag{font-size:18px}.match-center-group-title-copy{min-width:0}.match-center-group-title-copy strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.match-center-group-title-copy small{display:block;margin-top:2px;color:#7f90ae;font-size:9px}
-.match-center-group-counts{display:flex;align-items:center;justify-content:flex-end;gap:5px}.match-center-group-count{padding:4px 7px;border-radius:999px;background:#202c43;color:#9fb0ca;font-size:8px;font-weight:1000;white-space:nowrap}.match-center-group-count.live{background:#401821;color:#ff929c}.match-center-group-count.finished{background:#17352e;color:#7ff0ca}.match-center-group-chevron{width:24px;text-align:center;color:#8293b0;font-size:17px;font-weight:1000;transition:transform .18s ease}.match-center-group.collapsed .match-center-group-chevron{transform:rotate(-90deg)}
+.match-center-list{padding:12px;background:#0a1220}
+.match-center-country{overflow:hidden;margin-bottom:12px;border:1px solid #314260;border-radius:17px;background:#0d1627;box-shadow:0 8px 24px rgba(0,0,0,.12)}.match-center-country:last-child{margin-bottom:0}
+.match-center-country-head{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;border:0;border-bottom:1px solid #314260;background:linear-gradient(180deg,#1b2941,#152137);color:#fff;padding:14px 15px;text-align:left}.match-center-country-head:hover{background:linear-gradient(180deg,#21324e,#182640)}.match-center-country.collapsed>.match-center-country-head{border-bottom:0}
+.match-center-country-title{display:flex;align-items:center;gap:10px;min-width:0}.match-center-country-flag{font-size:23px}.match-center-country-title-copy{min-width:0}.match-center-country-title-copy strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.match-center-country-title-copy small{display:block;margin-top:3px;color:#91a3c1;font-size:9px;font-weight:850}
+.match-center-country-counts{display:flex;align-items:center;justify-content:flex-end;gap:5px}.match-center-country-chevron{width:26px;text-align:center;color:#9dafca;font-size:18px;font-weight:1000;transition:transform .18s ease}.match-center-country.collapsed>.match-center-country-head .match-center-country-chevron{transform:rotate(-90deg)}
+.match-center-country-body{display:block;padding:9px}.match-center-country.collapsed>.match-center-country-body{display:none}
+.match-center-group{overflow:hidden;margin-bottom:8px;border:1px solid #26344f;border-radius:13px;background:#0e1728}.match-center-group:last-child{margin-bottom:0}
+.match-center-group-head{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;border:0;border-bottom:1px solid #26344f;background:linear-gradient(180deg,#151f33,#111a2c);color:#fff;padding:10px 12px;text-align:left}.match-center-group-head:hover{background:linear-gradient(180deg,#19263b,#142037)}.match-center-group.collapsed .match-center-group-head{border-bottom:0}
+.match-center-group-title{display:flex;align-items:center;gap:8px;min-width:0}.match-center-group-icon{width:23px;height:23px;border-radius:7px;display:grid;place-items:center;background:#202d45;color:#9fb0ca;font-size:11px}.match-center-group-title-copy{min-width:0}.match-center-group-title-copy strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.match-center-group-title-copy small{display:block;margin-top:2px;color:#71829e;font-size:8px}
+.match-center-group-counts{display:flex;align-items:center;justify-content:flex-end;gap:5px}.match-center-group-count,.match-center-country-count{padding:4px 7px;border-radius:999px;background:#202c43;color:#9fb0ca;font-size:8px;font-weight:1000;white-space:nowrap}.match-center-group-count.live,.match-center-country-count.live{background:#401821;color:#ff929c}.match-center-group-count.finished,.match-center-country-count.finished{background:#17352e;color:#7ff0ca}.match-center-group-chevron{width:22px;text-align:center;color:#8293b0;font-size:16px;font-weight:1000;transition:transform .18s ease}.match-center-group.collapsed .match-center-group-chevron{transform:rotate(-90deg)}
 .match-center-group-body{display:block}.match-center-group.collapsed .match-center-group-body{display:none}
 .match-center-row{display:grid;grid-template-columns:84px minmax(260px,1fr) 92px;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid #1e2b43}.match-center-row:last-child{border-bottom:0}.match-center-row.live{background:linear-gradient(90deg,rgba(255,94,108,.055),transparent)}.match-center-row.finished{background:rgba(255,255,255,.012)}
 .match-center-status{display:grid;gap:3px}.match-center-status strong{font-size:12px}.match-center-status small{font-size:9px;color:#71829e}.match-center-row.live .match-center-status strong{color:#ff8f9a}.match-center-row.finished .match-center-status strong{color:var(--accent)}
 .match-center-teams{display:grid;gap:6px}.match-center-team{display:flex;align-items:center;gap:8px;min-width:0}.match-center-team .club-link{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.match-center-score{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center;justify-items:center;padding:8px 10px;border:1px solid #293852;border-radius:11px;background:#111b2f;font-size:16px;font-weight:1000}.match-center-score small{font-size:9px;color:#657793}.match-center-row.scheduled .match-center-score{font-size:11px;color:#95a6c3}
 .match-center-section .live-center{border-top:0;border-bottom:1px solid var(--line);padding:16px 18px}
-@media(max-width:720px){.match-center-head{display:grid;padding:15px 14px}.match-center-head h2{font-size:19px}.match-center-date-nav{grid-template-columns:38px minmax(0,1fr) 38px;width:100%}.match-center-filters{padding:10px 14px}.match-center-summary{padding:9px 14px}.match-center-toggle-all{padding:6px 8px}.match-center-list{padding:9px}.match-center-group{border-radius:13px;margin-bottom:8px}.match-center-group-head{grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:10px 11px}.match-center-group-counts{grid-column:1/-1;grid-row:2;justify-content:flex-start;padding-left:27px}.match-center-group-chevron{grid-column:2;grid-row:1}.match-center-group-flag{font-size:16px}.match-center-row{grid-template-columns:64px minmax(0,1fr) 70px;gap:9px;padding:11px}.match-center-teams{grid-column:2;grid-row:1}.match-center-score{grid-column:3;grid-row:1;padding:7px 6px;font-size:15px}.match-center-status{grid-column:1;grid-row:1}.match-center-section .live-center{padding:13px 14px}}
+@media(max-width:720px){.match-center-head{display:grid;padding:15px 14px}.match-center-head h2{font-size:19px}.match-center-date-nav{grid-template-columns:38px minmax(0,1fr) 38px;width:100%}.match-center-filters{padding:10px 14px}.match-center-summary{padding:9px 14px}.match-center-toggle-all{padding:6px 8px}.match-center-list{padding:9px}.match-center-country{border-radius:14px;margin-bottom:9px}.match-center-country-head{grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:12px}.match-center-country-counts{grid-column:1/-1;grid-row:2;justify-content:flex-start;padding-left:33px}.match-center-country-chevron{grid-column:2;grid-row:1}.match-center-country-flag{font-size:20px}.match-center-country-body{padding:7px}.match-center-group{border-radius:11px;margin-bottom:6px}.match-center-group-head{grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:9px 10px}.match-center-group-counts{grid-column:1/-1;grid-row:2;justify-content:flex-start;padding-left:31px}.match-center-group-chevron{grid-column:2;grid-row:1}.match-center-row{grid-template-columns:64px minmax(0,1fr) 70px;gap:9px;padding:11px}.match-center-teams{grid-column:2;grid-row:1}.match-center-score{grid-column:3;grid-row:1;padding:7px 6px;font-size:15px}.match-center-status{grid-column:1;grid-row:1}.match-center-section .live-center{padding:13px 14px}}
 
 @keyframes livePulse{50%{opacity:.45;transform:scale(.82)}}
 .table-wrap{overflow:auto}.standings{width:100%;border-collapse:collapse;min-width:640px}.standings th,.standings td{padding:11px 12px;border-bottom:1px solid #1e2b43;text-align:center;font-size:12px}.standings th{color:#7f90ae;background:#0d1525;font-size:10px;letter-spacing:.7px;text-transform:uppercase}.standings th:nth-child(2),.standings td:nth-child(2){text-align:left}.standings td:nth-child(1){color:#8fa0be;font-weight:900}.standings td:nth-child(2){font-weight:900}.standings tr.top td:first-child,.standings tr.top td:last-child{color:var(--accent)}.standings-empty{padding:28px;text-align:center;color:var(--muted)}
@@ -973,7 +979,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
             <div class="conference-feed-head"><strong>SON OLAYLAR</strong><small id="conferenceFeedMeta">Canlı akış</small></div>
             <div class="live-feed conference-feed" id="liveFeed"><div class="live-event">Hakemler saatlerini kontrol ediyor.</div></div>
           </div>
-          <div class="match-center-summary"><span id="matchCenterMeta">Program hazırlanıyor…</span><button class="match-center-toggle-all" id="matchCenterToggleGroups">Tüm ligleri kapat</button></div>
+          <div class="match-center-summary"><span id="matchCenterMeta">Program hazırlanıyor…</span><button class="match-center-toggle-all" id="matchCenterToggleGroups">Tüm ülkeleri kapat</button></div>
           <div class="match-center-list" id="matchCenterMatches"><div class="bulletin-empty">Maç programı yükleniyor…</div></div>
         </section>
 
@@ -1561,6 +1567,7 @@ let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,on
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineSchedulePulse={soon:0,today:0,nextMatches:[],lastRefresh:0};
 let matchCenterDateOffset=0,matchCenterFilter='all',onlineMatchCenterLastRefresh=0;
+const closedMatchCenterCountries=new Set();
 const closedMatchCenterGroups=new Set();
 let bulletinCountry='Tümü',bulletinLevel=0,bulletinSport='all';
 let leagueCenterTab='standings';
@@ -2419,47 +2426,92 @@ function renderMatchCenter(){
     '</div>';
   };
 
-  const groups=new Map();
+  const leagueGroups=new Map();
   shown.forEach(function(m){
     const sport=m.sport||'football';
     const key=sport+'|'+m.country+'|'+m.league_level;
-    if(!groups.has(key))groups.set(key,{key:key,sport:sport,country:m.country,level:m.league_level,matches:[]});
-    groups.get(key).matches.push(m);
+    if(!leagueGroups.has(key))leagueGroups.set(key,{key:key,sport:sport,country:m.country,level:m.league_level,matches:[]});
+    leagueGroups.get(key).matches.push(m);
   });
 
-  const orderedGroups=Array.from(groups.values()).sort(function(a,b){
+  const countryGroups=new Map();
+  Array.from(leagueGroups.values()).forEach(function(group){
+    if(!countryGroups.has(group.country))countryGroups.set(group.country,{country:group.country,leagues:[],matches:[]});
+    const country=countryGroups.get(group.country);
+    country.leagues.push(group);
+    country.matches.push.apply(country.matches,group.matches);
+  });
+
+  const orderedCountries=Array.from(countryGroups.values()).sort(function(a,b){
     const aLive=a.matches.some(function(m){return m.status==='live'})?0:1;
     const bLive=b.matches.some(function(m){return m.status==='live'})?0:1;
     if(aLive!==bLive)return aLive-bLive;
     const aTime=Math.min.apply(null,a.matches.map(function(m){return new Date(m.kickoff_at).getTime()}));
     const bTime=Math.min.apply(null,b.matches.map(function(m){return new Date(m.kickoff_at).getTime()}));
     if(aTime!==bTime)return aTime-bTime;
-    const countryOrder=countries.indexOf(a.country)-countries.indexOf(b.country);
-    if(countryOrder!==0)return countryOrder;
-    return Number(a.level)-Number(b.level);
+    const ai=countries.indexOf(a.country),bi=countries.indexOf(b.country);
+    if(ai!==bi)return (ai<0?999:ai)-(bi<0?999:bi);
+    return a.country.localeCompare(b.country,'tr');
   });
 
-  list.innerHTML=orderedGroups.map(function(group){
-    const encodedKey=encodeURIComponent(group.key);
-    const collapsed=closedMatchCenterGroups.has(group.key);
-    const liveCount=group.matches.filter(function(m){return m.status==='live'}).length;
-    const scheduledCount=group.matches.filter(function(m){return m.status==='scheduled'}).length;
-    const finishedCount=group.matches.filter(function(m){return m.status==='finished'}).length;
-    const comp=group.sport==='efootball'?'Hızlı Lig':(leagueNames[group.level]||group.level+'. Lig');
-    const groupMeta=group.sport==='efootball'?'e-Futbol':'Lig '+group.level;
-    const countsHtml=
-      (liveCount?'<span class="match-center-group-count live">● '+liveCount+' CANLI</span>':'')+
-      (scheduledCount?'<span class="match-center-group-count">'+scheduledCount+' yaklaşan</span>':'')+
-      (finishedCount?'<span class="match-center-group-count finished">'+finishedCount+' bitti</span>':'');
-    return '<section class="match-center-group '+(collapsed?'collapsed':'')+'" data-match-center-group-wrap="'+encodedKey+'">'+
-      '<button class="match-center-group-head" data-match-center-group="'+encodedKey+'" aria-expanded="'+(!collapsed)+'">'+
-        '<span class="match-center-group-title"><span class="match-center-group-flag">'+(countryFlags[group.country]||'⚽')+'</span><span class="match-center-group-title-copy"><strong>'+group.country+' • '+comp+'</strong><small>'+sportInfo(group.sport).icon+' '+groupMeta+' • '+group.matches.length+' maç</small></span></span>'+
-        '<span class="match-center-group-counts">'+countsHtml+'</span>'+
-        '<span class="match-center-group-chevron">⌄</span>'+
+  orderedCountries.forEach(function(country){
+    country.leagues.sort(function(a,b){
+      const aLive=a.matches.some(function(m){return m.status==='live'})?0:1;
+      const bLive=b.matches.some(function(m){return m.status==='live'})?0:1;
+      if(aLive!==bLive)return aLive-bLive;
+      const aSport=a.sport==='football'?0:1,bSport=b.sport==='football'?0:1;
+      if(aSport!==bSport)return aSport-bSport;
+      return Number(a.level)-Number(b.level);
+    });
+  });
+
+  const countPills=function(matches,kind){
+    const liveCount=matches.filter(function(m){return m.status==='live'}).length;
+    const scheduledCount=matches.filter(function(m){return m.status==='scheduled'}).length;
+    const finishedCount=matches.filter(function(m){return m.status==='finished'}).length;
+    const cls=kind==='country'?'match-center-country-count':'match-center-group-count';
+    return (liveCount?'<span class="'+cls+' live">● '+liveCount+' CANLI</span>':'')+
+      (scheduledCount?'<span class="'+cls+'">'+scheduledCount+' yaklaşan</span>':'')+
+      (finishedCount?'<span class="'+cls+' finished">'+finishedCount+' bitti</span>':'');
+  };
+
+  list.innerHTML=orderedCountries.map(function(country){
+    const countryKey=country.country;
+    const encodedCountry=encodeURIComponent(countryKey);
+    const countryCollapsed=closedMatchCenterCountries.has(countryKey);
+    const leaguesHtml=country.leagues.map(function(group){
+      const encodedKey=encodeURIComponent(group.key);
+      const collapsed=closedMatchCenterGroups.has(group.key);
+      const comp=group.sport==='efootball'?'Hızlı Lig':(leagueNames[group.level]||group.level+'. Lig');
+      const groupMeta=group.sport==='efootball'?'e-Futbol':'Lig '+group.level;
+      return '<section class="match-center-group '+(collapsed?'collapsed':'')+'" data-match-center-group-wrap="'+encodedKey+'">'+
+        '<button class="match-center-group-head" data-match-center-group="'+encodedKey+'" aria-expanded="'+(!collapsed)+'">'+
+          '<span class="match-center-group-title"><span class="match-center-group-icon">'+sportInfo(group.sport).icon+'</span><span class="match-center-group-title-copy"><strong>'+comp+'</strong><small>'+groupMeta+' • '+group.matches.length+' maç</small></span></span>'+
+          '<span class="match-center-group-counts">'+countPills(group.matches,'league')+'</span>'+
+          '<span class="match-center-group-chevron">⌄</span>'+
+        '</button>'+
+        '<div class="match-center-group-body">'+group.matches.map(renderMatchRow).join('')+'</div>'+
+      '</section>';
+    }).join('');
+
+    return '<section class="match-center-country '+(countryCollapsed?'collapsed':'')+'" data-match-center-country-wrap="'+encodedCountry+'">'+
+      '<button class="match-center-country-head" data-match-center-country="'+encodedCountry+'" aria-expanded="'+(!countryCollapsed)+'">'+
+        '<span class="match-center-country-title"><span class="match-center-country-flag">'+(countryFlags[country.country]||'⚽')+'</span><span class="match-center-country-title-copy"><strong>'+country.country+'</strong><small>'+country.leagues.length+' lig • '+country.matches.length+' maç</small></span></span>'+
+        '<span class="match-center-country-counts">'+countPills(country.matches,'country')+'</span>'+
+        '<span class="match-center-country-chevron">⌄</span>'+
       '</button>'+
-      '<div class="match-center-group-body">'+group.matches.map(renderMatchRow).join('')+'</div>'+
+      '<div class="match-center-country-body">'+leaguesHtml+'</div>'+
     '</section>';
   }).join('');
+
+  list.querySelectorAll('[data-match-center-country]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      const key=decodeURIComponent(btn.dataset.matchCenterCountry);
+      if(closedMatchCenterCountries.has(key))closedMatchCenterCountries.delete(key);
+      else closedMatchCenterCountries.add(key);
+      renderMatchCenter();
+    });
+  });
 
   list.querySelectorAll('[data-match-center-group]').forEach(function(btn){
     btn.addEventListener('click',function(){
@@ -2472,8 +2524,8 @@ function renderMatchCenter(){
 
   const toggleAll=document.getElementById('matchCenterToggleGroups');
   if(toggleAll){
-    const allClosed=orderedGroups.length>0&&orderedGroups.every(function(g){return closedMatchCenterGroups.has(g.key)});
-    toggleAll.textContent=allClosed?'Tüm ligleri aç':'Tüm ligleri kapat';
+    const allClosed=orderedCountries.length>0&&orderedCountries.every(function(g){return closedMatchCenterCountries.has(g.country)});
+    toggleAll.textContent=allClosed?'Tüm ülkeleri aç':'Tüm ülkeleri kapat';
   }
   bindClubLinks(list);
 }
@@ -3978,13 +4030,13 @@ document.querySelectorAll('[data-match-center-filter]').forEach(function(btn){
   });
 });
 document.getElementById('matchCenterToggleGroups').addEventListener('click',function(){
-  const buttons=Array.from(document.querySelectorAll('[data-match-center-group]'));
+  const buttons=Array.from(document.querySelectorAll('[data-match-center-country]'));
   if(!buttons.length)return;
-  const keys=buttons.map(function(btn){return decodeURIComponent(btn.dataset.matchCenterGroup)});
-  const allClosed=keys.every(function(key){return closedMatchCenterGroups.has(key)});
+  const keys=buttons.map(function(btn){return decodeURIComponent(btn.dataset.matchCenterCountry)});
+  const allClosed=keys.every(function(key){return closedMatchCenterCountries.has(key)});
   keys.forEach(function(key){
-    if(allClosed)closedMatchCenterGroups.delete(key);
-    else closedMatchCenterGroups.add(key);
+    if(allClosed)closedMatchCenterCountries.delete(key);
+    else closedMatchCenterCountries.add(key);
   });
   renderMatchCenter();
 });
