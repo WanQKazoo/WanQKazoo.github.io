@@ -428,7 +428,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   body[data-page="bulletin"] .stat small{font-size:7px}
 }
 
-/* ===== Prototype 0.29.1 UI Fix ===== */
+/* ===== Prototype 0.29.2 e-Football Theme Restore ===== */
 .living-coupon-card{
   cursor:pointer;
   padding:12px;
@@ -549,6 +549,71 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   }
   #bulletinSection .sport-tab small{display:none}
 }
+
+/* ===== Prototype 0.29.2 — Restore e-Football purple identity ===== */
+#bulletinSection .sport-tab[data-sport="efootball"]{
+  border-color:#3f365d;
+  background:#171427;
+  color:#b7a8db;
+}
+#bulletinSection .sport-tab[data-sport="efootball"]:hover{
+  border-color:#66558d;
+  background:#211a35;
+  color:#e0d6fa;
+}
+#bulletinSection .sport-tab[data-sport="efootball"].active{
+  border-color:#9278d5;
+  background:linear-gradient(135deg,#35295a,#2a2148);
+  color:#f5efff;
+  box-shadow:inset 0 0 0 1px rgba(178,153,255,.12),0 6px 18px rgba(78,57,122,.20);
+}
+#bulletinSection .sport-tab[data-sport="efootball"].active small{color:#cfbef3}
+
+.sport-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:3px 6px;
+  border-radius:6px;
+  font-size:7px;
+  font-weight:1000;
+  letter-spacing:.45px;
+  text-transform:uppercase
+}
+.sport-badge.football{background:#173529;color:#7ce7c2}
+.sport-badge.efootball{
+  background:#30244d;
+  color:#cbb8ff;
+  border:1px solid rgba(178,153,255,.12)
+}
+.match.efootball{
+  background:linear-gradient(90deg,rgba(112,82,170,.10),#0f1828 30%);
+  box-shadow:inset 3px 0 #8d70d7
+}
+.match.efootball:hover{
+  background:linear-gradient(90deg,rgba(126,92,191,.14),#111b2d 34%)
+}
+.match.efootball.match-live{
+  background:linear-gradient(90deg,rgba(124,86,184,.15),rgba(255,94,108,.055) 35%,#0f1828 70%);
+  box-shadow:inset 3px 0 #a184ef
+}
+.match.efootball .dot{background:#b299ff!important}
+.match.efootball .match-meta strong{
+  background:#2c2448;
+  color:#d8c9ff
+}
+.match.efootball .form{
+  border-color:#40355f;
+  background:#19172a;
+  color:#a69bc7
+}
+.bulletin-group-head.efootball{
+  background:linear-gradient(90deg,#19152b,#101a2b 72%);
+  border-top-color:#574477;
+  border-bottom-color:#302849
+}
+.bulletin-group-head.efootball strong{color:#cfbdff}
+.bulletin-group-head.efootball small{color:#8f82b1}
 </style>
 </head>
 <body>
@@ -747,7 +812,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.29.1 UI Fix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.29.2 e-Football Theme Restore</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
