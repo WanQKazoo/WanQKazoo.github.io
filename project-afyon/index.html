@@ -428,7 +428,51 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   body[data-page="bulletin"] .stat small{font-size:7px}
 }
 
-/* ===== Prototype 0.29 Living Coupon</style>
+/* ===== Prototype 0.29 Living Coupon ===== */
+.living-coupon-card{
+  cursor:pointer;
+  padding:12px;
+  border:1px solid #2d4765;
+  border-radius:12px;
+  background:linear-gradient(145deg,#111d30,#0d1727);
+  box-shadow:inset 0 0 0 1px rgba(116,192,252,.025);
+  transition:transform .15s,border-color .15s,box-shadow .15s
+}
+.living-coupon-card:hover{transform:translateY(-1px);border-color:#466b8f;box-shadow:0 9px 24px rgba(0,0,0,.22)}
+.living-coupon-card.last-leg{border-color:#8b6d2b;background:linear-gradient(145deg,#261f12,#151725);box-shadow:inset 3px 0 #ffd166}
+.living-coupon-kicker{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#7187a7;font-size:8px;font-weight:1000;letter-spacing:.55px}
+.living-coupon-kicker b{padding:4px 7px;border-radius:7px;background:#1b2a43;color:#ffd166;font-size:10px}
+.living-coupon-card h4{margin:10px 0 9px;color:#f4f7fb;font-size:13px;line-height:1.25}
+.living-coupon-card.last-leg h4{color:#ffd978}
+.living-coupon-states{display:flex;gap:5px;flex-wrap:wrap}
+.living-state{display:inline-flex;align-items:center;padding:4px 7px;border-radius:7px;font-size:8px;font-weight:1000}
+.living-state.won{background:#15382f;color:#79e7c3}
+.living-state.live{background:#451b26;color:#ff9cab}
+.living-state.waiting{background:#1c2940;color:#93a5c2}
+.living-state.live:before{content:"";width:5px;height:5px;margin-right:5px;border-radius:50%;background:#ff6474;box-shadow:0 0 0 0 rgba(255,100,116,.45);animation:livingPulse 1.45s infinite}
+.living-coupon-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-top:11px;padding-top:9px;border-top:1px solid #22334b}
+.living-coupon-foot small{display:block;color:#667a99;font-size:7px;font-weight:1000;letter-spacing:.55px}
+.living-coupon-foot strong{display:block;margin-top:2px;color:#ffd166;font-size:13px}
+.living-coupon-open{color:#7890b2;font-size:8px;font-weight:1000}
+.mobile-slip-title{flex:0 0 auto;font-size:10px;letter-spacing:.25px}
+.mobile-slip-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right;line-height:1.15}
+.mobile-slip-copy strong{max-width:70vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}
+.mobile-slip-copy small{max-width:70vw;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8193af;font-size:7px;font-weight:800}
+.mobile-slip-launcher.has-live-coupon{background:linear-gradient(135deg,#162a3c,#162338);border-color:#42657f}
+.mobile-slip-launcher.has-live-coupon .mobile-slip-title{color:#8fdcc4}
+.mobile-slip-launcher.has-live-coupon .mobile-slip-copy strong{color:#f4f8ff}
+.mobile-slip-launcher.has-live-coupon:before{content:"";width:7px;height:7px;border-radius:50%;background:#ff6474;box-shadow:0 0 0 0 rgba(255,100,116,.45);animation:livingPulse 1.45s infinite}
+.mobile-slip-launcher.last-leg{background:linear-gradient(135deg,#3a2b12,#1b2030);border-color:#ad8131;box-shadow:0 12px 38px rgba(0,0,0,.46),0 0 0 1px rgba(255,209,102,.08)}
+.mobile-slip-launcher.last-leg .mobile-slip-title,.mobile-slip-launcher.last-leg .mobile-slip-copy strong{color:#ffda75}
+.mobile-slip-launcher.coupon-danger{background:linear-gradient(135deg,#401925,#211727);border-color:#8d3c4d}
+.mobile-slip-launcher.coupon-danger .mobile-slip-copy strong{color:#ff9cab}
+@keyframes livingPulse{0%{box-shadow:0 0 0 0 rgba(255,100,116,.45)}70%{box-shadow:0 0 0 7px rgba(255,100,116,0)}100%{box-shadow:0 0 0 0 rgba(255,100,116,0)}}
+@media(max-width:420px){
+  .mobile-slip-launcher{gap:8px}
+  .mobile-slip-copy strong{max-width:58vw;font-size:9px}
+  .mobile-slip-copy small{max-width:58vw}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -2002,7 +2046,9 @@ function livingCouponCopy(coupon){
   if(!coupon)return null;
   const r=couponRuntime(coupon);
   let headline='';
-  if(r.lastLeg){
+  if(r.lost){
+    headline='💀 KUPON YATTI';
+  }else if(r.lastLeg){
     const runtime=r.lastSelection?couponLegRuntime(r.lastSelection):null;
     headline=runtime?.state==='live'?'🔥 SON AYAK CANLI':'⏳ SON AYAK BEKLİYOR';
   }else{
@@ -2013,7 +2059,8 @@ function livingCouponCopy(coupon){
     headline=parts.join(' • ')||'Kupon takipte';
   }
   const activeCount=state.coupons.filter(c=>c.status==='pending'&&Array.isArray(c.selections)&&c.selections.length).length;
-  const matchName=r.lastLeg&&r.lastSelection?r.lastSelection.match:null;
+  const lostSelection=r.lost?coupon.selections.find(s=>couponLegRuntime(s).state==='lost'):null;
+  const matchName=r.lastLeg&&r.lastSelection?r.lastSelection.match:(lostSelection?.match||null);
   const sub=matchName
     ?matchName
     :`Olası dönüş ${money(coupon.return)}${activeCount>1?' • +'+(activeCount-1)+' aktif kupon':''}`;
