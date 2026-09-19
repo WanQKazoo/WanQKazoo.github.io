@@ -918,6 +918,22 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
 .boxing-note{padding:11px 13px;color:#7487a5;font-size:9px;line-height:1.5;border-top:1px solid #263750}
 body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body[data-page="boxing"] .content{width:100%}body[data-page="boxing"] #boxingSection{min-height:calc(100vh - 190px)}
 @media(max-width:720px){body[data-page="boxing"] .layout{padding-top:14px}.boxing-hero{padding:17px}.boxing-hero h2{font-size:23px}.boxing-reps{grid-template-columns:1fr}.boxing-hero-stats{width:100%}.boxing-hero-stat{flex:1}.boxing-body{padding:10px}}
+
+/* Boxing Fight Night live */
+.boxing-night-list{display:grid;gap:8px;padding:12px}.boxing-bout-row{display:grid;grid-template-columns:74px minmax(0,1fr) 84px;gap:10px;align-items:center;padding:11px 12px;border:1px solid #283950;border-radius:13px;background:#101b2c}.boxing-bout-row.main{border-color:#65423a;background:linear-gradient(145deg,#21191c,#121b2b)}.boxing-bout-row.live{border-color:#6b3139;background:#2a151c;box-shadow:inset 0 0 0 1px rgba(255,120,130,.06)}
+.boxing-bout-meta{display:grid;gap:3px}.boxing-bout-meta strong{font-size:10px;color:#e6b8a8}.boxing-bout-meta small{font-size:8px;color:#7588a5}.boxing-bout-pair{display:grid;gap:5px;min-width:0}.boxing-bout-fighter{display:flex;justify-content:space-between;gap:8px;min-width:0;font-size:11px;font-weight:1000}.boxing-bout-fighter span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.boxing-bout-fighter small{color:#7c8fab;font-size:8px;font-weight:900;white-space:nowrap}.boxing-bout-action{display:grid;gap:4px;justify-items:stretch}.boxing-bout-status{text-align:center;font-size:8px;font-weight:1000;color:#8395b1}.boxing-bout-watch{border:1px solid #3a4e6c;border-radius:10px;background:#17253d;color:#c5d2e7;padding:8px 7px;font-size:9px;font-weight:1000;cursor:pointer}.boxing-bout-row.live .boxing-bout-watch{background:#5a1f29;border-color:#8d3947;color:#ffd5da;animation:liveWatchPulse 1.4s infinite}
+.boxing-event-empty{padding:18px;text-align:center;color:#7b8daa;font-size:10px}.boxing-event-day{padding:10px 12px;border-bottom:1px solid #263750;background:#0c1626;display:flex;justify-content:space-between;gap:10px;align-items:center}.boxing-event-day strong{font-size:12px}.boxing-event-day small{color:#7b8daa;font-size:8px}
+
+.boxing-live-backdrop{display:none;position:fixed;inset:0;z-index:145;background:rgba(4,7,14,.86);backdrop-filter:blur(8px);padding:15px}.boxing-live-backdrop.open{display:grid;place-items:center}.boxing-live-modal{width:min(900px,100%);max-height:calc(100vh - 30px);overflow:auto;border:1px solid #3d465e;border-radius:22px;background:#0b1423;box-shadow:0 30px 100px rgba(0,0,0,.62)}
+.boxing-live-hero{position:relative;padding:20px;background:linear-gradient(90deg,#39171c 0%,#171a29 50%,#13243a 100%);border-bottom:1px solid #35435b}.boxing-live-close{position:absolute;right:12px;top:12px;width:36px;height:36px;border:1px solid #485a74;border-radius:11px;background:#101a2a;color:#bac7db;font-size:22px;cursor:pointer}
+.boxing-live-kicker{text-align:center;color:#9faec4;font-size:9px;font-weight:1000;letter-spacing:1px}.boxing-live-matchup{display:grid;grid-template-columns:minmax(0,1fr) 150px minmax(0,1fr);gap:12px;align-items:center;margin-top:14px}.boxing-corner{text-align:center;min-width:0}.boxing-corner .flag{font-size:20px}.boxing-corner strong{display:block;margin-top:4px;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.boxing-corner small{display:block;margin-top:4px;color:#8495b0;font-size:9px}.boxing-corner.red strong{color:#ffb3ad}.boxing-corner.blue strong{color:#a9d0ff}
+.boxing-round-clock{text-align:center}.boxing-round-clock strong{display:block;font-size:26px}.boxing-round-clock span{display:inline-flex;margin-top:6px;padding:5px 8px;border-radius:999px;background:#17253a;color:#aebed5;font-size:9px;font-weight:1000}.boxing-round-clock span.live{background:#551d27;color:#ffd0d6}.boxing-round-clock em{display:block;margin-top:6px;color:#71839e;font-size:8px;font-style:normal}
+.boxing-live-body{padding:15px;display:grid;gap:11px}.boxing-commentator{border:1px solid #654a2b;border-radius:15px;background:linear-gradient(145deg,#251d12,#111929);overflow:hidden}.boxing-commentator-head{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;border-bottom:1px solid #4a3b27;color:#d9bd86;font-size:9px;font-weight:1000}.boxing-commentator-line{padding:15px;font-size:15px;font-weight:900;line-height:1.45}.boxing-commentator-line small{display:block;margin-top:6px;color:#847f75;font-size:8px;font-weight:800}
+.boxing-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.boxing-live-panel{padding:12px;border:1px solid #273851;border-radius:14px;background:#0f1a2b}.boxing-live-panel h4{margin:0 0 10px;font-size:10px}.boxing-live-stat{display:grid;grid-template-columns:38px 1fr 38px;gap:8px;align-items:center;padding:5px 0;font-size:10px;font-weight:1000}.boxing-live-stat span{text-align:center;color:#788ba8;font-size:8px}.boxing-live-stat b:last-child{text-align:right}
+.boxing-pressure-head{display:flex;justify-content:space-between;gap:8px;margin-top:10px;color:#798ba7;font-size:8px;font-weight:900}.boxing-pressure{height:10px;display:flex;margin-top:6px;border-radius:99px;overflow:hidden;background:#202d42}.boxing-pressure .red{background:#ef6f6c}.boxing-pressure .blue{background:#6faee8}
+.boxing-rounds{display:flex;gap:5px;overflow:auto;padding-bottom:2px}.boxing-round-chip{min-width:45px;padding:7px 6px;border:1px solid #2a3b55;border-radius:9px;background:#101b2d;text-align:center;font-size:8px;color:#788aa6}.boxing-round-chip.red{border-color:#6a3337;color:#ff9c99}.boxing-round-chip.blue{border-color:#31577e;color:#9bcaff}.boxing-round-chip.even{color:#d7c78e}.boxing-round-chip.current{box-shadow:0 0 0 2px rgba(255,255,255,.05)}
+.boxing-commentary-feed{display:grid;gap:6px;max-height:315px;overflow:auto}.boxing-feed-row{display:grid;grid-template-columns:48px 28px minmax(0,1fr);gap:8px;align-items:start;padding:8px 9px;border-radius:10px;background:#0a1423}.boxing-feed-row .time{font-size:8px;color:#7e90ad;font-weight:1000}.boxing-feed-row .ico{text-align:center}.boxing-feed-row strong{display:block;font-size:9px}.boxing-feed-row small{display:block;margin-top:2px;color:#6f819d;font-size:8px;line-height:1.35}.boxing-feed-row.knockdown{background:#321b1e}.boxing-feed-row.fight_end{background:#173026}.boxing-feed-row.power_shot{background:#291f18}
+@media(max-width:720px){.boxing-bout-row{grid-template-columns:58px minmax(0,1fr);gap:8px}.boxing-bout-action{grid-column:1/-1;grid-template-columns:1fr 1fr;align-items:center}.boxing-live-backdrop{padding:6px;align-items:end}.boxing-live-modal{max-height:calc(100vh - 12px);border-radius:20px 20px 10px 10px}.boxing-live-matchup{grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr)}.boxing-corner strong{font-size:14px}.boxing-round-clock strong{font-size:21px}.boxing-live-grid{grid-template-columns:1fr}.boxing-commentator-line{font-size:13px}}
 </style>
 </head>
 <body>
@@ -1114,6 +1130,11 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
           </div>
           <div class="boxing-body">
             <div class="boxing-block">
+              <div class="boxing-block-head"><div><h3>🥊 Fight Night</h3><p>Normal maç 10 dakika • ana maç 12 dakika • ortak canlı anlatım</p></div></div>
+              <div id="boxingFightNight"><div class="boxing-event-empty">Fight Night programı yükleniyor…</div></div>
+            </div>
+
+            <div class="boxing-block">
               <div class="boxing-block-head"><div><h3>🇹🇷 Türkiye Temsilcileri</h3><p>Project Afyon boks evreninin sabit Türk dövüşçüleri</p></div></div>
               <div class="boxing-reps" id="boxingTurkeyReps"><div class="empty">Dövüşçüler yükleniyor…</div></div>
             </div>
@@ -1197,7 +1218,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.50 Boxing Foundation</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.51 Boxing Live</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1255,6 +1276,12 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
 <div class="match-detail-backdrop" id="matchDetailModal">
   <div class="match-detail-modal">
     <div id="matchDetailContent"><div class="match-detail-empty">Maç verisi hazırlanıyor…</div></div>
+  </div>
+</div>
+
+<div class="boxing-live-backdrop" id="boxingLiveModal">
+  <div class="boxing-live-modal">
+    <div id="boxingLiveContent"><div class="boxing-event-empty">Ring hazırlanıyor…</div></div>
   </div>
 </div>
 
@@ -1681,7 +1708,8 @@ let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceH
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
-let onlineBoxingFighters=[],boxingWeightFilter='all',boxingLastRefresh=0;
+let onlineBoxingFighters=[],onlineBoxingBouts=[],boxingWeightFilter='all',boxingLastRefresh=0;
+let activeBoxingBoutId=null,onlineBoxingBoutEvents=[];
 let onlineSchedulePulse={soon:0,today:0,nextMatches:[],lastRefresh:0};
 let matchCenterDateOffset=0,matchCenterFilter='all',onlineMatchCenterLastRefresh=0;
 const closedMatchCenterCountries=new Set();
@@ -3953,6 +3981,7 @@ async function pollOnlineWorld(){
     await refreshOnlineSchedulePulse();
     await refreshOnlineClubInsights(false);
     await refreshOnlineBoxing(false);
+    if(activeBoxingBoutId)await refreshBoxingBoutDetail();
     if(activeMatchDetailId)await refreshOnlineMatchDetail();
     onlineAccountTick++;
     if(onlineSession&&onlineAccountTick%3===0&&!activeChanceSession?.local)await refreshOnlineAccount();
@@ -4000,15 +4029,167 @@ function boxingRanks(){
 async function refreshOnlineBoxing(force=false){
   if(!onlineMode)return;
   const now=Date.now();
-  if(!force&&now-boxingLastRefresh<30000)return;
-  const {data,error}=await supabaseClient.from('boxing_fighters')
-    .select('id,name,country,weight_class,style,power,speed,defense,chin,stamina,rating,wins,losses,draws,kos,streak_type,streak_count,is_active')
-    .eq('is_active',true)
-    .order('weight_class',{ascending:true});
-  if(error)throw error;
-  onlineBoxingFighters=data||[];
+  if(!force&&!activeBoxingBoutId&&now-boxingLastRefresh<12000)return;
+  const since=new Date(now-36*60*60*1000).toISOString();
+  const [fightersRes,boutsRes]=await Promise.all([
+    supabaseClient.from('boxing_fighters')
+      .select('id,name,country,weight_class,style,power,speed,defense,chin,stamina,rating,wins,losses,draws,kos,streak_type,streak_count,is_active')
+      .eq('is_active',true)
+      .order('weight_class',{ascending:true}),
+    supabaseClient.from('boxing_bouts')
+      .select('id,event_name,scheduled_at,weight_class,red_fighter_id,blue_fighter_id,status,winner_id,method,finish_round,rounds,duration_seconds,started_at,finished_at,card_order,is_main_event,venue')
+      .gte('scheduled_at',since)
+      .order('scheduled_at',{ascending:true})
+      .limit(30)
+  ]);
+  if(fightersRes.error)throw fightersRes.error;
+  if(boutsRes.error)throw boutsRes.error;
+  onlineBoxingFighters=fightersRes.data||[];
+  onlineBoxingBouts=boutsRes.data||[];
   boxingLastRefresh=now;
+  if(activeBoxingBoutId)await refreshBoxingBoutDetail();
   renderBoxing();
+}
+function boxingFighter(id){return onlineBoxingFighters.find(f=>f.id===id)||null}
+function boxingBoutClock(b){
+  if(b.status==='scheduled')return {round:0,second:0,break:false,label:formatIstanbulTime(b.scheduled_at)};
+  if(b.status==='finished')return {round:Number(b.finish_round||b.rounds||0),second:50,break:false,label:'BİTTİ'};
+  const elapsed=Math.max(0,Math.min(Number(b.duration_seconds||600),(Date.now()-new Date(b.started_at||b.scheduled_at).getTime())/1000));
+  const round=Math.min(Number(b.rounds||10),Math.floor(elapsed/60)+1);
+  const second=Math.floor(elapsed%60);
+  return {round,second,break:second>=50,label:second>=50?'KÖŞE MOLASI':'R'+round+' • '+String(second).padStart(2,'0')+' sn'};
+}
+function boxingBoutStatusText(b){
+  if(b.status==='live'){
+    const clock=boxingBoutClock(b);
+    return clock.break?'KÖŞE MOLASI':'CANLI • R'+clock.round;
+  }
+  if(b.status==='finished')return (b.method||'Bitti')+(b.finish_round?' • R'+b.finish_round:'');
+  return formatIstanbulTime(b.scheduled_at);
+}
+function boxingChosenEvent(){
+  if(!onlineBoxingBouts.length)return [];
+  const live=onlineBoxingBouts.find(b=>b.status==='live');
+  const future=onlineBoxingBouts.find(b=>b.status==='scheduled'&&new Date(b.scheduled_at).getTime()>=Date.now()-60000);
+  const anchor=live||future||onlineBoxingBouts[onlineBoxingBouts.length-1];
+  return onlineBoxingBouts.filter(b=>b.event_name===anchor.event_name).sort((a,b)=>Number(a.card_order)-Number(b.card_order));
+}
+function renderBoxingFightNight(){
+  const box=document.getElementById('boxingFightNight');
+  if(!box)return;
+  const bouts=boxingChosenEvent();
+  if(!bouts.length){box.innerHTML='<div class="boxing-event-empty">Henüz Fight Night programı yok.</div>';return}
+  const first=bouts[0];
+  const day=new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'long',weekday:'long'}).format(new Date(first.scheduled_at));
+  box.innerHTML='<div class="boxing-event-day"><div><strong>'+first.event_name+'</strong><small>'+first.venue+' • '+day+'</small></div><small>10 dk kart • 12 dk ana maç</small></div><div class="boxing-night-list">'+
+    bouts.map(function(b){
+      const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
+      if(!red||!blue)return '';
+      const action=b.status==='live'?'● CANLI İZLE':b.status==='finished'?'TEKRAR':'MAÇ DETAYI';
+      return '<div class="boxing-bout-row '+b.status+' '+(b.is_main_event?'main':'')+'">'+
+        '<div class="boxing-bout-meta"><strong>'+(b.is_main_event?'⭐ ANA MAÇ':'KART '+b.card_order)+'</strong><small>'+boxingWeightNames[b.weight_class]+'</small><small>'+b.rounds+' RND</small></div>'+
+        '<div class="boxing-bout-pair"><div class="boxing-bout-fighter"><span>'+boxingFlag(red.country)+' '+red.name+'</span><small>'+boxingRecord(red)+'</small></div><div class="boxing-bout-fighter"><span>'+boxingFlag(blue.country)+' '+blue.name+'</span><small>'+boxingRecord(blue)+'</small></div></div>'+
+        '<div class="boxing-bout-action"><span class="boxing-bout-status">'+boxingBoutStatusText(b)+'</span><button class="boxing-bout-watch" data-boxing-bout="'+b.id+'">'+action+'</button></div>'+
+      '</div>';
+    }).join('')+'</div>';
+  box.querySelectorAll('[data-boxing-bout]').forEach(btn=>btn.addEventListener('click',()=>openBoxingBout(btn.dataset.boxingBout)));
+}
+function boxingEventIcon(type){
+  return ({jab:'👊',power_shot:'💥',combo:'🥊',body_shot:'🫁',counter:'⚡',knockdown:'⬇️',cut:'🩸',warning:'⚠️',round_end:'🔔',fight_end:'🏁'})[type]||'🥊';
+}
+function boxingEventStats(side){
+  const list=onlineBoxingBoutEvents.filter(e=>e.side===side);
+  const hitTypes=['jab','power_shot','combo','body_shot','counter'];
+  return {
+    landed:list.filter(e=>hitTypes.includes(e.event_type)).length,
+    power:list.filter(e=>e.event_type==='power_shot'||e.event_type==='combo').length,
+    body:list.filter(e=>e.event_type==='body_shot').length,
+    counters:list.filter(e=>e.event_type==='counter').length,
+    kd:list.filter(e=>e.event_type==='knockdown').length
+  };
+}
+function boxingPressure(side,bout){
+  const clock=boxingBoutClock(bout);
+  if(!clock.round)return 0;
+  const currentGlobal=(clock.round-1)*60+clock.second;
+  return onlineBoxingBoutEvents.reduce(function(sum,e){
+    if(e.side!==side)return sum;
+    const g=(Number(e.round)-1)*60+Number(e.second_in_round||0);
+    const age=currentGlobal-g;
+    if(age<0||age>75)return sum;
+    const w=e.event_type==='knockdown'?6:e.event_type==='power_shot'?3:e.event_type==='combo'?2.5:e.event_type==='counter'?2:e.event_type==='body_shot'?1.5:e.event_type==='jab'?1:0;
+    return sum+w*Math.max(.25,1-age/90);
+  },0);
+}
+async function refreshBoxingBoutDetail(){
+  if(!activeBoxingBoutId||!onlineMode)return;
+  const boutRes=await supabaseClient.from('boxing_bouts')
+    .select('id,event_name,scheduled_at,weight_class,red_fighter_id,blue_fighter_id,status,winner_id,method,finish_round,rounds,duration_seconds,started_at,finished_at,card_order,is_main_event,venue')
+    .eq('id',activeBoxingBoutId).single();
+  if(boutRes.error)throw boutRes.error;
+  const idx=onlineBoxingBouts.findIndex(x=>x.id===activeBoxingBoutId);
+  if(idx>=0)onlineBoxingBouts[idx]=boutRes.data; else onlineBoxingBouts.push(boutRes.data);
+  const evRes=await supabaseClient.from('boxing_bout_events')
+    .select('id,bout_id,round,second_in_round,event_type,side,payload,commentary,visible_at')
+    .eq('bout_id',activeBoxingBoutId)
+    .order('visible_at',{ascending:true})
+    .order('id',{ascending:true});
+  if(evRes.error)throw evRes.error;
+  onlineBoxingBoutEvents=evRes.data||[];
+  renderBoxingBoutDetail();
+}
+async function openBoxingBout(id){
+  activeBoxingBoutId=id;
+  onlineBoxingBoutEvents=[];
+  document.getElementById('boxingLiveModal').classList.add('open');
+  document.getElementById('boxingLiveContent').innerHTML='<div class="boxing-event-empty">Ring hazırlanıyor…</div>';
+  try{await refreshBoxingBoutDetail()}catch(err){
+    console.error('Boxing bout',err);
+    document.getElementById('boxingLiveContent').innerHTML='<div class="boxing-event-empty">Maç detayı yüklenemedi.</div>';
+  }
+}
+function closeBoxingBout(){
+  activeBoxingBoutId=null;
+  onlineBoxingBoutEvents=[];
+  document.getElementById('boxingLiveModal').classList.remove('open');
+}
+function renderBoxingBoutDetail(){
+  const box=document.getElementById('boxingLiveContent');
+  const b=onlineBoxingBouts.find(x=>x.id===activeBoxingBoutId);
+  if(!box||!b)return;
+  const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
+  if(!red||!blue)return;
+  const clock=boxingBoutClock(b),rs=boxingEventStats('red'),bs=boxingEventStats('blue');
+  const rp=boxingPressure('red',b),bp=boxingPressure('blue',b),pt=rp+bp,rpct=pt?Math.round(rp/pt*100):50,bpct=100-rpct;
+  const latest=onlineBoxingBoutEvents.length?onlineBoxingBoutEvents[onlineBoxingBoutEvents.length-1]:null;
+  const latestLine=latest?latest.commentary:(b.status==='scheduled'?'Dövüşçüler henüz ringe çıkmadı. Fight Night başladığında spiker burada olacak.':'Gong bekleniyor…');
+  const roundEnds=onlineBoxingBoutEvents.filter(e=>e.event_type==='round_end');
+  const rounds=Array.from({length:Number(b.rounds||10)},(_,i)=>{
+    const n=i+1,e=roundEnds.find(x=>Number(x.round)===n),leader=e?.payload?.leader||'';
+    return '<span class="boxing-round-chip '+leader+' '+(clock.round===n&&b.status==='live'?'current':'')+'">R'+n+(leader==='red'?' • R':leader==='blue'?' • B':leader==='even'?' • =':'')+'</span>';
+  }).join('');
+  const statRow=function(label,a,z){return '<div class="boxing-live-stat"><b>'+a+'</b><span>'+label+'</span><b>'+z+'</b></div>'};
+  const feed=onlineBoxingBoutEvents.length?onlineBoxingBoutEvents.slice().reverse().map(function(e){
+    return '<div class="boxing-feed-row '+e.event_type+'"><span class="time">R'+e.round+' • '+String(e.second_in_round).padStart(2,'0')+'s</span><span class="ico">'+boxingEventIcon(e.event_type)+'</span><div><strong>'+e.commentary+'</strong><small>'+(e.side==='red'?red.name:e.side==='blue'?blue.name:'Ring')+'</small></div></div>';
+  }).join(''):'<div class="boxing-event-empty">Henüz görünür olay yok.</div>';
+  let centerText,centerClass='';
+  if(b.status==='scheduled'){centerText=formatIstanbulTime(b.scheduled_at);centerClass='';}
+  else if(b.status==='finished'){centerText=(b.method||'BİTTİ')+(b.finish_round?' • R'+b.finish_round:'');}
+  else{centerText=clock.break?'KÖŞE MOLASI':'RAUND '+clock.round+'/'+b.rounds;centerClass='live';}
+
+  box.innerHTML=
+    '<div class="boxing-live-hero"><button class="boxing-live-close" id="boxingLiveClose">×</button><div class="boxing-live-kicker">🥊 '+b.event_name+' • '+boxingWeightNames[b.weight_class]+' • '+(b.is_main_event?'ANA MAÇ':'KART '+b.card_order)+'</div>'+
+      '<div class="boxing-live-matchup"><div class="boxing-corner red"><span class="flag">'+boxingFlag(red.country)+'</span><strong>'+red.name+'</strong><small>'+boxingRecord(red)+' • '+red.style+'</small></div>'+
+      '<div class="boxing-round-clock"><strong>VS</strong><span class="'+centerClass+'">'+centerText+'</span><em>'+b.rounds+' raund • '+Math.round(Number(b.duration_seconds)/60)+' gerçek dakika</em></div>'+
+      '<div class="boxing-corner blue"><span class="flag">'+boxingFlag(blue.country)+'</span><strong>'+blue.name+'</strong><small>'+boxingRecord(blue)+' • '+blue.style+'</small></div></div></div>'+
+    '<div class="boxing-live-body">'+
+      '<div class="boxing-commentator"><div class="boxing-commentator-head"><span>🎙 AFMB RİNG SPİKERİ</span><span>'+(b.status==='live'?'CANLI ANLATIM':b.status==='finished'?'MAÇ ARŞİVİ':'MAÇ ÖNCESİ')+'</span></div><div class="boxing-commentator-line">'+latestLine+'<small>Ortak dünya anlatımı • herkes aynı olay akışını görür</small></div></div>'+
+      '<div class="boxing-rounds">'+rounds+'</div>'+
+      '<div class="boxing-live-grid"><div class="boxing-live-panel"><h4>📊 RİNG VERİSİ</h4>'+statRow('ÖNEMLİ İSABET',rs.landed,bs.landed)+statRow('SERT / KOMBO',rs.power,bs.power)+statRow('GÖVDE',rs.body,bs.body)+statRow('KONTRA',rs.counters,bs.counters)+statRow('KNOCKDOWN',rs.kd,bs.kd)+
+        '<div class="boxing-pressure-head"><span>'+red.name+' %'+rpct+'</span><span>SON 75 SN BASKI</span><span>%'+bpct+' '+blue.name+'</span></div><div class="boxing-pressure"><span class="red" style="width:'+rpct+'%"></span><span class="blue" style="width:'+bpct+'%"></span></div></div>'+
+      '<div class="boxing-live-panel"><h4>🎙 SPİKER AKIŞI</h4><div class="boxing-commentary-feed">'+feed+'</div></div></div>'+
+    '</div>';
+  document.getElementById('boxingLiveClose')?.addEventListener('click',closeBoxingBout);
 }
 function renderBoxingTurkeyReps(){
   const box=document.getElementById('boxingTurkeyReps');
@@ -4055,6 +4236,7 @@ function renderBoxing(){
   const count=document.getElementById('boxingFighterCount'),tr=document.getElementById('boxingTurkeyCount');
   if(count)count.textContent=onlineBoxingFighters.length||'—';
   if(tr)tr.textContent=onlineBoxingFighters.filter(f=>f.country==='Türkiye').length||'—';
+  renderBoxingFightNight();
   renderBoxingTurkeyReps();
   renderBoxingRanking();
 }
@@ -4824,6 +5006,10 @@ document.querySelectorAll('[data-boxing-weight]').forEach(function(btn){
   });
 });
 
+document.getElementById('boxingLiveModal').addEventListener('click',function(e){
+  if(e.target===this)closeBoxingBout();
+});
+
 document.querySelectorAll('[data-open-game]').forEach(btn=>btn.addEventListener('click',()=>openChanceGame(btn.dataset.openGame)));
 document.getElementById('chanceClose').addEventListener('click',closeChanceGame);
 document.getElementById('chanceModal').addEventListener('click',e=>{if(e.target.id==='chanceModal')closeChanceGame()});
@@ -4833,7 +5019,7 @@ document.getElementById('authOpen').addEventListener('click',()=>document.getEle
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
 document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeChanceGame();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeBoxingBout();closeChanceGame();}});
 document.getElementById('authLogin').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
   updateAuthUi('Giriş yapılıyor…');
