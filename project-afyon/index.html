@@ -428,7 +428,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   body[data-page="bulletin"] .stat small{font-size:7px}
 }
 
-/* ===== Prototype 0.29 Living Coupon ===== */
+/* ===== Prototype 0.29.1 UI Fix ===== */
 .living-coupon-card{
   cursor:pointer;
   padding:12px;
@@ -471,6 +471,83 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   .mobile-slip-launcher{gap:8px}
   .mobile-slip-copy strong{max-width:58vw;font-size:9px}
   .mobile-slip-copy small{max-width:58vw}
+}
+
+/* ===== Prototype 0.29.1 — Sport Tabs Fix ===== */
+#bulletinSection .sport-tabs{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:10px 14px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  background:#0a1321;
+  border-bottom:1px solid #223149;
+}
+#bulletinSection .sport-tabs::-webkit-scrollbar{display:none}
+#bulletinSection .sport-tab{
+  appearance:none;
+  -webkit-appearance:none;
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:38px;
+  padding:8px 11px;
+  border:1px solid #2a3b57;
+  border-radius:9px;
+  background:#121e31;
+  color:#8fa0bb;
+  font-size:10px;
+  font-weight:1000;
+  line-height:1;
+  white-space:nowrap;
+  box-shadow:none;
+}
+#bulletinSection .sport-tab small{
+  display:inline;
+  margin:0;
+  color:#657994;
+  font-size:7px;
+  font-weight:1000;
+  letter-spacing:.45px;
+}
+#bulletinSection .sport-tab:hover{
+  border-color:#435a79;
+  background:#17253a;
+  color:#dbe6f7;
+}
+#bulletinSection .sport-tab.active{
+  border-color:#63e6be;
+  background:#1d5a4c;
+  color:#f0fff9;
+  box-shadow:inset 0 0 0 1px rgba(99,230,190,.12);
+}
+#bulletinSection .sport-tab.active small{color:#b8efdd}
+#bulletinSection .sport-tab[data-sport="efootball"].active{
+  border-color:#9278d5;
+  background:#30264d;
+  color:#f4edff;
+  box-shadow:inset 0 0 0 1px rgba(178,153,255,.10);
+}
+#bulletinSection .sport-tab[data-sport="efootball"].active small{color:#c9b8ef}
+@media(max-width:720px){
+  #bulletinSection .sport-tabs{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+    padding:8px 10px;
+    overflow:visible;
+  }
+  #bulletinSection .sport-tab{
+    width:100%;
+    min-width:0;
+    min-height:38px;
+    padding:8px 5px;
+    font-size:10px;
+  }
+  #bulletinSection .sport-tab small{display:none}
 }
 </style>
 </head>
@@ -670,7 +747,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.29 Living Coupon</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.29.1 UI Fix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
