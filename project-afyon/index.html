@@ -241,7 +241,7 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
     inset:auto!important;
     width:100%;
     display:grid!important;
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
     margin:0!important;
     padding:5px!important;
     border:1px solid #2a3852;
@@ -2025,6 +2025,13 @@ function renderLiveCenter(){
   const feedMeta=document.getElementById('conferenceFeedMeta');
 
   if(onlineMode){
+    if(matchCenterDateOffset!==0){
+      center.hidden=true;
+      dot.classList.remove('live');
+      if(scoresEl)scoresEl.innerHTML='';
+      if(statsEl)statsEl.innerHTML='';
+      return;
+    }
     const liveMatches=onlineConferenceMatches.filter(m=>m.status==='live'&&m.started_at);
     if(!liveMatches.length){
       center.hidden=true;
@@ -2565,7 +2572,7 @@ function renderOnlineBulletin(){
 
   const wrap=document.getElementById('matches');
   if(!onlineBulletinMatches.length){
-    wrap.innerHTML='<div class="bulletin-empty">Bu filtrede yaklaşan maç yok. 🌐 Tümü seçerek ortak bültene dönebilirsin.</div>';
+    wrap.innerHTML='<div class="bulletin-empty">Bu filtrede bahis alınabilir yaklaşan maç yok. Başlamış maçları 📡 Maç Merkezi’nden takip edebilirsin.</div>';
     renderLiveCenter();return;
   }
 
@@ -3392,7 +3399,7 @@ async function pollOnlineWorld(){
     await refreshOnlineSelected(changed);
     await refreshOnlineBulletin();
     await refreshOnlineConference();
-    await refreshOnlineMatchCenter();
+    await refreshOnlineMatchCenter(changed);
     await refreshOnlineSchedulePulse();
     onlineAccountTick++;
     if(onlineSession&&onlineAccountTick%3===0)await refreshOnlineAccount();
