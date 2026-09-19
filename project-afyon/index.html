@@ -4377,7 +4377,10 @@ supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
     renderRescue();
   }
   try{
-    if(onlineMode){await refreshOnlineAccount();await refreshChanceHistory();}
+    if(onlineMode){
+      if(!activeChanceSession?.local)await refreshOnlineAccount();
+      await refreshChanceHistory();
+    }
   }catch(e){
     console.error(e);
     if(session&&!Number.isFinite(onlineAuthoritativeBalance)){onlineBootstrapFailed=true;renderWallet();}
