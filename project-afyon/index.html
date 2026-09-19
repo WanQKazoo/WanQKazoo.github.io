@@ -614,6 +614,66 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
 }
 .bulletin-group-head.efootball strong{color:#cfbdff}
 .bulletin-group-head.efootball small{color:#8f82b1}
+
+/* ===== Prototype 0.29.2 — e-Football identity restore ===== */
+#bulletinSection[data-sport="efootball"]{
+  border-color:#332a50;
+  box-shadow:0 18px 55px rgba(20,12,38,.24)
+}
+#bulletinSection[data-sport="efootball"] .section-title{
+  background:linear-gradient(180deg,#17152a,#111527);
+  border-bottom-color:#302849
+}
+#bulletinSection[data-sport="efootball"] .section-title h2{
+  color:#eee9ff
+}
+#bulletinSection[data-sport="efootball"] #bulletinSub{
+  color:#9e8fc7
+}
+#bulletinSection[data-sport="efootball"] .country-tabs,
+#bulletinSection[data-sport="efootball"] .league-tabs{
+  background:linear-gradient(180deg,#0f1322,#0c1220)
+}
+#bulletinSection[data-sport="efootball"] .country-tab.active,
+#bulletinSection[data-sport="efootball"] .league-tab.active{
+  background:#30264d;
+  border-color:#8f73d1;
+  color:#f3edff;
+  box-shadow:inset 0 0 0 1px rgba(178,153,255,.10),0 6px 18px rgba(50,35,82,.22)
+}
+#bulletinSection[data-sport="efootball"] .sim-bar{
+  background:linear-gradient(90deg,#111426,#0b1220);
+  border-top-color:#332a4e
+}
+#bulletinSection[data-sport="efootball"] .sim-info{
+  color:#9688ba
+}
+#bulletinSection[data-sport="efootball"] .simulate-btn{
+  border-color:#4a3b70;
+  background:#211b36;
+  color:#bba8e8
+}
+#bulletinSection[data-sport="efootball"] .bulletin-group-head.efootball{
+  background:linear-gradient(90deg,#201936,#11192a 72%);
+  border-top-color:#7057a0;
+  border-bottom-color:#392f55
+}
+#bulletinSection[data-sport="efootball"] .match.efootball{
+  background:linear-gradient(90deg,rgba(119,84,184,.14),#101929 34%);
+  box-shadow:inset 3px 0 #9a7be5
+}
+#bulletinSection[data-sport="efootball"] .match.efootball .odd-btn{
+  border-color:#34304a
+}
+#bulletinSection[data-sport="efootball"] .match.efootball .odd-btn.selected{
+  background:#49376e;
+  border-color:#a98cef;
+  color:#f8f4ff;
+  box-shadow:inset 0 0 0 1px rgba(178,153,255,.16),0 6px 18px rgba(80,55,125,.20)
+}
+#bulletinSection[data-sport="efootball"] .match.efootball .odd-btn.selected:after{
+  color:#d8c8ff
+}
 </style>
 </head>
 <body>
@@ -1955,6 +2015,8 @@ function renderOnlineBulletin(){
   const subCountry=bulletinCountry==='Tümü'?'Avrupa geneli':bulletinCountry;
   const subLeague=bulletinLevel===0?'Tüm ligler':leagueNames[bulletinLevel];
   const sportLabel=bulletinSport==='all'?'Futbol + e-Futbol':sportInfo(bulletinSport).label;
+  const bulletinSection=document.getElementById('bulletinSection');
+  if(bulletinSection)bulletinSection.dataset.sport=bulletinSport;
   document.getElementById('bulletinSub').textContent=`${sportLabel} • ${subCountry} • ${subLeague}`;
 
   const simBtn=document.getElementById('simulateLeague');
