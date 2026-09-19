@@ -1117,7 +1117,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.33 Lunapark Refresh</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.34 Local Lunapark</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3228,7 +3228,8 @@ function rescueEligible(){
     return !!onlineSession
       && Number.isFinite(onlineAuthoritativeBalance)
       && onlineAuthoritativeBalance<10
-      && !onlineRescuePending;
+      && !onlineRescuePending
+      && !activeChanceSession?.local;
   }
   return state.balance<10&&!hasPendingCoupon();
 }
@@ -3565,7 +3566,7 @@ async function pollOnlineWorld(){
     await refreshOnlineMatchCenter(changed);
     await refreshOnlineSchedulePulse();
     onlineAccountTick++;
-    if(onlineSession&&onlineAccountTick%3===0)await refreshOnlineAccount();
+    if(onlineSession&&onlineAccountTick%3===0&&!activeChanceSession?.local)await refreshOnlineAccount();
     renderTopState();renderSchedulePulse();renderMatches();renderMatchCenter();renderLeagueCenter();renderCoupons();renderSlip();renderLiveCenter();
   }catch(err){console.error('Afyon online poll',err)}
   finally{onlinePollBusy=false}
@@ -3654,7 +3655,7 @@ function renderChanceHistory(){
 }
 function clearRocketTimers(){
   if(rocketFrame){cancelAnimationFrame(rocketFrame);rocketFrame=null}
-  if(rocketPollTimer){clearInterval(rocketPollTimer);rocketPollTimer=null}
+  if(rocketPollTimer){clearTimeout(rocketPollTimer);rocketPollTimer=null}
   rocketPollBusy=false;
 }
 function openChanceGame(gameKey){
@@ -3787,40 +3788,81 @@ function setChanceResult(text,kind=''){
   box.className='chance-result'+(kind?' '+kind:'');
   box.textContent=text;
 }
+function chanceLocalId(){
+  if(window.crypto?.randomUUID)return window.crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(ch){
+    const r=Math.random()*16|0,v=ch==='x'?r:(r&3|8);
+    return v.toString(16);
+  });
+}
+function randomFrom(items){return items[Math.floor(Math.random()*items.length)]}
+function roundChance(value){return Math.round(Number(value)*100)/100}
+function localMinesMultiplier(safeCount){return roundChance(0.85*Math.pow(1.09,safeCount))}
+function localHighCardMultiplier(streak){return roundChance(0.90*Math.pow(1.28,streak))}
+function localPenaltyMultiplier(goals){return roundChance(0.92*Math.pow(1.50,goals))}
+async function settleLocalChance(session,choice,result,multiplier){
+  const {data,error}=await supabaseClient.rpc('settle_local_chance_game',{
+    p_client_id:session.session_id,
+    p_game_key:session.game_key,
+    p_stake:session.stake,
+    p_choice:choice||null,
+    p_result:result||{},
+    p_multiplier:Number(multiplier||0)
+  });
+  if(error)throw error;
+  if(data?.balance!=null){setOnlineBalance(data.balance);renderWallet();}
+  return data;
+}
 async function startChanceSession(){
   if(chanceBusy||!activeChanceGame)return;
   const stake=Math.floor(Number(document.getElementById('chanceStake').value)||0);
   if(stake<10){toast('Minimum 10 ₳D.');return}
   if(stake>state.balance){toast('AFMB: Bu kadar ₳D yok kankam.');return}
-  chanceBusy=true;updateChancePlayLabel();
-  setChanceResult('AFMB oyun oturumu açıyor…');
-  try{
-    const startRequest=activeChanceGame==='penalty_series'
-      ?supabaseClient.rpc('start_afmb_penalty',{p_stake:stake})
-      :supabaseClient.rpc('start_chance_session',{p_game_key:activeChanceGame,p_stake:stake});
-    const {data,error}=await startRequest;
-    if(error)throw error;
-    activeChanceSession={...data,status:'active'};
-    setOnlineBalance(data.balance);
-    renderWallet();
-    document.getElementById('chanceStake').disabled=true;
-    prepareChanceStage(activeChanceGame);
-    if(activeChanceGame==='mines')activateMines();
-    if(activeChanceGame==='high_card')activateHighCard();
-    if(activeChanceGame==='rocket')activateRocket();
-    if(activeChanceGame==='penalty_series')activatePenalty();
-    setChanceResult(
-      activeChanceGame==='mines'?'5 mayın gizlendi. Kutunu seç. 💣':
-      activeChanceGame==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':
-      activeChanceGame==='penalty_series'?'Top sende. Köşeyi seç ve vur. ⚽':
-      'Roket kalktı! Patlamadan parayı al. 🚀'
-    );
-  }catch(err){
-    setChanceResult('Oyun başlatılamadı: '+(err.message||err),'loss');
-    activeChanceSession=null;
-  }finally{
-    chanceBusy=false;updateChancePlayLabel();
+
+  const gameKey=activeChanceGame;
+  const session={
+    local:true,
+    session_id:chanceLocalId(),
+    game_key:gameKey,
+    status:'active',
+    stake,
+    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:0.90
+  };
+
+  if(gameKey==='mines'){
+    const bombs=[];
+    while(bombs.length<5){
+      const pick=Math.floor(Math.random()*25);
+      if(!bombs.includes(pick))bombs.push(pick);
+    }
+    Object.assign(session,{bombs,opened:[],safe_count:0});
+  }else if(gameKey==='high_card'){
+    Object.assign(session,{current_card:2+Math.floor(Math.random()*13),streak:0});
+  }else if(gameKey==='rocket'){
+    const crash=roundChance(1.05+Math.pow(Math.random(),2.4)*2.95);
+    Object.assign(session,{crash_multiplier:crash,started_at:new Date().toISOString()});
+  }else if(gameKey==='penalty_series'){
+    Object.assign(session,{goals:0});
   }
+
+  activeChanceSession=session;
+  setOnlineBalance(Math.max(0,Number(state.balance)-stake));
+  renderWallet();
+  document.getElementById('chanceStake').disabled=true;
+  prepareChanceStage(gameKey);
+
+  if(gameKey==='mines')activateMines();
+  if(gameKey==='high_card')activateHighCard();
+  if(gameKey==='rocket')activateRocket();
+  if(gameKey==='penalty_series')activatePenalty();
+
+  setChanceResult(
+    gameKey==='mines'?'5 mayın lokal olarak gizlendi. Kutunu seç. 💣':
+    gameKey==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':
+    gameKey==='penalty_series'?'Top sende. Köşeyi seç ve vur. ⚽':
+    'Roket kalktı! Patlamadan parayı al. 🚀'
+  );
+  updateChancePlayLabel();
 }
 function activateMines(){
   const mult=document.getElementById('mineMultiplier');
@@ -3833,23 +3875,30 @@ function activateMines(){
 async function pickMineCell(btn){
   if(chanceBusy||!activeChanceSession)return;
   chanceBusy=true;btn.disabled=true;updateChancePlayLabel();
+  const pick=Number(btn.dataset.mineCell);
   try{
-    const {data,error}=await supabaseClient.rpc('chance_session_action',{p_session_id:activeChanceSession.session_id,p_action:'PICK',p_choice:btn.dataset.mineCell});
-    if(error)throw error;
-    activeChanceSession={...activeChanceSession,...data};
-    if(data.status==='lost'){
+    const isBomb=activeChanceSession.bombs.includes(pick);
+    if(!activeChanceSession.opened.includes(pick))activeChanceSession.opened.push(pick);
+
+    if(isBomb){
       btn.classList.add('bomb');btn.textContent='💥';
       document.querySelectorAll('[data-mine-cell]').forEach(x=>x.disabled=true);
+      const result={safe_count:Number(activeChanceSession.safe_count||0),hit:pick};
+      await settleLocalChance(activeChanceSession,null,result,0);
       setChanceResult('BOOM. '+money(activeChanceSession.stake)+' AFMB mayın temizleme bütçesine yazıldı.','loss');
-      await finishChanceSession(false);
+      await finishChanceSession();
     }else{
+      activeChanceSession.safe_count=Number(activeChanceSession.safe_count||0)+1;
+      activeChanceSession.multiplier=localMinesMultiplier(activeChanceSession.safe_count);
       btn.classList.add('safe');btn.textContent='✓';
-      document.getElementById('mineMultiplier').textContent='×'+Number(data.multiplier).toFixed(2);
-      setChanceResult(data.safe_count+' güvenli kutu • Şu an ×'+Number(data.multiplier).toFixed(2)+' • devam edebilir veya parayı alabilirsin.','win');
+      document.getElementById('mineMultiplier').textContent='×'+Number(activeChanceSession.multiplier).toFixed(2);
+      setChanceResult(activeChanceSession.safe_count+' güvenli kutu • Şu an ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam edebilir veya parayı alabilirsin.','win');
     }
   }catch(err){
-    setChanceResult('Kutuyu açamadım: '+(err.message||err),'loss');
-    btn.disabled=false;
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
   }finally{
     chanceBusy=false;updateChancePlayLabel();
   }
@@ -3868,27 +3917,44 @@ async function guessHighCard(choice){
   document.querySelectorAll('[data-card-guess]').forEach(x=>x.disabled=true);
   updateChancePlayLabel();
   try{
-    const {data,error}=await supabaseClient.rpc('chance_session_action',{p_session_id:activeChanceSession.session_id,p_action:'GUESS',p_choice:choice});
-    if(error)throw error;
-    activeChanceSession={...activeChanceSession,...data};
-    document.getElementById('highCardFace').textContent=cardLabel(data.current_card);
-    if(data.status==='lost'){
-      document.getElementById('highCardMeta').textContent='Yanlış tahmin';
-      setChanceResult('Kart ters köşe yaptı. Seri '+Number(data.streak||0)+' ile bitti.','loss');
-      await finishChanceSession(false);
-    }else if(data.status==='won'){
-      setOnlineBalance(data.balance);renderWallet();
-      document.getElementById('highCardMeta').textContent='6/6 • TAM SERİ';
-      setChanceResult('🏆 6 doğru! Otomatik ödeme '+money(data.payout)+' • ×'+Number(data.multiplier).toFixed(2),'win');
-      await finishChanceSession(true);
-    }else{
-      document.getElementById('highCardMeta').textContent='Seri '+data.streak+' • ×'+Number(data.multiplier).toFixed(2)+(data.push?' • AYNI KART':'');
-      setChanceResult(data.push?'Aynı kart geldi; seri bozulmadı.':'Doğru! Devam et veya parayı al.','win');
+    const current=Number(activeChanceSession.current_card);
+    const next=2+Math.floor(Math.random()*13);
+    const streak=Number(activeChanceSession.streak||0);
+    activeChanceSession.current_card=next;
+    document.getElementById('highCardFace').textContent=cardLabel(next);
+
+    if(next===current){
+      document.getElementById('highCardMeta').textContent='Seri '+streak+' • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • AYNI KART';
+      setChanceResult('Aynı kart geldi; seri bozulmadı.','win');
       document.querySelectorAll('[data-card-guess]').forEach(x=>x.disabled=false);
+    }else{
+      const correct=(choice==='HIGHER'&&next>current)||(choice==='LOWER'&&next<current);
+      if(!correct){
+        document.getElementById('highCardMeta').textContent='Yanlış tahmin';
+        await settleLocalChance(activeChanceSession,choice,{streak,last_card:next,guess:choice},0);
+        setChanceResult('Kart ters köşe yaptı. Seri '+streak+' ile bitti.','loss');
+        await finishChanceSession();
+      }else{
+        activeChanceSession.streak=streak+1;
+        activeChanceSession.multiplier=localHighCardMultiplier(activeChanceSession.streak);
+        if(activeChanceSession.streak>=6){
+          const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+          await settleLocalChance(activeChanceSession,choice,{streak:activeChanceSession.streak,last_card:next},activeChanceSession.multiplier);
+          document.getElementById('highCardMeta').textContent='6/6 • TAM SERİ';
+          setChanceResult('🏆 6 doğru! Otomatik ödeme '+money(payout)+' • ×'+Number(activeChanceSession.multiplier).toFixed(2),'win');
+          await finishChanceSession();
+        }else{
+          document.getElementById('highCardMeta').textContent='Seri '+activeChanceSession.streak+' • ×'+Number(activeChanceSession.multiplier).toFixed(2);
+          setChanceResult('Doğru! Devam et veya parayı al.','win');
+          document.querySelectorAll('[data-card-guess]').forEach(x=>x.disabled=false);
+        }
+      }
     }
   }catch(err){
-    setChanceResult('Kart işlemi reddedildi: '+(err.message||err),'loss');
-    document.querySelectorAll('[data-card-guess]').forEach(x=>x.disabled=false);
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
   }finally{
     chanceBusy=false;updateChancePlayLabel();
   }
@@ -3926,38 +3992,53 @@ async function takePenalty(choice){
   document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=true);
   updateChancePlayLabel();
   try{
-    const {data,error}=await supabaseClient.rpc('afmb_penalty_action',{p_session_id:activeChanceSession.session_id,p_action:'KICK',p_choice:choice});
-    if(error)throw error;
+    const keeper=randomFrom(['LEFT','CENTER','RIGHT']);
+    const saved=keeper===choice;
+    const goals=Number(activeChanceSession.goals||0)+(saved?0:1);
+    const multiplier=saved?0:localPenaltyMultiplier(goals);
+    const data={keeper,shot:choice,saved,goals,multiplier};
     await animatePenaltyKick(choice,data);
-    activeChanceSession={...activeChanceSession,...data};
-    const score=document.getElementById('penaltyScore');
-    const mult=document.getElementById('penaltyMultiplier');
-    if(score)score.textContent=Number(data.goals||0)+' / 5 GOL';
-    if(mult&&data.multiplier!=null)mult.textContent='×'+Number(data.multiplier).toFixed(2);
-    if(data.status==='lost'){
-      setChanceResult('🧤 Kaleci köşeyi bildi. '+Number(data.goals||0)+' golde seri bitti.','loss');
-      await finishChanceSession(false);
-    }else if(data.status==='won'){
-      setOnlineBalance(data.balance);renderWallet();
-      setChanceResult('🏆 5/5! AFMB penaltı uzmanı ilan edildin. Ödeme '+money(data.payout)+' • ×'+Number(data.multiplier).toFixed(2),'win');
-      await finishChanceSession(true);
+
+    if(saved){
+      await settleLocalChance(activeChanceSession,choice,{outcome:'lost',goals,last_keeper:keeper,last_shot:choice,saved:true},0);
+      setChanceResult('🧤 Kaleci köşeyi bildi. '+goals+' golde seri bitti.','loss');
+      await finishChanceSession();
     }else{
-      setChanceResult('⚽ GOL! Seri '+data.goals+'/5 • ×'+Number(data.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
-      document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=false);
-      const ball=document.getElementById('penaltyBall'),keeper=document.getElementById('penaltyKeeper'),pitch=document.getElementById('penaltyPitch');
-      if(ball){ball.style.left='50%';ball.style.bottom='18px';}
-      if(keeper){keeper.style.left='50%';keeper.style.transform='translateX(-50%)';}
-      if(pitch)setTimeout(()=>pitch.classList.remove('goal-flash','save-flash'),250);
+      activeChanceSession.goals=goals;
+      activeChanceSession.multiplier=multiplier;
+      const score=document.getElementById('penaltyScore');
+      const mult=document.getElementById('penaltyMultiplier');
+      if(score)score.textContent=goals+' / 5 GOL';
+      if(mult)mult.textContent='×'+Number(multiplier).toFixed(2);
+
+      if(goals>=5){
+        const payout=Math.round(activeChanceSession.stake*multiplier);
+        await settleLocalChance(activeChanceSession,choice,{outcome:'won',goals,last_keeper:keeper,last_shot:choice,saved:false},multiplier);
+        setChanceResult('🏆 5/5! AFMB penaltı uzmanı ilan edildin. Ödeme '+money(payout)+' • ×'+Number(multiplier).toFixed(2),'win');
+        await finishChanceSession();
+      }else{
+        setChanceResult('⚽ GOL! Seri '+goals+'/5 • ×'+Number(multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+        document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=false);
+        const ball=document.getElementById('penaltyBall'),keeperEl=document.getElementById('penaltyKeeper'),pitch=document.getElementById('penaltyPitch');
+        if(ball){ball.style.left='50%';ball.style.bottom='18px';}
+        if(keeperEl){keeperEl.style.left='50%';keeperEl.style.transform='translateX(-50%)';}
+        if(pitch)setTimeout(()=>pitch.classList.remove('goal-flash','save-flash'),250);
+      }
     }
   }catch(err){
-    setChanceResult('Penaltı işlemi reddedildi: '+(err.message||err),'loss');
-    document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=false);
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
   }finally{
     chanceBusy=false;updateChancePlayLabel();
   }
 }
 function activateRocket(){
-  const startMs=new Date(activeChanceSession.started_at).getTime();
+  const startMs=Date.now();
+  const crash=Number(activeChanceSession.crash_multiplier);
+  const crashMs=Math.max(0,((crash-0.90)/0.08)*1000);
+
   const tick=()=>{
     if(!activeChanceSession||activeChanceGame!=='rocket'||activeChanceSession.status!=='active')return;
     const elapsed=Math.max(0,(Date.now()-startMs)/1000);
@@ -3970,55 +4051,79 @@ function activateRocket(){
     rocketFrame=requestAnimationFrame(tick);
   };
   tick();
-  rocketPollTimer=setInterval(async()=>{
-    if(rocketPollBusy||chanceBusy||!activeChanceSession)return;
-    rocketPollBusy=true;
+
+  rocketPollTimer=setTimeout(async()=>{
+    if(!activeChanceSession||activeChanceGame!=='rocket'||activeChanceSession.status!=='active'||chanceBusy)return;
+    chanceBusy=true;updateChancePlayLabel();
     try{
-      const {data,error}=await supabaseClient.rpc('chance_session_status',{p_session_id:activeChanceSession.session_id});
-      if(error)throw error;
-      if(data.status==='lost'){
-        activeChanceSession={...activeChanceSession,...data};
-        clearRocketTimers();
-        const label=document.getElementById('rocketMultiplier');
-        if(label)label.textContent='💥 ×'+Number(data.crash_multiplier).toFixed(2);
-        const rocket=document.getElementById('rocketObject');
-        if(rocket){rocket.textContent='💥';rocket.classList.remove('flying');}
-        setChanceResult('Roket ×'+Number(data.crash_multiplier).toFixed(2)+' seviyesinde patladı.','loss');
-        await finishChanceSession(false);
-      }
-    }catch(err){console.error('Rocket status',err)}
-    finally{rocketPollBusy=false}
-  },350);
+      const session=activeChanceSession;
+      clearRocketTimers();
+      const label=document.getElementById('rocketMultiplier');
+      if(label)label.textContent='💥 ×'+crash.toFixed(2);
+      const rocket=document.getElementById('rocketObject');
+      if(rocket){rocket.textContent='💥';rocket.classList.remove('flying');}
+      await settleLocalChance(session,null,{crash_multiplier:crash},0);
+      setChanceResult('Roket ×'+crash.toFixed(2)+' seviyesinde patladı.','loss');
+      await finishChanceSession();
+    }catch(err){
+      await refreshOnlineAccount();
+      setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+      activeChanceSession=null;
+      document.getElementById('chanceStake').disabled=false;
+    }finally{
+      chanceBusy=false;updateChancePlayLabel();
+    }
+  },crashMs);
 }
 async function cashOutChanceSession(){
   if(chanceBusy||!activeChanceSession)return;
   chanceBusy=true;updateChancePlayLabel();
+  const session=activeChanceSession;
   try{
-    const cashRequest=activeChanceGame==='penalty_series'
-      ?supabaseClient.rpc('afmb_penalty_action',{p_session_id:activeChanceSession.session_id,p_action:'CASHOUT',p_choice:null})
-      :supabaseClient.rpc('chance_session_action',{p_session_id:activeChanceSession.session_id,p_action:'CASHOUT',p_choice:null});
-    const {data,error}=await cashRequest;
-    if(error)throw error;
-    activeChanceSession={...activeChanceSession,...data};
-    if(data.status==='lost'){
-      clearRocketTimers();
-      setChanceResult('Geç kaldın. Roket ×'+Number(data.crash_multiplier||0).toFixed(2)+' seviyesinde patladı.','loss');
-      await finishChanceSession(false);
-      return;
+    let result={},choice=null,multiplier=Number(session.multiplier||0);
+
+    if(activeChanceGame==='mines'){
+      if(Number(session.safe_count||0)<1)throw new Error('Önce en az bir güvenli kutu aç.');
+      result={safe_count:Number(session.safe_count||0)};
+    }else if(activeChanceGame==='high_card'){
+      if(Number(session.streak||0)<1)throw new Error('Önce en az bir doğru tahmin yap.');
+      result={streak:Number(session.streak||0),last_card:Number(session.current_card)};
+    }else if(activeChanceGame==='penalty_series'){
+      if(Number(session.goals||0)<1)throw new Error('Önce en az bir gol at.');
+      result={outcome:'cashed',goals:Number(session.goals||0)};
+    }else if(activeChanceGame==='rocket'){
+      const elapsed=Math.max(0,(Date.now()-new Date(session.started_at).getTime())/1000);
+      multiplier=Math.min(4,roundChance(0.90+0.08*elapsed));
+      if(multiplier>=Number(session.crash_multiplier)){
+        clearRocketTimers();
+        await settleLocalChance(session,null,{crash_multiplier:Number(session.crash_multiplier)},0);
+        setChanceResult('Geç kaldın. Roket ×'+Number(session.crash_multiplier).toFixed(2)+' seviyesinde patladı.','loss');
+        await finishChanceSession();
+        return;
+      }
+      result={cashout_multiplier:multiplier,crash_multiplier:Number(session.crash_multiplier)};
     }
-    if(data.balance!=null){setOnlineBalance(data.balance);renderWallet()}
+
     clearRocketTimers();
-    setChanceResult('💰 Parayı aldın: '+money(data.payout)+' • ×'+Number(data.multiplier).toFixed(2),'win');
-    await finishChanceSession(true);
+    const payout=Math.round(session.stake*multiplier);
+    await settleLocalChance(session,choice,result,multiplier);
+    setChanceResult('💰 Parayı aldın: '+money(payout)+' • ×'+Number(multiplier).toFixed(2),'win');
+    await finishChanceSession();
   }catch(err){
-    setChanceResult('Çıkış reddedildi: '+(err.message||err),'loss');
+    if(String(err.message||err).includes('Önce en az')){
+      setChanceResult(err.message,'loss');
+    }else{
+      await refreshOnlineAccount();
+      setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+      activeChanceSession=null;
+      document.getElementById('chanceStake').disabled=false;
+    }
   }finally{
     chanceBusy=false;updateChancePlayLabel();
   }
 }
-async function finishChanceSession(refreshWalletFromServer){
+async function finishChanceSession(){
   clearRocketTimers();
-  if(refreshWalletFromServer)syncChanceWallet();
   document.getElementById('chanceStake').disabled=false;
   document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick]').forEach(x=>x.disabled=true);
   activeChanceSession=null;
@@ -4029,28 +4134,48 @@ async function playSingleChanceGame(){
   if(stake<10){toast('Minimum 10 ₳D.');return}
   if(stake>state.balance){toast('AFMB: Bu kadar ₳D yok kankam.');return}
   chanceBusy=true;updateChancePlayLabel();
-  setChanceResult('AFMB mühür basıyor…');
+  setChanceResult('Sonuç lokal olarak hazırlanıyor…');
   prepareChanceStage(activeChanceGame);
+
+  const session={local:true,session_id:chanceLocalId(),game_key:activeChanceGame,stake,status:'settling'};
   try{
-    const playRequest=activeChanceGame==='zabita_raid'
-      ?supabaseClient.rpc('play_zabita_raid',{p_stake:stake,p_choice:activeChanceChoice})
-      :supabaseClient.rpc('play_chance_game',{p_game_key:activeChanceGame,p_stake:stake,p_choice:activeChanceChoice});
-    const {data,error}=await playRequest;
-    if(error)throw error;
+    let result={},multiplier=0;
+    if(activeChanceGame==='marble_race'){
+      const winner=randomFrom(chanceGames.marble_race.choices)[0];
+      result={winner};
+      multiplier=activeChanceChoice===winner?6.00:0;
+    }else if(activeChanceGame==='memur_box'){
+      const winner=randomFrom(chanceGames.memur_box.choices)[0];
+      result={winner};
+      multiplier=activeChanceChoice===winner?2.40:0;
+    }else if(activeChanceGame==='coin_flip'){
+      const winner=randomFrom(chanceGames.coin_flip.choices)[0];
+      result={winner};
+      multiplier=activeChanceChoice===winner?1.85:0;
+    }else if(activeChanceGame==='zabita_raid'){
+      const raided=randomFrom(['SIMIT','MISIR','KESTANE']);
+      const safe=activeChanceChoice!==raided;
+      result={winner:safe?'SAFE':'CAUGHT',chosen:activeChanceChoice,raided};
+      multiplier=safe?1.40:0;
+    }else{
+      throw new Error('Bu oyun lokal moda taşınmamış.');
+    }
+
+    const data={result,multiplier};
     await animateChanceResult(activeChanceGame,data);
-    setOnlineBalance(data.balance);renderWallet();
-    const payout=Number(data.payout),net=payout-stake;
+    const settled=await settleLocalChance(session,activeChanceChoice,result,multiplier);
+    const payout=Number(settled.payout||0),net=payout-stake;
     const winner=activeChanceGame==='zabita_raid'
-      ?(data.result?.winner==='SAFE'?'Zabıta seni ıskaladı':'Zabıta tezgâha çöktü')
-      :activeChanceGame==='bureaucracy_hurdles'
-        ?Number(data.result?.hurdles||0)+' engel'
-        :chanceLabel(activeChanceGame,data.result?.winner);
+      ?(result.winner==='SAFE'?'Zabıta seni ıskaladı':'Zabıta tezgâha çöktü')
+      :chanceLabel(activeChanceGame,result.winner);
+
     if(net>0)setChanceResult('🏆 '+winner+' • Ödeme '+money(payout)+' • Net +'+money(net),'win');
     else if(payout>0)setChanceResult('📎 '+winner+' • '+money(payout)+' geri döndü • Net -'+money(Math.abs(net)),'loss');
     else setChanceResult('😭 '+winner+' • '+money(stake)+' AFMB kayıtlarına geçti.','loss');
     await refreshChanceHistory();
   }catch(err){
-    setChanceResult('Oyun reddedildi: '+(err.message||err),'loss');
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
   }finally{
     chanceBusy=false;updateChancePlayLabel();
   }
