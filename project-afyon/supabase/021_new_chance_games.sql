@@ -2,6 +2,13 @@
 -- Adds AFMB Penalty Series (session game) and Zabita Raid (single game).
 -- AFMB Wheel and Bureaucracy Hurdles remain only as historical records.
 
+alter table private.chance_sessions
+  drop constraint if exists chance_sessions_game_key_check;
+
+alter table private.chance_sessions
+  add constraint chance_sessions_game_key_check
+  check (game_key in ('mines','rocket','high_card','penalty_series'));
+
 create or replace function public.start_afmb_penalty(p_stake bigint)
 returns jsonb
 language plpgsql
