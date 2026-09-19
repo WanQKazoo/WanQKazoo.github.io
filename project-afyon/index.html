@@ -1117,7 +1117,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.35 Odds Rebalance</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.36 eFootball 4.5</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2019,7 +2019,7 @@ function isPickWinner(label,result){
   if(label==='X2')return a>=h;
   if(label==='KG Var')return h>0&&a>0;
   if(label==='KG Yok')return h===0||a===0;
-  const m=label.match(/(1\.5|2\.5|3\.5) (Alt|Üst)/);
+  const m=label.match(/(1\.5|2\.5|3\.5|4\.5) (Alt|Üst)/);
   if(m){
     const line=Number(m[1]);
     return m[2]==='Alt'?total<line:total>line;
@@ -2849,6 +2849,9 @@ function renderOnlineBulletin(){
       ['1.5 Alt',odd('OU15','UNDER'),'Toplam Gol'],['1.5 Üst',odd('OU15','OVER'),'Toplam Gol'],
       ['2.5 Alt',odd('OU25','UNDER'),'Toplam Gol'],['2.5 Üst',odd('OU25','OVER'),'Toplam Gol'],
       ['3.5 Alt',odd('OU35','UNDER'),'Toplam Gol'],['3.5 Üst',odd('OU35','OVER'),'Toplam Gol'],
+      ...(sport==='efootball'?[
+        ['4.5 Alt',odd('OU45','UNDER'),'Toplam Gol'],['4.5 Üst',odd('OU45','OVER'),'Toplam Gol']
+      ]:[]),
       ['KG Var',odd('BTTS','YES'),'Karşılıklı Gol'],['KG Yok',odd('BTTS','NO'),'Karşılıklı Gol'],
       ['1X',odd('DC','1X'),'Çifte Şans'],['12',odd('DC','12'),'Çifte Şans'],['X2',odd('DC','X2'),'Çifte Şans']
     ];
@@ -3466,14 +3469,14 @@ function marketPayloadForPick(p){
   if(['1X','12','X2'].includes(p.label))return {match_id:p.id,market_key:'DC',selection_key:p.label};
   if(p.label==='KG Var')return {match_id:p.id,market_key:'BTTS',selection_key:'YES'};
   if(p.label==='KG Yok')return {match_id:p.id,market_key:'BTTS',selection_key:'NO'};
-  const m=p.label.match(/(1\.5|2\.5|3\.5) (Alt|Üst)/);
+  const m=p.label.match(/(1\.5|2\.5|3\.5|4\.5) (Alt|Üst)/);
   if(m)return {match_id:p.id,market_key:'OU'+m[1].replace('.',''),selection_key:m[2]==='Alt'?'UNDER':'OVER'};
   throw new Error('Bilinmeyen market: '+p.label);
 }
 function prettyMarket(market,selection){
   if(market==='1X2'||market==='DC')return selection;
   if(market==='BTTS')return selection==='YES'?'KG Var':'KG Yok';
-  const line={OU15:'1.5',OU25:'2.5',OU35:'3.5'}[market];
+  const line={OU15:'1.5',OU25:'2.5',OU35:'3.5',OU45:'4.5'}[market];
   if(line)return line+' '+(selection==='UNDER'?'Alt':'Üst');
   return selection;
 }
