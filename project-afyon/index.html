@@ -905,6 +905,19 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
 .match-timeline{display:grid;gap:6px;max-height:300px;overflow:auto}.match-event{display:grid;grid-template-columns:42px 28px minmax(0,1fr);gap:8px;align-items:center;padding:8px 9px;border-radius:11px;background:#0b1525}.match-event .minute{color:#8da0bd;font-size:10px;font-weight:1000}.match-event .icon{text-align:center;font-size:15px}.match-event strong{display:block;font-size:10px}.match-event small{display:block;margin-top:2px;color:#70829f;font-size:8px}.match-event.goal{background:#123027}.match-event.big{background:#302817}.match-event.card{background:#2b2615}
 .match-detail-empty{padding:18px;text-align:center;color:#7c8fac;font-size:10px}
 @media(max-width:720px){.club-intel-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.match-detail-backdrop{padding:7px;align-items:end}.match-detail-modal{max-height:calc(100vh - 14px);border-radius:20px 20px 10px 10px}.match-detail-scoreboard{grid-template-columns:minmax(0,1fr) 82px minmax(0,1fr)}.match-detail-team strong{font-size:14px}.match-detail-score strong{font-size:29px}.match-detail-insights,.match-detail-livegrid{grid-template-columns:1fr}.match-insight-metrics{grid-template-columns:repeat(3,1fr)}}
+
+/* Boxing foundation */
+.boxing-hero{padding:22px;background:linear-gradient(135deg,#2b1718,#171d31 58%,#251b12);border-bottom:1px solid var(--line)}
+.boxing-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.boxing-eyebrow{font-size:10px;font-weight:1000;letter-spacing:1px;color:#ffb4a8}.boxing-hero h2{margin:6px 0 7px;font-size:28px}.boxing-hero p{margin:0;max-width:760px;color:#a8b6ce;font-size:12px;line-height:1.6}
+.boxing-hero-stats{display:flex;gap:8px;flex-wrap:wrap}.boxing-hero-stat{min-width:108px;padding:11px 12px;border:1px solid #4b3335;border-radius:13px;background:#171827}.boxing-hero-stat small{display:block;color:#8d7e87;font-size:8px;font-weight:1000}.boxing-hero-stat strong{display:block;margin-top:4px;font-size:20px}
+.boxing-body{padding:16px;display:grid;gap:16px}.boxing-block{border:1px solid #263750;border-radius:16px;background:#0f192a;overflow:hidden}.boxing-block-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;border-bottom:1px solid #263750}.boxing-block-head h3{margin:0;font-size:15px}.boxing-block-head p{margin:3px 0 0;color:#7f90ad;font-size:9px}
+.boxing-reps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px}.boxing-rep{padding:14px;border:1px solid #2d405d;border-radius:14px;background:linear-gradient(145deg,#131f33,#101827)}.boxing-rep-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.boxing-rep-country{font-size:10px;color:#92a3bd;font-weight:900}.boxing-rep-rank{padding:5px 7px;border-radius:999px;background:#25324a;color:#ffd166;font-size:9px;font-weight:1000}.boxing-rep h4{margin:7px 0 2px;font-size:17px}.boxing-rep .meta{color:#7f91ad;font-size:9px}.boxing-record{display:flex;align-items:end;gap:8px;margin-top:12px}.boxing-record strong{font-size:24px}.boxing-record span{color:#7c8fab;font-size:9px;font-weight:900;margin-bottom:3px}.boxing-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:11px}.boxing-mini div{padding:8px;border-radius:10px;background:#0b1525;text-align:center}.boxing-mini small{display:block;color:#6f819e;font-size:7px}.boxing-mini strong{display:block;margin-top:3px;font-size:11px}
+.boxing-filters{display:flex;gap:7px;overflow:auto;padding:11px 12px;border-bottom:1px solid #263750}.boxing-filter{border:1px solid #2d3e59;border-radius:10px;background:#111d30;color:#8fa1bd;padding:8px 10px;font-size:9px;font-weight:1000;white-space:nowrap;cursor:pointer}.boxing-filter.active{background:#24344f;color:#fff;border-color:#4f668b}
+.boxing-table-wrap{overflow:auto}.boxing-table{width:100%;min-width:820px;border-collapse:collapse}.boxing-table th,.boxing-table td{padding:11px 10px;border-bottom:1px solid #1f2d44;text-align:center;font-size:11px}.boxing-table th{background:#0b1423;color:#7587a5;font-size:8px;letter-spacing:.6px;text-transform:uppercase}.boxing-table th:nth-child(2),.boxing-table td:nth-child(2){text-align:left}.boxing-table .fighter-name{font-weight:1000}.boxing-table .fighter-sub{display:block;margin-top:2px;color:#6f819c;font-size:8px}.boxing-table .rank{font-weight:1000;color:#ffd166}.boxing-table .ko{color:#ff9a8d;font-weight:1000}.boxing-table .streak.w{color:#5ee1b4}.boxing-table .streak.l{color:#ff8a95}.boxing-weight-row td{padding:9px 12px;background:#142039;text-align:left!important;color:#a8bad4;font-size:9px;font-weight:1000;letter-spacing:.5px}
+.boxing-note{padding:11px 13px;color:#7487a5;font-size:9px;line-height:1.5;border-top:1px solid #263750}
+body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body[data-page="boxing"] .content{width:100%}body[data-page="boxing"] #boxingSection{min-height:calc(100vh - 190px)}
+@media(max-width:720px){body[data-page="boxing"] .layout{padding-top:14px}.boxing-hero{padding:17px}.boxing-hero h2{font-size:23px}.boxing-reps{grid-template-columns:1fr}.boxing-hero-stats{width:100%}.boxing-hero-stat{flex:1}.boxing-body{padding:10px}}
 </style>
 </head>
 <body>
@@ -913,7 +926,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   <header>
     <div class="container nav">
       <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div class="brand-copy"><span class="brand-title">Project Afyon</span> <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
-      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a></nav>
+      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="boxing" href="?page=boxing">🥊 Boks</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a></nav>
       <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">…</span></div><div class="auth-entry"><span class="auth-callout" id="authCallout">Oturum Aç / Kaydol</span><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div></div>
     </div>
   </header>
@@ -1084,6 +1097,43 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
           </div>
         </section>
 
+        <section class="section-card" id="boxingSection" data-page-section="boxing">
+          <div class="boxing-hero">
+            <div class="boxing-hero-top">
+              <div>
+                <div class="boxing-eyebrow">🥊 AFMB BOKS DEVRESİ</div>
+                <h2>Lig yok. Kariyer var.</h2>
+                <p>Sezon, hafta ve puan tablosu yok. Her dövüşçünün Project Afyon evrenindeki kariyer kaydı kalıcıdır; Fight Night sonuçları geldikçe maç, galibiyet, mağlubiyet, beraberlik ve KO istatistikleri büyür.</p>
+              </div>
+              <div class="boxing-hero-stats">
+                <div class="boxing-hero-stat"><small>AKTİF DÖVÜŞÇÜ</small><strong id="boxingFighterCount">—</strong></div>
+                <div class="boxing-hero-stat"><small>SİKLET</small><strong>5</strong></div>
+                <div class="boxing-hero-stat"><small>🇹🇷 TÜRKİYE</small><strong id="boxingTurkeyCount">—</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="boxing-body">
+            <div class="boxing-block">
+              <div class="boxing-block-head"><div><h3>🇹🇷 Türkiye Temsilcileri</h3><p>Project Afyon boks evreninin sabit Türk dövüşçüleri</p></div></div>
+              <div class="boxing-reps" id="boxingTurkeyReps"><div class="empty">Dövüşçüler yükleniyor…</div></div>
+            </div>
+
+            <div class="boxing-block">
+              <div class="boxing-block-head"><div><h3>🌍 AFMB Boks Sıralaması</h3><p>Lig puanı değil; kalıcı kariyer sıralaması ve dövüş kayıtları</p></div></div>
+              <div class="boxing-filters" id="boxingWeightFilters">
+                <button class="boxing-filter active" data-boxing-weight="all">TÜMÜ</button>
+                <button class="boxing-filter" data-boxing-weight="LIGHTWEIGHT">HAFİF</button>
+                <button class="boxing-filter" data-boxing-weight="WELTERWEIGHT">WELTER</button>
+                <button class="boxing-filter" data-boxing-weight="MIDDLEWEIGHT">ORTA</button>
+                <button class="boxing-filter" data-boxing-weight="LIGHT_HEAVYWEIGHT">YARI AĞIR</button>
+                <button class="boxing-filter" data-boxing-weight="HEAVYWEIGHT">AĞIR</button>
+              </div>
+              <div class="boxing-table-wrap" id="boxingRanking"></div>
+              <div class="boxing-note">Kayıtlar yalnızca Project Afyon evrenine aittir. İlk kariyer kayıtları kurgu geçmiş olarak başlatılmıştır; bundan sonraki Fight Night sonuçları bu tabloyu kalıcı olarak değiştirecek.</div>
+            </div>
+          </div>
+        </section>
+
         <section class="section-card" id="gamesSection" data-page-section="games">
           <div class="chance-hero">
             <div class="chance-hero-top">
@@ -1147,7 +1197,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.41 Form-Aware Odds</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.50 Boxing Foundation</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1631,6 +1681,7 @@ let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceH
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
+let onlineBoxingFighters=[],boxingWeightFilter='all',boxingLastRefresh=0;
 let onlineSchedulePulse={soon:0,today:0,nextMatches:[],lastRefresh:0};
 let matchCenterDateOffset=0,matchCenterFilter='all',onlineMatchCenterLastRefresh=0;
 const closedMatchCenterCountries=new Set();
@@ -3868,6 +3919,7 @@ async function initOnline(){
     onlineMode=true;
     await refreshOnlineWorld();
     await refreshOnlineClubInsights(true);
+    await refreshOnlineBoxing(true);
     state.results={};state.liveWeek=null;
     await refreshOnlineSelected(true);
     await refreshOnlineBulletin();
@@ -3900,6 +3952,7 @@ async function pollOnlineWorld(){
     await refreshOnlineMatchCenter(changed);
     await refreshOnlineSchedulePulse();
     await refreshOnlineClubInsights(false);
+    await refreshOnlineBoxing(false);
     if(activeMatchDetailId)await refreshOnlineMatchDetail();
     onlineAccountTick++;
     if(onlineSession&&onlineAccountTick%3===0&&!activeChanceSession?.local)await refreshOnlineAccount();
@@ -3918,6 +3971,92 @@ async function placeOnlineCoupon(stake){
   await refreshOnlineSelected(false);
   renderAll();
   toast('Kupon canlı takibe alındı. Alt bardan izleyebilirsin. 🎟');
+}
+
+const boxingWeightNames={
+  LIGHTWEIGHT:'Hafif Siklet',
+  WELTERWEIGHT:'Welter Siklet',
+  MIDDLEWEIGHT:'Orta Siklet',
+  LIGHT_HEAVYWEIGHT:'Yarı Ağır Siklet',
+  HEAVYWEIGHT:'Ağır Siklet'
+};
+function boxingFlag(country){return countryFlags[country]||'🌍'}
+function boxingRecord(f){return Number(f.wins||0)+'-'+Number(f.losses||0)+'-'+Number(f.draws||0)}
+function boxingMatches(f){return Number(f.wins||0)+Number(f.losses||0)+Number(f.draws||0)}
+function boxingKoPct(f){return Number(f.wins||0)>0?Math.round(Number(f.kos||0)/Number(f.wins)*100):0}
+function boxingStreak(f){
+  const n=Number(f.streak_count||0);
+  return n>0?(f.streak_type||'')+n:'—';
+}
+function boxingRanks(){
+  const ranks={};
+  Object.keys(boxingWeightNames).forEach(function(weight){
+    onlineBoxingFighters.filter(f=>f.weight_class===weight&&f.is_active!==false)
+      .sort((a,b)=>Number(b.rating)-Number(a.rating)||Number(b.wins)-Number(a.wins)||a.name.localeCompare(b.name,'tr'))
+      .forEach((f,i)=>{ranks[f.id]=i+1});
+  });
+  return ranks;
+}
+async function refreshOnlineBoxing(force=false){
+  if(!onlineMode)return;
+  const now=Date.now();
+  if(!force&&now-boxingLastRefresh<30000)return;
+  const {data,error}=await supabaseClient.from('boxing_fighters')
+    .select('id,name,country,weight_class,style,power,speed,defense,chin,stamina,rating,wins,losses,draws,kos,streak_type,streak_count,is_active')
+    .eq('is_active',true)
+    .order('weight_class',{ascending:true});
+  if(error)throw error;
+  onlineBoxingFighters=data||[];
+  boxingLastRefresh=now;
+  renderBoxing();
+}
+function renderBoxingTurkeyReps(){
+  const box=document.getElementById('boxingTurkeyReps');
+  if(!box)return;
+  const ranks=boxingRanks();
+  const reps=onlineBoxingFighters.filter(f=>f.country==='Türkiye')
+    .sort((a,b)=>['Atlas Parsak','Berat Baybars Tümer','Emre Emiroğlu'].indexOf(a.name)-['Atlas Parsak','Berat Baybars Tümer','Emre Emiroğlu'].indexOf(b.name));
+  if(!reps.length){box.innerHTML='<div class="empty">Türkiye kadrosu yükleniyor…</div>';return}
+  box.innerHTML=reps.map(function(f){
+    return '<article class="boxing-rep">'+
+      '<div class="boxing-rep-top"><div><span class="boxing-rep-country">🇹🇷 TÜRKİYE</span><h4>'+f.name+'</h4><div class="meta">'+boxingWeightNames[f.weight_class]+' • '+f.style+'</div></div><span class="boxing-rep-rank">#'+ranks[f.id]+'</span></div>'+
+      '<div class="boxing-record"><strong>'+boxingRecord(f)+'</strong><span>'+boxingMatches(f)+' MAÇ • '+f.kos+' KO</span></div>'+
+      '<div class="boxing-mini"><div><small>GÜÇ</small><strong>'+f.power+'</strong></div><div><small>HIZ</small><strong>'+f.speed+'</strong></div><div><small>ÇENE</small><strong>'+f.chin+'</strong></div></div>'+
+    '</article>';
+  }).join('');
+}
+function renderBoxingRanking(){
+  const box=document.getElementById('boxingRanking');
+  if(!box)return;
+  const order=['LIGHTWEIGHT','WELTERWEIGHT','MIDDLEWEIGHT','LIGHT_HEAVYWEIGHT','HEAVYWEIGHT'];
+  const ranks=boxingRanks();
+  const weights=boxingWeightFilter==='all'?order:[boxingWeightFilter];
+  let html='<table class="boxing-table"><thead><tr><th>#</th><th>Dövüşçü</th><th>Ülke</th><th>Siklet</th><th>Maç</th><th>G</th><th>M</th><th>B</th><th>KO</th><th>KO %</th><th>Seri</th></tr></thead><tbody>';
+  weights.forEach(function(weight){
+    const rows=onlineBoxingFighters.filter(f=>f.weight_class===weight&&f.is_active!==false)
+      .sort((a,b)=>Number(b.rating)-Number(a.rating)||Number(b.wins)-Number(a.wins)||a.name.localeCompare(b.name,'tr'));
+    if(boxingWeightFilter==='all')html+='<tr class="boxing-weight-row"><td colspan="11">🥊 '+boxingWeightNames[weight]+'</td></tr>';
+    rows.forEach(function(f){
+      const streak=boxingStreak(f),streakClass=(f.streak_type||'').toLowerCase();
+      html+='<tr>'+
+        '<td class="rank">#'+ranks[f.id]+'</td>'+
+        '<td><span class="fighter-name">'+f.name+'</span><span class="fighter-sub">'+f.style+'</span></td>'+
+        '<td>'+boxingFlag(f.country)+' '+f.country+'</td>'+
+        '<td>'+boxingWeightNames[f.weight_class]+'</td>'+
+        '<td>'+boxingMatches(f)+'</td><td>'+f.wins+'</td><td>'+f.losses+'</td><td>'+f.draws+'</td>'+
+        '<td class="ko">'+f.kos+'</td><td>%'+boxingKoPct(f)+'</td><td class="streak '+streakClass+'">'+streak+'</td>'+
+      '</tr>';
+    });
+  });
+  html+='</tbody></table>';
+  box.innerHTML=html;
+}
+function renderBoxing(){
+  const count=document.getElementById('boxingFighterCount'),tr=document.getElementById('boxingTurkeyCount');
+  if(count)count.textContent=onlineBoxingFighters.length||'—';
+  if(tr)tr.textContent=onlineBoxingFighters.filter(f=>f.country==='Türkiye').length||'—';
+  renderBoxingTurkeyReps();
+  renderBoxingRanking();
 }
 
 function chanceLabel(gameKey,value){
@@ -4534,7 +4673,7 @@ async function playChanceGame(){
   await playSingleChanceGame();
 }
 
-function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderChanceHistory();renderRescue()}
+function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue()}
 
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
@@ -4595,7 +4734,7 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',games:'Şans Oyunları'};
+const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları'};
 function currentPageRoute(){
   const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
   return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
@@ -4612,6 +4751,7 @@ function applyPageRoute(){
   document.title='Project Afyon — '+pageNames[page];
   renderWallet();
   if(page==='matches'){renderMatchCenter();renderLiveCenter();}
+  if(page==='boxing')renderBoxing();
 }
 window.addEventListener('popstate',applyPageRoute);
 document.querySelectorAll('[data-page-nav]').forEach(link=>{
@@ -4673,6 +4813,14 @@ document.querySelectorAll('[data-league-pane]').forEach(function(btn){
     leagueCenterTab=btn.dataset.leaguePane;
     document.querySelectorAll('[data-league-pane]').forEach(function(x){x.classList.toggle('active',x===btn)});
     document.querySelectorAll('[data-league-content]').forEach(function(p){p.classList.toggle('active',p.dataset.leagueContent===leagueCenterTab)});
+  });
+});
+
+document.querySelectorAll('[data-boxing-weight]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    boxingWeightFilter=btn.dataset.boxingWeight;
+    document.querySelectorAll('[data-boxing-weight]').forEach(x=>x.classList.toggle('active',x===btn));
+    renderBoxingRanking();
   });
 });
 
