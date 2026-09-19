@@ -80,7 +80,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:#7384a4;font-s
 .sim-bar{padding:11px 14px;align-items:flex-start}.simulate-btn{padding:9px 11px;font-size:12px;white-space:nowrap}.live-center{padding:13px 14px}.live-top{align-items:flex-start}.live-main{gap:7px}.live-clock{font-size:21px}.live-sub{display:none}.live-remaining{font-size:10px}.live-event{max-width:230px}.team-score{font-size:17px}.coupon{padding:0 11px}.coupon summary{padding:12px 0}.coupon-leg{grid-template-columns:20px minmax(0,1fr) auto;padding:8px}.afmb-float{right:12px;bottom:12px}.afmb-popup{width:min(360px,calc(100vw - 24px))}.afmb-launcher{padding:9px 11px}.afmb-launcher .launcher-copy{display:none}.rescue-head,.rescue-body{padding-left:14px;padding-right:14px}.rescue-head{padding-right:52px}.rescue-actions{grid-template-columns:1fr}.stamp-btn{min-height:58px}
 }
 
+.auth-entry{position:relative;display:flex;align-items:center}
 .auth-profile{border:1px solid var(--line);color:#fff;cursor:pointer}
+.auth-callout{position:absolute;right:46px;top:50%;transform:translateY(-50%);padding:7px 10px;border:1px solid #355071;border-radius:11px;background:#16243a;color:#f4f7fb;font-size:10px;font-weight:950;white-space:nowrap;box-shadow:0 10px 28px rgba(0,0,0,.28);pointer-events:none;animation:authHintFloat 2.2s ease-in-out infinite}
+.auth-callout:after{content:"";position:absolute;right:-6px;top:50%;width:10px;height:10px;transform:translateY(-50%) rotate(45deg);background:#16243a;border-top:1px solid #355071;border-right:1px solid #355071}
+.auth-callout[hidden]{display:none!important}
+@keyframes authHintFloat{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 2px))}}
+@media(max-width:1050px){.auth-callout{right:43px;padding:6px 8px;font-size:9px}}
+@media(max-width:520px){.auth-callout{right:42px;max-width:94px;white-space:normal;line-height:1.05;text-align:center;padding:6px 7px;font-size:8px}}
 .auth-modal-backdrop{display:none;position:fixed;inset:0;z-index:120;background:rgba(4,8,18,.72);backdrop-filter:blur(6px);padding:20px}
 .auth-modal-backdrop.open{display:grid;place-items:center}
 .auth-modal{width:min(430px,100%);border:1px solid var(--line);border-radius:22px;background:#101827;box-shadow:0 24px 80px rgba(0,0,0,.55);overflow:hidden}
@@ -866,7 +873,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     <div class="container nav">
       <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div class="brand-copy"><span class="brand-title">Project Afyon</span> <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
       <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a></nav>
-      <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">…</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
+      <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">…</span></div><div class="auth-entry"><span class="auth-callout" id="authCallout">Oturum Aç / Kaydol</span><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div></div>
     </div>
   </header>
 
@@ -3493,6 +3500,8 @@ async function refreshOnlineAccount(){
 function updateAuthUi(message=''){
   const status=document.getElementById('authStatus');
   const fields=document.getElementById('authFields'),actions=document.getElementById('authActions'),signout=document.getElementById('authSignout');
+  const callout=document.getElementById('authCallout');
+  if(callout)callout.hidden=!!onlineSession;
   if(onlineSession){
     fields.style.display='none';actions.style.display='none';signout.style.display='block';
     status.textContent=message||('Bağlı hesap: '+(onlineSession.user.email||'Afyon vatandaşı')+' • Cüzdan bulutta saklanıyor.');
