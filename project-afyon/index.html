@@ -459,7 +459,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     <div class="container nav">
       <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div class="brand-copy"><span class="brand-title">Project Afyon</span> <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
       <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a></nav>
-      <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">10.000 ₳D</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
+      <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">…</span></div><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div>
     </div>
   </header>
 
@@ -645,7 +645,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     <button class="mobile-slip-launcher" id="mobileSlipLauncher" type="button"><span>🎟 Kuponum</span><strong id="mobileSlipText">0 seçim</strong></button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.28 Multi-Sport</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.28.1 Multi-Sport</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1110,7 +1110,7 @@ function getClubNames(country,level){
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
-let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0;
+let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let bulletinCountry='Tümü',bulletinLevel=0,bulletinSport='all';
 let leagueCenterTab='standings';
@@ -1155,7 +1155,15 @@ const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function renderWallet(){
   const el=document.getElementById('walletValue');
-  if(onlineMode&&!onlineSession){el.textContent='Giriş yap';syncChanceWallet();return}
+  if(!walletHydrated){
+    el.textContent='…';
+    return;
+  }
+  if(onlineMode&&!onlineSession){
+    el.textContent='Giriş yap';
+    syncChanceWallet();
+    return;
+  }
   el.textContent=money(state.balance);
   syncChanceWallet();
 }
@@ -2369,6 +2377,7 @@ async function refreshOnlineSelected(includeHistory=false){
 }
 async function refreshOnlineAccount(){
   if(!onlineSession){
+    walletHydrated=true;
     state.coupons=[];renderWallet();renderCoupons();updateAuthUi();return;
   }
   const [{data:wallet,error:wErr},{data:coupons,error:cErr}]=await Promise.all([
@@ -2377,6 +2386,7 @@ async function refreshOnlineAccount(){
   ]);
   if(wErr)throw wErr;if(cErr)throw cErr;
   state.balance=Number(wallet.balance);
+  walletHydrated=true;
   const couponIds=(coupons||[]).map(x=>x.id);
   let selections=[];
   if(couponIds.length){
@@ -2447,6 +2457,8 @@ async function initOnline(){
   }catch(err){
     console.error(err);
     onlineMode=false;
+    walletHydrated=true;
+    renderWallet();
     updateAuthUi('Online bağlantı kurulamadı; local prototip açık kaldı.');
   }
 }
@@ -2929,6 +2941,18 @@ function applyPageRoute(){
   document.title='Project Afyon — '+pageNames[page];
 }
 window.addEventListener('popstate',applyPageRoute);
+document.querySelectorAll('[data-page-nav]').forEach(link=>{
+  link.addEventListener('click',e=>{
+    if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+    e.preventDefault();
+    const page=link.dataset.pageNav;
+    const url=new URL(window.location.href);
+    url.searchParams.set('page',page);
+    history.pushState({page},'',url);
+    applyPageRoute();
+    window.scrollTo(0,0);
+  });
+});
 applyPageRoute();
 
 document.getElementById('leagueCenterCountry').addEventListener('change',async function(e){
