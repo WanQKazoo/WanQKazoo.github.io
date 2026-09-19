@@ -4294,6 +4294,7 @@ document.querySelectorAll('[data-page-nav]').forEach(link=>{
   });
 });
 applyPageRoute();
+syncBulletinLeagueFilters();
 
 document.getElementById('matchCenterPrev').addEventListener('click',async function(){
   matchCenterDateOffset--;await reloadMatchCenter();
@@ -4454,14 +4455,21 @@ document.getElementById('simulateLeague').addEventListener('click',()=>{
   toast('Hakem düdüğü çaldı! 180 saniyelik canlı hafta başladı. 🔴');
 });
 
+function syncBulletinLeagueFilters(){
+  const leagueTabs=document.getElementById('leagueTabs');
+  if(!leagueTabs)return;
+  const hide=bulletinSport==='efootball';
+  leagueTabs.hidden=hide;
+  if(hide){
+    bulletinLevel=0;
+    document.querySelectorAll('.league-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.level)===0));
+  }
+}
 document.querySelectorAll('.sport-tab').forEach(b=>b.addEventListener('click',async()=>{
   document.querySelectorAll('.sport-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
   bulletinSport=b.dataset.sport;
   picks=[];
-  if(bulletinSport==='efootball'){
-    bulletinLevel=0;
-    document.querySelectorAll('.league-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.level)===0));
-  }
+  syncBulletinLeagueFilters();
   if(onlineMode)await refreshOnlineBulletin();
   renderMatches();renderSlip();renderCoupons();
 }));
