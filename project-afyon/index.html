@@ -1147,7 +1147,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.40 Match Intelligence</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.41 Form-Aware Odds</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2556,7 +2556,7 @@ function teamIntelHtml(insight,sport){
   if(!insight)return '<small class="team-intel low-sample">İstatistik oluşuyor</small>';
   const n=Number(insight.matches_played||0),low=n<5?' low-sample':'';
   if(sport==='efootball')return '<small class="team-intel hot'+low+'">'+insightSampleLabel(insight)+' • TG '+Number(insight.avg_total_goals||0).toFixed(1)+' • 4.5Ü %'+Math.round(Number(insight.over45_pct||0))+'</small>';
-  return '<small class="team-intel'+low+'">'+insightSampleLabel(insight)+' • GF '+Number(insight.avg_goals_for||0).toFixed(1)+' • 2.5Ü %'+Math.round(Number(insight.over25_pct||0))+'</small>';
+  return '<small class="team-intel'+low+'">'+insightSampleLabel(insight)+' • TG '+Number(insight.avg_total_goals||0).toFixed(1)+' • 2.5Ü %'+Math.round(Number(insight.over25_pct||0))+'</small>';
 }
 function renderClubIntel(insight,sport){
   if(!insight)return '<div class="club-intel-note">Henüz bu takım için tamamlanmış maç verisi yok. İstatistikler gerçek sonuçlar biriktikçe oluşacak.</div>';
