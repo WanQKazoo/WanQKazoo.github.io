@@ -2169,12 +2169,16 @@ function renderLiveCenter(){
     const events=[];
     liveMatches.forEach(m=>{
       const sport=m.sport||'football';
-      const list=(onlineConferenceEventsByMatch[m.id]||[]).slice().sort((a,b)=>a.minute-b.minute);
+      const list=(onlineConferenceEventsByMatch[m.id]||[]).slice().sort((a,b)=>a.minute-b.minute||a.id-b.id);
       let homeGoals=0,awayGoals=0;
       list.forEach(e=>{
-        if(e.event_type!=='goal')return;
-        if(e.side==='home')homeGoals++;else awayGoals++;
-        const scorer=e.side==='home'?onlineClubsById[m.home_club_id]?.name:onlineClubsById[m.away_club_id]?.name;
+        if(e.event_type==='goal'){
+          if(e.side==='home')homeGoals++;else awayGoals++;
+        }
+        const important=e.event_type==='goal'||e.event_type==='big_chance'||e.event_type==='yellow_card'||(e.event_type==='shot'&&e.payload?.on_target);
+        if(!important)return;
+        const info=matchEventInfo(e);
+        const actor=e.side==='home'?onlineClubsById[m.home_club_id]?.name:onlineClubsById[m.away_club_id]?.name;
         const home=sportTeamName(onlineClubsById[m.home_club_id]?.name||'Ev',sport);
         const away=sportTeamName(onlineClubsById[m.away_club_id]?.name||'Dep',sport);
         events.push({
@@ -2182,7 +2186,10 @@ function renderLiveCenter(){
           sport,
           minute:Number(e.minute||0),
           visibleAt:e.visible_at?new Date(e.visible_at).getTime():0,
-          scorer:sportTeamName(scorer||'Takım',sport),
+          actor:sportTeamName(actor||'Takım',sport),
+          icon:info.icon,
+          title:info.title,
+          kind:info.kind,
           match:home+' - '+away,
           score:homeGoals+'-'+awayGoals,
           onCoupon:isCouponMatch(m.id)
@@ -2192,18 +2199,18 @@ function renderLiveCenter(){
     events.sort((a,b)=>(b.visibleAt-a.visibleAt)||(b.minute-a.minute));
 
     const feed=document.getElementById('liveFeed');
-    if(feedMeta)feedMeta.textContent=events.length?events.length+' gol kaydı':'Gol bekleniyor';
+    if(feedMeta)feedMeta.textContent=events.length?events.length+' önemli olay':'Olay bekleniyor';
     feed.innerHTML=events.length
-      ?events.slice(0,12).map(e=>{
-        const lastMinute=e.minute>=85;
+      ?events.slice(0,14).map(e=>{
+        const lastMinute=e.minute>=85&&e.kind==='goal';
         return `<div class="live-event ${e.sport==='efootball'?'efootball':''} ${e.onCoupon?'on-coupon':''}">
-          <div class="conference-event-top"><strong>${lastMinute?'🚨 ':''}${sportInfo(e.sport).icon} ⚽ ${e.minute}' GOL!</strong><small>${e.sport==='efootball'?'e-Futbol':'Futbol'}</small></div>
-          <div><strong>${e.scorer}</strong> <span class="conference-event-score">${e.score}</span></div>
+          <div class="conference-event-top"><strong>${lastMinute?'🚨 ':''}${sportInfo(e.sport).icon} ${e.icon} ${e.minute}' ${e.title}</strong><small>${e.sport==='efootball'?'e-Futbol':'Futbol'}</small></div>
+          <div><strong>${e.actor}</strong> ${e.kind==='goal'?'<span class="conference-event-score">'+e.score+'</span>':''}</div>
           <div class="conference-event-match">${e.match}</div>
           ${e.onCoupon?'<span class="conference-event-coupon">🎟 KUPONUNDAKİ MAÇ</span>':''}
         </div>`;
       }).join('')
-      :'<div class="live-event"><strong>🔴 Konferans açık</strong><br>Canlı maçlar başladı. İlk gol bekleniyor.</div>';
+      :'<div class="live-event"><strong>🔴 Konferans açık</strong><br>Maçlar başladı. İlk önemli olay bekleniyor.</div>';
     return;
   }
 
