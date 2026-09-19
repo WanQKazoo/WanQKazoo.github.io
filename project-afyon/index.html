@@ -564,13 +564,11 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
             <button class="league-center-tab" data-league-pane="fixtures">Fikstür</button>
             <button class="league-center-tab" data-league-pane="form">Form</button>
             <button class="league-center-tab" data-league-pane="clubs">Kulüpler</button>
-            <button class="league-center-tab" data-league-pane="scorers">Gol Krallığı</button>
           </div>
           <div class="league-pane active" data-league-content="standings"><div class="table-wrap" id="standingsWrap"></div></div>
           <div class="league-pane" data-league-content="fixtures"><div class="league-fixtures" id="leagueFixtures"></div></div>
           <div class="league-pane" data-league-content="form"><div class="table-wrap" id="leagueForm"></div></div>
           <div class="league-pane" data-league-content="clubs"><div class="club-grid" id="leagueClubs"></div></div>
-          <div class="league-pane" data-league-content="scorers"><div id="leagueScorers"></div></div>
         </section>
 
         <section class="section-card" id="couponsSection" data-page-section="coupons">
@@ -1673,7 +1671,6 @@ function renderSquadPlayers(players){
 async function openClubModal(teamName,country=selectedCountry,level=selectedLevel){
   const club=findClubByName(teamName,country,level);
   if(!club)return;
-  const squad=await loadClubPlayers(club.id);
   const rows=clubTableData(country,level);
   const row=rows.find(r=>r.team===teamName);
   const position=Math.max(1,rows.findIndex(r=>r.team===teamName)+1);
@@ -1698,7 +1695,6 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
     </div>`;
   }).join('');
   const tierText=club.tier==='favorite'?'Şampiyonluk adayı':club.tier==='relegation'?'Alt sıra profili':'Orta sıra profili';
-  const rosterTag=squad.length&&squad.every(p=>p.is_roster_mirror)?'<span class="club-tag">2026/27 PARODİ KADRO</span>':'<span class="club-tag">YEREL PARODİ KADRO</span>';
   document.getElementById('clubModalContent').innerHTML=`
     <div class="club-hero">
       <button class="club-close" id="clubClose" aria-label="Kapat">×</button>
@@ -1707,7 +1703,7 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
         <div>
           <div class="club-eyebrow">${country} • ${leagueNames[level]}</div>
           <div class="club-name">${club.name}</div>
-          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span>${rosterTag}<span class="club-tag">Sezon ${state.season}</span></div>
+          <div class="club-tags"><span class="club-tag">${club.style}</span><span class="club-tag">${tierText}</span><span class="club-tag">Sezon ${state.season}</span></div>
         </div>
         <div class="club-overall"><strong>${club.strength}</strong><small>GLOBAL GÜÇ</small></div>
       </div>
@@ -1715,7 +1711,6 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
     <div class="club-body">
       <div class="club-tabs">
         <button class="club-tab active" data-club-tab="overview">Genel Bakış</button>
-        <button class="club-tab" data-club-tab="squad">Kadro</button>
         <button class="club-tab" data-club-tab="fixtures">Fikstür</button>
       </div>
       <div class="club-pane active" data-club-pane="overview">
@@ -1740,9 +1735,6 @@ async function openClubModal(teamName,country=selectedCountry,level=selectedLeve
             <div class="squad-note" style="margin-top:12px">Global güç bütün Afyon evreninde aynı cetveli kullanır; ATK, MID ve DEF hatları maç motorunda ayrıca eşleşir.</div>
           </div>
         </div>
-      </div>
-      <div class="club-pane" data-club-pane="squad">
-        ${renderSquadPlayers(squad)}
       </div>
       <div class="club-pane" data-club-pane="fixtures">
         <div class="club-fixtures">${fixturesHtml||'<div class="squad-note">Fikstür hazırlanıyor.</div>'}</div>
