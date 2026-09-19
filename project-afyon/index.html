@@ -753,6 +753,80 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
   .conference-score{flex-basis:188px}
   .conference-feed .live-event{flex-basis:222px}
 }
+
+/* ===== Prototype 0.31 — Schedule Pulse ===== */
+.schedule-pulse{
+  display:grid;
+  grid-template-columns:150px 150px 150px minmax(220px,1fr);
+  gap:7px;
+  padding:9px 14px;
+  background:linear-gradient(180deg,#0d1625,#0a1321);
+  border-bottom:1px solid #223149
+}
+.schedule-pulse[hidden]{display:none!important}
+.pulse-card,.pulse-next{
+  min-width:0;
+  border:1px solid #263750;
+  border-radius:10px;
+  background:#111c2e
+}
+.pulse-card{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 10px
+}
+.pulse-icon{font-size:15px;line-height:1}
+.pulse-card div{display:grid;grid-template-columns:auto auto;align-items:baseline;justify-content:start;column-gap:6px;min-width:0}
+.pulse-card small{
+  grid-column:1/-1;
+  color:#7488a7;
+  font-size:7px;
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:.65px
+}
+.pulse-card strong{margin-top:4px;color:#f3f7fd;font-size:16px;line-height:1;font-weight:1000}
+.pulse-card em{color:#657997;font-size:7px;font-style:normal;font-weight:900;white-space:nowrap}
+.pulse-card.live{border-color:#4d2c39;background:#1c1723}
+.pulse-card.live strong{color:#ff98a5}
+.pulse-card.live.is-active{box-shadow:inset 3px 0 #ff6474}
+.pulse-card.soon{border-color:#39425a}
+.pulse-card.soon strong{color:#ffd166}
+.pulse-card.today strong{color:#86e6c4}
+.pulse-next{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:8px 11px
+}
+.pulse-next>small{color:#667b9a;font-size:7px;font-weight:1000;letter-spacing:.65px}
+.pulse-next>div{display:flex;align-items:baseline;gap:9px;margin-top:4px;min-width:0}
+.pulse-next strong{flex:0 0 auto;color:#f4f7fc;font-size:15px;line-height:1}
+.pulse-next span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8799b5;font-size:8px;font-weight:900}
+#bulletinSection[data-sport="efootball"] .schedule-pulse{
+  background:linear-gradient(180deg,#121324,#0d1220);
+  border-bottom-color:#302849
+}
+#bulletinSection[data-sport="efootball"] .pulse-card,
+#bulletinSection[data-sport="efootball"] .pulse-next{border-color:#332c4b}
+@media(max-width:720px){
+  .schedule-pulse{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:5px;
+    padding:7px 9px
+  }
+  .pulse-card{display:block;padding:7px 8px;text-align:center}
+  .pulse-icon{display:none}
+  .pulse-card div{display:block}
+  .pulse-card small{display:block}
+  .pulse-card strong{display:block;margin-top:4px;font-size:14px}
+  .pulse-card em{display:block;margin-top:2px;font-size:6px}
+  .pulse-next{grid-column:1/-1;display:block;padding:7px 9px}
+  .pulse-next>div{justify-content:space-between;margin-top:3px}
+  .pulse-next strong{font-size:12px}
+  .pulse-next span{font-size:7px;text-align:right}
+}
 </style>
 </head>
 <body>
@@ -792,6 +866,24 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
       <div class="content">
         <section class="section-card" id="bulletinSection" data-page-section="bulletin">
           <div class="section-title"><div><h2>⚽ Maç Bülteni</h2><p id="bulletinSub">Avrupa genelinde sıradaki karşılaşmalar</p></div><div style="color:var(--muted);font-size:12px">Son güncelleme: şimdi</div></div>
+          <div class="schedule-pulse" id="schedulePulse" hidden>
+            <div class="pulse-card live" id="pulseNow">
+              <span class="pulse-icon">🔴</span>
+              <div><small>ŞİMDİ</small><strong id="pulseNowCount">0</strong><em>canlı maç</em></div>
+            </div>
+            <div class="pulse-card soon">
+              <span class="pulse-icon">⏱</span>
+              <div><small>BİRAZDAN</small><strong id="pulseSoonCount">0</strong><em>30 dk içinde</em></div>
+            </div>
+            <div class="pulse-card today">
+              <span class="pulse-icon">📅</span>
+              <div><small>BUGÜN</small><strong id="pulseTodayCount">0</strong><em>toplam maç</em></div>
+            </div>
+            <div class="pulse-next" id="pulseNext">
+              <small>SIRADAKİ BAŞLANGIÇ</small>
+              <div><strong id="pulseNextTime">—</strong><span id="pulseNextMeta">Program hazırlanıyor</span></div>
+            </div>
+          </div>
           <div class="sport-tabs" id="sportTabs">
             <button class="sport-tab active" data-sport="all">🌐 Tümü <small>ORTAK BÜLTEN</small></button>
             <button class="sport-tab" data-sport="football">⚽ Futbol <small>ANA LİGLER</small></button>
@@ -954,7 +1046,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.30 Live Conference Restore</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.31 Schedule Pulse</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1421,6 +1513,7 @@ const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
+let onlineSchedulePulse={soon:0,today:0,nextMatches:[],lastRefresh:0};
 let bulletinCountry='Tümü',bulletinLevel=0,bulletinSport='all';
 let leagueCenterTab='standings';
 let state={engineVersion:6,balance:10000,coupons:[],results:{},season:1,week:1,liveWeek:null};
@@ -2164,6 +2257,101 @@ function bindClubLinks(root=document){
     });
   });
 }
+function turkeyDayBounds(now=new Date()){
+  const parts=new Intl.DateTimeFormat('en-CA',{
+    timeZone:'Europe/Istanbul',year:'numeric',month:'2-digit',day:'2-digit'
+  }).formatToParts(now);
+  const read=type=>parts.find(p=>p.type===type)?.value;
+  const day=`${read('year')}-${read('month')}-${read('day')}`;
+  const start=new Date(day+'T00:00:00+03:00');
+  const end=new Date(start.getTime()+24*60*60*1000);
+  return {start,end};
+}
+function formatIstanbulTime(value){
+  if(!value)return '—';
+  return new Intl.DateTimeFormat('tr-TR',{
+    timeZone:'Europe/Istanbul',hour:'2-digit',minute:'2-digit',hour12:false
+  }).format(new Date(value));
+}
+async function refreshOnlineSchedulePulse(force=false){
+  const nowMs=Date.now();
+  if(!force&&nowMs-onlineSchedulePulse.lastRefresh<30000)return;
+
+  const now=new Date(nowMs);
+  const soonEnd=new Date(nowMs+30*60*1000);
+  const {start,end}=turkeyDayBounds(now);
+
+  const [soonRes,todayRes,nextRes]=await Promise.all([
+    supabaseClient.from('matches')
+      .select('id',{count:'exact',head:true})
+      .eq('season',state.season)
+      .eq('status','scheduled')
+      .gte('kickoff_at',now.toISOString())
+      .lte('kickoff_at',soonEnd.toISOString()),
+    supabaseClient.from('matches')
+      .select('id',{count:'exact',head:true})
+      .eq('season',state.season)
+      .gte('kickoff_at',start.toISOString())
+      .lt('kickoff_at',end.toISOString()),
+    supabaseClient.from('matches')
+      .select('id,sport,kickoff_at,country,league_level')
+      .eq('season',state.season)
+      .eq('status','scheduled')
+      .gte('kickoff_at',now.toISOString())
+      .order('kickoff_at',{ascending:true})
+      .limit(24)
+  ]);
+
+  if(soonRes.error)throw soonRes.error;
+  if(todayRes.error)throw todayRes.error;
+  if(nextRes.error)throw nextRes.error;
+
+  onlineSchedulePulse.soon=Number(soonRes.count||0);
+  onlineSchedulePulse.today=Number(todayRes.count||0);
+  onlineSchedulePulse.nextMatches=nextRes.data||[];
+  onlineSchedulePulse.lastRefresh=nowMs;
+}
+function renderSchedulePulse(){
+  const pulse=document.getElementById('schedulePulse');
+  if(!pulse)return;
+  if(!onlineMode){
+    pulse.hidden=true;
+    return;
+  }
+
+  pulse.hidden=false;
+  const liveCount=onlineConferenceMatches.filter(m=>m.status==='live').length;
+  const nowCount=document.getElementById('pulseNowCount');
+  const soonCount=document.getElementById('pulseSoonCount');
+  const todayCount=document.getElementById('pulseTodayCount');
+  const nowCard=document.getElementById('pulseNow');
+  if(nowCount)nowCount.textContent=liveCount;
+  if(soonCount)soonCount.textContent=onlineSchedulePulse.soon;
+  if(todayCount)todayCount.textContent=onlineSchedulePulse.today;
+  if(nowCard)nowCard.classList.toggle('is-active',liveCount>0);
+
+  const nextList=onlineSchedulePulse.nextMatches||[];
+  const first=nextList[0]||null;
+  const timeEl=document.getElementById('pulseNextTime');
+  const metaEl=document.getElementById('pulseNextMeta');
+  if(!first){
+    if(timeEl)timeEl.textContent='—';
+    if(metaEl)metaEl.textContent='Bugün için sıradaki başlangıç yok';
+    return;
+  }
+
+  const firstMs=new Date(first.kickoff_at).getTime();
+  const sameSlot=nextList.filter(m=>Math.abs(new Date(m.kickoff_at).getTime()-firstMs)<1000);
+  const football=sameSlot.filter(m=>(m.sport||'football')==='football').length;
+  const efootball=sameSlot.filter(m=>m.sport==='efootball').length;
+  const pieces=[];
+  if(football)pieces.push('⚽ '+football+' Futbol');
+  if(efootball)pieces.push('🎮 '+efootball+' e-Futbol');
+
+  if(timeEl)timeEl.textContent=formatIstanbulTime(first.kickoff_at);
+  if(metaEl)metaEl.textContent=pieces.join(' • ')||sportInfo(first.sport||'football').label;
+}
+
 async function refreshOnlineConference(){
   const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
   const {data,error}=await supabaseClient.from('matches').select(fields)
@@ -3029,6 +3217,7 @@ async function initOnline(){
     await refreshOnlineSelected(true);
     await refreshOnlineBulletin();
     await refreshOnlineConference();
+    await refreshOnlineSchedulePulse(true);
     await refreshOnlineAccount();
     await refreshChanceHistory();
     renderAll();
@@ -3052,9 +3241,10 @@ async function pollOnlineWorld(){
     await refreshOnlineSelected(changed);
     await refreshOnlineBulletin();
     await refreshOnlineConference();
+    await refreshOnlineSchedulePulse();
     onlineAccountTick++;
     if(onlineSession&&onlineAccountTick%3===0)await refreshOnlineAccount();
-    renderTopState();renderMatches();renderLeagueCenter();renderCoupons();renderSlip();renderLiveCenter();
+    renderTopState();renderSchedulePulse();renderMatches();renderLeagueCenter();renderCoupons();renderSlip();renderLiveCenter();
   }catch(err){console.error('Afyon online poll',err)}
   finally{onlinePollBusy=false}
 }
@@ -3458,7 +3648,7 @@ async function playChanceGame(){
   await playSingleChanceGame();
 }
 
-function renderAll(){renderTopState();renderWallet();renderMatches();renderSlip();renderCoupons();renderLeagueCenter();renderChanceHistory();renderRescue()}
+function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderSlip();renderCoupons();renderLeagueCenter();renderChanceHistory();renderRescue()}
 
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
