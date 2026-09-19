@@ -340,6 +340,17 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
 .rocket-shell{height:215px;position:relative;overflow:hidden;border-radius:14px;background:radial-gradient(circle at 50% 100%,#1a3451,#0b1220 70%)}.rocket-stars{position:absolute;inset:0;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:29px 29px;opacity:.08}.rocket-object{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);font-size:48px;transition:bottom .15s linear,transform .2s}.rocket-object.flying{bottom:120px;transform:translateX(-50%) rotate(-8deg)}.rocket-multiplier{position:absolute;inset:0;display:grid;place-items:center;font-size:46px;font-weight:1000;color:#fff;text-shadow:0 8px 25px rgba(0,0,0,.45)}.rocket-caption{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:#6f829f;font-size:9px;font-weight:900}
 .card-shell{display:grid;place-items:center;gap:13px;min-height:205px}.playing-card{width:110px;height:148px;border-radius:15px;background:#f5f0e8;color:#171717;border:6px solid #d9d1c3;display:grid;place-items:center;font-size:48px;font-weight:1000;box-shadow:0 15px 32px rgba(0,0,0,.35)}.card-meta{font-size:11px;color:#8fa0bd;font-weight:900}.card-actions{display:flex;gap:8px}.card-guess{border:1px solid #3b4d6c;border-radius:11px;background:#17243a;color:#fff;padding:10px 16px;font-weight:1000}.card-guess:disabled{opacity:.4}
 .hurdle-shell{height:210px;position:relative;overflow:hidden}.hurdle-ground{position:absolute;left:0;right:0;bottom:44px;height:3px;background:#34445f}.bureau-runner{position:absolute;left:3%;bottom:48px;font-size:35px;transition:left 1.7s cubic-bezier(.15,.75,.2,1)}.hurdle-item{position:absolute;bottom:47px;font-size:29px;transition:.25s}.hurdle-item.pass{opacity:.35;transform:rotate(18deg) translateY(8px)}.hurdle-item.hit{filter:drop-shadow(0 0 8px rgba(255,107,107,.6));transform:scale(1.2)}.hurdle-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#71829e;font-size:10px;font-weight:900}
+.penalty-shell{display:grid;gap:12px;min-height:220px}
+.penalty-score{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 2px;font-size:11px;color:#91a3c1;font-weight:900}.penalty-score strong{color:#fff;font-size:13px}
+.penalty-pitch{position:relative;height:165px;border-radius:15px;overflow:hidden;background:linear-gradient(180deg,#1b3a2f,#132b24);border:1px solid #335b4c}
+.penalty-goal{position:absolute;left:15%;right:15%;top:13px;height:91px;border:4px solid rgba(255,255,255,.82);border-bottom-width:5px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 8px,transparent 8px 16px)}
+.penalty-keeper{position:absolute;left:50%;top:50px;transform:translateX(-50%);font-size:34px;transition:left .45s cubic-bezier(.2,.8,.2,1),transform .45s}
+.penalty-ball{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:26px;transition:left .5s cubic-bezier(.2,.75,.2,1),bottom .5s cubic-bezier(.2,.75,.2,1),transform .5s}
+.penalty-kicks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.penalty-kick{border:1px solid #3d506e;border-radius:11px;background:#17243a;color:#fff;padding:10px 8px;font-size:10px;font-weight:1000}.penalty-kick:not(:disabled):hover{border-color:#6f89ad;background:#203251}.penalty-kick:disabled{opacity:.42}
+.penalty-pitch.goal-flash{box-shadow:inset 0 0 0 2px rgba(99,230,190,.5)}.penalty-pitch.save-flash{box-shadow:inset 0 0 0 2px rgba(255,107,107,.5)}
+.raid-shell{display:grid;gap:13px;min-height:205px}.raid-street{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:48px}
+.raid-inspector{position:absolute;left:50%;top:3px;transform:translateX(-50%);font-size:29px;transition:left .8s cubic-bezier(.2,.8,.2,1)}
+.raid-stall{position:relative;display:grid;place-items:center;gap:5px;min-height:110px;border:1px solid #33445f;border-radius:14px;background:#142139;font-size:34px;transition:.2s}.raid-stall small{font-size:9px;color:#8fa0bd;font-weight:1000}.raid-stall.chosen{border-color:#5c79a4;box-shadow:inset 0 0 0 1px rgba(116,192,252,.2)}.raid-stall.raided{background:#3b2028;border-color:#8a4353}.raid-stall.safe{background:#15362e;border-color:#377d68}.raid-caption{text-align:center;color:#7385a3;font-size:9px;font-weight:900}
 .chance-session-note{padding:9px 11px;border:1px solid #2d405e;border-radius:11px;background:#101b2e;color:#8496b2;font-size:10px;line-height:1.5}
 
 @media(max-width:720px){.auth-profile{display:grid!important}}
@@ -1060,10 +1071,10 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
             <button class="chance-card" data-open-game="mines"><span class="icon">💣</span><span class="tag">RİSKİ SEN YÖNET</span><h3>Afyon Mayın Tarlası</h3><p>25 kutuda 5 mayın var. Güvenli kutu açtıkça çarpan artar; istediğin an parayı al.</p><span class="odds">Devam et veya çık</span></button>
             <button class="chance-card" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Çarpan yükseliyor. AFMB roketi patlamadan önce çıkabilirsen ödeme senin.</p><span class="odds">Ne zaman çıkacağını sen seç</span></button>
             <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Sonraki kart daha yüksek mi düşük mü? Doğru bildikçe para masada büyür.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
-            <button class="chance-card" data-open-game="afmb_wheel"><span class="icon">🏛️</span><span class="tag">AFMB ONAYLI</span><h3>AFMB Çarkı</h3><p>Evrak kayıp da olabilir, muhasebe hatasıyla ikramiye de çıkabilir.</p><span class="odds">Sonuç: ×0 — ×1.60</span></button>
+            <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">RİSKİ SEN YÖNET</span><h3>AFMB Penaltı Serisi</h3><p>Sol, orta veya sağ vur. Kaleci aynı köşeyi bulursa seri biter; her golde çarpan büyür.</p><span class="odds">Gol at • devam et veya parayı al</span></button>
             <button class="chance-card" data-open-game="memur_box"><span class="icon">📦</span><span class="tag">TAHMİN</span><h3>Hangi Kutuda Memur Var?</h3><p>Üç kutudan birinde mesai yapan memur var. Diğerlerinde büyük ihtimalle çay var.</p><span class="odds">Doğru kutu: ×2.40</span></button>
             <button class="chance-card" data-open-game="coin_flip"><span class="icon">🪙</span><span class="tag">HIZLI OYUN</span><h3>Yazı — Tura</h3><p>AFMB'nin teknoloji vitrini: metal bir cisim havaya atılıyor.</p><span class="odds">Doğru seçim: ×1.85</span></button>
-            <button class="chance-card" data-open-game="bureaucracy_hurdles"><span class="icon">🏃‍♂️</span><span class="tag">ABSÜRT SPOR</span><h3>Bürokrasi Engelli Koşusu</h3><p>Evrak, sıra numarası, öğle tatili ve müdür imzası. Memur kaç engeli geçebilir?</p><span class="odds">0–1 / 2–3: ×2.00 • 4/4: ×3.50</span></button>
+            <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Simit, mısır veya kestane tezgâhını seç. Zabıta seninkine gelmezse günü kurtardın.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
           </div>
           <div class="chance-history">
             <div class="chance-history-head"><strong>Son Oyunların</strong><small>Yalnızca sen görürsün</small></div>
@@ -1106,7 +1117,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.32 Match Center & AFMB Fix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.33 Lunapark Refresh</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1194,10 +1205,12 @@ const chanceGames={
   mines:{title:'Afyon Mayın Tarlası',desc:'5 mayın • ×0.85 tabanından küçük adımlarla büyür • istediğin an çık',emoji:'💣',type:'mines',mode:'session',choices:[]},
   rocket:{title:'Roket Kaçışı',desc:'Çarpan artık yavaş yükselir • doğru anda çık • roket patlarsa stake gider',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Sonraki kart daha yüksek mi düşük mü? Her doğru tahminde çarpan büyür.',emoji:'🃏',type:'card',mode:'session',choices:[]},
-  afmb_wheel:{title:'AFMB Çarkı',desc:'Seçim yok • sonuç ×0 ile ×1.60 arası',emoji:'🏛️',type:'wheel',mode:'single',choices:[]},
+  penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleciyle 5 penaltılık düello • her golde çarpan büyür • istediğin an çık',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
+  zabita_raid:{title:'Zabıta Baskını',desc:'Bir tezgâh seç • zabıta seninkine gelmezse ×1.40',emoji:'🚨',type:'raid',mode:'single',choices:[['SIMIT','🥨 Simit'],['MISIR','🌽 Mısır'],['KESTANE','🌰 Kestane']]},
+  afmb_wheel:{title:'AFMB Çarkı',desc:'Emekli oyun',emoji:'🏛️',type:'wheel',mode:'single',choices:[],retired:true},
   memur_box:{title:'Hangi Kutuda Memur Var?',desc:'3 kutu • doğru seçim ×2.40',emoji:'📦',type:'boxes',mode:'single',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
   coin_flip:{title:'Yazı — Tura',desc:'Doğru seçim ×1.85',emoji:'🪙',type:'coin',mode:'single',choices:[['HEADS','Yazı'],['TAILS','Tura']]},
-  bureaucracy_hurdles:{title:'Bürokrasi Engelli Koşusu',desc:'Memur kaç engeli geçer? 0–1, 2–3 veya dörtte dört tahmin et.',emoji:'🏃‍♂️',type:'hurdles',mode:'single',choices:[['LOW','0–1 Engel'],['MID','2–3 Engel'],['ALL','4/4 Engel']]}
+  bureaucracy_hurdles:{title:'Bürokrasi Engelli Koşusu',desc:'Emekli oyun',emoji:'🏃‍♂️',type:'hurdles',mode:'single',choices:[['LOW','0–1 Engel'],['MID','2–3 Engel'],['ALL','4/4 Engel']],retired:true}
 };
 
 const countries=['İngiltere','Türkiye','İspanya','Almanya','İtalya','Fransa','Hollanda','Portekiz','Belçika','İskoçya','Yunanistan','Avusturya'];
@@ -3583,7 +3596,9 @@ function chanceLabel(gameKey,value){
     'MESAİ':'Mesai',
     IKRAMIYE:'İkramiye',
     MUHASEBE_HATASI:'Muhasebe hatası',
-    LOW:'0–1 Engel',MID:'2–3 Engel',ALL:'4/4 Engel'
+    LOW:'0–1 Engel',MID:'2–3 Engel',ALL:'4/4 Engel',
+    SAFE:'Zabıtadan kurtuldun',CAUGHT:'Zabıtaya yakalandın',
+    SIMIT:'Simit',MISIR:'Mısır',KESTANE:'Kestane'
   };
   return labels[value]||value||'—';
 }
@@ -3614,6 +3629,8 @@ function chanceHistorySummary(x){
   if(x.game_key==='mines')return (x.result?.safe_count??0)+' güvenli kutu';
   if(x.game_key==='rocket')return 'Patlama ×'+Number(x.result?.crash_multiplier||0).toFixed(2);
   if(x.game_key==='high_card')return (x.result?.streak??0)+' doğru tahmin';
+  if(x.game_key==='penalty_series')return (x.result?.goals??0)+' gol';
+  if(x.game_key==='zabita_raid')return (x.result?.winner==='SAFE'?'Kurtuldun':'Yakalandın')+' • Baskın: '+chanceLabel('zabita_raid',x.result?.raided);
   if(x.game_key==='bureaucracy_hurdles')return (x.result?.hurdles??0)+' engel';
   return chanceLabel(x.game_key,x.result?.winner);
 }
@@ -3641,7 +3658,7 @@ function clearRocketTimers(){
   rocketPollBusy=false;
 }
 function openChanceGame(gameKey){
-  if(!chanceGames[gameKey])return;
+  if(!chanceGames[gameKey]||chanceGames[gameKey].retired)return;
   clearRocketTimers();
   activeChanceSession=null;
   activeChanceGame=gameKey;
@@ -3657,6 +3674,7 @@ function openChanceGame(gameKey){
     if(chanceBusy||activeChanceSession)return;
     activeChanceChoice=btn.dataset.chanceChoice;
     document.querySelectorAll('[data-chance-choice]').forEach(x=>x.classList.toggle('selected',x===btn));
+    if(chanceGames[activeChanceGame]?.type==='raid')prepareChanceStage(activeChanceGame);
   }));
   document.getElementById('chanceStake').disabled=false;
   prepareChanceStage(gameKey);
@@ -3680,7 +3698,7 @@ function updateChancePlayLabel(){
   if(activeChanceSession?.status==='active'){
     const x=Number(activeChanceSession.multiplier||1).toFixed(2);
     btn.textContent='PARAYI AL • ×'+x;
-    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1));
+    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1));
     return;
   }
   btn.disabled=chanceBusy;
@@ -3703,6 +3721,11 @@ function prepareChanceStage(gameKey){
     stage.innerHTML='<div class="rocket-shell"><div class="rocket-stars"></div><div class="rocket-multiplier" id="rocketMultiplier">×0.90</div><div class="rocket-object" id="rocketObject">🚀</div><div class="rocket-caption">AFMB UZAY PROGRAMI • PATLAMADAN ÇIK</div></div>';
   }else if(game.type==='card'){
     stage.innerHTML='<div class="card-shell"><div class="playing-card" id="highCardFace">?</div><div class="card-meta" id="highCardMeta">Oyunu başlat</div><div class="card-actions"><button class="card-guess" data-card-guess="HIGHER" disabled>⬆ DAHA YÜKSEK</button><button class="card-guess" data-card-guess="LOWER" disabled>⬇ DAHA DÜŞÜK</button></div></div>';
+  }else if(game.type==='penalty'){
+    stage.innerHTML='<div class="penalty-shell"><div class="penalty-score"><strong id="penaltyScore">0 / 5 GOL</strong><span id="penaltyMultiplier">×0.92</span></div><div class="penalty-pitch" id="penaltyPitch"><div class="penalty-goal"></div><div class="penalty-keeper" id="penaltyKeeper">🧤</div><div class="penalty-ball" id="penaltyBall">⚽</div></div><div class="penalty-kicks"><button class="penalty-kick" data-penalty-kick="LEFT" disabled>↙ SOL</button><button class="penalty-kick" data-penalty-kick="CENTER" disabled>⬆ ORTA</button><button class="penalty-kick" data-penalty-kick="RIGHT" disabled>SAĞ ↘</button></div></div>';
+  }else if(game.type==='raid'){
+    const stallEmoji={SIMIT:'🥨',MISIR:'🌽',KESTANE:'🌰'};
+    stage.innerHTML='<div class="raid-shell"><div class="raid-street"><div class="raid-inspector" id="raidInspector">🚨</div>'+game.choices.map(x=>'<div class="raid-stall '+(x[0]===activeChanceChoice?'chosen':'')+'" data-raid-stall="'+x[0]+'"><span>'+stallEmoji[x[0]]+'</span><small>'+x[1].replace(/^[^ ]+ /,'')+'</small></div>').join('')+'</div><div class="raid-caption">TEZGÂHINI SEÇ • ZABITA SENİ BULMASIN</div></div>';
   }else if(game.type==='hurdles'){
     stage.innerHTML='<div class="hurdle-shell"><div class="hurdle-ground"></div><div class="bureau-runner" id="bureauRunner">🧑‍💼</div><span class="hurdle-item" data-hurdle="1" style="left:23%">📄</span><span class="hurdle-item" data-hurdle="2" style="left:43%">🎟️</span><span class="hurdle-item" data-hurdle="3" style="left:63%">☕</span><span class="hurdle-item" data-hurdle="4" style="left:82%">✍️</span><div class="hurdle-label">EVRAK → SIRA → ÖĞLE TATİLİ → MÜDÜR İMZASI</div></div>';
   }
@@ -3734,6 +3757,19 @@ async function animateChanceResult(gameKey,result){
       else box.firstChild.textContent='☕';
     });
     await chanceWait(650);
+  }else if(game.type==='raid'){
+    const raided=result.result?.raided;
+    const chosen=result.result?.chosen;
+    const stalls=[...document.querySelectorAll('[data-raid-stall]')];
+    const index=Math.max(0,stalls.findIndex(x=>x.dataset.raidStall===raided));
+    const inspector=document.getElementById('raidInspector');
+    if(inspector)inspector.style.left=(16.5+index*33.5)+'%';
+    await chanceWait(800);
+    stalls.forEach(stall=>{
+      if(stall.dataset.raidStall===raided)stall.classList.add('raided');
+      if(stall.dataset.raidStall===chosen&&chosen!==raided)stall.classList.add('safe');
+    });
+    await chanceWait(650);
   }else if(game.type==='hurdles'){
     const passed=Number(result.result?.hurdles||0);
     const runner=document.getElementById('bureauRunner');
@@ -3759,7 +3795,10 @@ async function startChanceSession(){
   chanceBusy=true;updateChancePlayLabel();
   setChanceResult('AFMB oyun oturumu açıyor…');
   try{
-    const {data,error}=await supabaseClient.rpc('start_chance_session',{p_game_key:activeChanceGame,p_stake:stake});
+    const startRequest=activeChanceGame==='penalty_series'
+      ?supabaseClient.rpc('start_afmb_penalty',{p_stake:stake})
+      :supabaseClient.rpc('start_chance_session',{p_game_key:activeChanceGame,p_stake:stake});
+    const {data,error}=await startRequest;
     if(error)throw error;
     activeChanceSession={...data,status:'active'};
     setOnlineBalance(data.balance);
@@ -3769,7 +3808,13 @@ async function startChanceSession(){
     if(activeChanceGame==='mines')activateMines();
     if(activeChanceGame==='high_card')activateHighCard();
     if(activeChanceGame==='rocket')activateRocket();
-    setChanceResult(activeChanceGame==='mines'?'5 mayın gizlendi. Kutunu seç. 💣':activeChanceGame==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':'Roket kalktı! Patlamadan parayı al. 🚀');
+    if(activeChanceGame==='penalty_series')activatePenalty();
+    setChanceResult(
+      activeChanceGame==='mines'?'5 mayın gizlendi. Kutunu seç. 💣':
+      activeChanceGame==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':
+      activeChanceGame==='penalty_series'?'Top sende. Köşeyi seç ve vur. ⚽':
+      'Roket kalktı! Patlamadan parayı al. 🚀'
+    );
   }catch(err){
     setChanceResult('Oyun başlatılamadı: '+(err.message||err),'loss');
     activeChanceSession=null;
@@ -3848,6 +3893,69 @@ async function guessHighCard(choice){
     chanceBusy=false;updateChancePlayLabel();
   }
 }
+function activatePenalty(){
+  const score=document.getElementById('penaltyScore');
+  const mult=document.getElementById('penaltyMultiplier');
+  if(score)score.textContent=Number(activeChanceSession.goals||0)+' / 5 GOL';
+  if(mult)mult.textContent='×'+Number(activeChanceSession.multiplier||0.92).toFixed(2);
+  document.querySelectorAll('[data-penalty-kick]').forEach(btn=>{
+    btn.disabled=false;
+    btn.addEventListener('click',()=>takePenalty(btn.dataset.penaltyKick));
+  });
+}
+function penaltyPosition(direction){
+  return direction==='LEFT'?24:direction==='RIGHT'?76:50;
+}
+async function animatePenaltyKick(shot,data){
+  const ball=document.getElementById('penaltyBall');
+  const keeper=document.getElementById('penaltyKeeper');
+  const pitch=document.getElementById('penaltyPitch');
+  if(!ball||!keeper||!pitch)return;
+  pitch.classList.remove('goal-flash','save-flash');
+  ball.style.left=penaltyPosition(shot)+'%';
+  ball.style.bottom='94px';
+  keeper.style.left=penaltyPosition(data.keeper)+'%';
+  keeper.style.transform='translateX(-50%) '+(data.keeper==='CENTER'?'scale(1.12)':'rotate('+(data.keeper==='LEFT'?'-18deg':'18deg')+')');
+  await chanceWait(520);
+  pitch.classList.add(data.saved?'save-flash':'goal-flash');
+  await chanceWait(420);
+}
+async function takePenalty(choice){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  try{
+    const {data,error}=await supabaseClient.rpc('afmb_penalty_action',{p_session_id:activeChanceSession.session_id,p_action:'KICK',p_choice:choice});
+    if(error)throw error;
+    await animatePenaltyKick(choice,data);
+    activeChanceSession={...activeChanceSession,...data};
+    const score=document.getElementById('penaltyScore');
+    const mult=document.getElementById('penaltyMultiplier');
+    if(score)score.textContent=Number(data.goals||0)+' / 5 GOL';
+    if(mult&&data.multiplier!=null)mult.textContent='×'+Number(data.multiplier).toFixed(2);
+    if(data.status==='lost'){
+      setChanceResult('🧤 Kaleci köşeyi bildi. '+Number(data.goals||0)+' golde seri bitti.','loss');
+      await finishChanceSession(false);
+    }else if(data.status==='won'){
+      setOnlineBalance(data.balance);renderWallet();
+      setChanceResult('🏆 5/5! AFMB penaltı uzmanı ilan edildin. Ödeme '+money(data.payout)+' • ×'+Number(data.multiplier).toFixed(2),'win');
+      await finishChanceSession(true);
+    }else{
+      setChanceResult('⚽ GOL! Seri '+data.goals+'/5 • ×'+Number(data.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+      document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=false);
+      const ball=document.getElementById('penaltyBall'),keeper=document.getElementById('penaltyKeeper'),pitch=document.getElementById('penaltyPitch');
+      if(ball){ball.style.left='50%';ball.style.bottom='18px';}
+      if(keeper){keeper.style.left='50%';keeper.style.transform='translateX(-50%)';}
+      if(pitch)setTimeout(()=>pitch.classList.remove('goal-flash','save-flash'),250);
+    }
+  }catch(err){
+    setChanceResult('Penaltı işlemi reddedildi: '+(err.message||err),'loss');
+    document.querySelectorAll('[data-penalty-kick]').forEach(x=>x.disabled=false);
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+  }
+}
 function activateRocket(){
   const startMs=new Date(activeChanceSession.started_at).getTime();
   const tick=()=>{
@@ -3886,7 +3994,10 @@ async function cashOutChanceSession(){
   if(chanceBusy||!activeChanceSession)return;
   chanceBusy=true;updateChancePlayLabel();
   try{
-    const {data,error}=await supabaseClient.rpc('chance_session_action',{p_session_id:activeChanceSession.session_id,p_action:'CASHOUT',p_choice:null});
+    const cashRequest=activeChanceGame==='penalty_series'
+      ?supabaseClient.rpc('afmb_penalty_action',{p_session_id:activeChanceSession.session_id,p_action:'CASHOUT',p_choice:null})
+      :supabaseClient.rpc('chance_session_action',{p_session_id:activeChanceSession.session_id,p_action:'CASHOUT',p_choice:null});
+    const {data,error}=await cashRequest;
     if(error)throw error;
     activeChanceSession={...activeChanceSession,...data};
     if(data.status==='lost'){
@@ -3909,7 +4020,7 @@ async function finishChanceSession(refreshWalletFromServer){
   clearRocketTimers();
   if(refreshWalletFromServer)syncChanceWallet();
   document.getElementById('chanceStake').disabled=false;
-  document.querySelectorAll('[data-mine-cell],[data-card-guess]').forEach(x=>x.disabled=true);
+  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick]').forEach(x=>x.disabled=true);
   activeChanceSession=null;
   await refreshChanceHistory();
 }
@@ -3921,14 +4032,19 @@ async function playSingleChanceGame(){
   setChanceResult('AFMB mühür basıyor…');
   prepareChanceStage(activeChanceGame);
   try{
-    const {data,error}=await supabaseClient.rpc('play_chance_game',{p_game_key:activeChanceGame,p_stake:stake,p_choice:activeChanceChoice});
+    const playRequest=activeChanceGame==='zabita_raid'
+      ?supabaseClient.rpc('play_zabita_raid',{p_stake:stake,p_choice:activeChanceChoice})
+      :supabaseClient.rpc('play_chance_game',{p_game_key:activeChanceGame,p_stake:stake,p_choice:activeChanceChoice});
+    const {data,error}=await playRequest;
     if(error)throw error;
     await animateChanceResult(activeChanceGame,data);
     setOnlineBalance(data.balance);renderWallet();
     const payout=Number(data.payout),net=payout-stake;
-    const winner=activeChanceGame==='bureaucracy_hurdles'
-      ?Number(data.result?.hurdles||0)+' engel'
-      :chanceLabel(activeChanceGame,data.result?.winner);
+    const winner=activeChanceGame==='zabita_raid'
+      ?(data.result?.winner==='SAFE'?'Zabıta seni ıskaladı':'Zabıta tezgâha çöktü')
+      :activeChanceGame==='bureaucracy_hurdles'
+        ?Number(data.result?.hurdles||0)+' engel'
+        :chanceLabel(activeChanceGame,data.result?.winner);
     if(net>0)setChanceResult('🏆 '+winner+' • Ödeme '+money(payout)+' • Net +'+money(net),'win');
     else if(payout>0)setChanceResult('📎 '+winner+' • '+money(payout)+' geri döndü • Net -'+money(Math.abs(net)),'loss');
     else setChanceResult('😭 '+winner+' • '+money(stake)+' AFMB kayıtlarına geçti.','loss');
