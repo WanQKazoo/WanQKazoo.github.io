@@ -1590,6 +1590,13 @@ const topTierStrengthOverrides={
   }
 };
 
+const turkeyLowerTierNames={
+  2:['Çukurova Akın','Başkent Demirspor','İzmir Kordon','Bursa Uludağ','Konya Selçuklu','Mersin Akdeniz','Trabzon Zigana','Eskişehir Porsuk','Antalya Kaleiçi','Samsun Atakum','Kayseri Erciyes','Gaziantep Zeugma','Sakarya Nehirspor','Kocaeli Sanayi','Manisa Spil','Denizli Horozları','Balıkesir Kuvayi','Malatya Battalgazi'],
+  3:['Van Gölüspor','Iğdır Aras','Mardin Mezopotamya','Batman Petrolkent','Bandırma Liman','Bolu Köroğlu','Sivas Kangal Gücü','Pendik Sahil','Sarıyer Boğazspor','Muğla Zeybek','Çorum Hitit','Düzce Melen','Kırklareli Trakya','Kastamonu Ilgaz','Aksaray Hasan Dağı','Karaman Karamanoğlu','Afyon Kocatepe','Şanlıurfa Harran'],
+  4:['Kozan Anavarza','Keçiören Başkent','Bornova Çınar','İnegöl Mobilyacılar','Akşehir Nasreddin','Tarsus Berdan','Akçaabat Yelken','Sivrihisar Bozkır','Kumluca Narenciye','Bafra Kızılırmak','Develi Erciyes','Nizip Zeytinspor','Hendek Gücü','Gebze Fabrika','Akhisar Zeytin','Acıpayam Ovalılar','Edremit Körfez','Darende Somuncu'],
+  5:['Atlasspor','Ecekuş SK','Can Akademi FK','Dayılar Köyspor','Mirzaçelebi Gücü','Fevzipaşaspor','Gökçeada Rüzgâr','Taşköprü Sarımsakspor','Finike Portakal','Şarköy Bağcılar','Divriği Demir','Akçakoca Dalgaspor','Eğirdir Gölspor','Halfeti Fırat','Tire Ovaspor','Bor Madenciler','Göynük Safran','Vize Ormanspor']
+};
+
 const countryAreaTags={
   İngiltere:['North','Vale','Park','Heath','Bridge','Meadow'],
   Türkiye:['Ova','Kale','Vadi','Sahil','Yıldız','Hisar'],
@@ -1607,6 +1614,7 @@ const countryAreaTags={
 
 function getClubNames(country,level){
   if(level===1)return topTierNames[country];
+  if(country==='Türkiye'&&turkeyLowerTierNames[level])return turkeyLowerTierNames[level];
   const roots=(level===2||level===4)?countryRoots[country]:lowerExtraRoots[country];
   const words=countryClubWords[country];
   const tags=countryAreaTags[country];
