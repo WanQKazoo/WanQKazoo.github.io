@@ -1982,6 +1982,161 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   }
 }
 
+
+/* ===== Prototype 0.58 — AFMB Lunapark 2.0 ===== */
+.chance-new-section{position:relative}
+.chance-new-section:before{
+  content:"YENİ";
+  position:absolute;right:0;top:-8px;
+  color:rgba(180,145,255,.045);
+  font-size:46px;font-weight:1000;letter-spacing:-2px;pointer-events:none;
+}
+.chance-new-grid .chance-card-new{
+  position:relative;overflow:hidden;
+  min-height:184px;
+  border-color:#40345a;
+  background:
+    radial-gradient(circle at 90% 0,rgba(170,130,255,.10),transparent 34%),
+    linear-gradient(155deg,#17182b,#0d1625);
+}
+.chance-new-grid .chance-card-new:after{
+  content:"YENİ";
+  position:absolute;right:10px;bottom:8px;
+  color:rgba(255,255,255,.04);font-size:26px;font-weight:1000;letter-spacing:-1px;
+}
+.chance-new-grid .chance-card-new:hover{border-color:#70599a;transform:translateY(-1px)}
+.chance-new-grid .chance-card-new .tag{color:#c5a8ff}
+.chance-new-grid .chance-card-new .odds{color:#d6c2ff}
+
+/* Müdür Koridoru */
+.corridor-shell{display:grid;gap:12px}
+.boss-alert{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 11px;border:1px solid #5a3b43;border-radius:10px;
+  background:#28171e;color:#ffb0b8;font-weight:1000;
+}
+.boss-alert span{font-size:10px;letter-spacing:.4px}
+.boss-alert small{color:#ad7f87;font-size:8px}
+.boss-alert.searching{animation:bossAlertPulse .55s ease-in-out infinite alternate}
+.boss-alert.safe{border-color:#315a50;background:#11241f;color:#8fe4c9}
+.boss-alert.caught{border-color:#8d3345;background:#391620;color:#ff95a3}
+.corridor-doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.corridor-door{
+  min-height:150px;border:1px solid #30415e;border-radius:14px;
+  background:linear-gradient(180deg,#16243a,#0f1828);color:#dce6f5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  padding:12px;transition:.18s;
+}
+.corridor-door>span{font-size:32px}
+.corridor-door strong{font-size:11px}
+.corridor-door small{color:#7588a5;font-size:7px;text-align:center;line-height:1.35}
+.corridor-door:not(:disabled):hover{border-color:#5b7191;background:#1a2a42}
+.corridor-door.chosen{border-color:#d4b15e;box-shadow:inset 0 0 0 1px rgba(255,209,102,.12)}
+.corridor-door.boss{background:#3b1720;border-color:#ad4355}
+.corridor-door.boss>span:after{content:" 👔"}
+.corridor-door.safe{background:#143126;border-color:#4c8a76}
+.corridor-door.caught{animation:bossCaught .3s ease 2}
+.corridor-progress,.var-rounds{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.corridor-progress span,.var-rounds span{height:5px;border-radius:99px;background:#26364e}
+.corridor-progress span.on,.var-rounds span.on{background:#63e6be;box-shadow:0 0 10px rgba(99,230,190,.22)}
+@keyframes bossAlertPulse{to{box-shadow:0 0 0 2px rgba(255,92,111,.12)}}
+@keyframes bossCaught{50%{transform:translateX(4px)}}
+
+/* Dolmuş Hattı */
+.dolmus-shell{display:grid;gap:12px}
+.dolmus-road{
+  position:relative;height:124px;border:1px solid #32435e;border-radius:14px;
+  background:
+    linear-gradient(180deg,#17283a 0 42%,#26302e 42% 58%,#171d24 58%);
+  overflow:hidden;
+}
+.dolmus-line{position:absolute;left:6%;right:6%;top:61%;height:3px;background:#d1b65a;border-radius:99px;opacity:.55}
+.dolmus-bus{
+  position:absolute;left:7%;top:38%;z-index:4;
+  transform:translate(-50%,-50%);font-size:29px;
+  transition:left .48s cubic-bezier(.2,.8,.2,1),transform .2s;
+}
+.dolmus-bus.moving{animation:dolmusBounce .18s ease-in-out infinite alternate}
+.dolmus-stop{position:absolute;top:64%;transform:translateX(-50%);text-align:center}
+.dolmus-stop i{display:block;width:9px;height:9px;margin:auto;border:2px solid #61738d;border-radius:50%;background:#111a28}
+.dolmus-stop small{display:block;margin-top:5px;color:#61738d;font-size:6px;font-weight:950;white-space:nowrap}
+.dolmus-stop.passed i{border-color:#63e6be;background:#2f8e72}
+.dolmus-stop.passed small{color:#8bcfba}
+.dolmus-callout{padding:8px 10px;border-radius:10px;background:#0d1726;border:1px solid #2b3c56;color:#9fb0c7;font-size:9px;font-weight:850}
+.dolmus-routes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dolmus-route{
+  min-height:92px;border:1px solid #30425f;border-radius:13px;background:#101b2c;color:#e2eaf6;
+  padding:11px;text-align:left;transition:.18s;
+}
+.dolmus-route>span{font-size:23px}
+.dolmus-route strong{display:block;margin-top:5px;font-size:10px}
+.dolmus-route small{display:block;margin-top:3px;color:#7185a4;font-size:7px}
+.dolmus-route.safe:not(:disabled):hover{border-color:#4d806f;background:#12261f}
+.dolmus-route.shortcut:not(:disabled):hover{border-color:#9b7336;background:#2a2114}
+.dolmus-route.chosen{box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.dolmus-route.success{border-color:#4c8d77;background:#143126}
+.dolmus-route.failed{border-color:#963d4e;background:#351722}
+@keyframes dolmusBounce{to{transform:translate(-50%,-53%) rotate(-2deg)}}
+
+/* VAR Çizgisi */
+.varline-shell{display:grid;gap:11px}
+.var-screen{
+  position:relative;height:230px;border:1px solid #31435e;border-radius:15px;
+  overflow:hidden;background:
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/34px 100%,
+    linear-gradient(180deg,#173d31,#143326);
+}
+.var-pitch-lines:before,.var-pitch-lines:after{
+  content:"";position:absolute;inset:14% 8%;border:2px solid rgba(255,255,255,.16);pointer-events:none;
+}
+.var-pitch-lines:after{left:50%;right:auto;width:1px;border:0;border-left:2px solid rgba(255,255,255,.16)}
+.var-target{
+  position:absolute;top:14%;bottom:14%;
+  border:1px solid rgba(99,230,190,.65);
+  background:rgba(99,230,190,.13);
+  box-shadow:inset 0 0 18px rgba(99,230,190,.08);
+}
+.var-marker{
+  position:absolute;top:9%;bottom:9%;width:3px;
+  transform:translateX(-50%);background:#ffda6f;z-index:4;
+  box-shadow:0 0 12px rgba(255,218,111,.45);
+}
+.var-marker span{position:absolute;left:50%;top:50%;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);background:#fff0a5;border:2px solid #6d581e}
+.var-marker.hit{background:#63e6be;box-shadow:0 0 18px rgba(99,230,190,.55)}
+.var-marker.miss{background:#ff6474;box-shadow:0 0 18px rgba(255,100,116,.55)}
+.var-player{position:absolute;z-index:3;font-size:28px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+.var-player.p1{left:43%;bottom:23%}
+.var-player.p2{left:57%;top:23%}
+.var-status{
+  position:absolute;left:10px;top:10px;z-index:6;
+  padding:5px 7px;border-radius:7px;background:rgba(6,15,21,.72);color:#d8e6f5;
+  font-size:7px;font-weight:1000;letter-spacing:.6px
+}
+.var-status.ok{color:#8ff1d0}
+.var-status.bad{color:#ff9eaa}
+.var-rounds{grid-template-columns:repeat(4,1fr)}
+.var-freeze{
+  min-height:48px;border:1px solid #536d92;border-radius:11px;
+  background:linear-gradient(180deg,#1a2d49,#14243b);color:#eaf2ff;
+  font-size:11px;font-weight:1000;letter-spacing:.3px;
+}
+.var-freeze:not(:disabled):hover{border-color:#8eb6e6;background:#213858}
+.var-freeze:disabled{opacity:.45}
+
+/* Mobile */
+@media(max-width:720px){
+  .chance-new-grid{grid-template-columns:1fr!important}
+  .chance-new-grid .chance-card-new{min-height:148px}
+  .corridor-doors{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .corridor-door{min-height:122px;padding:8px}
+  .corridor-door>span{font-size:25px}
+  .corridor-door strong{font-size:8px}
+  .corridor-door small{display:none}
+  .dolmus-road{height:108px}
+  .dolmus-routes{grid-template-columns:1fr}
+  .var-screen{height:190px}
+}
+
 </style>
 </head>
 <body>
