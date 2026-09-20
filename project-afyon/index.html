@@ -790,6 +790,8 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
 .conference-event-top small{font-size:7px;color:#71829e}
 .conference-event-score{color:#ffd166;font-weight:1000}
 .conference-event-match{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#a9b7cd;font-size:9px}
+.conference-event-commentary{margin-top:6px;color:#d6dfef;font-size:9px;line-height:1.45;font-weight:750}
+.conference-event-commentary b{color:#ffcf70}
 .conference-event-coupon{display:inline-flex;margin-top:5px;color:#ffd978;font-size:7px;font-weight:1000}
 @media(max-width:720px){
   .live-center.conference{padding:12px 11px 13px}
@@ -902,7 +904,7 @@ body[data-page="bulletin"] .afmb small{font-size:8px}
 .match-detail-livegrid{display:grid;grid-template-columns:1.05fr .95fr;gap:10px}.match-live-panel{padding:13px;border:1px solid #263750;border-radius:14px;background:#101b2d}.match-live-panel h4{margin:0 0 10px;font-size:11px}
 .match-live-stats{display:grid;gap:8px}.match-live-stat{display:grid;grid-template-columns:34px 1fr 34px;gap:9px;align-items:center;font-size:10px;font-weight:900}.match-live-stat span:nth-child(2){text-align:center;color:#8092af;font-size:8px}.match-live-stat b:last-child{text-align:right}
 .momentum-head{display:flex;justify-content:space-between;gap:8px;color:#8294b1;font-size:8px;font-weight:900}.momentum-track{display:flex;height:11px;margin-top:7px;border-radius:99px;overflow:hidden;background:#223048}.momentum-home{background:#5fd7b0}.momentum-away{background:#74c0fc}
-.match-timeline{display:grid;gap:6px;max-height:300px;overflow:auto}.match-event{display:grid;grid-template-columns:42px 28px minmax(0,1fr);gap:8px;align-items:center;padding:8px 9px;border-radius:11px;background:#0b1525}.match-event .minute{color:#8da0bd;font-size:10px;font-weight:1000}.match-event .icon{text-align:center;font-size:15px}.match-event strong{display:block;font-size:10px}.match-event small{display:block;margin-top:2px;color:#70829f;font-size:8px}.match-event.goal{background:#123027}.match-event.big{background:#302817}.match-event.card{background:#2b2615}
+.match-timeline{display:grid;gap:6px;max-height:300px;overflow:auto}.match-event{display:grid;grid-template-columns:42px 28px minmax(0,1fr);gap:8px;align-items:center;padding:8px 9px;border-radius:11px;background:#0b1525}.match-event .minute{color:#8da0bd;font-size:10px;font-weight:1000}.match-event .icon{text-align:center;font-size:15px}.match-event strong{display:block;font-size:10px}.match-event small{display:block;margin-top:2px;color:#70829f;font-size:8px}.match-event small.commentary{margin-top:5px;color:#b9c7da;font-size:9px;line-height:1.4;font-weight:750}.match-event small.commentary b{color:#ffcf70}.match-event.goal{background:#123027}.match-event.big{background:#302817}.match-event.card{background:#2b2615}
 .match-detail-empty{padding:18px;text-align:center;color:#7c8fac;font-size:10px}
 @media(max-width:720px){.club-intel-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.match-detail-backdrop{padding:7px;align-items:end}.match-detail-modal{max-height:calc(100vh - 14px);border-radius:20px 20px 10px 10px}.match-detail-scoreboard{grid-template-columns:minmax(0,1fr) 82px minmax(0,1fr)}.match-detail-team strong{font-size:14px}.match-detail-score strong{font-size:29px}.match-detail-insights,.match-detail-livegrid{grid-template-columns:1fr}.match-insight-metrics{grid-template-columns:repeat(3,1fr)}}
 
@@ -2410,17 +2412,20 @@ function renderLiveCenter(){
         const actor=e.side==='home'?onlineClubsById[m.home_club_id]?.name:onlineClubsById[m.away_club_id]?.name;
         const home=sportTeamName(onlineClubsById[m.home_club_id]?.name||'Ev',sport);
         const away=sportTeamName(onlineClubsById[m.away_club_id]?.name||'Dep',sport);
+        const actorName=sportTeamName(actor||'Takım',sport);
+        const eventScore=homeGoals+'-'+awayGoals;
         events.push({
           matchId:m.id,
           sport,
           minute:Number(e.minute||0),
           visibleAt:e.visible_at?new Date(e.visible_at).getTime():0,
-          actor:sportTeamName(actor||'Takım',sport),
+          actor:actorName,
           icon:info.icon,
           title:info.title,
           kind:info.kind,
           match:home+' - '+away,
-          score:homeGoals+'-'+awayGoals,
+          score:eventScore,
+          commentary:commentatorLine(e,actorName,sport,e.event_type==='goal'?eventScore:''),
           onCoupon:isCouponMatch(m.id)
         });
       });
@@ -2436,6 +2441,7 @@ function renderLiveCenter(){
           <div class="conference-event-top"><strong>${lastMinute?'🚨 ':''}${sportInfo(e.sport).icon} ${e.icon} ${e.minute}' ${e.title}</strong><small>${e.sport==='efootball'?'e-Futbol':'Futbol'}</small></div>
           <div><strong>${e.actor}</strong> ${e.kind==='goal'?'<span class="conference-event-score">'+e.score+'</span>':''}</div>
           <div class="conference-event-match">${e.match}</div>
+          ${e.commentary?'<div class="conference-event-commentary">'+e.commentary+'</div>':''}
           ${e.onCoupon?'<span class="conference-event-coupon">🎟 KUPONUNDAKİ MAÇ</span>':''}
         </div>`;
       }).join('')
@@ -2814,6 +2820,74 @@ function matchEventInfo(e){
   }
   return {icon:'•',title:e.event_type||'Olay',kind:''};
 }
+function isCommentatorEvent(e){
+  return e?.event_type==='goal'||e?.event_type==='big_chance'||e?.event_type==='yellow_card'||(e?.event_type==='shot'&&!!e?.payload?.on_target);
+}
+function commentatorHash(value){
+  const input=String(value||'afmb');
+  let hash=2166136261;
+  for(let i=0;i<input.length;i++){
+    hash^=input.charCodeAt(i);
+    hash=Math.imul(hash,16777619);
+  }
+  return hash>>>0;
+}
+function commentatorPick(lines,e,salt){
+  if(!Array.isArray(lines)||!lines.length)return '';
+  const key=[e?.id,e?.match_id,e?.minute,e?.event_type,e?.side,salt||''].join('|');
+  return lines[commentatorHash(key)%lines.length];
+}
+function commentatorLine(e,team,sport='football',score=''){
+  if(!isCommentatorEvent(e))return '';
+  const name=team||'Takım';
+  const minute=Number(e?.minute||0);
+  const scoreText=score?' Tabela '+score+'.':'';
+  let lines=[];
+  if(e.event_type==='goal'){
+    if(minute>=85){
+      lines=[
+        'SON DAKİKALARDA GOOOL! '+name+' bütün planları yeniden yazıyor!'+scoreText,
+        name+' tam zamanında vurdu! Maçın son bölümünde ağlar havalandı.'+scoreText,
+        'İşte maçın kırılma anı! '+name+' son dakikalarda golü buldu.'+scoreText,
+        'Tribün ayağa kalktı! '+name+' bitime yakın darbeyi vuruyor.'+scoreText
+      ];
+    }else{
+      lines=[
+        'GOOOOL! '+name+' fırsatı affetmedi!'+scoreText,
+        name+' baskının karşılığını aldı, top ağlarda!'+scoreText,
+        'Ağlar havalandı! '+name+' bu atağı golle bitiriyor.'+scoreText,
+        'Gol geldi! '+name+' kilidi açmayı başardı.'+scoreText,
+        name+' doğru anda doğru yerde! Skor tabelası değişiyor.'+scoreText,
+        'Top çizgiyi geçti! '+name+' tribünleri ayağa kaldırıyor.'+scoreText
+      ];
+    }
+  }else if(e.event_type==='big_chance'){
+    lines=[
+      name+' gole çok yaklaştı! Son dokunuş gelmedi.',
+      'Net fırsat! '+name+' savunmayı aştı ama golü bulamadı.',
+      'Tribün bir an gol diye ayağa kalktı! '+name+' fırsatı değerlendiremedi.',
+      name+' ceza sahasında çok tehlikeli geldi; sonuç çıkmadı.',
+      'Büyük fırsat kaçtı! '+name+' tabelayı değiştirmeye çok yakındı.'
+    ];
+  }else if(e.event_type==='yellow_card'){
+    lines=[
+      name+' adına sarı kart. Hakem bu müdahaleyi es geçmedi.',
+      'Hakem cebine gitti: '+name+' oyuncusuna sarı kart.',
+      name+' için kart çıktı. Maçın tansiyonu biraz daha yükseliyor.',
+      'Sert müdahalenin faturası sarı kart oldu; '+name+' dikkatli olmak zorunda.'
+    ];
+  }else if(e.event_type==='shot'&&e.payload?.on_target){
+    lines=[
+      name+' kaleyi buldu! Kaleci gole izin vermedi.',
+      'İsabetli şut! '+name+' yokladı, kaleci hazırdı.',
+      name+' çerçeveyi buluyor; kaleci tehlikeyi savuşturdu.',
+      'Kaleyi bulan sert bir vuruş! '+name+' gole yaklaşsa da sonuç yok.',
+      name+' şutunu çekti, top kalecide kaldı.'
+    ];
+  }
+  const line=commentatorPick(lines,e,sport);
+  return line?'<b>🎙️ Spiker:</b> '+line:'';
+}
 function liveEventStats(events,side){
   const own=(events||[]).filter(function(e){return e.side===side});
   const goals=own.filter(e=>e.event_type==='goal').length;
@@ -2883,14 +2957,16 @@ function renderMatchDetail(){
   const stateLabel=m.status==='live'?((minute>=90?'90+':minute)+"' • CANLI"):m.status==='finished'?'MAÇ SONU':'BAŞLANGIÇ • '+formatIstanbulTime(m.kickoff_at);
   const hm=momentumScore(events,'home',minute),am=momentumScore(events,'away',minute),mt=hm+am,hp=mt?Math.round(hm/mt*100):50,ap=100-hp;
   const statRow=function(label,h,a){return '<div class="match-live-stat"><b>'+h+'</b><span>'+label+'</span><b>'+a+'</b></div>'};
-  const timeline=events.length?events.slice().sort(function(a,b){return Number(b.minute)-Number(a.minute)||Number(b.id)-Number(a.id)}).map(function(e){
+  const timeline=events.length?events.slice().sort(function(a,b){return Number(b.minute)-Number(a.minute)||String(b.id).localeCompare(String(a.id))}).map(function(e){
     const info=matchEventInfo(e),club=e.side==='home'?home:away;
-    return `<div class="match-event ${info.kind}"><span class="minute">${e.minute}'</span><span class="icon">${info.icon}</span><div><strong>${info.title}</strong><small>${sportTeamName(club.name,sport)}</small></div></div>`;
+    const clubName=sportTeamName(club.name,sport);
+    const commentary=commentatorLine(e,clubName,sport);
+    return `<div class="match-event ${info.kind}"><span class="minute">${e.minute}'</span><span class="icon">${info.icon}</span><div><strong>${info.title}</strong><small>${clubName}</small>${commentary?'<small class="commentary">'+commentary+'</small>':''}</div></div>`;
   }).join(''):'<div class="match-detail-empty">'+(m.status==='scheduled'?'Maç henüz başlamadı.':'Henüz kayda geçen önemli olay yok.')+'</div>';
 
   box.innerHTML='<div class="match-detail-hero"><button class="match-detail-close" id="matchDetailClose" aria-label="Kapat">×</button><div class="match-detail-kicker">'+sportInfo(sport).icon+' '+(sport==='efootball'?'eFootball Arena':m.country+' • '+(leagueNames[m.league_level]||'Lig'))+'</div><div class="match-detail-scoreboard"><div class="match-detail-team"><strong>'+sportTeamName(home.name,sport)+'</strong><small>GÜÇ '+home.strength+'</small></div><div class="match-detail-score"><strong>'+score+'</strong><span class="'+(m.status==='live'?'live':'')+'">'+stateLabel+'</span></div><div class="match-detail-team"><strong>'+sportTeamName(away.name,sport)+'</strong><small>GÜÇ '+away.strength+'</small></div></div></div>'+
     '<div class="match-detail-body"><div class="match-detail-insights">'+matchInsightSideHtml(home,sport)+matchInsightSideHtml(away,sport)+'</div>'+
-    (m.status!=='scheduled'?'<div class="match-detail-livegrid"><div class="match-live-panel"><h4>📈 CANLI MAÇ VERİSİ</h4><div class="match-live-stats">'+statRow('ŞUT',hs.shots,as.shots)+statRow('İSABETLİ',hs.target,as.target)+statRow('BÜYÜK FIRSAT',hs.big,as.big)+statRow('SARI KART',hs.cards,as.cards)+'</div><div style="margin-top:13px"><div class="momentum-head"><span>'+sportTeamName(home.name,sport)+' %'+hp+'</span><span>SON 18 DK BASKI</span><span>%'+ap+' '+sportTeamName(away.name,sport)+'</span></div><div class="momentum-track"><span class="momentum-home" style="width:'+hp+'%"></span><span class="momentum-away" style="width:'+ap+'%"></span></div></div></div><div class="match-live-panel"><h4>⚡ OLAY AKIŞI</h4><div class="match-timeline">'+timeline+'</div></div></div>':'<div class="match-live-panel"><h4>📋 MAÇ ÖNCESİ</h4><div class="match-detail-empty">Takımların yukarıdaki son maç verilerini okuyabilir, maç başlayınca bu ekranı canlı takip için açık tutabilirsin.</div></div>')+
+    (m.status!=='scheduled'?'<div class="match-detail-livegrid"><div class="match-live-panel"><h4>📈 CANLI MAÇ VERİSİ</h4><div class="match-live-stats">'+statRow('ŞUT',hs.shots,as.shots)+statRow('İSABETLİ',hs.target,as.target)+statRow('BÜYÜK FIRSAT',hs.big,as.big)+statRow('SARI KART',hs.cards,as.cards)+'</div><div style="margin-top:13px"><div class="momentum-head"><span>'+sportTeamName(home.name,sport)+' %'+hp+'</span><span>SON 18 DK BASKI</span><span>%'+ap+' '+sportTeamName(away.name,sport)+'</span></div><div class="momentum-track"><span class="momentum-home" style="width:'+hp+'%"></span><span class="momentum-away" style="width:'+ap+'%"></span></div></div></div><div class="match-live-panel"><h4>🎙️ SPİKER & OLAY AKIŞI</h4><div class="match-timeline">'+timeline+'</div></div></div>':'<div class="match-live-panel"><h4>📋 MAÇ ÖNCESİ</h4><div class="match-detail-empty">Takımların yukarıdaki son maç verilerini okuyabilir, maç başlayınca bu ekranı canlı takip için açık tutabilirsin.</div></div>')+
     '</div>';
   document.getElementById('matchDetailClose')?.addEventListener('click',closeMatchDetail);
 }
