@@ -4073,6 +4073,102 @@ function renderBoxingBulletinCard(b){
   '</div>';
 }
 
+
+const specialMarketNames={
+  SP_RIDVAN:'Rıdvan Dilmen maça karışır',
+  SP_PTERANODON:'Bir oyuncuyu Pteranodon kapar',
+  SP_BACKWARD_GOAL:'Geri kalmış medeniyetler adına gol atılır',
+  SP_NEW_RULE:'Arif yeni bir futbol kuralı icat eder',
+  SP_FOREIGN_OBJECT:'Futbol dışı bir cisim oyuna girer',
+  SP_SHEEP_WINNER:'Kazanan koyun',
+  SP_SHEEP_HESITATION:'Bir koyun kıyıda 5+ saniye bekler',
+  SP_SHEEP_RETURN:'Bir koyun suya girdikten sonra geri döner',
+  SP_SHEPHERD_FIRST:'Çoban koyundan önce karşı kıyıya ulaşır',
+  SP_SHEEP_CHAIN:'En az 3 koyun peş peşe suya atlar',
+  SP_SHEEP_OPPOSITE:'Bir koyun sürünün ters yönüne gider',
+  SP_SHEEP_DRAMATIC:'Gösterişli bir sıçrayış olur',
+  SP_SHEEP_JURY:'Hakem heyeti puan konusunda anlaşamaz',
+  SP_SHEEP_GRAZE:'Bir koyun yarışı bırakıp otlamaya gider',
+  SP_SHEEP_ARCH:'Arkeoloji heyeti olaya gereğinden fazla ilgi gösterir'
+};
+const specialSheepNames={KINALI:'Kınalı',KARABAS:'Karabaş',PAMUK:'Pamuk',REIS:'Reis',FISTIK:'Fıstık',MOR:'Mor Koyun'};
+function specialMarketLabel(key){return specialMarketNames[key]||key}
+function specialSelectionLabel(key,selection){
+  if(key==='SP_SHEEP_WINNER')return specialSheepNames[selection]||selection;
+  if(selection==='YES')return 'Evet';
+  if(selection==='NO')return 'Hayır';
+  if(key==='1X2')return selection;
+  return selection;
+}
+function specialMatchLabels(m){
+  return {
+    home:m?.special_home_label||'AFMB',
+    away:m?.special_away_label||'Özel Etkinlik',
+    title:m?.special_title||'AFMB Özel Etkinlik'
+  };
+}
+function renderSpecialBulletinCard(m){
+  const id=m.id,rows=onlineMarketsByMatch[id]||[],labels=specialMatchLabels(m);
+  const locked=m.status!=='scheduled';
+  const odd=(market,selection)=>{
+    const r=rows.find(x=>x.market_key===market&&x.selection_key===selection&&!x.locked);
+    return r?Number(r.odd).toFixed(2):'—';
+  };
+  const selected=(market,selection)=>picks.some(p=>p.id===id&&p.marketKey===market&&p.selectionKey===selection);
+  const pickButton=(display,label,market,selection)=>{
+    const o=odd(market,selection);
+    return '<button class="odd-btn '+(selected(market,selection)?'selected':'')+'" '+(locked||o==='—'?'disabled':'')+
+      ' data-id="'+id+'" data-label="'+label+'" data-market="'+specialMarketLabel(market)+'" data-market-key="'+market+'" data-selection-key="'+selection+
+      '" data-odd="'+o+'" data-match="'+labels.title+'" data-country="AFMB Özel" data-level="0" data-sport="special"><small>'+display+'</small>'+o+'</button>';
+  };
+  const status=formatIstanbulTime(m.kickoff_at);
+  const context='<span class="sport-badge special">'+(m.special_icon||'🎪')+' Özel Etkinlik</span><br>'+String(m.special_subtitle||'AFMB Özel Spor Programı');
+  const teams='<div class="teams"><div class="team"><span class="dot"></span><span class="team-copy"><strong>'+labels.home+'</strong><small class="special-team-note">'+(m.special_key==='AROG_FINAL'?'Tarih öncesi ev sahibi':'Katılımcı taraf')+'</small></span></div><div class="team"><span class="dot" style="background:#e9c870"></span><span class="team-copy"><strong>'+labels.away+'</strong><small class="special-team-note">'+(m.special_key==='AROG_FINAL'?'Tarih öncesi deplasman':'Etkinlik sahası')+'</small></span></div></div>';
+
+  if(m.special_key==='AROG_FINAL'){
+    const binary=[
+      ['SP_RIDVAN','🎙️'],
+      ['SP_PTERANODON','🦖'],
+      ['SP_BACKWARD_GOAL','🌍'],
+      ['SP_NEW_RULE','📜'],
+      ['SP_FOREIGN_OBJECT','🪨']
+    ];
+    const extras=binary.map(x=>'<div class="market-group"><div class="market-group-title">'+x[1]+' '+specialMarketLabel(x[0])+'</div><div class="market-grid">'+
+      pickButton('EVET','Evet',x[0],'YES')+pickButton('HAYIR','Hayır',x[0],'NO')+'</div></div>').join('');
+    return '<div class="match special special-arog">'+
+      '<div class="match-meta"><strong>'+status+'</strong><small>BOL GOLLÜ • %50/%50</small><small class="match-context">'+context+'</small></div>'+
+      teams+
+      pickButton('1',labels.home+' kazanır','1X2','1')+
+      pickButton('X','Beraberlik','1X2','X')+
+      pickButton('2',labels.away+' kazanır','1X2','2')+
+      '<div class="market-toggle-row"><button class="market-toggle" data-market-toggle="'+id+'" aria-expanded="'+openMarkets.has(id)+'"><span>'+(openMarkets.has(id)?'−':'＋')+' Tarih Öncesi Özel Marketler</span><small>Rıdvan • Pteranodon • Medeniyetler</small></button></div>'+
+      '<div class="extra-markets '+(openMarkets.has(id)?'open':'')+'">'+extras+'</div>'+
+    '</div>';
+  }
+
+  const winnerKeys=['KINALI','KARABAS','PAMUK','REIS','FISTIK','MOR'];
+  const binary=[
+    ['SP_SHEEP_HESITATION','🤔'],
+    ['SP_SHEEP_RETURN','↩️'],
+    ['SP_SHEPHERD_FIRST','🏊'],
+    ['SP_SHEEP_CHAIN','🐑'],
+    ['SP_SHEEP_OPPOSITE','🧭'],
+    ['SP_SHEEP_DRAMATIC','✨'],
+    ['SP_SHEEP_JURY','🏛️'],
+    ['SP_SHEEP_GRAZE','🌿'],
+    ['SP_SHEEP_ARCH','🏺']
+  ];
+  const winners='<div class="market-group wide"><div class="market-group-title">🏆 Kazanan Elci Koyun</div><div class="market-grid">'+winnerKeys.map(k=>pickButton(specialSheepNames[k],specialSheepNames[k]+' kazanır','SP_SHEEP_WINNER',k)).join('')+'</div></div>';
+  const extras=binary.map(x=>'<div class="market-group"><div class="market-group-title">'+x[1]+' '+specialMarketLabel(x[0])+'</div><div class="market-grid">'+
+    pickButton('EVET','Evet',x[0],'YES')+pickButton('HAYIR','Hayır',x[0],'NO')+'</div></div>').join('');
+  return '<div class="match special special-sheep">'+
+    '<div class="match-meta"><strong>'+status+'</strong><small>ÇAL • BÜYÜK MENDERES</small><small class="match-context">'+context+'</small></div>'+
+    teams+
+    '<button class="special-market-launch" data-market-toggle="'+id+'" aria-expanded="'+openMarkets.has(id)+'"><span>🐑 '+(openMarkets.has(id)?'Marketleri Kapat':'Koyun Marketlerini Aç')+'</span><small>6 koyun • 9 bağımsız olay</small></button>'+
+    '<div class="extra-markets '+(openMarkets.has(id)?'open':'')+'">'+winners+extras+'</div>'+
+  '</div>';
+}
+
 function renderOnlineBulletin(){
   const boxingBouts=boxingBulletinBouts();
   const live=onlineBulletinMatches.some(m=>m.status==='live');
@@ -4080,12 +4176,14 @@ function renderOnlineBulletin(){
   const firstBoxing=boxingBouts[0]||null;
   const subCountry=bulletinCountry==='Tümü'?'Avrupa geneli':bulletinCountry;
   const subLeague=bulletinLevel===0?'Tüm ligler':leagueNames[bulletinLevel];
-  const sportLabel=bulletinSport==='all'?'Futbol + e-Futbol + Boks':sportInfo(bulletinSport).label;
+  const sportLabel=bulletinSport==='all'?'Futbol + e-Futbol + Boks + Özel':sportInfo(bulletinSport).label;
   const bulletinSection=document.getElementById('bulletinSection');
   if(bulletinSection)bulletinSection.dataset.sport=bulletinSport;
   document.getElementById('bulletinSub').textContent=bulletinSport==='boxing'
     ?'🥊 Boks • Fight Night takvimi • Türkiye saati'
-    :`${sportLabel} • ${subCountry} • ${subLeague}`;
+    :bulletinSport==='special'
+      ?'🎪 AFMB Özel Etkinlikler • Akşam programı • Türkiye saati'
+      :`${sportLabel} • ${subCountry} • ${subLeague}`;
 
   const simBtn=document.getElementById('simulateLeague');
   simBtn.disabled=true;
@@ -4111,6 +4209,7 @@ function renderOnlineBulletin(){
   }
 
   wrap.innerHTML=onlineBulletinMatches.map(m=>{
+    if(m.sport==='special')return renderSpecialBulletinCard(m);
     const home=onlineClubsById[m.home_club_id],away=onlineClubsById[m.away_club_id];
     if(!home||!away)return '';
     const sport=m.sport||'football',info=sportInfo(sport);
@@ -4172,7 +4271,7 @@ function renderOnlineBulletin(){
     }).length;
     const liveGroup=timeKey==='LIVE';
     const label=liveGroup?`${info.icon} ${info.label.toUpperCase()} • CANLI`:`${info.icon} ${info.label} • ${timeKey}`;
-    card.insertAdjacentHTML('beforebegin',`<div class="bulletin-group-head ${liveGroup?'live':''} ${sport==='efootball'?'efootball':''}"><strong>${label}</strong><small>${count} maç</small></div>`);
+    card.insertAdjacentHTML('beforebegin',`<div class="bulletin-group-head ${liveGroup?'live':''} ${sport==='efootball'?'efootball':sport==='special'?'special':''}"><strong>${label}</strong><small>${count} ${sport==='special'?'etkinlik':'maç'}</small></div>`);
     lastGroup=groupKey;
   });
 
@@ -6699,6 +6798,10 @@ function syncBulletinLeagueFilters(){
   if(!leagueTabs||!countryTabs)return;
   const hideLeague=['efootball','boxing','special'].includes(bulletinSport);
   const hideCountry=['boxing','special'].includes(bulletinSport);
+  if(hideCountry){
+    bulletinCountry='Tümü';
+    document.querySelectorAll('.country-tab').forEach(x=>x.classList.toggle('active',x.dataset.country==='Tümü'));
+  }
   leagueTabs.hidden=hideLeague;
   leagueTabs.style.display=hideLeague?'none':'';
   countryTabs.hidden=hideCountry;
