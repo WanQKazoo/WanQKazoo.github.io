@@ -980,6 +980,13 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
 .boxing-history-main strong{display:block;font-size:10px}.boxing-history-main small{display:block;margin-top:3px;color:#7285a3;font-size:8px}.boxing-history-tags{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
 .boxing-profile-empty{padding:18px;text-align:center;color:#71839f;font-size:9px}
 @media(max-width:620px){.boxing-profile-top{display:block}.boxing-profile-record{text-align:left;margin-top:12px}.boxing-profile-stats{grid-template-columns:repeat(3,1fr)}.boxing-history-row{grid-template-columns:30px minmax(0,1fr)}.boxing-history-tags{grid-column:2;justify-content:flex-start}}
+
+/* ===== Prototype 0.53.3 — Clear Fight Night calendar ===== */
+.bulletin-group-head.boxing{align-items:center}
+.bulletin-group-head.boxing .boxing-group-copy{display:flex;flex-direction:column;gap:3px}
+.bulletin-group-head.boxing .boxing-group-copy strong{font-size:10px}
+.bulletin-group-head.boxing .boxing-group-copy em{font-style:normal;color:#ffdad6;font-size:9px;font-weight:1000;letter-spacing:.25px}
+.bulletin-group-head.boxing .boxing-group-meta{color:#a98286;font-size:8px;font-weight:900;text-align:right;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1265,7 +1272,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.53 Boxing World</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.53.3 Fight Night Calendar</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3195,7 +3202,47 @@ function boxingBulletinBouts(){
     if(bulletinSport==='boxing'||bulletinCountry==='Tümü')return true;
     const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
     return red?.country===bulletinCountry||blue?.country===bulletinCountry;
-  }).sort((a,b)=>new Date(a.scheduled_at)-new Date(b.scheduled_at)).slice(0,12);
+  }).sort((a,b)=>new Date(a.scheduled_at)-new Date(b.scheduled_at)).slice(0,15);
+}
+function istanbulDateKey(value){
+  const parts=new Intl.DateTimeFormat('en-US',{
+    timeZone:'Europe/Istanbul',year:'numeric',month:'2-digit',day:'2-digit'
+  }).formatToParts(new Date(value));
+  const get=t=>parts.find(p=>p.type===t)?.value||'';
+  return get('year')+'-'+get('month')+'-'+get('day');
+}
+function boxingDayLabel(value){
+  const target=istanbulDateKey(value);
+  const today=istanbulDateKey(Date.now());
+  const tomorrow=istanbulDateKey(Date.now()+86400000);
+  const dateText=new Intl.DateTimeFormat('tr-TR',{
+    timeZone:'Europe/Istanbul',day:'2-digit',month:'long',weekday:'long'
+  }).format(new Date(value)).toLocaleUpperCase('tr-TR');
+  if(target===today)return 'BUGÜN • '+dateText;
+  if(target===tomorrow)return 'YARIN • '+dateText;
+  return dateText;
+}
+function renderBoxingBulletinGroups(bouts){
+  const groups=[];
+  bouts.forEach(b=>{
+    let g=groups.find(x=>x.eventName===b.event_name);
+    if(!g){
+      g={eventName:b.event_name,bouts:[]};
+      groups.push(g);
+    }
+    g.bouts.push(b);
+  });
+  return groups.map(g=>{
+    g.bouts.sort((a,b)=>new Date(a.scheduled_at)-new Date(b.scheduled_at));
+    const first=g.bouts[0];
+    const hasTitle=g.bouts.some(b=>b.is_title_fight);
+    const label=boxingDayLabel(first.scheduled_at);
+    const start=formatIstanbulTime(first.scheduled_at);
+    return '<div class="bulletin-group-head boxing">'+
+      '<div class="boxing-group-copy"><strong>'+(hasTitle?'🏆':'🥊')+' '+g.eventName+'</strong><em>'+label+'</em></div>'+
+      '<div class="boxing-group-meta">'+start+' BAŞLANGIÇ<br>'+g.bouts.length+' MAÇ</div>'+
+    '</div>'+g.bouts.map(renderBoxingBulletinCard).join('');
+  }).join('');
 }
 function renderBoxingBulletinCard(b){
   const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
@@ -3252,7 +3299,7 @@ function renderOnlineBulletin(){
   const bulletinSection=document.getElementById('bulletinSection');
   if(bulletinSection)bulletinSection.dataset.sport=bulletinSport;
   document.getElementById('bulletinSub').textContent=bulletinSport==='boxing'
-    ?'🥊 Boks • AFMB Fight Night'
+    ?'🥊 Boks • Fight Night takvimi • Türkiye saati'
     :`${sportLabel} • ${subCountry} • ${subLeague}`;
 
   const simBtn=document.getElementById('simulateLeague');
@@ -3268,7 +3315,7 @@ function renderOnlineBulletin(){
     document.getElementById('simInfo').textContent=footballTime<=boxingTime&&firstScheduled
       ?`Sıradaki başlangıç • ${sportInfo(firstScheduled.sport).icon} ${matchKickoffLabel(firstScheduled.id,firstScheduled.country,firstScheduled.league_level)}`
       :firstBoxing
-        ?`Sıradaki başlangıç • 🥊 ${formatIstanbulTime(firstBoxing.scheduled_at)}`
+        ?`Sıradaki Fight Night • ${boxingDayLabel(firstBoxing.scheduled_at)} • ${formatIstanbulTime(firstBoxing.scheduled_at)}`
         :'Filtreye uygun yaklaşan karşılaşma yok';
   }
 
@@ -3345,7 +3392,7 @@ function renderOnlineBulletin(){
   });
 
   if(boxingBouts.length){
-    wrap.insertAdjacentHTML('beforeend','<div class="bulletin-group-head boxing"><strong>🥊 AFMB FIGHT NIGHT</strong><small>'+boxingBouts.length+' maç</small></div>'+boxingBouts.map(renderBoxingBulletinCard).join(''));
+    wrap.insertAdjacentHTML('beforeend',renderBoxingBulletinGroups(boxingBouts));
   }
 
   bindClubLinks(wrap);
