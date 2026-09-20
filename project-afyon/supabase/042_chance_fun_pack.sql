@@ -100,3 +100,47 @@ begin
   );
 end;
 $function$;
+
+
+-- Keep unused legacy RPCs aligned with the current frontend rules.
+do $$
+declare
+  v_def text;
+begin
+  select pg_get_functiondef(p.oid) into v_def
+  from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+  where n.nspname='public' and p.proname='afmb_penalty_action';
+  if v_def is not null then
+    v_def:=replace(
+      v_def,
+      'v_multiplier:=round(0.92 * power(1.50::numeric,v_goals),2);',
+      'v_multiplier:=case when v_goals>=5 then 7.00 else round(0.92 * power(1.50::numeric,v_goals),2) end;'
+    );
+    execute v_def;
+  end if;
+
+  select pg_get_functiondef(p.oid) into v_def
+  from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+  where n.nspname='public' and p.proname='chance_session_action';
+  if v_def is not null then
+    v_def:=replace(v_def,'0.90 + 0.08*v_elapsed','1.00 + 0.08*v_elapsed');
+    execute v_def;
+  end if;
+
+  select pg_get_functiondef(p.oid) into v_def
+  from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+  where n.nspname='public' and p.proname='chance_session_status';
+  if v_def is not null then
+    v_def:=replace(v_def,'0.90 + 0.08*v_elapsed','1.00 + 0.08*v_elapsed');
+    execute v_def;
+  end if;
+
+  select pg_get_functiondef(p.oid) into v_def
+  from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+  where n.nspname='public' and p.proname='start_chance_session';
+  if v_def is not null then
+    v_def:=replace(v_def,'''multiplier'',0.90,''started_at''','''multiplier'',1.00,''started_at''');
+    execute v_def;
+  end if;
+end
+$$;
