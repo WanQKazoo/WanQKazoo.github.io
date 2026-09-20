@@ -434,8 +434,22 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
 /* Marble race */
 .race-stage-polish{background:#0a1321!important}
 .race-broadcast{padding:9px 11px;border-bottom:1px solid #26364e;background:linear-gradient(180deg,#152238,#0e1829);display:flex;justify-content:space-between;gap:10px;align-items:center}.race-broadcast strong{font-size:9px}.race-broadcast span{color:#6c819f;font-size:7px;font-weight:1000}
-.race-track.polished{padding:10px;gap:5px}.race-lane.polished{height:29px;border-radius:8px;background:linear-gradient(90deg,#111e31,#0e1929);border-color:#293b57}.race-lane.polished.selected{border-color:#78642d;box-shadow:inset 3px 0 #ffd166}.race-lane.polished.winner{border-color:#4db38f;background:#15362e}
-.race-number{position:absolute;left:5px;top:5px;width:18px;height:18px;display:grid;place-items:center;border-radius:5px;background:#21304a;color:#8fa2be;font-size:7px;font-weight:1000}.race-lane .racer{left:31px;top:3px;font-size:17px;z-index:2}.race-lane .race-label{right:27px;top:8px}.race-finish{position:absolute;right:14px;top:0;bottom:0;width:8px;background:repeating-conic-gradient(#dce4f1 0 25%,#26344a 0 50%) 50%/6px 6px;opacity:.45}
+.race-track.polished{padding:10px;gap:6px}.race-lane.polished{height:32px;border-radius:9px;background:linear-gradient(90deg,#111e31,#0e1929);border-color:#293b57}.race-lane.polished.selected{border-color:#78642d;box-shadow:inset 3px 0 #ffd166,0 0 0 1px rgba(255,209,102,.06)}.race-lane.polished.winner{border-color:#4db38f;background:linear-gradient(90deg,#15362e,#102a24);box-shadow:inset 3px 0 #63e6be,0 0 22px rgba(99,230,190,.07)}
+.race-number{position:absolute;left:5px;top:6px;width:18px;height:18px;display:grid;place-items:center;border-radius:5px;background:#21304a;color:#8fa2be;font-size:7px;font-weight:1000}
+.race-lane .racer{left:31px;top:5px;width:20px;height:20px;border-radius:50%;z-index:3;font-size:0;color:transparent;display:block;transform:translate3d(0,0,0);transition:transform 2.05s cubic-bezier(.12,.70,.18,1);will-change:transform;box-shadow:inset 0 2px 4px rgba(255,255,255,.34),inset 0 -3px 6px rgba(0,0,0,.30),0 5px 9px rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.20)}
+.race-lane .racer:before{content:"";position:absolute;left:4px;top:3px;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.54);filter:blur(.15px)}
+.race-lane[data-race-key="BLUE"] .racer{background:radial-gradient(circle at 32% 28%,#bce5ff 0 10%,#5bb7f1 25%,#2477bd 62%,#12456f 100%)}
+.race-lane[data-race-key="RED"] .racer{background:radial-gradient(circle at 32% 28%,#ffb1b5 0 10%,#dc5f6a 25%,#9f2938 62%,#541723 100%)}
+.race-lane[data-race-key="YELLOW"] .racer{background:radial-gradient(circle at 32% 28%,#fff2ae 0 10%,#ffd45f 25%,#d29a1e 62%,#71500b 100%)}
+.race-lane[data-race-key="GREEN"] .racer{background:radial-gradient(circle at 32% 28%,#b8f4da 0 10%,#5fd7ac 25%,#248b69 62%,#114b39 100%)}
+.race-lane[data-race-key="PURPLE"] .racer{background:radial-gradient(circle at 32% 28%,#e4c8ff 0 10%,#ad79e8 25%,#7141a8 62%,#3a205c 100%)}
+.race-lane[data-race-key="ORANGE"] .racer{background:radial-gradient(circle at 32% 28%,#ffd6a6 0 10%,#f59b42 25%,#c45c16 62%,#6b2f0b 100%)}
+.race-lane[data-race-key="WHITE"] .racer{background:radial-gradient(circle at 32% 28%,#ffffff 0 12%,#e9eef5 30%,#a8b6c8 66%,#657286 100%);border-color:rgba(255,255,255,.5)}
+.race-lane[data-race-key="BLACK"] .racer{background:radial-gradient(circle at 32% 28%,#8e9aad 0 8%,#414b5c 28%,#171d27 65%,#05080d 100%);border-color:#657187}
+.race-lane.racing .racer{filter:drop-shadow(-8px 0 5px rgba(116,192,252,.10))}
+.race-lane.winner .racer{box-shadow:inset 0 2px 4px rgba(255,255,255,.36),inset 0 -3px 6px rgba(0,0,0,.28),0 0 0 3px rgba(99,230,190,.10),0 0 16px rgba(99,230,190,.28)}
+.race-lane .race-label{right:27px;top:9px}.race-finish{position:absolute;right:14px;top:0;bottom:0;width:8px;background:repeating-conic-gradient(#dce4f1 0 25%,#26344a 0 50%) 50%/6px 6px;opacity:.45}
+@media(max-width:520px){.race-lane .racer{transition-duration:2.2s;transition-timing-function:cubic-bezier(.10,.68,.16,1)}.race-lane.polished{height:31px}.race-lane .race-label{top:9px}}
 
 /* Coin */
 .coin-stage-polish{background:radial-gradient(circle at 50% 55%,#26334b,#0b1424 68%)!important}
@@ -5447,15 +5461,21 @@ async function animateChanceResult(gameKey,result){
   const game=chanceGames[gameKey],winner=result.result?.winner;
   if(game.type==='race'){
     const lanes=[...document.querySelectorAll('.race-lane')];
-    lanes.forEach(lane=>{
+    const targets=lanes.map(lane=>{
       const racer=lane.querySelector('.racer');
-      const pct=lane.dataset.raceKey===winner?91:(52+Math.floor(Math.random()*34));
+      const won=lane.dataset.raceKey===winner;
+      const ratio=won?1:(.55+Math.random()*.32);
+      const travel=Math.max(72,lane.clientWidth-92);
+      racer.style.transitionDelay=(Math.random()*.09).toFixed(2)+'s';
+      racer.style.transform='translate3d(0,0,0)';
       lane.classList.add('racing');
-      racer.style.left=pct+'%';
+      return {lane,racer,target:Math.round(travel*ratio),won};
     });
-    await chanceWait(2050);
-    lanes.forEach(lane=>lane.classList.toggle('winner',lane.dataset.raceKey===winner));
-    await chanceWait(250);
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    targets.forEach(x=>x.racer.style.transform='translate3d('+x.target+'px,0,0)');
+    await chanceWait(2280);
+    targets.forEach(x=>x.lane.classList.toggle('winner',x.won));
+    await chanceWait(300);
   }else if(game.type==='coin'){
     const coin=document.getElementById('chanceCoin');
     const face=document.getElementById('chanceCoinFace');
