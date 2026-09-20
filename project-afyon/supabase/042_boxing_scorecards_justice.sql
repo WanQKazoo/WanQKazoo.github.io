@@ -231,7 +231,7 @@ declare
   v_pre_old_loser numeric;
   v_new_gain numeric;
   v_new_loss numeric;
-  c public.coupons%rowtype;
+  v_coupon public.coupons%rowtype;
 begin
   select b.* into v_bout
   from public.boxing_bouts b
@@ -290,25 +290,25 @@ begin
         updated_at=now()
     where id=v_bout.id;
 
-    for c in
-      select c.*
-      from public.coupons c
-      join public.coupon_selections cs on cs.coupon_id=c.id
+    for v_coupon in
+      select cp.*
+      from public.coupons cp
+      join public.coupon_selections cs on cs.coupon_id=cp.id
       where cs.bout_id=v_bout.id
         and cs.market_key='BOX_WIN'
         and cs.selection_key='BLUE'
-        and c.status='lost'
-        and c.payout=0
-        and (select count(*) from public.coupon_selections x where x.coupon_id=c.id)=1
+        and cp.status='lost'
+        and cp.payout=0
+        and (select count(*) from public.coupon_selections x where x.coupon_id=cp.id)=1
       for update
     loop
       update public.coupons
       set status='won',payout=possible_return,settled_at=now()
-      where id=c.id;
+      where id=v_coupon.id;
 
       update public.wallets
-      set balance=balance+c.possible_return,updated_at=now()
-      where user_id=c.user_id;
+      set balance=balance+v_coupon.possible_return,updated_at=now()
+      where user_id=v_coupon.user_id;
     end loop;
   end if;
 end;
