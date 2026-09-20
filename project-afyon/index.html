@@ -1982,6 +1982,232 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   }
 }
 
+
+
+/* ===== Prototype 0.58 — AFMB Lunapark Fun Pack ===== */
+.chance-new-zone{
+  position:relative;
+  padding-top:18px!important;
+}
+.chance-new-zone:before{
+  content:"YENİ";
+  position:absolute;
+  right:2px;
+  top:17px;
+  color:rgba(99,230,190,.055);
+  font-size:42px;
+  font-weight:1000;
+  letter-spacing:-2px;
+  pointer-events:none;
+}
+.chance-new-card{
+  position:relative;
+  overflow:hidden;
+  border-color:#35516a!important;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(99,230,190,.08),transparent 31%),
+    linear-gradient(150deg,#122038,#0e1728)!important;
+}
+.chance-new-card:after{
+  content:"";
+  position:absolute;
+  inset:auto 10px 8px 10px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,#63e6be,transparent);
+  opacity:.22;
+}
+.chance-new-card .tag{color:#7ee7c7!important}
+
+/* Müfettişten Kaçış */
+.inspector-shell{display:grid;gap:12px}
+.inspector-building{
+  position:relative;
+  overflow:hidden;
+  min-height:248px;
+  padding:18px;
+  border:1px solid #324763;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg,rgba(122,147,180,.06),transparent 28%),
+    repeating-linear-gradient(90deg,transparent 0 32%,rgba(255,255,255,.018) 32% 33%),
+    linear-gradient(180deg,#121e31,#0b1423);
+}
+.inspector-building:before{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;height:34%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.19));
+  pointer-events:none;
+}
+.inspector-sign{
+  position:relative;
+  z-index:1;
+  margin-bottom:18px;
+  color:#8ca0bd;
+  font-size:8px;
+  font-weight:1000;
+  letter-spacing:1px;
+  text-align:center;
+}
+.inspector-doors{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.inspector-door{
+  min-height:132px;
+  border:1px solid #3a506d;
+  border-radius:12px 12px 4px 4px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.035),transparent 15% 85%,rgba(0,0,0,.16)),
+    linear-gradient(180deg,#263750,#17253a);
+  color:#d9e4f4;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 12px 22px rgba(0,0,0,.17);
+  transition:transform .16s,border-color .16s,background .16s;
+}
+.inspector-door:not(:disabled):hover{transform:translateY(-3px);border-color:#6a87a9}
+.inspector-door strong{display:block;margin-top:24px;font-size:11px}
+.inspector-door small{display:block;margin-top:14px;font-size:22px}
+.inspector-door .door-light{
+  display:block;width:8px;height:8px;margin:10px auto 0;border-radius:50%;
+  background:#54657d;box-shadow:0 0 0 4px rgba(84,101,125,.12)
+}
+.inspector-door.safe{border-color:#3a9e81;background:linear-gradient(180deg,#153d35,#142a31)}
+.inspector-door.safe .door-light{background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.12)}
+.inspector-door.caught{border-color:#9f4455;background:linear-gradient(180deg,#431d27,#241827);animation:inspectorShake .28s ease}
+.inspector-door.caught .door-light{background:#ff6474;box-shadow:0 0 0 4px rgba(255,100,116,.12)}
+.inspector-caption{
+  position:relative;z-index:1;
+  margin-top:16px;
+  color:#8698b4;
+  font-size:9px;
+  font-weight:850;
+  text-align:center;
+}
+.inspector-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.inspector-progress span{height:6px;border-radius:999px;background:#22324a}
+.inspector-progress span.on{background:#63e6be;box-shadow:0 0 14px rgba(99,230,190,.22)}
+@keyframes inspectorShake{0%,100%{transform:translateX(0)}30%{transform:translateX(-4px)}70%{transform:translateX(4px)}}
+
+/* AFMB Kasa Kırma */
+.vault-shell{display:grid;gap:12px}
+.vault-door{
+  min-height:274px;
+  padding:22px 20px;
+  border:1px solid #4d5366;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 25%,rgba(255,209,102,.08),transparent 30%),
+    linear-gradient(145deg,#272d3a,#141c2b 65%,#0f1827);
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.018),inset 0 0 40px rgba(0,0,0,.25);
+}
+.vault-dial{
+  width:58px;height:58px;margin:0 auto 18px;
+  display:grid;place-items:center;
+  border:5px solid #4a5262;border-radius:50%;
+  background:#141c29;
+  font-size:26px;
+  box-shadow:inset 0 0 0 3px #1e2938,0 8px 20px rgba(0,0,0,.25)
+}
+.vault-meter{
+  position:relative;
+  height:30px;
+  margin:16px 0 6px;
+  border:1px solid #40516a;
+  border-radius:999px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 9.5%,rgba(255,255,255,.045) 9.5% 10%),
+    linear-gradient(180deg,#0b1422,#111e31);
+  overflow:visible;
+}
+.vault-target{
+  position:absolute;top:3px;bottom:3px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#2f8f75,#63e6be,#2f8f75);
+  box-shadow:0 0 18px rgba(99,230,190,.26);
+}
+.vault-needle{
+  position:absolute;top:-7px;bottom:-7px;width:3px;
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(255,255,255,.09),0 0 16px rgba(255,255,255,.45);
+  transform:translateX(-50%);
+}
+.vault-needle:before{
+  content:"";position:absolute;top:-5px;left:50%;transform:translateX(-50%);
+  width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #fff;
+}
+.vault-needle.hit{background:#63e6be;box-shadow:0 0 18px rgba(99,230,190,.6)}
+.vault-needle.miss{background:#ff6474;box-shadow:0 0 18px rgba(255,100,116,.55)}
+.vault-scale{display:flex;justify-content:space-between;color:#657995;font-size:7px;font-weight:900}
+.vault-stop{
+  display:block;width:100%;margin-top:18px;
+  border:1px solid #8d3f4c;border-radius:12px;
+  background:linear-gradient(180deg,#53202b,#321722);
+  color:#ffe7ea;padding:13px;
+  font-size:12px;font-weight:1000;letter-spacing:.7px;
+  box-shadow:0 10px 26px rgba(82,21,34,.22);
+}
+.vault-stop:not(:disabled):active{transform:scale(.985)}
+.vault-caption{margin-top:12px;color:#8799b3;font-size:9px;font-weight:850;text-align:center}
+
+/* Mühür Nerede? */
+.memory-shell{display:grid;gap:12px}
+.memory-board{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  padding:14px;
+  border:1px solid #344761;
+  border-radius:17px;
+  background:
+    linear-gradient(180deg,rgba(126,153,194,.05),transparent 28%),
+    #0d1727;
+}
+.memory-file{
+  min-height:112px;
+  border:1px solid #31445f;
+  border-radius:11px;
+  background:linear-gradient(160deg,#17263c,#101a2a);
+  color:#dce6f4;
+  transition:transform .15s,border-color .15s,background .15s;
+}
+.memory-file:not(:disabled):hover{transform:translateY(-2px);border-color:#607a9d}
+.memory-file .memory-folder{display:block;font-size:30px;filter:drop-shadow(0 5px 10px rgba(0,0,0,.2))}
+.memory-file strong{display:block;margin-top:7px;font-size:9px;letter-spacing:.7px}
+.memory-file small{display:block;margin-top:4px;color:#647894;font-size:7px;font-weight:900}
+.memory-file.approved{
+  border-color:#4ac69e;
+  background:linear-gradient(160deg,#174136,#102a2a);
+  box-shadow:0 0 0 1px rgba(99,230,190,.08),0 0 24px rgba(99,230,190,.09)
+}
+.memory-file.approved small{color:#80ebc9}
+.memory-file.wrong{
+  border-color:#954151;
+  background:linear-gradient(160deg,#421e29,#221827);
+  animation:inspectorShake .28s ease
+}
+.memory-caption{
+  min-height:18px;
+  color:#899bb6;
+  font-size:9px;font-weight:900;
+  text-align:center
+}
+
+@media(max-width:620px){
+  .inspector-building{min-height:220px;padding:13px}
+  .inspector-doors{gap:7px}
+  .inspector-door{min-height:118px}
+  .inspector-door strong{font-size:9px}
+  .vault-door{min-height:248px;padding:18px 14px}
+  .memory-board{gap:7px;padding:10px}
+  .memory-file{min-height:94px}
+  .memory-file .memory-folder{font-size:25px}
+}
+
 </style>
 </head>
 <body>
@@ -2247,7 +2473,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
             <section class="chance-arcade-section featured">
               <div class="chance-arcade-head"><div><small>ÖNE ÇIKAN</small><strong>Bu gece AFMB Lunaparkı</strong></div><span>Risk sana ait, tutanak kuruma.</span></div>
               <div class="chance-feature-grid">
-                <button class="chance-card chance-card-hero" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Roket yükselirken herkes sakindir. 3.20’den sonra aynı kişiler “biraz daha gider” uzmanına dönüşmektedir.</p><span class="odds">Ne zaman çıkacağını sen seç</span><span class="chance-cta">UÇUŞA GİT →</span></button>
+                <button class="chance-card chance-card-hero" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Roket ×1.00’dan kalkar. Yükseldikçe özgüven de yükselir; AFMB ikincisinden daha çok çekinmektedir.</p><span class="odds">×1.00 başlangıç • çıkışı sen seç</span><span class="chance-cta">UÇUŞA GİT →</span></button>
                 <button class="chance-card chance-card-feature" data-open-game="marble_race"><span class="icon">🔵</span><span class="tag">AFMB KLASİĞİ</span><h3>Bilye Ligi</h3><p>Sekiz bilye devlet ciddiyetiyle yokuşa bırakılır.</p><span class="odds">Kazanan: ×6.00</span></button>
                 <button class="chance-card chance-card-feature" data-open-game="mines"><span class="icon">💣</span><span class="tag">RİSKİ SEN YÖNET</span><h3>Afyon Mayın Tarlası</h3><p>“Bir kutu daha” ifadesi yine kırmızıyla işaretli.</p><span class="odds">Devam et veya çık</span></button>
               </div>
@@ -2256,8 +2482,16 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
               <div class="chance-arcade-head"><div><small>RİSK MASASI</small><strong>Karar verdikçe büyüyen oyunlar</strong></div><span>Çıkmayı bilmek de oyundur.</span></div>
               <div class="chance-arcade-grid">
                 <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Kart yükselir mi düşer mi? Özgüven üçüncü elde başlar.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
-                <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">Gol at • devam et veya çık</span></button>
+                <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">5/5 final: ×7.00 • istediğin an çık</span></button>
                 <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
+              </div>
+            </section>
+            <section class="chance-arcade-section chance-new-zone">
+              <div class="chance-arcade-head"><div><small>YENİ • DENEYSEL SERVİS</small><strong>AFMB sinir sistemini test ediyor</strong></div><span>Karar, refleks ve hafıza aynı koridorda.</span></div>
+              <div class="chance-arcade-grid">
+                <button class="chance-card chance-new-card" data-open-game="inspector_escape"><span class="icon">🕵️</span><span class="tag">KAÇIŞ SERİSİ</span><h3>Müfettişten Kaçış</h3><p>Üç kapıdan birinde müfettiş. Güvenli kapıyı seç, kata çık veya parayı al.</p><span class="odds">5 kat • final ×7.20</span></button>
+                <button class="chance-card chance-new-card" data-open-game="vault_crack"><span class="icon">🔐</span><span class="tag">ZAMANLAMA</span><h3>AFMB Kasa Kırma</h3><p>İbreyi yeşil bölgede durdur. Her tur hedef küçülür, çarpan büyür.</p><span class="odds">4 kilit • final ×5.50</span></button>
+                <button class="chance-card chance-new-card" data-open-game="stamp_memory"><span class="icon">🗂️</span><span class="tag">HAFIZA</span><h3>Mühür Nerede?</h3><p>Onaylı dosyayı gör, kapaklar kapanınca doğru olanı hatırla.</p><span class="odds">5 tur • final ×6.00</span></button>
               </div>
             </section>
             <section class="chance-arcade-section quick">
@@ -2328,7 +2562,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.4 Mobile Slip Hotfix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.58 AFMB Lunapark Fun Pack</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2458,6 +2692,9 @@ const chanceGames={
   rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
   penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; kaçırınca dosya sessizce kapatılır.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
+  inspector_escape:{title:'Müfettişten Kaçış',desc:'Her katta üç kapı var. Birinin arkasında müfettiş bekliyor. Doğru kapıyı bul, bir üst kata kaç veya kazancını al.',emoji:'🕵️',type:'inspector',mode:'session',choices:[]},
+  vault_crack:{title:'AFMB Kasa Kırma',desc:'İbre hareket ediyor, yeşil bölge daralıyor. Tam zamanında DUR de; yanlış anda basarsan kasa değil bütçe açılır.',emoji:'🔐',type:'vault',mode:'session',choices:[]},
+  stamp_memory:{title:'Mühür Nerede?',desc:'Onaylı dosyayı kısa süre gör, kapaklar kapanınca doğru dosyayı bul. Her tur AFMB hafızana daha az süre tanır.',emoji:'🗂️',type:'memory',mode:'session',choices:[]},
   zabita_raid:{title:'Zabıta Baskını',desc:'Simit, mısır veya kestane. Zabıta yalnızca birine gider; AFMB esnaf dayanışmasına karışmamaktadır. • ×1.40',emoji:'🚨',type:'raid',mode:'single',choices:[['SIMIT','🥨 Simit'],['MISIR','🌽 Mısır'],['KESTANE','🌰 Kestane']]},
   afmb_wheel:{title:'AFMB Çarkı',desc:'Emekli oyun',emoji:'🏛️',type:'wheel',mode:'single',choices:[],retired:true},
   memur_box:{title:'Hangi Kutuda Memur Var?',desc:'Üç kutudan birinde memur bulunmaktadır. Diğer kutular hakkında Bilgi Edinme başvuruları sonuçsuz kalmıştır. • ×2.40',emoji:'📦',type:'boxes',mode:'single',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
@@ -2845,7 +3082,7 @@ function getClubNames(country,level){
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
-let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
+let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
@@ -6471,6 +6708,9 @@ function chanceHistorySummary(x){
   if(x.game_key==='rocket')return 'Patlama ×'+Number(x.result?.crash_multiplier||0).toFixed(2);
   if(x.game_key==='high_card')return (x.result?.streak??0)+' doğru tahmin';
   if(x.game_key==='penalty_series')return (x.result?.goals??0)+' gol';
+  if(x.game_key==='inspector_escape')return (x.result?.floors??0)+' kat kaçış';
+  if(x.game_key==='vault_crack')return (x.result?.locks??0)+' kilit';
+  if(x.game_key==='stamp_memory')return (x.result?.rounds??0)+' doğru dosya';
   if(x.game_key==='zabita_raid')return (x.result?.winner==='SAFE'?'Kurtuldun':'Yakalandın')+' • Baskın: '+chanceLabel('zabita_raid',x.result?.raided);
   if(x.game_key==='bureaucracy_hurdles')return (x.result?.hurdles??0)+' engel';
   return chanceLabel(x.game_key,x.result?.winner);
@@ -6498,9 +6738,14 @@ function clearRocketTimers(){
   if(rocketPollTimer){clearTimeout(rocketPollTimer);rocketPollTimer=null}
   rocketPollBusy=false;
 }
+function clearChanceAuxTimers(){
+  if(chanceAuxFrame){cancelAnimationFrame(chanceAuxFrame);chanceAuxFrame=null}
+  if(chanceAuxTimer){clearTimeout(chanceAuxTimer);chanceAuxTimer=null}
+}
 function openChanceGame(gameKey){
   if(!chanceGames[gameKey]||chanceGames[gameKey].retired)return;
   clearRocketTimers();
+  clearChanceAuxTimers();
   activeChanceSession=null;
   activeChanceGame=gameKey;
   activeChanceChoice=chanceGames[gameKey].choices[0]?.[0]||null;
@@ -6531,6 +6776,7 @@ function closeChanceGame(){
     return;
   }
   clearRocketTimers();
+  clearChanceAuxTimers();
   document.getElementById('chanceModal').classList.remove('open');
 }
 function updateChancePlayLabel(){
@@ -6547,7 +6793,7 @@ function updateChancePlayLabel(){
       btn.textContent='PARAYI AL • '+money(payout)+' • ×'+x;
       btn.classList.add('session-cashout');
     }
-    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1));
+    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1)||(activeChanceGame==='inspector_escape'&&Number(activeChanceSession.floors||0)<1)||(activeChanceGame==='vault_crack'&&Number(activeChanceSession.locks||0)<1)||(activeChanceGame==='stamp_memory'&&Number(activeChanceSession.rounds||0)<1));
     return;
   }
   btn.disabled=chanceBusy;
@@ -6592,8 +6838,8 @@ function prepareChanceStage(gameKey){
       <span class="rocket-axis a1">1.00×</span><span class="rocket-axis a2">2.00×</span><span class="rocket-axis a3">3.00×</span><span class="rocket-axis a4">4.00×</span>
       <div class="rocket-center">
         <span class="rocket-phase" id="rocketPhase">KALKIŞA HAZIR</span>
-        <div class="rocket-multiplier" id="rocketMultiplier">×0.90</div>
-        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake*.90))} potansiyel</span>
+        <div class="rocket-multiplier" id="rocketMultiplier">×1.00</div>
+        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake))} potansiyel</span>
       </div>
       <div class="rocket-object" id="rocketObject">🚀</div>
       <div class="rocket-caption"><span>AFMB UZAY PROGRAMI</span><span id="rocketTelemetry">SİNYAL BEKLENİYOR</span></div>
@@ -6604,6 +6850,15 @@ function prepareChanceStage(gameKey){
   }else if(game.type==='penalty'){
     stage.classList.add('game-polish','penalty-stage-polish');
     stage.innerHTML='<div class="penalty-shell polished"><div class="game-hud"><div class="game-hud-stat"><small>SERİ</small><strong id="penaltyScore">0 / 5 GOL</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="penaltyMultiplier">×0.92</strong></div></div><div class="penalty-progress" id="penaltyProgress">'+Array.from({length:5},(_,i)=>'<span data-penalty-progress="'+i+'"></span>').join('')+'</div><div class="penalty-stadium"><div class="penalty-pitch polished" id="penaltyPitch"><div class="penalty-goal polished"></div><div class="penalty-keeper" id="penaltyKeeper">🧤</div><div class="penalty-ball" id="penaltyBall">⚽</div><div class="penalty-callout" id="penaltyCallout">VUR!</div></div></div><div class="penalty-kicks polished"><button class="penalty-kick" data-penalty-kick="LEFT" disabled>↙ SOL KÖŞE</button><button class="penalty-kick" data-penalty-kick="CENTER" disabled>⬆ ORTA</button><button class="penalty-kick" data-penalty-kick="RIGHT" disabled>SAĞ KÖŞE ↘</button></div></div>';
+  }else if(game.type==='inspector'){
+    stage.classList.add('game-polish','inspector-stage-polish');
+    stage.innerHTML='<div class="inspector-shell"><div class="game-hud"><div class="game-hud-stat"><small>KAT</small><strong id="inspectorFloor">0 / 5</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="inspectorMultiplier">×1.00</strong></div></div><div class="inspector-building"><div class="inspector-sign">AFMB DENETİM KORİDORU</div><div class="inspector-doors">'+[0,1,2].map(i=>'<button class="inspector-door" data-inspector-door="'+i+'" disabled><span class="door-light"></span><strong>'+(i+1)+'. KAPI</strong><small>?</small></button>').join('')+'</div><div class="inspector-caption" id="inspectorCaption">Müfettiş henüz kata çıkmadı. Kaçış kapını seç.</div></div><div class="inspector-progress">'+Array.from({length:5},(_,i)=>'<span data-inspector-progress="'+i+'"></span>').join('')+'</div></div>';
+  }else if(game.type==='vault'){
+    stage.classList.add('game-polish','vault-stage-polish');
+    stage.innerHTML='<div class="vault-shell"><div class="game-hud"><div class="game-hud-stat"><small>KİLİT</small><strong id="vaultLocks">0 / 4</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="vaultMultiplier">×1.00</strong></div></div><div class="vault-door"><div class="vault-dial">🔐</div><div class="vault-meter" id="vaultMeter"><span class="vault-target" id="vaultTarget"></span><span class="vault-needle" id="vaultNeedle"></span></div><div class="vault-scale"><span>0</span><span>50</span><span>100</span></div><button class="vault-stop" data-vault-stop disabled>🛑 DUR</button><div class="vault-caption" id="vaultCaption">İbreyi yeşil bölgede durdur. Her kilitte hedef daralır.</div></div></div>';
+  }else if(game.type==='memory'){
+    stage.classList.add('game-polish','memory-stage-polish');
+    stage.innerHTML='<div class="memory-shell"><div class="game-hud"><div class="game-hud-stat"><small>TUR</small><strong id="memoryRound">0 / 5</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="memoryMultiplier">×1.00</strong></div></div><div class="memory-board" id="memoryBoard">'+Array.from({length:6},(_,i)=>'<button class="memory-file" data-memory-file="'+i+'" disabled><span class="memory-folder">📁</span><strong>DOSYA</strong><small>GİZLİ</small></button>').join('')+'</div><div class="memory-caption" id="memoryCaption">Onaylı dosya kısa süre açılacak. Yerini unutma.</div></div>';
   }else if(game.type==='raid'){
     stage.classList.add('game-polish','raid-stage-polish');
     const stallEmoji={SIMIT:'🥨',MISIR:'🌽',KESTANE:'🌰'};
@@ -6705,7 +6960,7 @@ function randomFrom(items){return items[Math.floor(Math.random()*items.length)]}
 function roundChance(value){return Math.round(Number(value)*100)/100}
 function localMinesMultiplier(safeCount){return roundChance(0.85*Math.pow(1.09,safeCount))}
 function localHighCardMultiplier(streak){return roundChance(0.90*Math.pow(1.28,streak))}
-function localPenaltyMultiplier(goals){return roundChance(0.92*Math.pow(1.50,goals))}
+function localPenaltyMultiplier(goals){return goals>=5?7.00:roundChance(0.92*Math.pow(1.50,goals))}
 async function settleLocalChance(session,choice,result,multiplier){
   const {data,error}=await supabaseClient.rpc('settle_local_chance_game',{
     p_client_id:session.session_id,
@@ -6732,7 +6987,7 @@ async function startChanceSession(){
     game_key:gameKey,
     status:'active',
     stake,
-    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:0.90
+    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:1.00
   };
 
   if(gameKey==='mines'){
@@ -6749,6 +7004,12 @@ async function startChanceSession(){
     Object.assign(session,{crash_multiplier:crash,started_at:new Date().toISOString()});
   }else if(gameKey==='penalty_series'){
     Object.assign(session,{goals:0});
+  }else if(gameKey==='inspector_escape'){
+    Object.assign(session,{floors:0});
+  }else if(gameKey==='vault_crack'){
+    Object.assign(session,{locks:0,vault_pos:0,target_center:50,target_width:30});
+  }else if(gameKey==='stamp_memory'){
+    Object.assign(session,{rounds:0,target_file:-1,revealing:false});
   }
 
   activeChanceSession=session;
@@ -6761,11 +7022,17 @@ async function startChanceSession(){
   if(gameKey==='high_card')activateHighCard();
   if(gameKey==='rocket')activateRocket();
   if(gameKey==='penalty_series')activatePenalty();
+  if(gameKey==='inspector_escape')activateInspectorEscape();
+  if(gameKey==='vault_crack')activateVaultCrack();
+  if(gameKey==='stamp_memory')activateStampMemory();
 
   setChanceResult(
     gameKey==='mines'?'5 mayın lokal olarak gizlendi. Kutunu seç. 💣':
     gameKey==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':
     gameKey==='penalty_series'?'Top sende. Köşeyi seç ve vur. ⚽':
+    gameKey==='inspector_escape'?'Müfettiş koridora çıktı. Üç kapıdan birini seç. 🕵️':
+    gameKey==='vault_crack'?'İbre hareket ediyor. Yeşil bölgede DUR de. 🔐':
+    gameKey==='stamp_memory'?'Onaylı dosyayı gör ve yerini unutma. 🗂️':
     'Roket kalktı! Patlamadan parayı al. 🚀'
   );
   updateChancePlayLabel();
@@ -6987,16 +7254,272 @@ async function takePenalty(choice){
     chanceBusy=false;updateChancePlayLabel();
   }
 }
+
+const inspectorMultipliers=[1.30,1.80,2.60,4.20,7.20];
+function updateInspectorUx(){
+  const floors=Number(activeChanceSession?.floors||0);
+  const floorEl=document.getElementById('inspectorFloor');
+  const multEl=document.getElementById('inspectorMultiplier');
+  const caption=document.getElementById('inspectorCaption');
+  if(floorEl)floorEl.textContent=floors+' / 5';
+  if(multEl)multEl.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+  document.querySelectorAll('[data-inspector-progress]').forEach((x,i)=>x.classList.toggle('on',i<floors));
+  if(caption&&floors>0)caption.textContent=floors+' kat atlatıldı. Müfettiş hâlâ peşinde.';
+}
+function activateInspectorEscape(){
+  updateInspectorUx();
+  document.querySelectorAll('[data-inspector-door]').forEach(btn=>{
+    btn.disabled=false;
+    btn.addEventListener('click',()=>pickInspectorDoor(Number(btn.dataset.inspectorDoor)));
+  });
+}
+async function pickInspectorDoor(choice){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  document.querySelectorAll('[data-inspector-door]').forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  const inspector=Math.floor(Math.random()*3);
+  const doors=[...document.querySelectorAll('[data-inspector-door]')];
+  doors.forEach((door,i)=>{
+    door.classList.remove('safe','caught');
+    const small=door.querySelector('small');
+    if(i===inspector){door.classList.add('caught');if(small)small.textContent='🕵️';}
+    else {door.classList.add('safe');if(small)small.textContent='✓';}
+  });
+  const caption=document.getElementById('inspectorCaption');
+  await chanceWait(420);
+  try{
+    if(choice===inspector){
+      if(caption)caption.textContent='Müfettiş kapıyı açtı. Kaçış tutanağı burada sona erdi.';
+      await settleLocalChance(activeChanceSession,String(choice),{floors:Number(activeChanceSession.floors||0),caught_door:inspector},0);
+      setChanceResult('🕵️ Yakalandın. '+Number(activeChanceSession.floors||0)+' katlık kaçış sona erdi.','loss');
+      await finishChanceSession();
+      return;
+    }
+    activeChanceSession.floors=Number(activeChanceSession.floors||0)+1;
+    activeChanceSession.multiplier=inspectorMultipliers[activeChanceSession.floors-1];
+    updateInspectorUx();
+    if(caption)caption.textContent='Kapı temiz! '+activeChanceSession.floors+'. kat geçildi.';
+    if(activeChanceSession.floors>=5){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,String(choice),{floors:5,escaped:true},activeChanceSession.multiplier);
+      setChanceResult('🏃 5/5! Müfettiş binada kaldı, sen çıktın. '+money(payout)+' • ×7.20','win');
+      await finishChanceSession();
+      return;
+    }
+    setChanceResult('✓ Güvenli kapı • Kat '+activeChanceSession.floors+'/5 • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    await chanceWait(520);
+    doors.forEach(door=>{
+      door.classList.remove('safe','caught');
+      const small=door.querySelector('small');if(small)small.textContent='?';
+      door.disabled=false;
+    });
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+  }
+}
+
+const vaultMultipliers=[1.35,1.90,3.00,5.50];
+const vaultWidths=[30,24,18,12];
+function updateVaultUx(){
+  const locks=Number(activeChanceSession?.locks||0);
+  const lockEl=document.getElementById('vaultLocks');
+  const multEl=document.getElementById('vaultMultiplier');
+  if(lockEl)lockEl.textContent=locks+' / 4';
+  if(multEl)multEl.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+}
+function startVaultSweep(){
+  if(!activeChanceSession||activeChanceGame!=='vault_crack')return;
+  clearChanceAuxTimers();
+  const locks=Number(activeChanceSession.locks||0);
+  const width=vaultWidths[Math.min(locks,vaultWidths.length-1)];
+  const center=width/2+6+Math.random()*(88-width);
+  activeChanceSession.target_width=width;
+  activeChanceSession.target_center=center;
+  activeChanceSession.vault_pos=0;
+  const target=document.getElementById('vaultTarget');
+  const needle=document.getElementById('vaultNeedle');
+  const stop=document.querySelector('[data-vault-stop]');
+  const caption=document.getElementById('vaultCaption');
+  if(target){target.style.width=width+'%';target.style.left=(center-width/2)+'%';}
+  if(stop)stop.disabled=false;
+  if(caption)caption.textContent=(locks+1)+'. kilit • yeşil alan '+Math.round(width)+' birim.';
+  const started=performance.now();
+  const speed=0.055+locks*0.012;
+  const tick=now=>{
+    if(!activeChanceSession||activeChanceGame!=='vault_crack')return;
+    const travel=((now-started)*speed)%200;
+    const pos=travel<=100?travel:200-travel;
+    activeChanceSession.vault_pos=pos;
+    if(needle)needle.style.left=pos+'%';
+    chanceAuxFrame=requestAnimationFrame(tick);
+  };
+  chanceAuxFrame=requestAnimationFrame(tick);
+}
+function activateVaultCrack(){
+  updateVaultUx();
+  document.querySelector('[data-vault-stop]')?.addEventListener('click',stopVaultNeedle);
+  startVaultSweep();
+}
+async function stopVaultNeedle(){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  clearChanceAuxTimers();
+  const stop=document.querySelector('[data-vault-stop]');if(stop)stop.disabled=true;
+  updateChancePlayLabel();
+  const pos=Number(activeChanceSession.vault_pos||0);
+  const center=Number(activeChanceSession.target_center||50);
+  const width=Number(activeChanceSession.target_width||20);
+  const hit=Math.abs(pos-center)<=width/2;
+  const needle=document.getElementById('vaultNeedle');
+  const caption=document.getElementById('vaultCaption');
+  if(needle)needle.classList.add(hit?'hit':'miss');
+  try{
+    if(!hit){
+      if(caption)caption.textContent='TAK! İbre yeşil alanın dışında kaldı.';
+      await settleLocalChance(activeChanceSession,null,{locks:Number(activeChanceSession.locks||0),needle:roundChance(pos),target:roundChance(center),hit:false},0);
+      setChanceResult('🔒 Kasa kilitlendi. '+Number(activeChanceSession.locks||0)+' kilitten sonra AFMB anahtarı aldı.','loss');
+      await finishChanceSession();
+      return;
+    }
+    activeChanceSession.locks=Number(activeChanceSession.locks||0)+1;
+    activeChanceSession.multiplier=vaultMultipliers[activeChanceSession.locks-1];
+    updateVaultUx();
+    if(caption)caption.textContent='ÇIT! '+activeChanceSession.locks+'. kilit açıldı.';
+    if(activeChanceSession.locks>=4){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,null,{locks:4,opened:true},activeChanceSession.multiplier);
+      setChanceResult('🔓 KASA AÇILDI! 4/4 kilit • '+money(payout)+' • ×5.50','win');
+      await finishChanceSession();
+      return;
+    }
+    setChanceResult('🔓 Kilit '+activeChanceSession.locks+'/4 açıldı • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    await chanceWait(650);
+    if(needle)needle.classList.remove('hit','miss');
+    chanceBusy=false;
+    startVaultSweep();
+    updateChancePlayLabel();
+    return;
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    if(chanceBusy){chanceBusy=false;updateChancePlayLabel();}
+  }
+}
+
+const memoryMultipliers=[1.30,1.75,2.50,3.80,6.00];
+const memoryRevealMs=[1050,850,680,520,390];
+function updateMemoryUx(){
+  const rounds=Number(activeChanceSession?.rounds||0);
+  const roundEl=document.getElementById('memoryRound');
+  const multEl=document.getElementById('memoryMultiplier');
+  if(roundEl)roundEl.textContent=rounds+' / 5';
+  if(multEl)multEl.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+}
+function beginMemoryRound(){
+  if(!activeChanceSession||activeChanceGame!=='stamp_memory')return;
+  clearChanceAuxTimers();
+  const round=Number(activeChanceSession.rounds||0);
+  const target=Math.floor(Math.random()*6);
+  activeChanceSession.target_file=target;
+  activeChanceSession.revealing=true;
+  const files=[...document.querySelectorAll('[data-memory-file]')];
+  const caption=document.getElementById('memoryCaption');
+  files.forEach((file,i)=>{
+    file.disabled=true;
+    file.classList.remove('approved','wrong','chosen');
+    file.querySelector('.memory-folder').textContent=i===target?'📂':'📁';
+    file.querySelector('small').textContent=i===target?'✅ ONAYLI':'GİZLİ';
+    if(i===target)file.classList.add('approved');
+  });
+  if(caption)caption.textContent='BAK! Onaylı dosyanın yerini ezberle…';
+  chanceAuxTimer=setTimeout(()=>{
+    if(!activeChanceSession||activeChanceGame!=='stamp_memory')return;
+    activeChanceSession.revealing=false;
+    files.forEach(file=>{
+      file.classList.remove('approved');
+      file.querySelector('.memory-folder').textContent='📁';
+      file.querySelector('small').textContent='GİZLİ';
+      file.disabled=false;
+    });
+    if(caption)caption.textContent='Kapaklar kapandı. Onaylı dosya hangisiydi?';
+    chanceAuxTimer=null;
+  },memoryRevealMs[Math.min(round,memoryRevealMs.length-1)]);
+}
+function activateStampMemory(){
+  updateMemoryUx();
+  document.querySelectorAll('[data-memory-file]').forEach(btn=>btn.addEventListener('click',()=>pickMemoryFile(Number(btn.dataset.memoryFile))));
+  beginMemoryRound();
+}
+async function pickMemoryFile(choice){
+  if(chanceBusy||!activeChanceSession||activeChanceSession.revealing)return;
+  chanceBusy=true;
+  clearChanceAuxTimers();
+  const files=[...document.querySelectorAll('[data-memory-file]')];
+  files.forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  const target=Number(activeChanceSession.target_file);
+  const chosen=files[choice],correct=choice===target;
+  if(chosen)chosen.classList.add(correct?'approved':'wrong','chosen');
+  if(files[target]){
+    files[target].classList.add('approved');
+    files[target].querySelector('.memory-folder').textContent='📂';
+    files[target].querySelector('small').textContent='✅ ONAYLI';
+  }
+  const caption=document.getElementById('memoryCaption');
+  try{
+    if(!correct){
+      if(caption)caption.textContent='Yanlış dosya. Doğru mühür şimdi gösterildi.';
+      await settleLocalChance(activeChanceSession,String(choice),{rounds:Number(activeChanceSession.rounds||0),target_file:target,choice,correct:false},0);
+      setChanceResult('🗂️ Yanlış dosya. '+Number(activeChanceSession.rounds||0)+' turdan sonra hafıza komisyonu dağıldı.','loss');
+      await finishChanceSession();
+      return;
+    }
+    activeChanceSession.rounds=Number(activeChanceSession.rounds||0)+1;
+    activeChanceSession.multiplier=memoryMultipliers[activeChanceSession.rounds-1];
+    updateMemoryUx();
+    if(caption)caption.textContent='Doğru dosya! Mühür hâlâ yerinde.';
+    if(activeChanceSession.rounds>=5){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,String(choice),{rounds:5,perfect:true},activeChanceSession.multiplier);
+      setChanceResult('🧠 5/5! AFMB seni “gereksiz derecede dikkatli vatandaş” ilan etti. '+money(payout)+' • ×6.00','win');
+      await finishChanceSession();
+      return;
+    }
+    setChanceResult('✅ Doğru dosya • Tur '+activeChanceSession.rounds+'/5 • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    await chanceWait(650);
+    chanceBusy=false;
+    beginMemoryRound();
+    updateChancePlayLabel();
+    return;
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    if(chanceBusy){chanceBusy=false;updateChancePlayLabel();}
+  }
+}
+
 function activateRocket(){
   const startMs=new Date(activeChanceSession.started_at).getTime()||Date.now();
   const crash=Number(activeChanceSession.crash_multiplier);
-  const crashMs=Math.max(0,((crash-0.90)/0.08)*1000);
+  const crashMs=Math.max(0,((crash-1.00)/0.08)*1000);
 
   const tick=()=>{
     if(!activeChanceSession||activeChanceGame!=='rocket'||activeChanceSession.status!=='active')return;
     const elapsed=Math.max(0,(Date.now()-startMs)/1000);
-    const x=Math.min(4,0.90+0.08*elapsed);
-    const progress=clamp((x-.90)/(4-.90),0,1);
+    const x=Math.min(4,1.00+0.08*elapsed);
+    const progress=clamp((x-1.00)/(4-1.00),0,1);
     const curveProgress=Math.pow(progress,.78);
     activeChanceSession.multiplier=x;
 
@@ -7072,9 +7595,18 @@ async function cashOutChanceSession(){
     }else if(activeChanceGame==='penalty_series'){
       if(Number(session.goals||0)<1)throw new Error('Önce en az bir gol at.');
       result={outcome:'cashed',goals:Number(session.goals||0)};
+    }else if(activeChanceGame==='inspector_escape'){
+      if(Number(session.floors||0)<1)throw new Error('Önce en az bir kat kaç.');
+      result={floors:Number(session.floors||0),cashed:true};
+    }else if(activeChanceGame==='vault_crack'){
+      if(Number(session.locks||0)<1)throw new Error('Önce en az bir kilit aç.');
+      result={locks:Number(session.locks||0),cashed:true};
+    }else if(activeChanceGame==='stamp_memory'){
+      if(Number(session.rounds||0)<1)throw new Error('Önce en az bir dosyayı doğru bul.');
+      result={rounds:Number(session.rounds||0),cashed:true};
     }else if(activeChanceGame==='rocket'){
       const elapsed=Math.max(0,(Date.now()-new Date(session.started_at).getTime())/1000);
-      multiplier=Math.min(4,roundChance(0.90+0.08*elapsed));
+      multiplier=Math.min(4,roundChance(1.00+0.08*elapsed));
       if(multiplier>=Number(session.crash_multiplier)){
         clearRocketTimers();
         const shell=document.getElementById('rocketShell');
@@ -7104,6 +7636,7 @@ async function cashOutChanceSession(){
     }
 
     clearRocketTimers();
+    clearChanceAuxTimers();
     const payout=Math.round(session.stake*multiplier);
     await settleLocalChance(session,choice,result,multiplier);
     setChanceResult('💰 Parayı aldın: '+money(payout)+' • ×'+Number(multiplier).toFixed(2),'win');
@@ -7123,8 +7656,9 @@ async function cashOutChanceSession(){
 }
 async function finishChanceSession(){
   clearRocketTimers();
+  clearChanceAuxTimers();
   document.getElementById('chanceStake').disabled=false;
-  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick]').forEach(x=>x.disabled=true);
+  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick],[data-inspector-door],[data-vault-stop],[data-memory-file]').forEach(x=>x.disabled=true);
   activeChanceSession=null;
   await refreshChanceHistory();
 }
