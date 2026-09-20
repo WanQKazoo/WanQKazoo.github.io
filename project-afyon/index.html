@@ -934,6 +934,27 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
 .boxing-rounds{display:flex;gap:5px;overflow:auto;padding-bottom:2px}.boxing-round-chip{min-width:45px;padding:7px 6px;border:1px solid #2a3b55;border-radius:9px;background:#101b2d;text-align:center;font-size:8px;color:#788aa6}.boxing-round-chip.red{border-color:#6a3337;color:#ff9c99}.boxing-round-chip.blue{border-color:#31577e;color:#9bcaff}.boxing-round-chip.even{color:#d7c78e}.boxing-round-chip.current{box-shadow:0 0 0 2px rgba(255,255,255,.05)}
 .boxing-commentary-feed{display:grid;gap:6px;max-height:315px;overflow:auto}.boxing-feed-row{display:grid;grid-template-columns:48px 28px minmax(0,1fr);gap:8px;align-items:start;padding:8px 9px;border-radius:10px;background:#0a1423}.boxing-feed-row .time{font-size:8px;color:#7e90ad;font-weight:1000}.boxing-feed-row .ico{text-align:center}.boxing-feed-row strong{display:block;font-size:9px}.boxing-feed-row small{display:block;margin-top:2px;color:#6f819d;font-size:8px;line-height:1.35}.boxing-feed-row.knockdown{background:#321b1e}.boxing-feed-row.fight_end{background:#173026}.boxing-feed-row.power_shot{background:#291f18}
 @media(max-width:720px){.boxing-bout-row{grid-template-columns:58px minmax(0,1fr);gap:8px}.boxing-bout-action{grid-column:1/-1;grid-template-columns:1fr 1fr;align-items:center}.boxing-live-backdrop{padding:6px;align-items:end}.boxing-live-modal{max-height:calc(100vh - 12px);border-radius:20px 20px 10px 10px}.boxing-live-matchup{grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr)}.boxing-corner strong{font-size:14px}.boxing-round-clock strong{font-size:21px}.boxing-live-grid{grid-template-columns:1fr}.boxing-commentator-line{font-size:13px}}
+
+/* ===== Prototype 0.52 — Boxing Sportsbook ===== */
+#bulletinSection .sport-tab[data-sport="boxing"]{border-color:#59363a;background:#21161a;color:#d9a6a0}
+#bulletinSection .sport-tab[data-sport="boxing"]:hover{border-color:#8c4d54;background:#2c191f;color:#ffd6d1}
+#bulletinSection .sport-tab[data-sport="boxing"].active{border-color:#db6b72;background:linear-gradient(135deg,#5a222a,#361a21);color:#fff0ee;box-shadow:inset 0 0 0 1px rgba(255,145,145,.10),0 6px 18px rgba(83,25,34,.22)}
+#bulletinSection .sport-tab[data-sport="boxing"].active small{color:#e7a9a7}
+.match.boxing{background:linear-gradient(90deg,rgba(172,66,72,.12),#0f1828 30%);box-shadow:inset 3px 0 #c85f67}
+.match.boxing:hover{background:linear-gradient(90deg,rgba(194,72,81,.17),#111b2d 34%)}
+.match.boxing .dot{background:#e36b70!important}.match.boxing .dot.blue{background:#6faee8!important}
+.match.boxing .match-meta strong{background:#432028;color:#ffc0bd}
+.match.boxing .form{border-color:#53313a;background:#20161c;color:#d0a0a4}
+.sport-badge.boxing{background:#432028;color:#ffc0bd;border:1px solid rgba(255,151,151,.12)}
+.bulletin-group-head.boxing{background:linear-gradient(90deg,#28171b,#101a2b 72%);border-top-color:#724049;border-bottom-color:#41272e}
+.bulletin-group-head.boxing strong{color:#ffb7b2}.bulletin-group-head.boxing small{color:#a4777a}
+#bulletinSection[data-sport="boxing"]{border-color:#4a2c34;box-shadow:0 18px 55px rgba(50,14,22,.20)}
+#bulletinSection[data-sport="boxing"] .section-title{background:linear-gradient(180deg,#24171b,#111527);border-bottom-color:#43272f}
+#bulletinSection[data-sport="boxing"] .section-title h2{color:#fff0ee}
+#bulletinSection[data-sport="boxing"] #bulletinSub{color:#c88f91}
+#bulletinSection[data-sport="boxing"] .sim-bar{background:linear-gradient(90deg,#201419,#0b1220);border-top-color:#43272f}
+#bulletinSection[data-sport="boxing"] .simulate-btn{border-color:#59353d;background:#25171d;color:#d8a3a5}
+@media(max-width:720px){#bulletinSection .sport-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -995,6 +1016,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
             <button class="sport-tab active" data-sport="all">🌐 Tümü <small>ORTAK BÜLTEN</small></button>
             <button class="sport-tab" data-sport="football">⚽ Futbol <small>ANA LİGLER</small></button>
             <button class="sport-tab" data-sport="efootball">🎮 e-Futbol <small>HIZLI MAÇ</small></button>
+            <button class="sport-tab" data-sport="boxing">🥊 Boks <small>FIGHT NIGHT</small></button>
           </div>
           <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="Tümü">🌍 Tümü</button>
@@ -1218,7 +1240,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.51 Boxing Live</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.52 Boxing Sportsbook</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1344,6 +1366,7 @@ const crownKickoffMinutes={
   'Yunanistan':21*60+45
 };
 function sportInfo(sport){
+  if(sport==='boxing')return {icon:'🥊',label:'Boks',short:'BX',competition:'AFMB Fight Night'};
   return sport==='efootball'
     ?{icon:'🎮',label:'e-Futbol',short:'eF',competition:'eFootball Arena'}
     :{icon:'⚽',label:'Futbol',short:'FT',competition:null};
@@ -1708,7 +1731,7 @@ let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceH
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
-let onlineBoxingFighters=[],onlineBoxingBouts=[],boxingWeightFilter='all',boxingLastRefresh=0;
+let onlineBoxingFighters=[],onlineBoxingBouts=[],onlineBoxingMarketsByBout={},boxingWeightFilter='all',boxingLastRefresh=0;
 let activeBoxingBoutId=null,onlineBoxingBoutEvents=[];
 let onlineSchedulePulse={soon:0,today:0,nextMatches:[],lastRefresh:0};
 let matchCenterDateOffset=0,matchCenterFilter='all',onlineMatchCenterLastRefresh=0;
@@ -3089,15 +3112,115 @@ async function refreshOnlineConference(){
   });
 }
 
+
+function boxingMarketLabel(key){
+  return key==='BOX_WIN'?'Maç Kazanan':key==='BOX_METHOD'?'Kazanma Yöntemi':key==='BOX_DISTANCE'?'Maç Mesafesi':key;
+}
+function boxingSelectionLabel(bout,market,selection){
+  const red=boxingFighter(bout?.red_fighter_id),blue=boxingFighter(bout?.blue_fighter_id);
+  const rn=red?.name||'Kırmızı Köşe',bn=blue?.name||'Mavi Köşe';
+  if(market==='BOX_WIN'){
+    if(selection==='RED')return rn+' kazanır';
+    if(selection==='BLUE')return bn+' kazanır';
+    return 'Beraberlik';
+  }
+  if(market==='BOX_METHOD'){
+    if(selection==='RED_KO')return rn+' KO/TKO';
+    if(selection==='RED_DEC')return rn+' kararla';
+    if(selection==='BLUE_KO')return bn+' KO/TKO';
+    if(selection==='BLUE_DEC')return bn+' kararla';
+  }
+  if(market==='BOX_DISTANCE')return selection==='GOES'?'Mesafeye gider':'Mesafeye gitmez';
+  return selection;
+}
+function boxingSelectionWins(selection,bout){
+  if(!bout||bout.status!=='finished')return false;
+  const market=selection.marketKey||selection.market_key;
+  const pick=selection.selectionKey||selection.selection_key;
+  if(market==='BOX_WIN'){
+    return (pick==='RED'&&bout.winner_id===bout.red_fighter_id)
+      ||(pick==='BLUE'&&bout.winner_id===bout.blue_fighter_id)
+      ||(pick==='DRAW'&&!bout.winner_id);
+  }
+  if(market==='BOX_METHOD'){
+    const ko=['KO','TKO'].includes(bout.method),dec=['UD','SD','MD'].includes(bout.method);
+    return (pick==='RED_KO'&&bout.winner_id===bout.red_fighter_id&&ko)
+      ||(pick==='RED_DEC'&&bout.winner_id===bout.red_fighter_id&&dec)
+      ||(pick==='BLUE_KO'&&bout.winner_id===bout.blue_fighter_id&&ko)
+      ||(pick==='BLUE_DEC'&&bout.winner_id===bout.blue_fighter_id&&dec);
+  }
+  if(market==='BOX_DISTANCE'){
+    return (pick==='NOT_GOES'&&['KO','TKO'].includes(bout.method))
+      ||(pick==='GOES'&&['UD','SD','MD','DRAW'].includes(bout.method));
+  }
+  return false;
+}
+function boxingBulletinBouts(){
+  if(!['all','boxing'].includes(bulletinSport))return [];
+  const now=Date.now();
+  return onlineBoxingBouts.filter(function(b){
+    if(b.status!=='scheduled'||new Date(b.scheduled_at).getTime()<=now)return false;
+    if(bulletinSport==='boxing'||bulletinCountry==='Tümü')return true;
+    const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
+    return red?.country===bulletinCountry||blue?.country===bulletinCountry;
+  }).sort((a,b)=>new Date(a.scheduled_at)-new Date(b.scheduled_at)).slice(0,12);
+}
+function renderBoxingBulletinCard(b){
+  const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
+  if(!red||!blue)return '';
+  const rows=onlineBoxingMarketsByBout[b.id]||[];
+  const odd=(market,selection)=>{
+    const r=rows.find(x=>x.market_key===market&&x.selection_key===selection&&!x.locked);
+    return r?Number(r.odd).toFixed(2):'—';
+  };
+  const selected=(selection)=>picks.some(p=>p.id===b.id&&p.sport==='boxing'&&p.selectionKey===selection);
+  const pickButton=(display,label,o,marketName,marketKey,selectionKey)=>'<button class="odd-btn '+(selected(selectionKey)?'selected':'')+'" '+(o==='—'?'disabled':'')+
+    ' data-id="'+b.id+'" data-label="'+label+'" data-market="'+marketName+'" data-market-key="'+marketKey+'" data-selection-key="'+selectionKey+
+    '" data-odd="'+o+'" data-match="'+red.name+' - '+blue.name+'" data-country="AFMB" data-level="0" data-sport="boxing"><small>'+display+'</small>'+o+'</button>';
+  const main=[
+    pickButton('1',red.name+' kazanır',odd('BOX_WIN','RED'),'Maç Kazanan','BOX_WIN','RED'),
+    pickButton('X','Beraberlik',odd('BOX_WIN','DRAW'),'Maç Kazanan','BOX_WIN','DRAW'),
+    pickButton('2',blue.name+' kazanır',odd('BOX_WIN','BLUE'),'Maç Kazanan','BOX_WIN','BLUE')
+  ].join('');
+  const methods=[
+    ['🥊 '+red.name+' KO/TKO',red.name+' KO/TKO',odd('BOX_METHOD','RED_KO'),'RED_KO'],
+    ['📋 '+red.name+' Karar',red.name+' kararla',odd('BOX_METHOD','RED_DEC'),'RED_DEC'],
+    ['🥊 '+blue.name+' KO/TKO',blue.name+' KO/TKO',odd('BOX_METHOD','BLUE_KO'),'BLUE_KO'],
+    ['📋 '+blue.name+' Karar',blue.name+' kararla',odd('BOX_METHOD','BLUE_DEC'),'BLUE_DEC']
+  ];
+  const distance=[
+    ['Tam Mesafe','Mesafeye gider',odd('BOX_DISTANCE','GOES'),'GOES'],
+    ['Erken Biter','Mesafeye gitmez',odd('BOX_DISTANCE','NOT_GOES'),'NOT_GOES']
+  ];
+  const status=formatIstanbulTime(b.scheduled_at);
+  const context='<span class="sport-badge boxing">🥊 Boks</span><br>'+boxingWeightNames[b.weight_class]+' • '+b.event_name;
+  return '<div class="match boxing">'+
+    '<div class="match-meta"><strong>'+status+'</strong><small>'+(b.is_main_event?'⭐ ANA MAÇ':b.rounds+' raund')+'</small><small class="match-context">'+context+'</small></div>'+
+    '<div class="teams">'+
+      '<div class="team"><span class="dot"></span><span class="team-copy"><strong>'+boxingFlag(red.country)+' '+red.name+'</strong><small class="team-intel">'+boxingRecord(red)+' • '+red.style+'</small></span><span class="form">RTG '+Math.round(Number(red.rating))+'</span></div>'+
+      '<div class="team"><span class="dot blue"></span><span class="team-copy"><strong>'+boxingFlag(blue.country)+' '+blue.name+'</strong><small class="team-intel">'+boxingRecord(blue)+' • '+blue.style+'</small></span><span class="form">RTG '+Math.round(Number(blue.rating))+'</span></div>'+
+    '</div>'+main+
+    '<div class="market-toggle-row"><button class="market-toggle" data-market-toggle="'+b.id+'" aria-expanded="'+openMarkets.has(b.id)+'"><span>'+(openMarkets.has(b.id)?'−':'＋')+' Diğer Marketler</span><small>KO/TKO • Karar • Mesafe</small></button></div>'+
+    '<div class="extra-markets '+(openMarkets.has(b.id)?'open':'')+'">'+
+      '<div class="market-group"><div class="market-group-title">🥊 Kazanma Yöntemi</div><div class="market-grid">'+methods.map(x=>pickButton(x[0],x[1],x[2],'Kazanma Yöntemi','BOX_METHOD',x[3])).join('')+'</div></div>'+
+      '<div class="market-group"><div class="market-group-title">🔔 Maç Mesafesi</div><div class="market-grid">'+distance.map(x=>pickButton(x[0],x[1],x[2],'Maç Mesafesi','BOX_DISTANCE',x[3])).join('')+'</div></div>'+
+    '</div>'+
+  '</div>';
+}
+
 function renderOnlineBulletin(){
+  const boxingBouts=boxingBulletinBouts();
   const live=onlineBulletinMatches.some(m=>m.status==='live');
   const firstScheduled=onlineBulletinMatches.find(m=>m.status==='scheduled');
+  const firstBoxing=boxingBouts[0]||null;
   const subCountry=bulletinCountry==='Tümü'?'Avrupa geneli':bulletinCountry;
   const subLeague=bulletinLevel===0?'Tüm ligler':leagueNames[bulletinLevel];
-  const sportLabel=bulletinSport==='all'?'Futbol + e-Futbol':sportInfo(bulletinSport).label;
+  const sportLabel=bulletinSport==='all'?'Futbol + e-Futbol + Boks':sportInfo(bulletinSport).label;
   const bulletinSection=document.getElementById('bulletinSection');
   if(bulletinSection)bulletinSection.dataset.sport=bulletinSport;
-  document.getElementById('bulletinSub').textContent=`${sportLabel} • ${subCountry} • ${subLeague}`;
+  document.getElementById('bulletinSub').textContent=bulletinSport==='boxing'
+    ?'🥊 Boks • AFMB Fight Night'
+    :`${sportLabel} • ${subCountry} • ${subLeague}`;
 
   const simBtn=document.getElementById('simulateLeague');
   simBtn.disabled=true;
@@ -3107,14 +3230,18 @@ function renderOnlineBulletin(){
     document.getElementById('simInfo').textContent='Ortak dünya • canlı karşılaşmalar bültende';
   }else{
     simBtn.textContent='🌐 SUNUCU KONTROLLÜ';
-    document.getElementById('simInfo').textContent=firstScheduled
+    const footballTime=firstScheduled?new Date(firstScheduled.kickoff_at).getTime():Infinity;
+    const boxingTime=firstBoxing?new Date(firstBoxing.scheduled_at).getTime():Infinity;
+    document.getElementById('simInfo').textContent=footballTime<=boxingTime&&firstScheduled
       ?`Sıradaki başlangıç • ${sportInfo(firstScheduled.sport).icon} ${matchKickoffLabel(firstScheduled.id,firstScheduled.country,firstScheduled.league_level)}`
-      :'Filtreye uygun yaklaşan maç yok';
+      :firstBoxing
+        ?`Sıradaki başlangıç • 🥊 ${formatIstanbulTime(firstBoxing.scheduled_at)}`
+        :'Filtreye uygun yaklaşan karşılaşma yok';
   }
 
   const wrap=document.getElementById('matches');
-  if(!onlineBulletinMatches.length){
-    wrap.innerHTML='<div class="bulletin-empty">Bu filtrede bahis alınabilir yaklaşan maç yok. Başlamış maçları 📡 Maç Merkezi’nden takip edebilirsin.</div>';
+  if(!onlineBulletinMatches.length&&!boxingBouts.length){
+    wrap.innerHTML='<div class="bulletin-empty">Bu filtrede bahis alınabilir yaklaşan karşılaşma yok. Başlayan futbol maçları 📡 Maç Merkezi’ne, boks maçları 🥊 Boks ekranına taşınır.</div>';
     renderLiveCenter();return;
   }
 
@@ -3183,6 +3310,10 @@ function renderOnlineBulletin(){
     card.insertAdjacentHTML('beforebegin',`<div class="bulletin-group-head ${liveGroup?'live':''} ${sport==='efootball'?'efootball':''}"><strong>${label}</strong><small>${count} maç</small></div>`);
     lastGroup=groupKey;
   });
+
+  if(boxingBouts.length){
+    wrap.insertAdjacentHTML('beforeend','<div class="bulletin-group-head boxing"><strong>🥊 AFMB FIGHT NIGHT</strong><small>'+boxingBouts.length+' maç</small></div>'+boxingBouts.map(renderBoxingBulletinCard).join(''));
+  }
 
   bindClubLinks(wrap);
   wrap.querySelectorAll('.odd-btn:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>togglePick(btn.dataset)));
@@ -3276,21 +3407,35 @@ function renderMatches(){
 }
 function togglePick(d){
   if(onlineMode){
-    const target=onlineMatchMap[d.id];
-    if(!target||target.status!=='scheduled')return;
+    if(d.sport==='boxing'){
+      const bout=onlineBoxingBouts.find(b=>b.id===d.id);
+      if(!bout||bout.status!=='scheduled'||new Date(bout.scheduled_at).getTime()<=Date.now())return;
+    }else{
+      const target=onlineMatchMap[d.id];
+      if(!target||target.status!=='scheduled')return;
+    }
   }else if(isCurrentLive())return;
   const existing=picks.findIndex(p=>p.id===d.id);
-  if(existing>=0&&picks[existing].label===d.label)picks.splice(existing,1);
+  const same=existing>=0&&(d.selectionKey?picks[existing].selectionKey===d.selectionKey:picks[existing].label===d.label);
+  if(same)picks.splice(existing,1);
   else{
     if(existing>=0)picks.splice(existing,1);
     picks.push({
       id:d.id,label:d.label,market:d.market||'Maç Sonucu',odd:Number(d.odd),match:d.match,
+      marketKey:d.marketKey||null,selectionKey:d.selectionKey||null,
       country:d.country||selectedCountry,level:Number(d.level||selectedLevel),sport:d.sport||'football',season:state.season,week:state.week
     });
   }
   renderMatches();renderSlip();
 }
 function couponLegRuntime(selection){
+  if(selection.sport==='boxing'){
+    const bout=onlineBoxingBouts.find(b=>b.id===selection.id)||null;
+    if(bout?.status==='finished'){
+      return {state:boxingSelectionWins(selection,bout)?'won':'lost',final:{boxing:true,method:bout.method,finishRound:bout.finish_round},bout};
+    }
+    return {state:bout?.status==='live'?'live':'waiting',final:null,bout};
+  }
   const serverMatch=onlineMode?onlineMatchMap[selection.id]:null;
   const serverFinal=serverMatch&&serverMatch.status==='finished'&&serverMatch.home_goals!=null&&serverMatch.away_goals!=null
     ?{homeGoals:Number(serverMatch.home_goals),awayGoals:Number(serverMatch.away_goals)}
@@ -3464,7 +3609,6 @@ function renderCoupons(){
   }
 
   const visibleKeys=new Set();
-
   list.innerHTML=state.coupons.slice().sort((a,b)=>{
     const aTime=new Date(a.created||0).getTime()||0;
     const bTime=new Date(b.created||0).getTime()||0;
@@ -3472,36 +3616,42 @@ function renderCoupons(){
   }).map((c,index)=>{
     const couponKey=String(c.id??c.created??('coupon-'+index));
     visibleKeys.add(couponKey);
-
     const status=c.status||(!c.selections?'legacy':'pending');
-    const statusText=status==='won'?'KAZANDI':status==='lost'?'KAYBETTİ':status==='legacy'?'ESKİ KUPON':isCurrentLive()&&c.season===state.season&&c.week===state.week?'CANLI':'BEKLİYOR';
+    const runtime=status==='pending'?couponRuntime(c):null;
+    const statusText=status==='won'?'KAZANDI':status==='lost'?'KAYBETTİ':status==='legacy'?'ESKİ KUPON':runtime?.live?'CANLI':'BEKLİYOR';
     const extra=status==='won'&&c.payout?` • Ödeme ${money(c.payout)}`:'';
 
     let legs='<div class="coupon-hint">Bu kupon eski prototipten geldiği için maç detayları tutulmamış.</div>';
     if(Array.isArray(c.selections)&&c.selections.length){
       legs='<div class="coupon-legs">'+c.selections.map(s=>{
-        const serverMatch=onlineMode?onlineMatchMap[s.id]:null;
-        const serverFinal=serverMatch&&serverMatch.status==='finished'&&serverMatch.home_goals!=null&&serverMatch.away_goals!=null
-          ?{homeGoals:Number(serverMatch.home_goals),awayGoals:Number(serverMatch.away_goals)}
-          :null;
-        const final=s.final||state.results[s.id]||serverFinal;
-        const live=liveSnapshot(s.id);
-        const legState=final?(isPickWinner(s.label,final)?'won':'lost'):'pending';
+        const r=couponLegRuntime(s);
+        const legState=r.state==='waiting'||r.state==='live'?'pending':r.state;
         const icon=legState==='won'?'✓':legState==='lost'?'×':'•';
-        const score=final
-          ?`MS • ${final.homeGoals}-${final.awayGoals}`
-          :live
-            ?`CANLI ${live.minute}' • ${live.homeGoals}-${live.awayGoals}`
-            :(s.matchStatus==='finished'?'MS':'Bekliyor');
-        return `<div class="coupon-leg"><div class="leg-icon ${legState}">${icon}</div><div class="leg-main"><strong>${s.match}</strong><small>${sportInfo(s.sport||'football').icon} ${sportInfo(s.sport||'football').label} • ${s.market} • ${s.label} • ${score}</small></div><div class="leg-odd">${Number(s.odd).toFixed(2)}</div></div>`;
+        let score='Bekliyor';
+        if(s.sport==='boxing'){
+          const b=r.bout;
+          if(r.state==='won'||r.state==='lost')score='MS • '+(b?.method||'Bitti')+(b?.finish_round?' • R'+b.finish_round:'');
+          else if(r.state==='live'){
+            const clock=boxingBoutClock(b);
+            score=clock.break?'CANLI • KÖŞE MOLASI':'CANLI • R'+clock.round;
+          }
+        }else{
+          const final=r.final;
+          const live=liveSnapshot(s.id);
+          score=final
+            ?`MS • ${final.homeGoals}-${final.awayGoals}`
+            :live
+              ?`CANLI ${live.minute}' • ${live.homeGoals}-${live.awayGoals}`
+              :(s.matchStatus==='finished'?'MS':'Bekliyor');
+        }
+        return '<div class="coupon-leg"><div class="leg-icon '+legState+'">'+icon+'</div><div class="leg-main"><strong>'+s.match+'</strong><small>'+sportInfo(s.sport||'football').icon+' '+sportInfo(s.sport||'football').label+' • '+s.market+' • '+s.label+' • '+score+'</small></div><div class="leg-odd">'+Number(s.odd).toFixed(2)+'</div></div>';
       }).join('')+'</div>';
     }
 
-    return `<details class="coupon" data-coupon-key="${couponKey}" ${openCouponIds.has(couponKey)?'open':''}><summary><div><strong>${c.picks} maçlık kombine • ${c.stake} ₳D</strong><small>Toplam oran ${c.odds} • Olası dönüş ${money(c.return)}${extra}</small></div><div class="status ${status}">${statusText}</div></summary>${legs}</details>`;
+    return '<details class="coupon" data-coupon-key="'+couponKey+'" '+(openCouponIds.has(couponKey)?'open':'')+'><summary><div><strong>'+c.picks+' seçimlik kombine • '+c.stake+' ₳D</strong><small>Toplam oran '+c.odds+' • Olası dönüş '+money(c.return)+extra+'</small></div><div class="status '+status+'">'+statusText+'</div></summary>'+legs+'</details>';
   }).join('');
 
   [...openCouponIds].forEach(key=>{if(!visibleKeys.has(key))openCouponIds.delete(key)});
-
   list.querySelectorAll('details[data-coupon-key]').forEach(details=>{
     details.addEventListener('toggle',()=>{
       const key=details.dataset.couponKey;
@@ -3751,6 +3901,12 @@ function stampPaper(){
 }
 
 function marketPayloadForPick(p){
+  if(p.sport==='boxing'&&p.marketKey&&p.selectionKey){
+    return {bout_id:p.id,market_key:p.marketKey,selection_key:p.selectionKey};
+  }
+  if(p.marketKey&&p.selectionKey){
+    return {match_id:p.id,market_key:p.marketKey,selection_key:p.selectionKey};
+  }
   if(['1','X','2'].includes(p.label))return {match_id:p.id,market_key:'1X2',selection_key:p.label};
   if(['1X','12','X2'].includes(p.label))return {match_id:p.id,market_key:'DC',selection_key:p.label};
   if(p.label==='KG Var')return {match_id:p.id,market_key:'BTTS',selection_key:'YES'};
@@ -3764,6 +3920,8 @@ function prettyMarket(market,selection){
   if(market==='BTTS')return selection==='YES'?'KG Var':'KG Yok';
   const line={OU15:'1.5',OU25:'2.5',OU35:'3.5',OU45:'4.5'}[market];
   if(line)return line+' '+(selection==='UNDER'?'Alt':'Üst');
+  if(market==='BOX_WIN')return selection==='RED'?'Kırmızı köşe':selection==='BLUE'?'Mavi köşe':'Beraberlik';
+  if(market==='BOX_DISTANCE')return selection==='GOES'?'Mesafeye Gider':'Mesafeye Gitmez';
   return selection;
 }
 async function loadOnlineClubs(){
@@ -3803,7 +3961,9 @@ async function refreshOnlineBulletin(){
   };
 
   let data=[];
-  if(bulletinSport==='all'){
+  if(bulletinSport==='boxing'){
+    data=[];
+  }else if(bulletinSport==='all'){
     const [footballRes,efootballRes]=await Promise.all([makeQuery('football',12),makeQuery('efootball',12)]);
     if(footballRes.error)throw footballRes.error;
     if(efootballRes.error)throw efootballRes.error;
@@ -3886,10 +4046,11 @@ async function refreshOnlineAccount(){
   const couponIds=(coupons||[]).map(x=>x.id);
   let selections=[];
   if(couponIds.length){
-    const s=await supabaseClient.from('coupon_selections').select('coupon_id,match_id,market_key,selection_key,odd').in('coupon_id',couponIds);
+    const s=await supabaseClient.from('coupon_selections').select('coupon_id,match_id,bout_id,market_key,selection_key,odd').in('coupon_id',couponIds);
     if(s.error)throw s.error;
     selections=s.data||[];
-    const matchIds=[...new Set(selections.map(x=>x.match_id))];
+
+    const matchIds=[...new Set(selections.map(x=>x.match_id).filter(Boolean))];
     if(matchIds.length){
       const mr=await supabaseClient.from('matches').select('id,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at,sport,duration_seconds').in('id',matchIds);
       if(!mr.error)(mr.data||[]).forEach(m=>{
@@ -3899,9 +4060,37 @@ async function refreshOnlineAccount(){
         }
       });
     }
+
+    const boutIds=[...new Set(selections.map(x=>x.bout_id).filter(Boolean))];
+    if(boutIds.length){
+      const br=await supabaseClient.from('boxing_bouts')
+        .select('id,event_name,scheduled_at,weight_class,red_fighter_id,blue_fighter_id,status,winner_id,method,finish_round,rounds,duration_seconds,started_at,finished_at,card_order,is_main_event,venue')
+        .in('id',boutIds);
+      if(!br.error)(br.data||[]).forEach(b=>{
+        const idx=onlineBoxingBouts.findIndex(x=>x.id===b.id);
+        if(idx>=0)onlineBoxingBouts[idx]=b; else onlineBoxingBouts.push(b);
+      });
+    }
   }
+
   state.coupons=(coupons||[]).map(coupon=>{
     const legs=selections.filter(s=>s.coupon_id===coupon.id).map(s=>{
+      if(s.bout_id){
+        const b=onlineBoxingBouts.find(x=>x.id===s.bout_id);
+        const red=b?boxingFighter(b.red_fighter_id):null,blue=b?boxingFighter(b.blue_fighter_id):null;
+        return {
+          id:s.bout_id,
+          match:red&&blue?red.name+' - '+blue.name:s.bout_id,
+          sport:'boxing',
+          country:'AFMB',
+          market:boxingMarketLabel(s.market_key),
+          marketKey:s.market_key,
+          selectionKey:s.selection_key,
+          label:boxingSelectionLabel(b,s.market_key,s.selection_key),
+          odd:Number(s.odd),
+          matchStatus:b?.status||'scheduled'
+        };
+      }
       const m=onlineMatchMap[s.match_id];
       const home=m?onlineClubsById[m.home_club_id]?.name:'';
       const away=m?onlineClubsById[m.away_club_id]?.name:'';
@@ -3910,7 +4099,10 @@ async function refreshOnlineAccount(){
         id:s.match_id,
         match:home&&away?sportTeamName(home,sport)+' - '+sportTeamName(away,sport):s.match_id,
         sport,
+        country:m?.country||'—',
         market:s.market_key,
+        marketKey:s.market_key,
+        selectionKey:s.selection_key,
         label:prettyMarket(s.market_key,s.selection_key),
         odd:Number(s.odd),
         matchStatus:m?.status||'scheduled',
@@ -4040,12 +4232,21 @@ async function refreshOnlineBoxing(force=false){
       .select('id,event_name,scheduled_at,weight_class,red_fighter_id,blue_fighter_id,status,winner_id,method,finish_round,rounds,duration_seconds,started_at,finished_at,card_order,is_main_event,venue')
       .gte('scheduled_at',since)
       .order('scheduled_at',{ascending:true})
-      .limit(30)
+      .limit(40)
   ]);
   if(fightersRes.error)throw fightersRes.error;
   if(boutsRes.error)throw boutsRes.error;
   onlineBoxingFighters=fightersRes.data||[];
   onlineBoxingBouts=boutsRes.data||[];
+  onlineBoxingMarketsByBout={};
+  const boutIds=onlineBoxingBouts.map(b=>b.id);
+  if(boutIds.length){
+    const marketRes=await supabaseClient.from('boxing_markets')
+      .select('bout_id,market_key,selection_key,odd,locked')
+      .in('bout_id',boutIds);
+    if(marketRes.error)throw marketRes.error;
+    (marketRes.data||[]).forEach(row=>(onlineBoxingMarketsByBout[row.bout_id]??=[]).push(row));
+  }
   boxingLastRefresh=now;
   renderBoxing();
 }
@@ -5127,11 +5328,15 @@ document.getElementById('simulateLeague').addEventListener('click',()=>{
 
 function syncBulletinLeagueFilters(){
   const leagueTabs=document.getElementById('leagueTabs');
-  if(!leagueTabs)return;
-  const hide=bulletinSport==='efootball';
-  leagueTabs.hidden=hide;
-  leagueTabs.style.display=hide?'none':'';
-  if(hide){
+  const countryTabs=document.getElementById('countryTabs');
+  if(!leagueTabs||!countryTabs)return;
+  const hideLeague=bulletinSport==='efootball'||bulletinSport==='boxing';
+  const hideCountry=bulletinSport==='boxing';
+  leagueTabs.hidden=hideLeague;
+  leagueTabs.style.display=hideLeague?'none':'';
+  countryTabs.hidden=hideCountry;
+  countryTabs.style.display=hideCountry?'none':'';
+  if(hideLeague){
     bulletinLevel=0;
     document.querySelectorAll('.league-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.level)===0));
   }
