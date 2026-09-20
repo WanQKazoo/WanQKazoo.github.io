@@ -2208,6 +2208,41 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   .memory-file .memory-folder{font-size:25px}
 }
 
+
+/* ===== Prototype 0.59 — Boxing Scorecards Justice ===== */
+.boxing-round-chip{display:grid;gap:2px}
+.boxing-round-chip b{font-size:8px}
+.boxing-round-chip small{display:block;color:#667b99;font-size:7px;font-weight:1000}
+.boxing-round-chip.red small{color:#d88a8d}
+.boxing-round-chip.blue small{color:#79aee1}
+.boxing-scorecards{
+  padding:13px;
+  border:1px solid #3a4560;
+  border-radius:15px;
+  background:linear-gradient(145deg,#121b2a,#0c1523);
+}
+.boxing-scorecards-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.boxing-scorecards-head small{display:block;color:#d5b974;font-size:7px;font-weight:1000;letter-spacing:.9px}
+.boxing-scorecards-head strong{display:block;margin-top:2px;font-size:11px}
+.boxing-scorecards-head>span{padding:5px 8px;border:1px solid #5d4e31;border-radius:999px;background:#241f14;color:#efd590;font-size:8px;font-weight:1000}
+.boxing-scorecard-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}
+.boxing-scorecard{padding:10px;border:1px solid #293a54;border-radius:11px;background:#0c1625;text-align:center}
+.boxing-scorecard.red{border-color:#5f343c;background:linear-gradient(180deg,#22161c,#0d1625)}
+.boxing-scorecard.blue{border-color:#31557a;background:linear-gradient(180deg,#122033,#0d1625)}
+.boxing-scorecard>small{display:block;color:#7185a4;font-size:7px;font-weight:1000}
+.boxing-scorecard>strong{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:5px;font-size:17px}
+.boxing-scorecard>strong span:first-child{color:#f28b88}
+.boxing-scorecard>strong span:last-child{color:#7db6ea}
+.boxing-scorecard>strong em{color:#647791;font-style:normal;font-size:10px}
+.boxing-scorecard>b{display:block;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dbe6f6;font-size:8px}
+.boxing-scorecards>p{margin:9px 2px 0;color:#70829e;font-size:8px;line-height:1.45}
+@media(max-width:520px){
+  .boxing-scorecard-grid{grid-template-columns:1fr}
+  .boxing-scorecard{display:grid;grid-template-columns:55px 1fr 1.2fr;align-items:center;text-align:left}
+  .boxing-scorecard>strong{margin-top:0}
+  .boxing-scorecard>b{margin-top:0;text-align:right}
+}
+
 </style>
 </head>
 <body>
@@ -2562,7 +2597,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.58.1 Lunapark Server Hotfix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.59 Boxing Scorecards</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -6580,10 +6615,20 @@ function renderBoxingBoutDetail(){
   const latest=onlineBoxingBoutEvents.length?onlineBoxingBoutEvents[onlineBoxingBoutEvents.length-1]:null;
   const latestLine=latest?latest.commentary:(b.status==='scheduled'?'Dövüşçüler henüz ringe çıkmadı. Fight Night başladığında spiker burada olacak.':'Gong bekleniyor…');
   const roundEnds=onlineBoxingBoutEvents.filter(e=>e.event_type==='round_end');
+  const fightEnd=[...onlineBoxingBoutEvents].reverse().find(e=>e.event_type==='fight_end')||null;
+  const judges=Array.isArray(fightEnd?.payload?.judges)?fightEnd.payload.judges:[];
   const rounds=Array.from({length:Number(b.rounds||10)},(_,i)=>{
     const n=i+1,e=roundEnds.find(x=>Number(x.round)===n),leader=e?.payload?.leader||'';
-    return '<span class="boxing-round-chip '+leader+' '+(clock.round===n&&b.status==='live'?'current':'')+'">R'+n+(leader==='red'?' • R':leader==='blue'?' • B':leader==='even'?' • =':'')+'</span>';
+    const hasScore=Number.isFinite(Number(e?.payload?.red_score))&&Number.isFinite(Number(e?.payload?.blue_score));
+    const score=hasScore?'<small>'+Number(e.payload.red_score)+'–'+Number(e.payload.blue_score)+'</small>':'';
+    return '<span class="boxing-round-chip '+leader+' '+(clock.round===n&&b.status==='live'?'current':'')+'"><b>R'+n+(leader==='red'?' • R':leader==='blue'?' • B':leader==='even'?' • =':'')+'</b>'+score+'</span>';
   }).join('');
+  const scorecards=(b.status==='finished'&&judges.length)
+    ?'<div class="boxing-scorecards"><div class="boxing-scorecards-head"><div><small>🧾 AÇIK TUTANAK</small><strong>HAKEM KARTLARI</strong></div><span>'+String(fightEnd?.payload?.method||b.method||'')+'</span></div><div class="boxing-scorecard-grid">'+judges.map(j=>{
+      const winner=j.winner==='red'?red.name:j.winner==='blue'?blue.name:'Eşit';
+      return '<div class="boxing-scorecard '+(j.winner||'even')+'"><small>'+String(j.name||'AFMB')+'</small><strong><span>'+Number(j.red)+'</span><em>–</em><span>'+Number(j.blue)+'</span></strong><b>'+winner+'</b></div>';
+    }).join('')+'</div><p>Raund puanları görünür ring olaylarından hesaplanır. Knockdown raund skoruna doğrudan yansır; sonuç artık önceden seçilmez.</p></div>'
+    :'';
   const statRow=function(label,a,z){return '<div class="boxing-live-stat"><b>'+a+'</b><span>'+label+'</span><b>'+z+'</b></div>'};
   const feed=onlineBoxingBoutEvents.length?onlineBoxingBoutEvents.slice().reverse().map(function(e){
     return '<div class="boxing-feed-row '+e.event_type+'"><span class="time">R'+e.round+' • '+String(e.second_in_round).padStart(2,'0')+'s</span><span class="ico">'+boxingEventIcon(e.event_type)+'</span><div><strong>'+e.commentary+'</strong><small>'+(e.side==='red'?red.name:e.side==='blue'?blue.name:'Ring')+'</small></div></div>';
@@ -6600,7 +6645,7 @@ function renderBoxingBoutDetail(){
       '<div class="boxing-corner blue"><span class="flag">'+boxingFlag(blue.country)+'</span><button class="boxing-fighter-link" data-boxing-fighter="'+blue.id+'">'+blue.name+(boxingIsChampion(blue)?' 🏆':'')+'</button><small>'+boxingRecord(blue)+' • '+blue.style+'</small></div></div></div>'+
     '<div class="boxing-live-body">'+
       '<div class="boxing-commentator"><div class="boxing-commentator-head"><span>🎙 AFMB RİNG SPİKERİ</span><span>'+(b.status==='live'?'CANLI ANLATIM':b.status==='finished'?'MAÇ ARŞİVİ':'MAÇ ÖNCESİ')+'</span></div><div class="boxing-commentator-line">'+latestLine+'<small>AFMB Ring Masası resmî anlatımı • yorumlar spikerin şahsi heyecanıdır</small></div></div>'+
-      '<div class="boxing-rounds">'+rounds+'</div>'+
+      '<div class="boxing-rounds">'+rounds+'</div>'+scorecards+
       '<div class="boxing-live-grid"><div class="boxing-live-panel"><h4>📊 RİNG VERİSİ</h4>'+statRow('ÖNEMLİ İSABET',rs.landed,bs.landed)+statRow('SERT / KOMBO',rs.power,bs.power)+statRow('GÖVDE',rs.body,bs.body)+statRow('KONTRA',rs.counters,bs.counters)+statRow('KNOCKDOWN',rs.kd,bs.kd)+
         '<div class="boxing-pressure-head"><span>'+red.name+' %'+rpct+'</span><span>SON 75 SN BASKI</span><span>%'+bpct+' '+blue.name+'</span></div><div class="boxing-pressure"><span class="red" style="width:'+rpct+'%"></span><span class="blue" style="width:'+bpct+'%"></span></div></div>'+
       '<div class="boxing-live-panel"><h4>🎙 SPİKER AKIŞI</h4><div class="boxing-commentary-feed">'+feed+'</div></div></div>'+
