@@ -6603,8 +6603,8 @@ function prepareChanceStage(gameKey){
       <span class="rocket-axis a1">1.00×</span><span class="rocket-axis a2">2.00×</span><span class="rocket-axis a3">3.00×</span><span class="rocket-axis a4">4.00×</span>
       <div class="rocket-center">
         <span class="rocket-phase" id="rocketPhase">KALKIŞA HAZIR</span>
-        <div class="rocket-multiplier" id="rocketMultiplier">×0.90</div>
-        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake*.90))} potansiyel</span>
+        <div class="rocket-multiplier" id="rocketMultiplier">×1.00</div>
+        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake*1.00))} potansiyel</span>
       </div>
       <div class="rocket-object" id="rocketObject">🚀</div>
       <div class="rocket-caption"><span>AFMB UZAY PROGRAMI</span><span id="rocketTelemetry">SİNYAL BEKLENİYOR</span></div>
@@ -6716,7 +6716,10 @@ function randomFrom(items){return items[Math.floor(Math.random()*items.length)]}
 function roundChance(value){return Math.round(Number(value)*100)/100}
 function localMinesMultiplier(safeCount){return roundChance(0.85*Math.pow(1.09,safeCount))}
 function localHighCardMultiplier(streak){return roundChance(0.90*Math.pow(1.28,streak))}
-function localPenaltyMultiplier(goals){return roundChance(0.92*Math.pow(1.50,goals))}
+function localPenaltyMultiplier(goals){return goals>=5?7.00:roundChance(0.92*Math.pow(1.50,goals))}
+const bossHallwayMultipliers=[1.25,1.65,2.20,3.00,4.20,6.00];
+const varLineMultipliers=[1.30,1.80,2.70,4.50];
+const dolmusRouteConfig={SAFE:{label:'Güvenli Güzergâh',emoji:'🛣️',success:.86,factor:1.12},SHORTCUT:{label:'Kestirme',emoji:'⚡',success:.62,factor:1.40}};
 async function settleLocalChance(session,choice,result,multiplier){
   const {data,error}=await supabaseClient.rpc('settle_local_chance_game',{
     p_client_id:session.session_id,
@@ -6743,7 +6746,7 @@ async function startChanceSession(){
     game_key:gameKey,
     status:'active',
     stake,
-    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:0.90
+    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:1.00
   };
 
   if(gameKey==='mines'){
@@ -6760,6 +6763,12 @@ async function startChanceSession(){
     Object.assign(session,{crash_multiplier:crash,started_at:new Date().toISOString()});
   }else if(gameKey==='penalty_series'){
     Object.assign(session,{goals:0});
+  }else if(gameKey==='boss_hallway'){
+    Object.assign(session,{escapes:0,last_boss:null,last_choice:null});
+  }else if(gameKey==='dolmus_route'){
+    Object.assign(session,{stops:0,last_route:null});
+  }else if(gameKey==='var_line'){
+    Object.assign(session,{rounds:0,var_pos:6,var_dir:1,var_target:50,var_width:28});
   }
 
   activeChanceSession=session;
@@ -6772,11 +6781,17 @@ async function startChanceSession(){
   if(gameKey==='high_card')activateHighCard();
   if(gameKey==='rocket')activateRocket();
   if(gameKey==='penalty_series')activatePenalty();
+  if(gameKey==='boss_hallway')activateBossHallway();
+  if(gameKey==='dolmus_route')activateDolmusRoute();
+  if(gameKey==='var_line')activateVarLine();
 
   setChanceResult(
     gameKey==='mines'?'5 mayın lokal olarak gizlendi. Kutunu seç. 💣':
     gameKey==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':
     gameKey==='penalty_series'?'Top sende. Köşeyi seç ve vur. ⚽':
+    gameKey==='boss_hallway'?'Müdür katta. Üç kaçış noktasından birini seç. 🚪':
+    gameKey==='dolmus_route'?'İlk durağa gidiyoruz. Güvenli yol mu, kestirme mi? 🚌':
+    gameKey==='var_line'?'VAR çizgisi hareketli. Yeşil bölgede dondur. 📺':
     'Roket kalktı! Patlamadan parayı al. 🚀'
   );
   updateChancePlayLabel();
@@ -7001,13 +7016,13 @@ async function takePenalty(choice){
 function activateRocket(){
   const startMs=new Date(activeChanceSession.started_at).getTime()||Date.now();
   const crash=Number(activeChanceSession.crash_multiplier);
-  const crashMs=Math.max(0,((crash-0.90)/0.08)*1000);
+  const crashMs=Math.max(0,((crash-1.00)/0.08)*1000);
 
   const tick=()=>{
     if(!activeChanceSession||activeChanceGame!=='rocket'||activeChanceSession.status!=='active')return;
     const elapsed=Math.max(0,(Date.now()-startMs)/1000);
-    const x=Math.min(4,0.90+0.08*elapsed);
-    const progress=clamp((x-.90)/(4-.90),0,1);
+    const x=Math.min(4,1.00+0.08*elapsed);
+    const progress=clamp((x-1.00)/(4-1.00),0,1);
     const curveProgress=Math.pow(progress,.78);
     activeChanceSession.multiplier=x;
 
@@ -7085,7 +7100,7 @@ async function cashOutChanceSession(){
       result={outcome:'cashed',goals:Number(session.goals||0)};
     }else if(activeChanceGame==='rocket'){
       const elapsed=Math.max(0,(Date.now()-new Date(session.started_at).getTime())/1000);
-      multiplier=Math.min(4,roundChance(0.90+0.08*elapsed));
+      multiplier=Math.min(4,roundChance(1.00+0.08*elapsed));
       if(multiplier>=Number(session.crash_multiplier)){
         clearRocketTimers();
         const shell=document.getElementById('rocketShell');
