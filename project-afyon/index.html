@@ -3183,10 +3183,10 @@ function renderBoxingBulletinCard(b){
     pickButton('2',blue.name+' kazanır',odd('BOX_WIN','BLUE'),'Maç Kazanan','BOX_WIN','BLUE')
   ].join('');
   const methods=[
-    ['🥊 '+red.name+' KO/TKO',red.name+' KO/TKO',odd('BOX_METHOD','RED_KO'),'RED_KO'],
-    ['📋 '+red.name+' Karar',red.name+' kararla',odd('BOX_METHOD','RED_DEC'),'RED_DEC'],
-    ['🥊 '+blue.name+' KO/TKO',blue.name+' KO/TKO',odd('BOX_METHOD','BLUE_KO'),'BLUE_KO'],
-    ['📋 '+blue.name+' Karar',blue.name+' kararla',odd('BOX_METHOD','BLUE_DEC'),'BLUE_DEC']
+    ['1 • KO/TKO',red.name+' KO/TKO',odd('BOX_METHOD','RED_KO'),'RED_KO'],
+    ['1 • Karar',red.name+' kararla',odd('BOX_METHOD','RED_DEC'),'RED_DEC'],
+    ['2 • KO/TKO',blue.name+' KO/TKO',odd('BOX_METHOD','BLUE_KO'),'BLUE_KO'],
+    ['2 • Karar',blue.name+' kararla',odd('BOX_METHOD','BLUE_DEC'),'BLUE_DEC']
   ];
   const distance=[
     ['Tam Mesafe','Mesafeye gider',odd('BOX_DISTANCE','GOES'),'GOES'],
@@ -4052,7 +4052,7 @@ async function refreshOnlineAccount(){
 
     const matchIds=[...new Set(selections.map(x=>x.match_id).filter(Boolean))];
     if(matchIds.length){
-      const mr=await supabaseClient.from('matches').select('id,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at,sport,duration_seconds').in('id',matchIds);
+      const mr=await supabaseClient.from('matches').select('id,country,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at,sport,duration_seconds').in('id',matchIds);
       if(!mr.error)(mr.data||[]).forEach(m=>{
         onlineMatchMap[m.id]=m;
         if(m.status==='finished'&&m.home_goals!=null&&m.away_goals!=null){
@@ -5346,7 +5346,10 @@ document.querySelectorAll('.sport-tab').forEach(b=>b.addEventListener('click',as
   bulletinSport=b.dataset.sport;
   picks=[];
   syncBulletinLeagueFilters();
-  if(onlineMode)await refreshOnlineBulletin();
+  if(onlineMode){
+    if(bulletinSport==='boxing')await refreshOnlineBoxing(true);
+    await refreshOnlineBulletin();
+  }
   renderMatches();renderSlip();renderCoupons();
 }));
 document.querySelectorAll('.country-tab').forEach(b=>b.addEventListener('click',async()=>{
