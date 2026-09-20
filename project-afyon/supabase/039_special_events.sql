@@ -21,10 +21,10 @@ alter table public.match_events
   add constraint match_events_side_check
   check (side = any (array['home'::text,'away'::text,'neutral'::text]));
 
-insert into public.clubs(id,country,league_level,name,base_strength,seed,attack,midfield,defense,style,overall,tier)
+insert into public.clubs(id,country,league_level,name,base_strength,seed,attack,midfield,defense,style,tier)
 values
-  ('SPC-HOME','AFMB',1,'Özel Etkinlik A',70,9901,70,70,70,'Özel Etkinlik',70,'mid'),
-  ('SPC-AWAY','AFMB',1,'Özel Etkinlik B',70,9902,70,70,70,'Özel Etkinlik',70,'mid')
+  ('SPC-HOME','AFMB',1,'Özel Etkinlik A',70,9901,70,70,70,'Özel Etkinlik','mid'),
+  ('SPC-AWAY','AFMB',1,'Özel Etkinlik B',70,9902,70,70,70,'Özel Etkinlik','mid')
 on conflict (id) do nothing;
 
 create or replace function private.special_selection_wins(
