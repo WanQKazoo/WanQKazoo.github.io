@@ -6482,6 +6482,9 @@ function chanceHistorySummary(x){
   if(x.game_key==='rocket')return 'Patlama ×'+Number(x.result?.crash_multiplier||0).toFixed(2);
   if(x.game_key==='high_card')return (x.result?.streak??0)+' doğru tahmin';
   if(x.game_key==='penalty_series')return (x.result?.goals??0)+' gol';
+  if(x.game_key==='boss_hallway')return (x.result?.escapes??0)+' kaçış';
+  if(x.game_key==='dolmus_route')return (x.result?.stops??0)+' durak';
+  if(x.game_key==='var_line')return (x.result?.rounds??0)+' doğru VAR kararı';
   if(x.game_key==='zabita_raid')return (x.result?.winner==='SAFE'?'Kurtuldun':'Yakalandın')+' • Baskın: '+chanceLabel('zabita_raid',x.result?.raided);
   if(x.game_key==='bureaucracy_hurdles')return (x.result?.hurdles??0)+' engel';
   return chanceLabel(x.game_key,x.result?.winner);
@@ -6509,9 +6512,13 @@ function clearRocketTimers(){
   if(rocketPollTimer){clearTimeout(rocketPollTimer);rocketPollTimer=null}
   rocketPollBusy=false;
 }
+function clearChanceMotion(){
+  clearRocketTimers();
+  clearVarLineTimer();
+}
 function openChanceGame(gameKey){
   if(!chanceGames[gameKey]||chanceGames[gameKey].retired)return;
-  clearRocketTimers();
+  clearChanceMotion();
   activeChanceSession=null;
   activeChanceGame=gameKey;
   activeChanceChoice=chanceGames[gameKey].choices[0]?.[0]||null;
@@ -6541,7 +6548,7 @@ function closeChanceGame(){
     toast('Önce bu oyunu bitir ya da parayı al kankam 😄');
     return;
   }
-  clearRocketTimers();
+  clearChanceMotion();
   document.getElementById('chanceModal').classList.remove('open');
 }
 function updateChancePlayLabel(){
@@ -6558,7 +6565,7 @@ function updateChancePlayLabel(){
       btn.textContent='PARAYI AL • '+money(payout)+' • ×'+x;
       btn.classList.add('session-cashout');
     }
-    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1));
+    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1)||(activeChanceGame==='boss_hallway'&&Number(activeChanceSession.escapes||0)<1)||(activeChanceGame==='dolmus_route'&&Number(activeChanceSession.stops||0)<1)||(activeChanceGame==='var_line'&&Number(activeChanceSession.rounds||0)<1));
     return;
   }
   btn.disabled=chanceBusy;
@@ -7383,6 +7390,16 @@ async function cashOutChanceSession(){
     }else if(activeChanceGame==='penalty_series'){
       if(Number(session.goals||0)<1)throw new Error('Önce en az bir gol at.');
       result={outcome:'cashed',goals:Number(session.goals||0)};
+    }else if(activeChanceGame==='boss_hallway'){
+      if(Number(session.escapes||0)<1)throw new Error('Önce en az bir kez müdürden kaç.');
+      result={outcome:'cashed',escapes:Number(session.escapes||0),last_boss:session.last_boss,last_choice:session.last_choice};
+    }else if(activeChanceGame==='dolmus_route'){
+      if(Number(session.stops||0)<1)throw new Error('Önce en az bir durağa ulaş.');
+      result={outcome:'cashed',stops:Number(session.stops||0),last_route:session.last_route};
+    }else if(activeChanceGame==='var_line'){
+      if(Number(session.rounds||0)<1)throw new Error('Önce en az bir VAR kararını doğru ver.');
+      clearVarLineTimer();
+      result={outcome:'cashed',rounds:Number(session.rounds||0)};
     }else if(activeChanceGame==='rocket'){
       const elapsed=Math.max(0,(Date.now()-new Date(session.started_at).getTime())/1000);
       multiplier=Math.min(4,roundChance(1.00+0.08*elapsed));
@@ -7433,9 +7450,9 @@ async function cashOutChanceSession(){
   }
 }
 async function finishChanceSession(){
-  clearRocketTimers();
+  clearChanceMotion();
   document.getElementById('chanceStake').disabled=false;
-  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick]').forEach(x=>x.disabled=true);
+  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick],[data-corridor-hide],[data-dolmus-route],[data-var-freeze]').forEach(x=>x.disabled=true);
   activeChanceSession=null;
   await refreshChanceHistory();
 }
