@@ -6482,6 +6482,9 @@ function chanceHistorySummary(x){
   if(x.game_key==='rocket')return 'Patlama ×'+Number(x.result?.crash_multiplier||0).toFixed(2);
   if(x.game_key==='high_card')return (x.result?.streak??0)+' doğru tahmin';
   if(x.game_key==='penalty_series')return (x.result?.goals??0)+' gol';
+  if(x.game_key==='inspector_escape')return (x.result?.floors??0)+' kat kaçış';
+  if(x.game_key==='vault_crack')return (x.result?.locks??0)+' kilit';
+  if(x.game_key==='stamp_memory')return (x.result?.rounds??0)+' doğru dosya';
   if(x.game_key==='zabita_raid')return (x.result?.winner==='SAFE'?'Kurtuldun':'Yakalandın')+' • Baskın: '+chanceLabel('zabita_raid',x.result?.raided);
   if(x.game_key==='bureaucracy_hurdles')return (x.result?.hurdles??0)+' engel';
   return chanceLabel(x.game_key,x.result?.winner);
@@ -6509,9 +6512,14 @@ function clearRocketTimers(){
   if(rocketPollTimer){clearTimeout(rocketPollTimer);rocketPollTimer=null}
   rocketPollBusy=false;
 }
+function clearChanceAuxTimers(){
+  if(chanceAuxFrame){cancelAnimationFrame(chanceAuxFrame);chanceAuxFrame=null}
+  if(chanceAuxTimer){clearTimeout(chanceAuxTimer);chanceAuxTimer=null}
+}
 function openChanceGame(gameKey){
   if(!chanceGames[gameKey]||chanceGames[gameKey].retired)return;
   clearRocketTimers();
+  clearChanceAuxTimers();
   activeChanceSession=null;
   activeChanceGame=gameKey;
   activeChanceChoice=chanceGames[gameKey].choices[0]?.[0]||null;
@@ -6542,6 +6550,7 @@ function closeChanceGame(){
     return;
   }
   clearRocketTimers();
+  clearChanceAuxTimers();
   document.getElementById('chanceModal').classList.remove('open');
 }
 function updateChancePlayLabel(){
@@ -7019,6 +7028,262 @@ async function takePenalty(choice){
     chanceBusy=false;updateChancePlayLabel();
   }
 }
+
+const inspectorMultipliers=[1.30,1.80,2.60,4.20,7.20];
+function updateInspectorUx(){
+  const floors=Number(activeChanceSession?.floors||0);
+  const floorEl=document.getElementById('inspectorFloor');
+  const multEl=document.getElementById('inspectorMultiplier');
+  const caption=document.getElementById('inspectorCaption');
+  if(floorEl)floorEl.textContent=floors+' / 5';
+  if(multEl)multEl.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+  document.querySelectorAll('[data-inspector-progress]').forEach((x,i)=>x.classList.toggle('on',i<floors));
+  if(caption&&floors>0)caption.textContent=floors+' kat atlatıldı. Müfettiş hâlâ peşinde.';
+}
+function activateInspectorEscape(){
+  updateInspectorUx();
+  document.querySelectorAll('[data-inspector-door]').forEach(btn=>{
+    btn.disabled=false;
+    btn.addEventListener('click',()=>pickInspectorDoor(Number(btn.dataset.inspectorDoor)));
+  });
+}
+async function pickInspectorDoor(choice){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  document.querySelectorAll('[data-inspector-door]').forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  const inspector=Math.floor(Math.random()*3);
+  const doors=[...document.querySelectorAll('[data-inspector-door]')];
+  doors.forEach((door,i)=>{
+    door.classList.remove('safe','caught');
+    const small=door.querySelector('small');
+    if(i===inspector){door.classList.add('caught');if(small)small.textContent='🕵️';}
+    else {door.classList.add('safe');if(small)small.textContent='✓';}
+  });
+  const caption=document.getElementById('inspectorCaption');
+  await chanceWait(420);
+  try{
+    if(choice===inspector){
+      if(caption)caption.textContent='Müfettiş kapıyı açtı. Kaçış tutanağı burada sona erdi.';
+      await settleLocalChance(activeChanceSession,String(choice),{floors:Number(activeChanceSession.floors||0),caught_door:inspector},0);
+      setChanceResult('🕵️ Yakalandın. '+Number(activeChanceSession.floors||0)+' katlık kaçış sona erdi.','loss');
+      await finishChanceSession();
+      return;
+    }
+    activeChanceSession.floors=Number(activeChanceSession.floors||0)+1;
+    activeChanceSession.multiplier=inspectorMultipliers[activeChanceSession.floors-1];
+    updateInspectorUx();
+    if(caption)caption.textContent='Kapı temiz! '+activeChanceSession.floors+'. kat geçildi.';
+    if(activeChanceSession.floors>=5){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,String(choice),{floors:5,escaped:true},activeChanceSession.multiplier);
+      setChanceResult('🏃 5/5! Müfettiş binada kaldı, sen çıktın. '+money(payout)+' • ×7.20','win');
+      await finishChanceSession();
+      return;
+    }
+    setChanceResult('✓ Güvenli kapı • Kat '+activeChanceSession.floors+'/5 • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    await chanceWait(520);
+    doors.forEach(door=>{
+      door.classList.remove('safe','caught');
+      const small=door.querySelector('small');if(small)small.textContent='?';
+      door.disabled=false;
+    });
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+  }
+}
+
+const vaultMultipliers=[1.35,1.90,3.00,5.50];
+const vaultWidths=[30,24,18,12];
+function updateVaultUx(){
+  const locks=Number(activeChanceSession?.locks||0);
+  const lockEl=document.getElementById('vaultLocks');
+  const multEl=document.getElementById('vaultMultiplier');
+  if(lockEl)lockEl.textContent=locks+' / 4';
+  if(multEl)multEl.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+}
+function startVaultSweep(){
+  if(!activeChanceSession||activeChanceGame!=='vault_crack')return;
+  clearChanceAuxTimers();
+  const locks=Number(activeChanceSession.locks||0);
+  const width=vaultWidths[Math.min(locks,vaultWidths.length-1)];
+  const center=width/2+6+Math.random()*(88-width);
+  activeChanceSession.target_width=width;
+  activeChanceSession.target_center=center;
+  activeChanceSession.vault_pos=0;
+  const target=document.getElementById('vaultTarget');
+  const needle=document.getElementById('vaultNeedle');
+  const stop=document.querySelector('[data-vault-stop]');
+  const caption=document.getElementById('vaultCaption');
+  if(target){target.style.width=width+'%';target.style.left=(center-width/2)+'%';}
+  if(stop)stop.disabled=false;
+  if(caption)caption.textContent=(locks+1)+'. kilit • yeşil alan '+Math.round(width)+' birim.';
+  const started=performance.now();
+  const speed=0.055+locks*0.012;
+  const tick=now=>{
+    if(!activeChanceSession||activeChanceGame!=='vault_crack')return;
+    const travel=((now-started)*speed)%200;
+    const pos=travel<=100?travel:200-travel;
+    activeChanceSession.vault_pos=pos;
+    if(needle)needle.style.left=pos+'%';
+    chanceAuxFrame=requestAnimationFrame(tick);
+  };
+  chanceAuxFrame=requestAnimationFrame(tick);
+}
+function activateVaultCrack(){
+  updateVaultUx();
+  document.querySelector('[data-vault-stop]')?.addEventListener('click',stopVaultNeedle);
+  startVaultSweep();
+}
+async function stopVaultNeedle(){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  clearChanceAuxTimers();
+  const stop=document.querySelector('[data-vault-stop]');if(stop)stop.disabled=true;
+  updateChancePlayLabel();
+  const pos=Number(activeChanceSession.vault_pos||0);
+  const center=Number(activeChanceSession.target_center||50);
+  const width=Number(activeChanceSession.target_width||20);
+  const hit=Math.abs(pos-center)<=width/2;
+  const needle=document.getElementById('vaultNeedle');
+  const caption=document.getElementById('vaultCaption');
+  if(needle)needle.classList.add(hit?'hit':'miss');
+  try{
+    if(!hit){
+      if(caption)caption.textContent='TAK! İbre yeşil alanın dışında kaldı.';
+      await settleLocalChance(activeChanceSession,null,{locks:Number(activeChanceSession.locks||0),needle:roundChance(pos),target:roundChance(center),hit:false},0);
+      setChanceResult('🔒 Kasa kilitlendi. '+Number(activeChanceSession.locks||0)+' kilitten sonra AFMB anahtarı aldı.','loss');
+      await finishChanceSession();
+      return;
+    }
+    activeChanceSession.locks=Number(activeChanceSession.locks||0)+1;
+    activeChanceSession.multiplier=vaultMultipliers[activeChanceSession.locks-1];
+    updateVaultUx();
+    if(caption)caption.textContent='ÇIT! '+activeChanceSession.locks+'. kilit açıldı.';
+    if(activeChanceSession.locks>=4){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,null,{locks:4,opened:true},activeChanceSession.multiplier);
+      setChanceResult('🔓 KASA AÇILDI! 4/4 kilit • '+money(payout)+' • ×5.50','win');
+      await finishChanceSession();
+      return;
+    }
+    setChanceResult('🔓 Kilit '+activeChanceSession.locks+'/4 açıldı • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    await chanceWait(650);
+    if(needle)needle.classList.remove('hit','miss');
+    chanceBusy=false;
+    startVaultSweep();
+    updateChancePlayLabel();
+    return;
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    if(chanceBusy){chanceBusy=false;updateChancePlayLabel();}
+  }
+}
+
+const memoryMultipliers=[1.30,1.75,2.50,3.80,6.00];
+const memoryRevealMs=[1050,850,680,520,390];
+function updateMemoryUx(){
+  const rounds=Number(activeChanceSession?.rounds||0);
+  const roundEl=document.getElementById('memoryRound');
+  const multEl=document.getElementById('memoryMultiplier');
+  if(roundEl)roundEl.textContent=rounds+' / 5';
+  if(multEl)multEl.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+}
+function beginMemoryRound(){
+  if(!activeChanceSession||activeChanceGame!=='stamp_memory')return;
+  clearChanceAuxTimers();
+  const round=Number(activeChanceSession.rounds||0);
+  const target=Math.floor(Math.random()*6);
+  activeChanceSession.target_file=target;
+  activeChanceSession.revealing=true;
+  const files=[...document.querySelectorAll('[data-memory-file]')];
+  const caption=document.getElementById('memoryCaption');
+  files.forEach((file,i)=>{
+    file.disabled=true;
+    file.classList.remove('approved','wrong','chosen');
+    file.querySelector('.memory-folder').textContent=i===target?'📂':'📁';
+    file.querySelector('small').textContent=i===target?'✅ ONAYLI':'GİZLİ';
+    if(i===target)file.classList.add('approved');
+  });
+  if(caption)caption.textContent='BAK! Onaylı dosyanın yerini ezberle…';
+  chanceAuxTimer=setTimeout(()=>{
+    if(!activeChanceSession||activeChanceGame!=='stamp_memory')return;
+    activeChanceSession.revealing=false;
+    files.forEach(file=>{
+      file.classList.remove('approved');
+      file.querySelector('.memory-folder').textContent='📁';
+      file.querySelector('small').textContent='GİZLİ';
+      file.disabled=false;
+    });
+    if(caption)caption.textContent='Kapaklar kapandı. Onaylı dosya hangisiydi?';
+    chanceAuxTimer=null;
+  },memoryRevealMs[Math.min(round,memoryRevealMs.length-1)]);
+}
+function activateStampMemory(){
+  updateMemoryUx();
+  document.querySelectorAll('[data-memory-file]').forEach(btn=>btn.addEventListener('click',()=>pickMemoryFile(Number(btn.dataset.memoryFile))));
+  beginMemoryRound();
+}
+async function pickMemoryFile(choice){
+  if(chanceBusy||!activeChanceSession||activeChanceSession.revealing)return;
+  chanceBusy=true;
+  clearChanceAuxTimers();
+  const files=[...document.querySelectorAll('[data-memory-file]')];
+  files.forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  const target=Number(activeChanceSession.target_file);
+  const chosen=files[choice],correct=choice===target;
+  if(chosen)chosen.classList.add(correct?'approved':'wrong','chosen');
+  if(files[target]){
+    files[target].classList.add('approved');
+    files[target].querySelector('.memory-folder').textContent='📂';
+    files[target].querySelector('small').textContent='✅ ONAYLI';
+  }
+  const caption=document.getElementById('memoryCaption');
+  try{
+    if(!correct){
+      if(caption)caption.textContent='Yanlış dosya. Doğru mühür şimdi gösterildi.';
+      await settleLocalChance(activeChanceSession,String(choice),{rounds:Number(activeChanceSession.rounds||0),target_file:target,choice,correct:false},0);
+      setChanceResult('🗂️ Yanlış dosya. '+Number(activeChanceSession.rounds||0)+' turdan sonra hafıza komisyonu dağıldı.','loss');
+      await finishChanceSession();
+      return;
+    }
+    activeChanceSession.rounds=Number(activeChanceSession.rounds||0)+1;
+    activeChanceSession.multiplier=memoryMultipliers[activeChanceSession.rounds-1];
+    updateMemoryUx();
+    if(caption)caption.textContent='Doğru dosya! Mühür hâlâ yerinde.';
+    if(activeChanceSession.rounds>=5){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,String(choice),{rounds:5,perfect:true},activeChanceSession.multiplier);
+      setChanceResult('🧠 5/5! AFMB seni “gereksiz derecede dikkatli vatandaş” ilan etti. '+money(payout)+' • ×6.00','win');
+      await finishChanceSession();
+      return;
+    }
+    setChanceResult('✅ Doğru dosya • Tur '+activeChanceSession.rounds+'/5 • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    await chanceWait(650);
+    chanceBusy=false;
+    beginMemoryRound();
+    updateChancePlayLabel();
+    return;
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Oyun kaydedilemedi; tur sayılmadı: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    if(chanceBusy){chanceBusy=false;updateChancePlayLabel();}
+  }
+}
+
 function activateRocket(){
   const startMs=new Date(activeChanceSession.started_at).getTime()||Date.now();
   const crash=Number(activeChanceSession.crash_multiplier);
@@ -7104,6 +7369,15 @@ async function cashOutChanceSession(){
     }else if(activeChanceGame==='penalty_series'){
       if(Number(session.goals||0)<1)throw new Error('Önce en az bir gol at.');
       result={outcome:'cashed',goals:Number(session.goals||0)};
+    }else if(activeChanceGame==='inspector_escape'){
+      if(Number(session.floors||0)<1)throw new Error('Önce en az bir kat kaç.');
+      result={floors:Number(session.floors||0),cashed:true};
+    }else if(activeChanceGame==='vault_crack'){
+      if(Number(session.locks||0)<1)throw new Error('Önce en az bir kilit aç.');
+      result={locks:Number(session.locks||0),cashed:true};
+    }else if(activeChanceGame==='stamp_memory'){
+      if(Number(session.rounds||0)<1)throw new Error('Önce en az bir dosyayı doğru bul.');
+      result={rounds:Number(session.rounds||0),cashed:true};
     }else if(activeChanceGame==='rocket'){
       const elapsed=Math.max(0,(Date.now()-new Date(session.started_at).getTime())/1000);
       multiplier=Math.min(4,roundChance(0.90+0.08*elapsed));
@@ -7136,6 +7410,7 @@ async function cashOutChanceSession(){
     }
 
     clearRocketTimers();
+    clearChanceAuxTimers();
     const payout=Math.round(session.stake*multiplier);
     await settleLocalChance(session,choice,result,multiplier);
     setChanceResult('💰 Parayı aldın: '+money(payout)+' • ×'+Number(multiplier).toFixed(2),'win');
@@ -7155,8 +7430,9 @@ async function cashOutChanceSession(){
 }
 async function finishChanceSession(){
   clearRocketTimers();
+  clearChanceAuxTimers();
   document.getElementById('chanceStake').disabled=false;
-  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick]').forEach(x=>x.disabled=true);
+  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick],[data-inspector-door],[data-vault-stop],[data-memory-file]').forEach(x=>x.disabled=true);
   activeChanceSession=null;
   await refreshChanceHistory();
 }
