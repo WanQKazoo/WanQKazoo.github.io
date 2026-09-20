@@ -337,7 +337,42 @@ body[data-page="news"] #newsSection,body[data-page="games"] #gamesSection{min-he
 
 .mine-shell{display:grid;gap:12px}.mine-top{display:flex;justify-content:space-between;align-items:center;padding:4px 2px}.mine-top strong{font-size:13px}.mine-top span{font-size:11px;color:var(--accent2);font-weight:1000}
 .mine-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.mine-cell{aspect-ratio:1;border:1px solid #33445f;border-radius:11px;background:#16233a;color:#8596b3;font-size:18px;font-weight:1000;transition:.15s}.mine-cell:not(:disabled):hover{background:#1d304e;border-color:#557298}.mine-cell.safe{background:#17382f;border-color:#3a8a70;color:#8effd8}.mine-cell.bomb{background:#48232c;border-color:#9a4557;color:#ffb0ba}.mine-cell:disabled{cursor:default}
-.rocket-shell{height:215px;position:relative;overflow:hidden;border-radius:14px;background:radial-gradient(circle at 50% 100%,#1a3451,#0b1220 70%)}.rocket-stars{position:absolute;inset:0;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:29px 29px;opacity:.08}.rocket-object{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);font-size:48px;transition:bottom .15s linear,transform .2s}.rocket-object.flying{bottom:120px;transform:translateX(-50%) rotate(-8deg)}.rocket-multiplier{position:absolute;inset:0;display:grid;place-items:center;font-size:46px;font-weight:1000;color:#fff;text-shadow:0 8px 25px rgba(0,0,0,.45)}.rocket-caption{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:#6f829f;font-size:9px;font-weight:900}
+.rocket-stage{padding:0!important;background:#080d18!important;border-color:#24334b!important}
+.rocket-shell{height:310px;position:relative;overflow:hidden;border-radius:16px;background:radial-gradient(circle at 18% 82%,rgba(48,113,170,.24),transparent 30%),radial-gradient(circle at 72% 24%,rgba(98,67,160,.12),transparent 34%),linear-gradient(180deg,#0a1020 0%,#08111d 56%,#0b1824 100%);isolation:isolate}
+.rocket-shell:before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(113,145,185,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(113,145,185,.055) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to top,#000,transparent 82%);opacity:.8}
+.rocket-shell:after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;box-shadow:inset 0 -45px 70px rgba(0,0,0,.28),inset 0 0 55px rgba(0,0,0,.20)}
+.rocket-stars{position:absolute;inset:-40px;z-index:0;background-image:radial-gradient(circle,rgba(255,255,255,.78) 0 1px,transparent 1.4px),radial-gradient(circle,rgba(130,188,255,.65) 0 1px,transparent 1.3px);background-size:43px 43px,67px 67px;background-position:0 0,20px 14px;opacity:.22;animation:rocketStarsDrift 8s linear infinite}
+.rocket-graph{position:absolute;left:18px;right:18px;top:52px;bottom:42px;z-index:1;width:calc(100% - 36px);height:calc(100% - 94px);overflow:visible}
+.rocket-curve-bg{fill:none;stroke:rgba(107,135,174,.20);stroke-width:2;stroke-linecap:round}
+.rocket-curve-live{fill:none;stroke:#64e4b8;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 7px rgba(100,228,184,.32));transition:stroke-dashoffset .12s linear}
+.rocket-axis{position:absolute;z-index:1;color:#4f6480;font-size:7px;font-weight:1000;letter-spacing:.5px}.rocket-axis.a1{left:17px;bottom:43px}.rocket-axis.a2{left:34%;bottom:43px}.rocket-axis.a3{left:61%;bottom:43px}.rocket-axis.a4{right:18px;top:48px}
+.rocket-hud{position:absolute;left:14px;right:14px;top:12px;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rocket-live-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid #2a4059;border-radius:999px;background:rgba(8,18,31,.78);color:#8ba2bf;font-size:7px;font-weight:1000;letter-spacing:.75px;backdrop-filter:blur(5px)}
+.rocket-live-pill i{width:6px;height:6px;border-radius:50%;background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.10);animation:rocketLivePulse 1.15s ease-in-out infinite}
+.rocket-payout{display:grid;text-align:right}.rocket-payout small{color:#617794;font-size:7px;font-weight:1000;letter-spacing:.7px}.rocket-payout strong{margin-top:2px;color:#dce9fa;font-size:12px}
+.rocket-center{position:absolute;left:0;right:0;top:76px;z-index:3;display:grid;justify-items:center;pointer-events:none}
+.rocket-phase{color:#6f86a4;font-size:8px;font-weight:1000;letter-spacing:1.1px}
+.rocket-multiplier{margin-top:2px;color:#f7fbff;font-size:55px;line-height:1;font-weight:1000;letter-spacing:-2px;text-shadow:0 10px 35px rgba(0,0,0,.58),0 0 28px rgba(98,219,183,.08);font-variant-numeric:tabular-nums}
+.rocket-potential{margin-top:7px;padding:4px 8px;border:1px solid #263d52;border-radius:999px;background:rgba(10,21,34,.70);color:#88a0bd;font-size:8px;font-weight:900}
+.rocket-object{position:absolute;left:9%;bottom:10%;z-index:5;font-size:42px;line-height:1;transform:translate(-50%,50%) rotate(-42deg);transform-origin:center;filter:drop-shadow(0 9px 12px rgba(0,0,0,.45));transition:left .12s linear,bottom .12s linear,transform .12s linear,filter .2s}
+.rocket-object.flying:after{content:"🔥";position:absolute;right:29px;bottom:-5px;font-size:17px;transform:rotate(44deg);filter:blur(.1px);animation:rocketFlame .18s ease-in-out infinite alternate}
+.rocket-shell.high-flight .rocket-object{filter:drop-shadow(0 0 14px rgba(99,230,190,.26)) drop-shadow(0 9px 12px rgba(0,0,0,.45))}
+.rocket-caption{position:absolute;left:14px;right:14px;bottom:13px;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:10px;color:#536984;font-size:7px;font-weight:1000;letter-spacing:.55px}
+.rocket-caption span:last-child{color:#7188a6}
+.rocket-shell.crashed{animation:rocketCrashShake .36s ease-in-out}
+.rocket-shell.crashed .rocket-curve-live{stroke:#ff6f7d;filter:drop-shadow(0 0 9px rgba(255,91,109,.42))}
+.rocket-shell.crashed .rocket-multiplier{color:#ff8692;text-shadow:0 0 30px rgba(255,91,109,.22)}
+.rocket-shell.crashed .rocket-live-pill i{background:#ff6f7d;box-shadow:0 0 0 4px rgba(255,111,125,.11);animation:none}
+.rocket-shell.cashed-out .rocket-curve-live{stroke:#ffd166;filter:drop-shadow(0 0 8px rgba(255,209,102,.28))}
+.rocket-shell.cashed-out .rocket-potential{border-color:#66552a;color:#ffd878;background:rgba(50,39,12,.72)}
+.chance-play.rocket-cashout{background:linear-gradient(180deg,#73f0c7,#4fd6ac);box-shadow:0 0 0 1px rgba(105,235,193,.12),0 10px 28px rgba(45,184,143,.17);font-size:13px;letter-spacing:.2px}
+.chance-play.rocket-cashout:not(:disabled){animation:rocketCashPulse 1.4s ease-in-out infinite}
+@keyframes rocketStarsDrift{to{transform:translate(-32px,28px)}}
+@keyframes rocketLivePulse{50%{opacity:.45;transform:scale(.78)}}
+@keyframes rocketFlame{from{transform:rotate(44deg) scale(.78)}to{transform:rotate(44deg) scale(1.12)}}
+@keyframes rocketCashPulse{50%{box-shadow:0 0 0 1px rgba(105,235,193,.15),0 12px 34px rgba(45,184,143,.28)}}
+@keyframes rocketCrashShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+@media(max-width:720px){.rocket-shell{height:285px}.rocket-multiplier{font-size:49px}.rocket-center{top:72px}.rocket-object{font-size:38px}.rocket-graph{top:50px;bottom:40px}}
 .card-shell{display:grid;place-items:center;gap:13px;min-height:205px}.playing-card{width:110px;height:148px;border-radius:15px;background:#f5f0e8;color:#171717;border:6px solid #d9d1c3;display:grid;place-items:center;font-size:48px;font-weight:1000;box-shadow:0 15px 32px rgba(0,0,0,.35)}.card-meta{font-size:11px;color:#8fa0bd;font-weight:900}.card-actions{display:flex;gap:8px}.card-guess{border:1px solid #3b4d6c;border-radius:11px;background:#17243a;color:#fff;padding:10px 16px;font-weight:1000}.card-guess:disabled{opacity:.4}
 .hurdle-shell{height:210px;position:relative;overflow:hidden}.hurdle-ground{position:absolute;left:0;right:0;bottom:44px;height:3px;background:#34445f}.bureau-runner{position:absolute;left:3%;bottom:48px;font-size:35px;transition:left 1.7s cubic-bezier(.15,.75,.2,1)}.hurdle-item{position:absolute;bottom:47px;font-size:29px;transition:.25s}.hurdle-item.pass{opacity:.35;transform:rotate(18deg) translateY(8px)}.hurdle-item.hit{filter:drop-shadow(0 0 8px rgba(255,107,107,.6));transform:scale(1.2)}.hurdle-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#71829e;font-size:10px;font-weight:900}
 .penalty-shell{display:grid;gap:12px;min-height:220px}
@@ -4880,14 +4915,25 @@ function closeChanceGame(){
 function updateChancePlayLabel(){
   const btn=document.getElementById('chancePlay');
   const stake=Math.max(0,Math.floor(Number(document.getElementById('chanceStake').value)||0));
+  btn.classList.remove('rocket-cashout');
   if(activeChanceSession?.status==='active'){
     const x=Number(activeChanceSession.multiplier||1).toFixed(2);
-    btn.textContent='PARAYI AL • ×'+x;
+    if(activeChanceGame==='rocket'){
+      const payout=Math.max(0,Math.round(Number(activeChanceSession.stake||0)*Number(activeChanceSession.multiplier||0)));
+      btn.textContent='PARAYI AL • '+money(payout)+' • ×'+x;
+      btn.classList.add('rocket-cashout');
+    }else{
+      btn.textContent='PARAYI AL • ×'+x;
+    }
     btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1));
     return;
   }
   btn.disabled=chanceBusy;
-  btn.textContent=(chanceGames[activeChanceGame]?.mode==='session'?'BAŞLA • ':'OYNA • ')+money(stake);
+  if(activeChanceGame==='rocket'&&chanceGames[activeChanceGame]?.mode==='session'){
+    btn.textContent='UÇUŞU BAŞLAT • '+money(stake);
+  }else{
+    btn.textContent=(chanceGames[activeChanceGame]?.mode==='session'?'BAŞLA • ':'OYNA • ')+money(stake);
+  }
 }
 function prepareChanceStage(gameKey){
   const game=chanceGames[gameKey],stage=document.getElementById('chanceStage');
@@ -4903,7 +4949,27 @@ function prepareChanceStage(gameKey){
   }else if(game.type==='mines'){
     stage.innerHTML='<div class="mine-shell"><div class="mine-top"><strong>25 kutu • 5 mayın</strong><span id="mineMultiplier">×0.85</span></div><div class="mine-grid">'+Array.from({length:25},(_,i)=>'<button class="mine-cell" data-mine-cell="'+i+'" disabled>?</button>').join('')+'</div></div>';
   }else if(game.type==='rocket'){
-    stage.innerHTML='<div class="rocket-shell"><div class="rocket-stars"></div><div class="rocket-multiplier" id="rocketMultiplier">×0.90</div><div class="rocket-object" id="rocketObject">🚀</div><div class="rocket-caption">AFMB UZAY PROGRAMI • PATLAMADAN ÇIK</div></div>';
+    stage.classList.add('rocket-stage');
+    const rocketStake=Math.max(0,Math.floor(Number(document.getElementById('chanceStake').value)||0));
+    stage.innerHTML=`<div class="rocket-shell" id="rocketShell">
+      <div class="rocket-stars"></div>
+      <div class="rocket-hud">
+        <span class="rocket-live-pill"><i></i> AFMB UÇUŞ KONTROL</span>
+        <div class="rocket-payout"><small>OYUN MİKTARI</small><strong>${money(rocketStake)}</strong></div>
+      </div>
+      <svg class="rocket-graph" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path class="rocket-curve-bg" pathLength="100" d="M4 92 C24 91 34 83 47 69 S72 35 96 8"></path>
+        <path class="rocket-curve-live" id="rocketPathLive" pathLength="100" d="M4 92 C24 91 34 83 47 69 S72 35 96 8"></path>
+      </svg>
+      <span class="rocket-axis a1">1.00×</span><span class="rocket-axis a2">2.00×</span><span class="rocket-axis a3">3.00×</span><span class="rocket-axis a4">4.00×</span>
+      <div class="rocket-center">
+        <span class="rocket-phase" id="rocketPhase">KALKIŞA HAZIR</span>
+        <div class="rocket-multiplier" id="rocketMultiplier">×0.90</div>
+        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake*.90))} potansiyel</span>
+      </div>
+      <div class="rocket-object" id="rocketObject">🚀</div>
+      <div class="rocket-caption"><span>AFMB UZAY PROGRAMI</span><span id="rocketTelemetry">SİNYAL BEKLENİYOR</span></div>
+    </div>`;
   }else if(game.type==='card'){
     stage.innerHTML='<div class="card-shell"><div class="playing-card" id="highCardFace">?</div><div class="card-meta" id="highCardMeta">Oyunu başlat</div><div class="card-actions"><button class="card-guess" data-card-guess="HIGHER" disabled>⬆ DAHA YÜKSEK</button><button class="card-guess" data-card-guess="LOWER" disabled>⬇ DAHA DÜŞÜK</button></div></div>';
   }else if(game.type==='penalty'){
@@ -5219,7 +5285,7 @@ async function takePenalty(choice){
   }
 }
 function activateRocket(){
-  const startMs=Date.now();
+  const startMs=new Date(activeChanceSession.started_at).getTime()||Date.now();
   const crash=Number(activeChanceSession.crash_multiplier);
   const crashMs=Math.max(0,((crash-0.90)/0.08)*1000);
 
@@ -5227,10 +5293,30 @@ function activateRocket(){
     if(!activeChanceSession||activeChanceGame!=='rocket'||activeChanceSession.status!=='active')return;
     const elapsed=Math.max(0,(Date.now()-startMs)/1000);
     const x=Math.min(4,0.90+0.08*elapsed);
+    const progress=clamp((x-.90)/(4-.90),0,1);
+    const curveProgress=Math.pow(progress,.78);
     activeChanceSession.multiplier=x;
+
     const label=document.getElementById('rocketMultiplier');
+    const rocket=document.getElementById('rocketObject');
+    const path=document.getElementById('rocketPathLive');
+    const potential=document.getElementById('rocketPotential');
+    const phase=document.getElementById('rocketPhase');
+    const telemetry=document.getElementById('rocketTelemetry');
+    const shell=document.getElementById('rocketShell');
+
     if(label)label.textContent='×'+x.toFixed(2);
-    document.getElementById('rocketObject')?.classList.add('flying');
+    if(potential)potential.textContent=money(Math.round(Number(activeChanceSession.stake||0)*x))+' potansiyel';
+    if(path)path.style.strokeDashoffset=String(100-progress*100);
+    if(rocket){
+      rocket.classList.add('flying');
+      rocket.style.left=(9+progress*78)+'%';
+      rocket.style.bottom=(10+curveProgress*72)+'%';
+      rocket.style.transform='translate(-50%,50%) rotate('+(-42+progress*7)+'deg) scale('+(1+progress*.13)+')';
+    }
+    if(shell)shell.classList.toggle('high-flight',x>=2);
+    if(phase)phase.textContent=x<1.15?'KALKIŞ':x<1.75?'YÜKSELİŞ':x<2.60?'YÜKSEK İRTİFA':x<3.35?'KRİTİK İRTİFA':'AFMB RADAR DIŞI';
+    if(telemetry)telemetry.textContent=x<1.5?'SİNYAL GÜÇLÜ':x<2.5?'UÇUŞ STABİL':x<3.25?'RİSK ARTIYOR':'TEMAS ZAYIF';
     updateChancePlayLabel();
     rocketFrame=requestAnimationFrame(tick);
   };
@@ -5242,12 +5328,20 @@ function activateRocket(){
     try{
       const session=activeChanceSession;
       clearRocketTimers();
+      const shell=document.getElementById('rocketShell');
       const label=document.getElementById('rocketMultiplier');
-      if(label)label.textContent='💥 ×'+crash.toFixed(2);
+      const phase=document.getElementById('rocketPhase');
+      const potential=document.getElementById('rocketPotential');
+      const telemetry=document.getElementById('rocketTelemetry');
       const rocket=document.getElementById('rocketObject');
+      if(shell)shell.classList.add('crashed');
+      if(label)label.textContent='×'+crash.toFixed(2);
+      if(phase)phase.textContent='SİNYAL KESİLDİ';
+      if(potential)potential.textContent='0 ₳D • uçuş sona erdi';
+      if(telemetry)telemetry.textContent='💥 BAĞLANTI KOPTU';
       if(rocket){rocket.textContent='💥';rocket.classList.remove('flying');}
       await settleLocalChance(session,null,{crash_multiplier:crash},0);
-      setChanceResult('Roket ×'+crash.toFixed(2)+' seviyesinde patladı.','loss');
+      setChanceResult('💥 Roket ×'+crash.toFixed(2)+' seviyesinde patladı. AFMB uçuş dosyasını kapattı.','loss');
       await finishChanceSession();
     }catch(err){
       await refreshOnlineAccount();
@@ -5280,12 +5374,30 @@ async function cashOutChanceSession(){
       multiplier=Math.min(4,roundChance(0.90+0.08*elapsed));
       if(multiplier>=Number(session.crash_multiplier)){
         clearRocketTimers();
+        const shell=document.getElementById('rocketShell');
+        const phase=document.getElementById('rocketPhase');
+        const potential=document.getElementById('rocketPotential');
+        const telemetry=document.getElementById('rocketTelemetry');
+        const rocket=document.getElementById('rocketObject');
+        if(shell)shell.classList.add('crashed');
+        if(phase)phase.textContent='ÇOK GEÇ';
+        if(potential)potential.textContent='0 ₳D • uçuş sona erdi';
+        if(telemetry)telemetry.textContent='💥 BAĞLANTI KOPTU';
+        if(rocket){rocket.textContent='💥';rocket.classList.remove('flying');}
         await settleLocalChance(session,null,{crash_multiplier:Number(session.crash_multiplier)},0);
         setChanceResult('Geç kaldın. Roket ×'+Number(session.crash_multiplier).toFixed(2)+' seviyesinde patladı.','loss');
         await finishChanceSession();
         return;
       }
       result={cashout_multiplier:multiplier,crash_multiplier:Number(session.crash_multiplier)};
+      const shell=document.getElementById('rocketShell');
+      const phase=document.getElementById('rocketPhase');
+      const potential=document.getElementById('rocketPotential');
+      const telemetry=document.getElementById('rocketTelemetry');
+      if(shell)shell.classList.add('cashed-out');
+      if(phase)phase.textContent='PARA ALINDI';
+      if(potential)potential.textContent=money(Math.round(session.stake*multiplier))+' kasaya geçti';
+      if(telemetry)telemetry.textContent='✓ GÜVENLİ ÇIKIŞ';
     }
 
     clearRocketTimers();
