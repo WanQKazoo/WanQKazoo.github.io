@@ -1684,20 +1684,34 @@ header{
   <main class="container">
     <section class="hero" data-page-section="bulletin">
       <div class="hero-grid">
-        <div class="hero-card">
-          <div class="kicker" id="seasonKicker">SEZON 1 • HAFTA 1 / 34</div>
-          <h1>Avrupa futbolu.<br><span>Tamamı uydurma.</span></h1>
-          <p>12 ülke, ülke başına 5 lig, lig başına 18 kulüp ve kendi kendine yaşayan bir futbol dünyası. Sen sadece istatistiğe bak, tahminini yap ve Afyon Dinarı'nı korumaya çalış.</p>
-          <div class="stats">
-            <div class="stat"><strong>1.080</strong><small>Hayali kulüp</small></div>
-            <div class="stat"><strong>5</strong><small>Lig seviyesi / ülke</small></div>
-            <div class="stat"><strong>100%</strong><small>Gerçek paradan bağımsız</small></div>
+        <div class="hero-card today-hero">
+          <div class="today-hero-top">
+            <div>
+              <div class="kicker" id="seasonKicker">SEZON 1 • HAFTA 1 / 34</div>
+              <span class="today-date" id="todayHeroDate">BUGÜN • Program hazırlanıyor</span>
+            </div>
+            <span class="today-live-pill" id="todayHeroLive">● ORTAK DÜNYA</span>
+          </div>
+          <div class="today-hero-main">
+            <div class="today-hero-copy">
+              <span class="today-hero-label">BUGÜN AFYON'DA</span>
+              <h1 id="todayHeroTitle">Akşam programı hazırlanıyor.</h1>
+              <p id="todayHeroSummary">Futbol, e-Futbol, Fight Night ve AFMB özel etkinlikleri tek akışta.</p>
+            </div>
+            <div class="today-hero-next">
+              <small>SIRADAKİ BAŞLANGIÇ</small>
+              <strong id="todayHeroNextTime">—</strong>
+              <span id="todayHeroNextMeta">Program yükleniyor</span>
+            </div>
+          </div>
+          <div class="today-program-strip" id="todayProgramStrip">
+            <div class="today-program-empty">Bugünün öne çıkan programı hazırlanıyor…</div>
           </div>
         </div>
-        <aside class="afmb">
+        <aside class="afmb compact-afmb">
           <span class="afmb-badge">🏛 AFYON MERKEZ BANKASI</span>
-          <h3>Haftalık ekonomik görünüm</h3>
-          <p>Vatandaşlarımızın 7 maçlık kombine kuponlara yoğun ilgi göstermesi endişeyle takip edilmektedir.</p>
+          <h3>Günün ekonomik uyarısı</h3>
+          <p>“Kupon tamamlandıktan sonra bir seçim daha ekleme” davranışı kurumumuzca hâlen finansal strateji sayılmamaktadır.</p>
           <small>— Para Politikası ve Korner Tahminleri Kurulu</small>
         </aside>
       </div>
@@ -1732,7 +1746,14 @@ header{
             <button class="sport-tab" data-sport="boxing">🥊 Boks <small>FIGHT NIGHT</small></button>
             <button class="sport-tab" data-sport="special">🎪 Özel <small>AFMB PROGRAMI</small></button>
           </div>
-          <div class="country-tabs" id="countryTabs">
+          <div class="bulletin-filter-toolbar">
+            <button class="bulletin-filter-toggle" id="bulletinFilterToggle" type="button" aria-expanded="false">
+              <span>⚙ Filtreler</span><small id="bulletinFilterSummary">Tüm ülkeler • Tüm ligler</small><b>⌄</b>
+            </button>
+            <button class="bulletin-filter-reset" id="bulletinFilterReset" type="button">Temizle</button>
+          </div>
+          <div class="bulletin-filter-panel" id="bulletinFilterPanel">
+            <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="Tümü">🌍 Tümü</button>
             <button class="country-tab" data-country="İngiltere">🏴 İngiltere</button>
             <button class="country-tab" data-country="Türkiye">🇹🇷 Türkiye</button>
@@ -1755,6 +1776,7 @@ header{
             <button class="league-tab" data-level="4">4. Lig</button>
             <button class="league-tab" data-level="5">5. Lig</button>
           </div>
+          </div>
           <div class="sim-bar">
             <div class="sim-info"><span class="sim-dot" id="simDot"></span><span id="simInfo">1. Hafta • Avrupa genelinde maçlar bekliyor</span></div>
             <button class="simulate-btn" id="simulateLeague">🎲 Haftayı Oynat</button>
@@ -1776,12 +1798,6 @@ header{
               <button id="matchCenterNext" aria-label="Sonraki gün">›</button>
             </div>
           </div>
-          <div class="match-center-filters">
-            <button class="match-center-filter active" data-match-center-filter="all">Tümü <span class="count">0</span></button>
-            <button class="match-center-filter" data-match-center-filter="live">🔴 Canlı <span class="count">0</span></button>
-            <button class="match-center-filter" data-match-center-filter="scheduled">Yaklaşan <span class="count">0</span></button>
-            <button class="match-center-filter" data-match-center-filter="finished">Biten <span class="count">0</span></button>
-          </div>
           <div class="live-center conference" id="liveCenter" hidden>
             <div class="live-top">
               <div class="live-main"><span class="live-badge">● CANLI KONFERANS</span><strong class="live-clock" id="liveClock">0 CANLI</strong><span class="live-sub" id="liveSub">Afyon genelindeki canlı karşılaşmalar</span></div>
@@ -1792,6 +1808,12 @@ header{
             <div class="conference-score-strip" id="conferenceScores"></div>
             <div class="conference-feed-head"><strong>SON OLAYLAR</strong><small id="conferenceFeedMeta">Canlı akış</small></div>
             <div class="live-feed conference-feed" id="liveFeed"><div class="live-event">Hakemler saatlerini kontrol ediyor.</div></div>
+          </div>
+          <div class="match-center-filters">
+            <button class="match-center-filter active" data-match-center-filter="all">Tümü <span class="count">0</span></button>
+            <button class="match-center-filter" data-match-center-filter="live">🔴 Canlı <span class="count">0</span></button>
+            <button class="match-center-filter" data-match-center-filter="scheduled">Yaklaşan <span class="count">0</span></button>
+            <button class="match-center-filter" data-match-center-filter="finished">Biten <span class="count">0</span></button>
           </div>
           <div class="match-center-summary"><span id="matchCenterMeta">Program hazırlanıyor…</span><button class="match-center-toggle-all" id="matchCenterToggleGroups">Tüm ülkeleri kapat</button></div>
           <div class="match-center-list" id="matchCenterMatches"><div class="bulletin-empty">Maç programı yükleniyor…</div></div>
@@ -1837,6 +1859,9 @@ header{
 
         <section class="section-card" id="couponsSection" data-page-section="coupons">
           <div class="section-title"><div><h2>🎟 Kuponlarım</h2><p>Hesabındaki bekleyen, kazanan ve kaybeden sanal kuponlar</p></div></div>
+          <div class="coupon-hero-panel" id="couponHeroPanel">
+            <div class="coupon-hero-empty">Aktif kupon bilgisi hazırlanıyor…</div>
+          </div>
           <div class="coupon-list" id="couponList"></div>
         </section>
 
@@ -1904,15 +1929,30 @@ header{
             </div>
             <div class="chance-disclaimer">🏛 AFMB NOTU: ₳D gerçek para değildir; satın alınamaz, satılamaz veya çekilemez. Buna rağmen 1.40 oranı “banko” ilan etmek tamamen vatandaşın şahsi görüşüdür ve kurumumuzu bağlamaz.</div>
           </div>
-          <div class="chance-grid" id="chanceGameGrid">
-            <button class="chance-card" data-open-game="marble_race"><span class="icon">🔵</span><span class="tag">YARIŞ</span><h3>Bilye Ligi</h3><p>Sekiz bilye devlet ciddiyetiyle yokuşa bırakılır. Vatandaş bir tanesine gereğinden fazla bağlanır; gerisini fizik ve nasip halleder.</p><span class="odds">Kazanan seçim: ×6.00</span></button>
-            <button class="chance-card" data-open-game="mines"><span class="icon">💣</span><span class="tag">RİSKİ SEN YÖNET</span><h3>Afyon Mayın Tarlası</h3><p>25 kutunun beşinde mayın bulunmaktadır. AFMB, “bir tane daha açayım” cümlesinin tarihsel sonuçları hakkında defalarca açıklama yapmıştır.</p><span class="odds">Devam et veya çık</span></button>
-            <button class="chance-card" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Roket yükselirken herkes sakindir. 3.20’den sonra aynı kişiler “biraz daha gider” uzmanına dönüşmektedir.</p><span class="odds">Ne zaman çıkacağını sen seç</span></button>
-            <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Kart yükselir mi düşer mi? AFMB bu soruya yıllardır cevap aramakta, vatandaş ise ilk elde kesin kanaate varmaktadır.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
-            <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">RİSKİ SEN YÖNET</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisinden birini seçer ve kaçırınca kalecinin kendisini özellikle takip ettiğini düşünür.</p><span class="odds">Gol at • devam et veya parayı al</span></button>
-            <button class="chance-card" data-open-game="memur_box"><span class="icon">📦</span><span class="tag">TAHMİN</span><h3>Hangi Kutuda Memur Var?</h3><p>Üç kutudan birinde memur görev başındadır. AFMB diğer iki kutunun nerede olduğunu sormamanızı rica eder.</p><span class="odds">Doğru kutu: ×2.40</span></button>
-            <button class="chance-card" data-open-game="coin_flip"><span class="icon">🪙</span><span class="tag">HIZLI OYUN</span><h3>Yazı — Tura</h3><p>AFMB Ar-Ge’nin yıllardır gurur duyduğu teknoloji: metal bir cisim havaya atılır, ekonomi kısa süreliğine kaderine bırakılır.</p><span class="odds">Doğru seçim: ×1.85</span></button>
-            <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven. AFMB olay yerine karışmaz; yalnızca tutanak tutar.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
+          <div class="chance-arcade" id="chanceGameGrid">
+            <section class="chance-arcade-section featured">
+              <div class="chance-arcade-head"><div><small>ÖNE ÇIKAN</small><strong>Bu gece AFMB Lunaparkı</strong></div><span>Risk sana ait, tutanak kuruma.</span></div>
+              <div class="chance-feature-grid">
+                <button class="chance-card chance-card-hero" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Roket yükselirken herkes sakindir. 3.20’den sonra aynı kişiler “biraz daha gider” uzmanına dönüşmektedir.</p><span class="odds">Ne zaman çıkacağını sen seç</span><span class="chance-cta">UÇUŞA GİT →</span></button>
+                <button class="chance-card chance-card-feature" data-open-game="marble_race"><span class="icon">🔵</span><span class="tag">AFMB KLASİĞİ</span><h3>Bilye Ligi</h3><p>Sekiz bilye devlet ciddiyetiyle yokuşa bırakılır.</p><span class="odds">Kazanan: ×6.00</span></button>
+                <button class="chance-card chance-card-feature" data-open-game="mines"><span class="icon">💣</span><span class="tag">RİSKİ SEN YÖNET</span><h3>Afyon Mayın Tarlası</h3><p>“Bir kutu daha” ifadesi yine kırmızıyla işaretli.</p><span class="odds">Devam et veya çık</span></button>
+              </div>
+            </section>
+            <section class="chance-arcade-section">
+              <div class="chance-arcade-head"><div><small>RİSK MASASI</small><strong>Karar verdikçe büyüyen oyunlar</strong></div><span>Çıkmayı bilmek de oyundur.</span></div>
+              <div class="chance-arcade-grid">
+                <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Kart yükselir mi düşer mi? Özgüven üçüncü elde başlar.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
+                <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">Gol at • devam et veya çık</span></button>
+                <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
+              </div>
+            </section>
+            <section class="chance-arcade-section quick">
+              <div class="chance-arcade-head"><div><small>HIZLI MASA</small><strong>Tek karar, kısa tutanak</strong></div><span>AFMB öğle arasından önce sonuç ister.</span></div>
+              <div class="chance-arcade-grid compact">
+                <button class="chance-card" data-open-game="memur_box"><span class="icon">📦</span><span class="tag">TAHMİN</span><h3>Hangi Kutuda Memur Var?</h3><p>Üç kutudan birinde memur görev başında.</p><span class="odds">Doğru kutu: ×2.40</span></button>
+                <button class="chance-card" data-open-game="coin_flip"><span class="icon">🪙</span><span class="tag">HIZLI OYUN</span><h3>Yazı — Tura</h3><p>Metal bir cisim havaya atılır; ekonomi kısa süreliğine kaderine bırakılır.</p><span class="odds">Doğru seçim: ×1.85</span></button>
+              </div>
+            </section>
           </div>
           <div class="chance-history">
             <div class="chance-history-head"><strong>Son Oyunların</strong><small>Yalnızca sen görürsün</small></div>
@@ -1956,7 +1996,25 @@ header{
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.56 Gün Sınırı</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <nav class="mobile-bottom-nav" aria-label="Mobil ana menü">
+    <a class="mobile-bottom-item active" data-page-nav="bulletin" href="?page=bulletin"><span>⚽</span><small>Bülten</small></a>
+    <a class="mobile-bottom-item" data-page-nav="matches" href="?page=matches"><span>📡</span><small>Canlı</small></a>
+    <a class="mobile-bottom-item" data-page-nav="coupons" href="?page=coupons"><span>🎟</span><small>Kupon</small></a>
+    <a class="mobile-bottom-item" data-page-nav="boxing" href="?page=boxing"><span>🥊</span><small>Boks</small></a>
+    <button class="mobile-bottom-item" id="mobileMoreOpen" type="button"><span>☰</span><small>Daha</small></button>
+  </nav>
+  <div class="mobile-more-backdrop" id="mobileMoreSheet">
+    <div class="mobile-more-panel">
+      <div class="mobile-more-head"><div><small>PROJECT AFYON</small><strong>Daha Fazla</strong></div><button id="mobileMoreClose" type="button">×</button></div>
+      <div class="mobile-more-grid">
+        <a data-page-nav="leagues" href="?page=leagues"><span>🏆</span><strong>Ligler</strong><small>Puan, fikstür, kulüpler</small></a>
+        <a data-page-nav="news" href="?page=news"><span>📰</span><strong>Haberler</strong><small>AFMB gündemi</small></a>
+        <a data-page-nav="games" href="?page=games"><span>🎰</span><strong>Şans</strong><small>AFMB Lunaparkı</small></a>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.57 UI 2.0</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
