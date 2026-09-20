@@ -3853,7 +3853,7 @@ function renderMatchCenter(){
 
     return '<section class="match-center-country '+(countryCollapsed?'collapsed':'')+'" data-match-center-country-wrap="'+encodedCountry+'">'+
       '<button class="match-center-country-head" data-match-center-country="'+encodedCountry+'" aria-expanded="'+(!countryCollapsed)+'">'+
-        '<span class="match-center-country-title"><span class="match-center-country-flag">'+(countryFlags[country.country]||'⚽')+'</span><span class="match-center-country-title-copy"><strong>'+country.country+'</strong><small>'+country.leagues.length+' lig • '+country.matches.length+' maç</small></span></span>'+
+        '<span class="match-center-country-title"><span class="match-center-country-flag">'+(country.country==='AFMB Özel'?'🎪':(countryFlags[country.country]||'⚽'))+'</span><span class="match-center-country-title-copy"><strong>'+country.country+'</strong><small>'+(country.country==='AFMB Özel'?(country.leagues.length+' program • '+country.matches.length+' etkinlik'):(country.leagues.length+' lig • '+country.matches.length+' maç'))+'</small></span></span>'+
         '<span class="match-center-country-counts">'+countPills(country.matches,'country')+'</span>'+
         '<span class="match-center-country-chevron">⌄</span>'+
       '</button>'+
