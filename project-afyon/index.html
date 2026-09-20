@@ -1622,6 +1622,46 @@ header{
   .rescue-stage{min-height:155px}
 }
 
+
+/* ===== Prototype 0.55 — AFMB Özel Etkinlikler ===== */
+#bulletinSection .sport-tab[data-sport="special"]{border-color:#5b4930;background:#1d1811;color:#dbc08a}
+#bulletinSection .sport-tab[data-sport="special"]:hover{border-color:#8a6e3c;background:#292014;color:#ffe3a1}
+#bulletinSection .sport-tab[data-sport="special"].active{border-color:#e3b95b;background:linear-gradient(135deg,#493516,#2d2315);color:#fff2bf;box-shadow:inset 0 0 0 1px rgba(255,211,112,.12),0 6px 18px rgba(92,62,21,.24)}
+.sport-badge.special{background:#3d2e16;color:#ffe091;border:1px solid rgba(255,211,112,.16)}
+.match.special{background:linear-gradient(90deg,rgba(207,158,61,.12),#101827 34%);box-shadow:inset 3px 0 #d6a843}
+.match.special:hover{background:linear-gradient(90deg,rgba(223,173,67,.17),#121d2e 38%)}
+.match.special .match-meta strong{background:#382b16;color:#ffe091}
+.match.special .dot{background:#e1b24d}
+.match.special .team-copy strong{color:#f5ead1}
+.match.special .special-team-note{display:block;margin-top:2px;color:#8c8169;font-size:8px;font-weight:800}
+.match.special .special-market-launch{grid-column:3/6;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:10px 13px;border:1px solid #5a4828;border-radius:12px;background:#1a1814;color:#f5dfaa;font-weight:950}
+.match.special .special-market-launch small{color:#8d8065;font-size:8px}
+.match.special .extra-markets.open{grid-template-columns:repeat(2,minmax(0,1fr))}
+.match.special .market-group.wide{grid-column:1/-1}
+.match.special .market-group.wide .market-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.match.special .market-group-title{color:#d0b574}
+.match.special .market-grid .odd-btn{background:#171a20;border-color:#403923}
+.match.special .market-grid .odd-btn:hover,.match.special .market-grid .odd-btn.selected{background:#4a3a18;border-color:#d6ad55;color:#fff1bd}
+.bulletin-group-head.special{background:linear-gradient(90deg,#2b2112,#111928 72%);border-top-color:#846630;border-bottom-color:#49391f}
+.bulletin-group-head.special strong{color:#f1d18b}
+#bulletinSection[data-sport="special"]{border-color:#4d3b20;box-shadow:0 18px 55px rgba(61,42,15,.25)}
+#bulletinSection[data-sport="special"] .section-title{background:linear-gradient(180deg,#241c10,#111827);border-bottom-color:#44351e}
+#bulletinSection[data-sport="special"] #bulletinSub{color:#bca36d}
+.match-center-group.special .match-center-group-head{background:linear-gradient(90deg,rgba(202,155,58,.10),transparent)}
+.match-center-special-title{display:block;color:#f0d28d;font-size:10px;font-weight:1000}
+.match-event.special{border-color:#514326;background:#1b1a16}
+.match-event.special .icon{filter:drop-shadow(0 2px 8px rgba(255,208,102,.18))}
+.special-detail-hero{background:radial-gradient(circle at 50% 0,rgba(255,209,102,.12),transparent 46%),linear-gradient(160deg,#251d10,#101827)}
+.special-detail-note{margin-top:8px;color:#9d8e6d;font-size:10px;font-weight:850}
+.special-detail-status{display:inline-flex;margin-top:8px;padding:5px 8px;border-radius:999px;border:1px solid #5d4a26;background:#221b10;color:#f5d98f;font-size:9px;font-weight:1000}
+@media(max-width:720px){
+  #bulletinSection .sport-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .match.special .special-market-launch{grid-column:1/-1}
+  .match.special .extra-markets.open{grid-template-columns:1fr}
+  .match.special .market-group.wide{grid-column:auto}
+  .match.special .market-group.wide .market-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -1684,6 +1724,7 @@ header{
             <button class="sport-tab" data-sport="football">⚽ Futbol <small>ANA LİGLER</small></button>
             <button class="sport-tab" data-sport="efootball">🎮 e-Futbol <small>HIZLI MAÇ</small></button>
             <button class="sport-tab" data-sport="boxing">🥊 Boks <small>FIGHT NIGHT</small></button>
+            <button class="sport-tab" data-sport="special">🎪 Özel <small>AFMB PROGRAMI</small></button>
           </div>
           <div class="country-tabs" id="countryTabs">
             <button class="country-tab active" data-country="Tümü">🌍 Tümü</button>
@@ -1909,7 +1950,7 @@ header{
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.54 eFootball Turbo</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.55 AFMB Özel Etkinlikler</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2065,6 +2106,7 @@ const crownKickoffMinutes={
 };
 function sportInfo(sport){
   if(sport==='boxing')return {icon:'🥊',label:'Boks',short:'BX',competition:'AFMB Fight Night'};
+  if(sport==='special')return {icon:'🎪',label:'Özel Etkinlikler',short:'ÖZ',competition:'AFMB Özel Spor Programı'};
   return sport==='efootball'
     ?{icon:'🎮',label:'e-Futbol',short:'eF',competition:'eFootball Arena'}
     :{icon:'⚽',label:'Futbol',short:'FT',competition:null};
@@ -3065,7 +3107,7 @@ function findClubByName(name,country=selectedCountry,level=selectedLevel,clubId=
 }
 async function loadOnlineClubFixtures(clubId,sport='football'){
   if(!onlineMode||!clubId)return [];
-  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
+  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes';
   const {data,error}=await supabaseClient.from('matches')
     .select(fields)
     .eq('season',state.season)
@@ -3505,7 +3547,7 @@ function matchInsightSideHtml(club,sport){
 }
 async function refreshOnlineMatchDetail(){
   if(!activeMatchDetailId||!onlineMode)return;
-  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
+  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes';
   const [matchRes,eventRes]=await Promise.all([
     supabaseClient.from('matches').select(fields).eq('id',activeMatchDetailId).single(),
     supabaseClient.from('match_events').select('id,match_id,minute,event_type,side,payload,visible_at').eq('match_id',activeMatchDetailId).order('minute',{ascending:true}).order('id',{ascending:true})
@@ -3576,7 +3618,7 @@ async function refreshOnlineMatchCenter(force=false){
   const now=Date.now();
   if(!force&&now-onlineMatchCenterLastRefresh<10000)return;
   const bounds=matchCenterDayBounds();
-  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
+  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes';
   const res=await supabaseClient.from('matches').select(fields)
     .eq('season',state.season)
     .gte('kickoff_at',bounds.start.toISOString())
@@ -3857,7 +3899,7 @@ function renderSchedulePulse(){
 }
 
 async function refreshOnlineConference(){
-  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
+  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes';
   const {data,error}=await supabaseClient.from('matches').select(fields)
     .eq('season',state.season)
     .eq('week',state.week)
@@ -5012,7 +5054,7 @@ async function refreshOnlineWorld(){
   return changed;
 }
 async function refreshOnlineBulletin(){
-  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds';
+  const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes';
   const makeQuery=(sport,limit)=>{
     let q=supabaseClient.from('matches').select(fields)
       .eq('season',state.season)
@@ -5029,10 +5071,11 @@ async function refreshOnlineBulletin(){
   if(bulletinSport==='boxing'){
     data=[];
   }else if(bulletinSport==='all'){
-    const [footballRes,efootballRes]=await Promise.all([makeQuery('football',12),makeQuery('efootball',12)]);
+    const [footballRes,efootballRes,specialRes]=await Promise.all([makeQuery('football',12),makeQuery('efootball',12),makeQuery('special',10)]);
     if(footballRes.error)throw footballRes.error;
     if(efootballRes.error)throw efootballRes.error;
-    data=[...(footballRes.data||[]),...(efootballRes.data||[])];
+    if(specialRes.error)throw specialRes.error;
+    data=[...(footballRes.data||[]),...(efootballRes.data||[]),...(specialRes.data||[])];
   }else{
     const res=await makeQuery(bulletinSport,24);
     if(res.error)throw res.error;
@@ -5117,7 +5160,7 @@ async function refreshOnlineAccount(){
 
     const matchIds=[...new Set(selections.map(x=>x.match_id).filter(Boolean))];
     if(matchIds.length){
-      const mr=await supabaseClient.from('matches').select('id,country,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at,sport,duration_seconds').in('id',matchIds);
+      const mr=await supabaseClient.from('matches').select('id,country,home_club_id,away_club_id,status,home_goals,away_goals,started_at,kickoff_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes').in('id',matchIds);
       if(!mr.error)(mr.data||[]).forEach(m=>{
         onlineMatchMap[m.id]=m;
         if(m.status==='finished'&&m.home_goals!=null&&m.away_goals!=null){
@@ -6654,8 +6697,8 @@ function syncBulletinLeagueFilters(){
   const leagueTabs=document.getElementById('leagueTabs');
   const countryTabs=document.getElementById('countryTabs');
   if(!leagueTabs||!countryTabs)return;
-  const hideLeague=bulletinSport==='efootball'||bulletinSport==='boxing';
-  const hideCountry=bulletinSport==='boxing';
+  const hideLeague=['efootball','boxing','special'].includes(bulletinSport);
+  const hideCountry=['boxing','special'].includes(bulletinSport);
   leagueTabs.hidden=hideLeague;
   leagueTabs.style.display=hideLeague?'none':'';
   countryTabs.hidden=hideCountry;
