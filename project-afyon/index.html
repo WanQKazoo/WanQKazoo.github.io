@@ -1956,7 +1956,7 @@ header{
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.55 AFMB Özel Etkinlikler</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.56 Gün Sınırı</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3932,6 +3932,7 @@ async function refreshOnlineSchedulePulse(force=false){
   const now=new Date(nowMs);
   const soonEnd=new Date(nowMs+30*60*1000);
   const {start,end}=turkeyDayBounds(now);
+  const soonCutoff=new Date(Math.min(soonEnd.getTime(),end.getTime()));
 
   const [soonRes,todayRes,nextRes]=await Promise.all([
     supabaseClient.from('matches')
@@ -3939,7 +3940,7 @@ async function refreshOnlineSchedulePulse(force=false){
       .eq('season',state.season)
       .eq('status','scheduled')
       .gte('kickoff_at',now.toISOString())
-      .lte('kickoff_at',soonEnd.toISOString()),
+      .lt('kickoff_at',soonCutoff.toISOString()),
     supabaseClient.from('matches')
       .select('id',{count:'exact',head:true})
       .eq('season',state.season)
@@ -3950,6 +3951,7 @@ async function refreshOnlineSchedulePulse(force=false){
       .eq('season',state.season)
       .eq('status','scheduled')
       .gte('kickoff_at',now.toISOString())
+      .lt('kickoff_at',end.toISOString())
       .order('kickoff_at',{ascending:true})
       .limit(24)
   ]);
@@ -4090,8 +4092,10 @@ function boxingSelectionWins(selection,bout){
 function boxingBulletinBouts(){
   if(!['all','boxing'].includes(bulletinSport))return [];
   const now=Date.now();
+  const today=istanbulDateKey(now);
   return onlineBoxingBouts.filter(function(b){
     if(b.status!=='scheduled'||new Date(b.scheduled_at).getTime()<=now)return false;
+    if(istanbulDateKey(b.scheduled_at)!==today)return false;
     if(bulletinSport==='boxing'||bulletinCountry==='Tümü')return true;
     const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
     return red?.country===bulletinCountry||blue?.country===bulletinCountry;
@@ -5280,11 +5284,15 @@ async function refreshOnlineWorld(){
 }
 async function refreshOnlineBulletin(){
   const fields='id,season,week,country,league_level,match_index,home_club_id,away_club_id,status,home_goals,away_goals,kickoff_at,started_at,finished_at,sport,duration_seconds,special_key,special_title,special_home_label,special_away_label,special_subtitle,special_icon,special_outcomes';
+  const now=new Date();
+  const todayBounds=turkeyDayBounds(now);
   const makeQuery=(sport,limit)=>{
     let q=supabaseClient.from('matches').select(fields)
       .eq('season',state.season)
       .eq('sport',sport)
       .eq('status','scheduled')
+      .gte('kickoff_at',now.toISOString())
+      .lt('kickoff_at',todayBounds.end.toISOString())
       .order('kickoff_at',{ascending:true})
       .limit(limit);
     if(bulletinCountry!=='Tümü')q=q.eq('country',bulletinCountry);
