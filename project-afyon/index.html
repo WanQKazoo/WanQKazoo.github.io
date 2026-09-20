@@ -2260,6 +2260,14 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
                 <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
               </div>
             </section>
+            <section class="chance-arcade-section chance-new-zone">
+              <div class="chance-arcade-head"><div><small>YENİ • DENEYSEL SERVİS</small><strong>AFMB sinir sistemini test ediyor</strong></div><span>Karar, refleks ve hafıza aynı koridorda.</span></div>
+              <div class="chance-arcade-grid">
+                <button class="chance-card chance-new-card" data-open-game="inspector_escape"><span class="icon">🕵️</span><span class="tag">KAÇIŞ SERİSİ</span><h3>Müfettişten Kaçış</h3><p>Üç kapıdan birinde müfettiş. Güvenli kapıyı seç, kata çık veya parayı al.</p><span class="odds">5 kat • final ×7.20</span></button>
+                <button class="chance-card chance-new-card" data-open-game="vault_crack"><span class="icon">🔐</span><span class="tag">ZAMANLAMA</span><h3>AFMB Kasa Kırma</h3><p>İbreyi yeşil bölgede durdur. Her tur hedef küçülür, çarpan büyür.</p><span class="odds">4 kilit • final ×5.50</span></button>
+                <button class="chance-card chance-new-card" data-open-game="stamp_memory"><span class="icon">🗂️</span><span class="tag">HAFIZA</span><h3>Mühür Nerede?</h3><p>Onaylı dosyayı gör, kapaklar kapanınca doğru olanı hatırla.</p><span class="odds">5 tur • final ×6.00</span></button>
+              </div>
+            </section>
             <section class="chance-arcade-section quick">
               <div class="chance-arcade-head"><div><small>HIZLI MASA</small><strong>Tek karar, kısa tutanak</strong></div><span>AFMB öğle arasından önce sonuç ister.</span></div>
               <div class="chance-arcade-grid compact">
@@ -2328,7 +2336,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.4 Mobile Slip Hotfix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.58 AFMB Lunapark Fun Pack</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2458,6 +2466,9 @@ const chanceGames={
   rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
   penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; kaçırınca dosya sessizce kapatılır.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
+  inspector_escape:{title:'Müfettişten Kaçış',desc:'Her katta üç kapı var. Birinin arkasında müfettiş bekliyor. Doğru kapıyı bul, bir üst kata kaç veya kazancını al.',emoji:'🕵️',type:'inspector',mode:'session',choices:[]},
+  vault_crack:{title:'AFMB Kasa Kırma',desc:'İbre hareket ediyor, yeşil bölge daralıyor. Tam zamanında DUR de; yanlış anda basarsan kasa değil bütçe açılır.',emoji:'🔐',type:'vault',mode:'session',choices:[]},
+  stamp_memory:{title:'Mühür Nerede?',desc:'Onaylı dosyayı kısa süre gör, kapaklar kapanınca doğru dosyayı bul. Her tur AFMB hafızana daha az süre tanır.',emoji:'🗂️',type:'memory',mode:'session',choices:[]},
   zabita_raid:{title:'Zabıta Baskını',desc:'Simit, mısır veya kestane. Zabıta yalnızca birine gider; AFMB esnaf dayanışmasına karışmamaktadır. • ×1.40',emoji:'🚨',type:'raid',mode:'single',choices:[['SIMIT','🥨 Simit'],['MISIR','🌽 Mısır'],['KESTANE','🌰 Kestane']]},
   afmb_wheel:{title:'AFMB Çarkı',desc:'Emekli oyun',emoji:'🏛️',type:'wheel',mode:'single',choices:[],retired:true},
   memur_box:{title:'Hangi Kutuda Memur Var?',desc:'Üç kutudan birinde memur bulunmaktadır. Diğer kutular hakkında Bilgi Edinme başvuruları sonuçsuz kalmıştır. • ×2.40',emoji:'📦',type:'boxes',mode:'single',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
@@ -2845,7 +2856,7 @@ function getClubNames(country,level){
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
-let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
+let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
@@ -6592,8 +6603,8 @@ function prepareChanceStage(gameKey){
       <span class="rocket-axis a1">1.00×</span><span class="rocket-axis a2">2.00×</span><span class="rocket-axis a3">3.00×</span><span class="rocket-axis a4">4.00×</span>
       <div class="rocket-center">
         <span class="rocket-phase" id="rocketPhase">KALKIŞA HAZIR</span>
-        <div class="rocket-multiplier" id="rocketMultiplier">×0.90</div>
-        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake*.90))} potansiyel</span>
+        <div class="rocket-multiplier" id="rocketMultiplier">×1.00</div>
+        <span class="rocket-potential" id="rocketPotential">${money(Math.round(rocketStake))} potansiyel</span>
       </div>
       <div class="rocket-object" id="rocketObject">🚀</div>
       <div class="rocket-caption"><span>AFMB UZAY PROGRAMI</span><span id="rocketTelemetry">SİNYAL BEKLENİYOR</span></div>
@@ -6705,7 +6716,7 @@ function randomFrom(items){return items[Math.floor(Math.random()*items.length)]}
 function roundChance(value){return Math.round(Number(value)*100)/100}
 function localMinesMultiplier(safeCount){return roundChance(0.85*Math.pow(1.09,safeCount))}
 function localHighCardMultiplier(streak){return roundChance(0.90*Math.pow(1.28,streak))}
-function localPenaltyMultiplier(goals){return roundChance(0.92*Math.pow(1.50,goals))}
+function localPenaltyMultiplier(goals){return goals>=5?7.00:roundChance(0.92*Math.pow(1.50,goals))}
 async function settleLocalChance(session,choice,result,multiplier){
   const {data,error}=await supabaseClient.rpc('settle_local_chance_game',{
     p_client_id:session.session_id,
