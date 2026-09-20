@@ -2252,11 +2252,19 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
                 <button class="chance-card chance-card-feature" data-open-game="mines"><span class="icon">💣</span><span class="tag">RİSKİ SEN YÖNET</span><h3>Afyon Mayın Tarlası</h3><p>“Bir kutu daha” ifadesi yine kırmızıyla işaretli.</p><span class="odds">Devam et veya çık</span></button>
               </div>
             </section>
+            <section class="chance-arcade-section chance-new-section">
+              <div class="chance-arcade-head"><div><small>YENİ • TANSİYON MASASI</small><strong>Bir karar daha ver; sonra gerçekten çıkarsın.</strong></div><span>AFMB sorumluluk kabul etmez, tutanak kabul eder.</span></div>
+              <div class="chance-arcade-grid chance-new-grid">
+                <button class="chance-card chance-card-new" data-open-game="boss_hallway"><span class="icon">🚪</span><span class="tag">YENİ • SERİ</span><h3>Müdür Koridoru</h3><p>Arşiv, çay ocağı, merdiven. Müdür birinde. Doğru yere kaçtıkça bordro büyür.</p><span class="odds">6 kaçış • final ×6.00</span></button>
+                <button class="chance-card chance-card-new" data-open-game="dolmus_route"><span class="icon">🚌</span><span class="tag">YENİ • STRATEJİ</span><h3>Dolmuş Hattı</h3><p>Güvenli rota az, kestirme çok kazandırır. Her durakta risk seviyesini sen seçersin.</p><span class="odds">5 durak • rota bazlı çarpan</span></button>
+                <button class="chance-card chance-card-new" data-open-game="var_line"><span class="icon">📺</span><span class="tag">YENİ • REFLEKS</span><h3>VAR Çizgisi</h3><p>Çizgi hareket ediyor. Yeşil bölgede dondur; her başarılı turda pencere küçülür.</p><span class="odds">4 tur • final ×4.50</span></button>
+              </div>
+            </section>
             <section class="chance-arcade-section">
               <div class="chance-arcade-head"><div><small>RİSK MASASI</small><strong>Karar verdikçe büyüyen oyunlar</strong></div><span>Çıkmayı bilmek de oyundur.</span></div>
               <div class="chance-arcade-grid">
                 <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Kart yükselir mi düşer mi? Özgüven üçüncü elde başlar.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
-                <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">Gol at • devam et veya çık</span></button>
+                <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">5/5 final: ×7.00 • istediğin an çık</span></button>
                 <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
               </div>
             </section>
@@ -2328,7 +2336,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.4 Mobile Slip Hotfix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.58 AFMB Lunapark 2.0</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2457,7 +2465,10 @@ const chanceGames={
   mines:{title:'Afyon Mayın Tarlası',desc:'Beş mayın bulunmaktadır. “Son bir kutu” ifadesi AFMB risk raporlarında kırmızıyla işaretlidir.',emoji:'💣',type:'mines',mode:'session',choices:[]},
   rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
-  penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; kaçırınca dosya sessizce kapatılır.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
+  penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; 5/5 seri artık tam ×7.00 öder.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
+  boss_hallway:{title:'Müdür Koridoru',desc:'Her katta üç kaçış noktası vardır. Müdür birini kontrol eder. Yakalanmadan ilerle, bordronu istediğin an kap.',emoji:'🚪',type:'corridor',mode:'session',choices:[]},
+  dolmus_route:{title:'Dolmuş Hattı',desc:'Her durakta güvenli güzergâh mı, kestirme mi? Kestirme daha çok kazandırır; zabıta ve trafik aynı fikirde olmayabilir.',emoji:'🚌',type:'dolmus',mode:'session',choices:[]},
+  var_line:{title:'VAR Çizgisi',desc:'Hareketli ofsayt çizgisini yeşil bölgede dondur. Her tur pencere daralır, çarpan büyür. AFMB milimetrik adalete güvenmektedir.',emoji:'📺',type:'varline',mode:'session',choices:[]},
   zabita_raid:{title:'Zabıta Baskını',desc:'Simit, mısır veya kestane. Zabıta yalnızca birine gider; AFMB esnaf dayanışmasına karışmamaktadır. • ×1.40',emoji:'🚨',type:'raid',mode:'single',choices:[['SIMIT','🥨 Simit'],['MISIR','🌽 Mısır'],['KESTANE','🌰 Kestane']]},
   afmb_wheel:{title:'AFMB Çarkı',desc:'Emekli oyun',emoji:'🏛️',type:'wheel',mode:'single',choices:[],retired:true},
   memur_box:{title:'Hangi Kutuda Memur Var?',desc:'Üç kutudan birinde memur bulunmaktadır. Diğer kutular hakkında Bilgi Edinme başvuruları sonuçsuz kalmıştır. • ×2.40',emoji:'📦',type:'boxes',mode:'single',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
@@ -2845,7 +2856,7 @@ function getClubNames(country,level){
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
-let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
+let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,varLineFrame=null;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
