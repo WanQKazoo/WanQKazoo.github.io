@@ -1953,6 +1953,14 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   #leagueSection .league-summary-main{grid-column:1/-1}
 }
 
+
+/* Boxing main poster interaction fix */
+.boxing-main-poster{cursor:pointer}
+.boxing-main-poster:after{pointer-events:none}
+.boxing-main-poster>*{position:relative;z-index:1}
+.boxing-main-poster:focus-visible{outline:2px solid #ff9aa6;outline-offset:3px}
+.boxing-main-center button{cursor:pointer;position:relative;z-index:2}
+
 </style>
 </head>
 <body>
@@ -6212,9 +6220,9 @@ function renderBoxingFightNight(){
   };
 
   const poster=red&&blue
-    ?'<div class="boxing-main-poster">'+
+    ?'<div class="boxing-main-poster" data-main-boxing-bout="'+main.id+'" role="button" tabindex="0" aria-label="Ana maç detayını aç">'+
       '<div class="boxing-main-corner"><span class="flag">'+boxingFlag(red.country)+'</span><button class="boxing-fighter-link" data-boxing-fighter="'+red.id+'">'+red.name+(boxingIsChampion(red)?' 🏆':'')+'</button><small>'+boxingRecord(red)+' • '+red.style+'</small></div>'+
-      '<div class="boxing-main-center"><small>'+(main.is_title_fight?'🏆 KEMER MAÇI':'⭐ ANA MAÇ')+'</small><strong>'+formatIstanbulTime(main.scheduled_at)+'</strong><span>'+boxingWeightNames[main.weight_class]+' • '+main.rounds+' raund</span><button data-boxing-bout="'+main.id+'">'+action+'</button></div>'+
+      '<div class="boxing-main-center"><small>'+(main.is_title_fight?'🏆 KEMER MAÇI':'⭐ ANA MAÇ')+'</small><strong>'+formatIstanbulTime(main.scheduled_at)+'</strong><span>'+boxingWeightNames[main.weight_class]+' • '+main.rounds+' raund</span><button type="button">'+action+'</button></div>'+
       '<div class="boxing-main-corner"><span class="flag">'+boxingFlag(blue.country)+'</span><button class="boxing-fighter-link" data-boxing-fighter="'+blue.id+'">'+blue.name+(boxingIsChampion(blue)?' 🏆':'')+'</button><small>'+boxingRecord(blue)+' • '+blue.style+'</small></div>'+
     '</div>'
     :'';
@@ -6224,6 +6232,17 @@ function renderBoxingFightNight(){
     poster+
     '<div class="boxing-night-under-card">'+under+'</div>';
   box.querySelectorAll('[data-boxing-bout]').forEach(btn=>btn.addEventListener('click',()=>openBoxingBout(btn.dataset.boxingBout)));
+  box.querySelectorAll('[data-main-boxing-bout]').forEach(posterEl=>{
+    const openMain=()=>openBoxingBout(posterEl.dataset.mainBoxingBout);
+    posterEl.addEventListener('click',e=>{
+      if(e.target.closest('[data-boxing-fighter]'))return;
+      openMain();
+    });
+    posterEl.addEventListener('keydown',e=>{
+      if(e.target.closest('[data-boxing-fighter]'))return;
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();openMain();}
+    });
+  });
   bindBoxingFighterLinks(box);
 }
 
