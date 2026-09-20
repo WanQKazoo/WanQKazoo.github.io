@@ -4936,9 +4936,9 @@ async function finishRescue(success){
     start.textContent='Mesaiyi Tekrarla';
     document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.disabled=false);
     document.getElementById('rescueMsg').textContent=rescueProgress+'/'+rescueJobs[rescueJobKey].target+' işlem. AFMB performans değerlendirmesi: “Yetersiz ama yeniden kullanılabilir.”';
-    renderRescueJobRunning();
     stopRescueTimer();
     rescueEndsAt=0;
+    renderRescueIdle();
   }
 }
 function tickRescue(){
@@ -4951,6 +4951,7 @@ function startRescue(){
   if(!rescueEligible()||rescueEndsAt||rescueFinishing)return;
   if(!rescueJobKey)pickRescueJob();
   const job=rescueJobs[rescueJobKey];
+  stopRescueTimer();
   rescueProgress=0;
   rescueJobState={};
   rescueEndsAt=Date.now()+job.duration;
@@ -4960,8 +4961,6 @@ function startRescue(){
   document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.disabled=true);
   document.getElementById('rescueMsg').textContent=rescueMotivations[rescueMotivation].line;
   renderRescueJobRunning();
-  stopRescueTimer();
-  rescueEndsAt=Date.now()+job.duration;
   rescueTimer=setInterval(tickRescue,100);
   tickRescue();
 }
