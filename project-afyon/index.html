@@ -2307,7 +2307,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.2 AFMB Rescue Hotfix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.3 AFMB Pending Gate</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -2825,7 +2825,7 @@ function getClubNames(country,level){
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
-let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false;
+let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
 let onlineBoxingFighters=[],onlineBoxingBouts=[],onlineBoxingMarketsByBout={},onlineBoxingTitles=[],boxingWeightFilter='all',boxingLastRefresh=0;
@@ -5388,9 +5388,10 @@ function rescueEligible(){
     return !!onlineSession
       && Number.isFinite(onlineAuthoritativeBalance)
       && onlineAuthoritativeBalance<10
+      && !onlineRescuePending
       && !activeChanceSession?.local;
   }
-  return state.balance<10;
+  return state.balance<10&&!hasPendingCoupon();
 }
 function rescueSeniorityCount(){
   return Math.max(0,Number(localStorage.getItem(RESCUE_SENIORITY_KEY)||0)||0);
@@ -5661,7 +5662,9 @@ async function finishRescue(success){
         rescueFinishing=false;
         start.disabled=false;
         start.textContent='Tekrar Kontrol Et';
-        document.getElementById('rescueMsg').textContent='AFMB ödemeyi onaylayamadı. Bakiye yenileniyor.';
+        document.getElementById('rescueMsg').textContent=error.message.includes('PENDING')
+          ?'Bekleyen kuponun olduğu için AFMB ödemeyi bekletiyor.'
+          :'AFMB ödemeyi onaylayamadı. Bakiye ve kupon durumu yenileniyor.';
         await refreshOnlineAccount();
         return;
       }
@@ -5858,13 +5861,16 @@ async function refreshOnlineSelected(includeHistory=false){
 async function refreshOnlineAccount(){
   if(!onlineSession){
     walletHydrated=true;
+    onlineRescuePending=false;
     state.coupons=[];renderWallet();renderCoupons();renderRescue();updateAuthUi();return;
   }
-  const [{data:wallet,error:wErr},{data:coupons,error:cErr}]=await Promise.all([
+  const [{data:wallet,error:wErr},{data:coupons,error:cErr},{data:pendingCoupons,error:pErr}]=await Promise.all([
     supabaseClient.from('wallets').select('balance').eq('user_id',onlineSession.user.id).single(),
-    supabaseClient.from('coupons').select('id,season,week,stake,total_odds,possible_return,status,payout,created_at').order('created_at',{ascending:false}).limit(50)
+    supabaseClient.from('coupons').select('id,season,week,stake,total_odds,possible_return,status,payout,created_at').order('created_at',{ascending:false}).limit(50),
+    supabaseClient.from('coupons').select('id').eq('status','pending').limit(1)
   ]);
-  if(wErr)throw wErr;if(cErr)throw cErr;
+  if(wErr)throw wErr;if(cErr)throw cErr;if(pErr)throw pErr;
+  onlineRescuePending=(pendingCoupons||[]).length>0;
   setOnlineBalance(wallet.balance);
   onlineBootstrapFailed=false;
   const couponIds=(coupons||[]).map(x=>x.id);
@@ -7352,11 +7358,12 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   if(onlineSession){await refreshOnlineAccount();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
   onlineSession=session;
   if(!session){
     onlineAuthoritativeBalance=null;
+    onlineRescuePending=false;
     if(onlineMode)walletHydrated=true;
     renderWallet();
     renderRescue();
