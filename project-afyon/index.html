@@ -7049,6 +7049,255 @@ async function takePenalty(choice){
     chanceBusy=false;updateChancePlayLabel();
   }
 }
+
+function updateBossHallwayUx(){
+  const escapes=Number(activeChanceSession?.escapes||0);
+  const count=document.getElementById('bossEscapeCount');
+  const mult=document.getElementById('bossMultiplier');
+  if(count)count.textContent=escapes+' / 6';
+  if(mult)mult.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+  document.querySelectorAll('[data-corridor-step]').forEach((dot,i)=>dot.classList.toggle('on',i<escapes));
+}
+function activateBossHallway(){
+  updateBossHallwayUx();
+  document.querySelectorAll('[data-corridor-hide]').forEach(btn=>{
+    btn.disabled=false;
+    btn.addEventListener('click',()=>chooseBossHide(btn.dataset.corridorHide));
+  });
+}
+async function chooseBossHide(choice){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  document.querySelectorAll('[data-corridor-hide]').forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  try{
+    const spots=['ARCHIVE','TEA','STAIRS'];
+    const boss=randomFrom(spots);
+    const caught=boss===choice;
+    activeChanceSession.last_boss=boss;
+    activeChanceSession.last_choice=choice;
+    const alert=document.getElementById('bossAlert');
+    const buttons=[...document.querySelectorAll('[data-corridor-hide]')];
+    const bossBtn=buttons.find(x=>x.dataset.corridorHide===boss);
+    const choiceBtn=buttons.find(x=>x.dataset.corridorHide===choice);
+    if(choiceBtn)choiceBtn.classList.add('chosen');
+    if(alert){alert.classList.add('searching');alert.innerHTML='<span>👞 AYAK SESLERİ YAKLAŞIYOR</span><small>Müdür kontrol yapıyor…</small>';}
+    await chanceWait(460);
+    if(bossBtn)bossBtn.classList.add('boss');
+    if(caught){
+      if(choiceBtn)choiceBtn.classList.add('caught');
+      if(alert){alert.classList.remove('searching');alert.classList.add('caught');alert.innerHTML='<span>🚨 YAKALANDIN</span><small>“Siz burada ne yapıyorsunuz?”</small>';}
+      await settleLocalChance(activeChanceSession,choice,{escapes:Number(activeChanceSession.escapes||0),boss,choice,caught:true},0);
+      setChanceResult('🚪 Müdür aynı kapıyı açtı. '+Number(activeChanceSession.escapes||0)+' kaçışta dosya kapandı.','loss');
+      await finishChanceSession();
+      return;
+    }
+
+    activeChanceSession.escapes=Number(activeChanceSession.escapes||0)+1;
+    activeChanceSession.multiplier=bossHallwayMultipliers[activeChanceSession.escapes-1]||6;
+    updateBossHallwayUx();
+    if(alert){alert.classList.remove('searching','caught');alert.classList.add('safe');alert.innerHTML='<span>✅ MÜDÜR BAŞKA YERE GİTTİ</span><small>Bir kat daha kurtuldun.</small>';}
+    if(choiceBtn)choiceBtn.classList.add('safe');
+    await chanceWait(360);
+
+    if(activeChanceSession.escapes>=6){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,choice,{escapes:6,boss,choice,caught:false,completed:true},activeChanceSession.multiplier);
+      setChanceResult('🏆 6/6! Kurumu terk ettin. Bordro '+money(payout)+' • ×6.00','win');
+      await finishChanceSession();
+      return;
+    }
+
+    buttons.forEach(x=>{x.disabled=false;x.classList.remove('chosen','boss','caught','safe');});
+    if(alert){alert.className='boss-alert';alert.innerHTML='<span>🚨 MÜDÜR YENİDEN KATTA</span><small>Bu kez başka bir noktayı kontrol edebilir.</small>';}
+    setChanceResult('✅ Kurtuldun! '+activeChanceSession.escapes+'/6 • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya bordroyu al.','win');
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Koridor tutanağı kaydedilemedi: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+  }
+}
+
+function updateDolmusUx(){
+  const stops=Number(activeChanceSession?.stops||0);
+  const count=document.getElementById('dolmusStopCount');
+  const mult=document.getElementById('dolmusMultiplier');
+  const bus=document.getElementById('dolmusBus');
+  if(count)count.textContent=stops+' / 5';
+  if(mult)mult.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+  if(bus)bus.style.left=(7+stops*17.2)+'%';
+  document.querySelectorAll('[data-dolmus-stop]').forEach((el,i)=>el.classList.toggle('passed',i<=stops));
+}
+function activateDolmusRoute(){
+  updateDolmusUx();
+  document.querySelectorAll('[data-dolmus-route]').forEach(btn=>{
+    btn.disabled=false;
+    btn.addEventListener('click',()=>takeDolmusRoute(btn.dataset.dolmusRoute));
+  });
+}
+async function takeDolmusRoute(routeKey){
+  if(chanceBusy||!activeChanceSession)return;
+  const cfg=dolmusRouteConfig[routeKey];
+  if(!cfg)return;
+  chanceBusy=true;
+  document.querySelectorAll('[data-dolmus-route]').forEach(x=>x.disabled=true);
+  updateChancePlayLabel();
+  try{
+    const callout=document.getElementById('dolmusCallout');
+    const bus=document.getElementById('dolmusBus');
+    const chosen=document.querySelector('[data-dolmus-route="'+routeKey+'"]');
+    if(chosen)chosen.classList.add('chosen');
+    if(callout)callout.textContent=cfg.emoji+' '+cfg.label+' seçildi. AFMB yol durumunu sonradan açıklayacak.';
+    if(bus)bus.classList.add('moving');
+    await chanceWait(520);
+
+    const success=Math.random()<cfg.success;
+    activeChanceSession.last_route=routeKey;
+    if(!success){
+      if(bus)bus.classList.remove('moving');
+      if(chosen)chosen.classList.add('failed');
+      if(callout)callout.textContent=routeKey==='SHORTCUT'
+        ?'🚨 Kestirmede zabıta çıktı. Şoför “ben demiştim” dedi.'
+        :'🚧 Güvenli güzergâhta trafik kilitlendi. Bu da resmî olarak mümkünmüş.';
+      await settleLocalChance(activeChanceSession,routeKey,{stops:Number(activeChanceSession.stops||0),route:routeKey,failed:true},0);
+      setChanceResult('🚌 Yol kapandı. '+Number(activeChanceSession.stops||0)+' durakta seri bitti.','loss');
+      await finishChanceSession();
+      return;
+    }
+
+    activeChanceSession.stops=Number(activeChanceSession.stops||0)+1;
+    activeChanceSession.multiplier=roundChance(Number(activeChanceSession.multiplier||1)*cfg.factor);
+    updateDolmusUx();
+    if(bus)bus.classList.remove('moving');
+    if(chosen)chosen.classList.add('success');
+    if(callout)callout.textContent='✅ '+activeChanceSession.stops+'. durağa ulaştın. Şoför yeni rota bekliyor.';
+    await chanceWait(280);
+
+    if(activeChanceSession.stops>=5){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,routeKey,{stops:5,last_route:routeKey,completed:true},activeChanceSession.multiplier);
+      setChanceResult('🏁 Son durağa vardın! Ödeme '+money(payout)+' • ×'+Number(activeChanceSession.multiplier).toFixed(2),'win');
+      await finishChanceSession();
+      return;
+    }
+
+    document.querySelectorAll('[data-dolmus-route]').forEach(x=>{x.disabled=false;x.classList.remove('chosen','failed','success');});
+    setChanceResult('🚌 '+activeChanceSession.stops+'/5 durak • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • yeni rota seç veya parayı al.','win');
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Dolmuş kaydı bozuldu: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+  }
+}
+
+function clearVarLineTimer(){
+  if(varLineFrame){cancelAnimationFrame(varLineFrame);varLineFrame=null;}
+}
+function updateVarLineUx(){
+  const rounds=Number(activeChanceSession?.rounds||0);
+  const count=document.getElementById('varRoundCount');
+  const mult=document.getElementById('varMultiplier');
+  if(count)count.textContent=rounds+' / 4';
+  if(mult)mult.textContent='×'+Number(activeChanceSession?.multiplier||1).toFixed(2);
+  document.querySelectorAll('[data-var-round]').forEach((dot,i)=>dot.classList.toggle('on',i<rounds));
+}
+function setupVarLineRound(){
+  if(!activeChanceSession)return;
+  clearVarLineTimer();
+  const rounds=Number(activeChanceSession.rounds||0);
+  const widths=[28,21,15,11];
+  activeChanceSession.var_width=widths[Math.min(rounds,widths.length-1)];
+  activeChanceSession.var_target=20+Math.random()*60;
+  activeChanceSession.var_pos=6+Math.random()*12;
+  activeChanceSession.var_dir=1;
+  const target=document.getElementById('varTarget');
+  const marker=document.getElementById('varMarker');
+  const status=document.getElementById('varStatus');
+  const freeze=document.querySelector('[data-var-freeze]');
+  if(target){
+    target.style.width=activeChanceSession.var_width+'%';
+    target.style.left=(activeChanceSession.var_target-activeChanceSession.var_width/2)+'%';
+  }
+  if(marker)marker.style.left=activeChanceSession.var_pos+'%';
+  if(status){status.textContent='ÇİZGİ HAREKETLİ • TUR '+(rounds+1);status.className='var-status';}
+  if(freeze)freeze.disabled=false;
+
+  let last=performance.now();
+  const speed=.045+rounds*.012;
+  const tick=now=>{
+    if(!activeChanceSession||activeChanceGame!=='var_line'||activeChanceSession.status!=='active')return;
+    const dt=Math.min(40,Math.max(0,now-last));last=now;
+    let pos=Number(activeChanceSession.var_pos||6)+Number(activeChanceSession.var_dir||1)*speed*dt;
+    if(pos>=96){pos=96;activeChanceSession.var_dir=-1;}
+    if(pos<=4){pos=4;activeChanceSession.var_dir=1;}
+    activeChanceSession.var_pos=pos;
+    if(marker)marker.style.left=pos+'%';
+    varLineFrame=requestAnimationFrame(tick);
+  };
+  varLineFrame=requestAnimationFrame(tick);
+}
+function activateVarLine(){
+  updateVarLineUx();
+  const freeze=document.querySelector('[data-var-freeze]');
+  if(freeze)freeze.addEventListener('click',freezeVarLine);
+  setupVarLineRound();
+}
+async function freezeVarLine(){
+  if(chanceBusy||!activeChanceSession)return;
+  chanceBusy=true;
+  const freeze=document.querySelector('[data-var-freeze]');
+  if(freeze)freeze.disabled=true;
+  clearVarLineTimer();
+  updateChancePlayLabel();
+  try{
+    const pos=Number(activeChanceSession.var_pos||0);
+    const center=Number(activeChanceSession.var_target||50);
+    const width=Number(activeChanceSession.var_width||20);
+    const hit=Math.abs(pos-center)<=width/2;
+    const status=document.getElementById('varStatus');
+    const marker=document.getElementById('varMarker');
+    if(marker)marker.classList.add(hit?'hit':'miss');
+    if(status){status.textContent=hit?'✅ ÇİZGİ İÇERİDE':'❌ ÇİZGİ DIŞARIDA';status.classList.add(hit?'ok':'bad');}
+    await chanceWait(430);
+
+    if(!hit){
+      await settleLocalChance(activeChanceSession,'FREEZE',{rounds:Number(activeChanceSession.rounds||0),position:roundChance(pos),target:roundChance(center),width,hit:false},0);
+      setChanceResult('📺 VAR kararı: OFSAYT. '+Number(activeChanceSession.rounds||0)+' doğru kararda seri bitti.','loss');
+      await finishChanceSession();
+      return;
+    }
+
+    activeChanceSession.rounds=Number(activeChanceSession.rounds||0)+1;
+    activeChanceSession.multiplier=varLineMultipliers[activeChanceSession.rounds-1]||4.5;
+    updateVarLineUx();
+
+    if(activeChanceSession.rounds>=4){
+      const payout=Math.round(activeChanceSession.stake*activeChanceSession.multiplier);
+      await settleLocalChance(activeChanceSession,'FREEZE',{rounds:4,position:roundChance(pos),target:roundChance(center),width,hit:true,completed:true},activeChanceSession.multiplier);
+      setChanceResult('🏆 4/4 milimetrik karar! Ödeme '+money(payout)+' • ×4.50','win');
+      await finishChanceSession();
+      return;
+    }
+
+    if(marker)marker.classList.remove('hit','miss');
+    setChanceResult('📺 Karar doğru! '+activeChanceSession.rounds+'/4 • ×'+Number(activeChanceSession.multiplier).toFixed(2)+' • devam et veya parayı al.','win');
+    setupVarLineRound();
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('VAR kaydı işlenemedi: '+(err.message||err),'loss');
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+  }
+}
+
 function activateRocket(){
   const startMs=new Date(activeChanceSession.started_at).getTime()||Date.now();
   const crash=Number(activeChanceSession.crash_multiplier);
