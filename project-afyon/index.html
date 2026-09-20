@@ -6615,6 +6615,42 @@ function prepareChanceStage(gameKey){
   }else if(game.type==='penalty'){
     stage.classList.add('game-polish','penalty-stage-polish');
     stage.innerHTML='<div class="penalty-shell polished"><div class="game-hud"><div class="game-hud-stat"><small>SERİ</small><strong id="penaltyScore">0 / 5 GOL</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="penaltyMultiplier">×0.92</strong></div></div><div class="penalty-progress" id="penaltyProgress">'+Array.from({length:5},(_,i)=>'<span data-penalty-progress="'+i+'"></span>').join('')+'</div><div class="penalty-stadium"><div class="penalty-pitch polished" id="penaltyPitch"><div class="penalty-goal polished"></div><div class="penalty-keeper" id="penaltyKeeper">🧤</div><div class="penalty-ball" id="penaltyBall">⚽</div><div class="penalty-callout" id="penaltyCallout">VUR!</div></div></div><div class="penalty-kicks polished"><button class="penalty-kick" data-penalty-kick="LEFT" disabled>↙ SOL KÖŞE</button><button class="penalty-kick" data-penalty-kick="CENTER" disabled>⬆ ORTA</button><button class="penalty-kick" data-penalty-kick="RIGHT" disabled>SAĞ KÖŞE ↘</button></div></div>';
+  }else if(game.type==='corridor'){
+    stage.classList.add('game-polish','corridor-stage-polish');
+    stage.innerHTML='<div class="corridor-shell polished">'+
+      '<div class="game-hud"><div class="game-hud-stat"><small>KAÇIŞ</small><strong id="bossEscapeCount">0 / 6</strong></div><div class="game-hud-stat right"><small>BORDRO</small><strong id="bossMultiplier">×1.00</strong></div></div>'+
+      '<div class="boss-alert" id="bossAlert"><span>🚨 MÜDÜR KATTA</span><small>Bir noktayı kontrol edecek.</small></div>'+
+      '<div class="corridor-doors" id="corridorDoors">'+
+        '<button class="corridor-door" data-corridor-hide="ARCHIVE" disabled><span>🗃️</span><strong>ARŞİV</strong><small>Dosyaların arasına karış</small></button>'+
+        '<button class="corridor-door" data-corridor-hide="TEA" disabled><span>☕</span><strong>ÇAY OCAĞI</strong><small>Elinde bardakla masum görün</small></button>'+
+        '<button class="corridor-door" data-corridor-hide="STAIRS" disabled><span>🪜</span><strong>MERDİVEN</strong><small>Üst kata kaçıyormuş gibi yap</small></button>'+
+      '</div>'+
+      '<div class="corridor-progress" id="corridorProgress">'+Array.from({length:6},(_,i)=>'<span data-corridor-step="'+i+'"></span>').join('')+'</div>'+
+      '<div class="game-tip" id="bossTip">Müdür seçtiğin yere gelmezse bir kat daha kurtulursun. İstediğin an bordroyu al.</div>'+
+    '</div>';
+  }else if(game.type==='dolmus'){
+    stage.classList.add('game-polish','dolmus-stage-polish');
+    stage.innerHTML='<div class="dolmus-shell polished">'+
+      '<div class="game-hud"><div class="game-hud-stat"><small>DURAK</small><strong id="dolmusStopCount">0 / 5</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="dolmusMultiplier">×1.00</strong></div></div>'+
+      '<div class="dolmus-road" id="dolmusRoad"><div class="dolmus-line"></div><div class="dolmus-bus" id="dolmusBus">🚌</div>'+
+        Array.from({length:6},(_,i)=>'<span class="dolmus-stop" data-dolmus-stop="'+i+'" style="left:'+(7+i*17.2)+'%"><i></i><small>'+(i===0?'GARAJ':i+'. DURAK')+'</small></span>').join('')+
+      '</div>'+
+      '<div class="dolmus-callout" id="dolmusCallout">ŞOFÖR: “Abi normal mi gidelim, kestirme mi?”</div>'+
+      '<div class="dolmus-routes">'+
+        '<button class="dolmus-route safe" data-dolmus-route="SAFE" disabled><span>🛣️</span><strong>GÜVENLİ GÜZERGÂH</strong><small>%86 geçiş • çarpan ×1.12</small></button>'+
+        '<button class="dolmus-route shortcut" data-dolmus-route="SHORTCUT" disabled><span>⚡</span><strong>KESTİRME</strong><small>%62 geçiş • çarpan ×1.40</small></button>'+
+      '</div>'+
+      '<div class="game-tip">Her durakta rotayı yeniden seçersin. Kestirme hızlıdır; resmî kurumlar da bunu fark etmiştir.</div>'+
+    '</div>';
+  }else if(game.type==='varline'){
+    stage.classList.add('game-polish','varline-stage-polish');
+    stage.innerHTML='<div class="varline-shell polished">'+
+      '<div class="game-hud"><div class="game-hud-stat"><small>KARAR</small><strong id="varRoundCount">0 / 4</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="varMultiplier">×1.00</strong></div></div>'+
+      '<div class="var-screen" id="varScreen"><div class="var-pitch-lines"></div><div class="var-target" id="varTarget"></div><div class="var-marker" id="varMarker"><span></span></div><div class="var-player p1">🏃</div><div class="var-player p2">🧍</div><div class="var-status" id="varStatus">ÇİZGİ HAREKETLİ</div></div>'+
+      '<div class="var-rounds" id="varRounds">'+Array.from({length:4},(_,i)=>'<span data-var-round="'+i+'"></span>').join('')+'</div>'+
+      '<button class="var-freeze" data-var-freeze type="button" disabled>📺 ÇİZGİYİ DONDUR</button>'+
+      '<div class="game-tip" id="varTip">Hareketli çizginin merkezi yeşil alandayken dondur. Her turda hedef daralır ve hız artar.</div>'+
+    '</div>';
   }else if(game.type==='raid'){
     stage.classList.add('game-polish','raid-stage-polish');
     const stallEmoji={SIMIT:'🥨',MISIR:'🌽',KESTANE:'🌰'};
