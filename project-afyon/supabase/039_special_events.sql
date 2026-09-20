@@ -137,9 +137,9 @@ begin
     end if;
 
     if v_backward then
-      select minute,side into v_goal
-      from public.match_events
-      where match_id=m.id and event_type='goal'
+      select e.minute,e.side into v_goal
+      from public.match_events e
+      where e.match_id=m.id and e.event_type='goal'
       order by random()
       limit 1;
       if found then
