@@ -5093,7 +5093,7 @@ async function animateChanceResult(gameKey,result){
     await chanceWait(1100);
     coin.classList.remove('spinning');
     if(face)face.textContent=winner==='HEADS'?'Y':'T';
-    coin.style.transform='rotateY('+(winner==='HEADS'?0:180)+'deg)';
+    coin.style.transform='rotateY(0deg)';
     await chanceWait(250);
   }else if(game.type==='wheel'){
     const wheel=document.getElementById('chanceWheel');
