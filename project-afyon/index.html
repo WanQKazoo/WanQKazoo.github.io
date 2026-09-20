@@ -1932,6 +1932,27 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   body[data-page="bulletin"] .schedule-pulse{display:none!important}
 }
 
+
+/* UI 2.0 — League Center keeps its structure but gains a clear hero/stat hierarchy. */
+#leagueSection .league-summary{grid-template-columns:1.9fr repeat(3,.72fr);gap:8px}
+#leagueSection .league-summary-main{
+  position:relative;overflow:hidden;
+  border-color:#4b4528;
+  background:linear-gradient(135deg,rgba(255,209,102,.08),rgba(9,17,31,.72));
+  padding:15px 16px;
+}
+#leagueSection .league-summary-main:after{
+  content:"LİG";position:absolute;right:12px;bottom:-10px;
+  color:rgba(255,209,102,.035);font-size:48px;font-weight:1000;letter-spacing:-2px;
+}
+#leagueSection .league-summary-main strong{font-size:21px;color:#fff3c2}
+#leagueSection .league-summary-stat{padding:12px 10px;background:#0d1625;border-color:#26364f}
+#leagueSection .league-summary-stat strong{font-size:17px}
+@media(max-width:720px){
+  #leagueSection .league-summary{grid-template-columns:repeat(3,1fr)}
+  #leagueSection .league-summary-main{grid-column:1/-1}
+}
+
 </style>
 </head>
 <body>
