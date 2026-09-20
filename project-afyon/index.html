@@ -1557,6 +1557,71 @@ header{
   *{scroll-behavior:auto!important}
 }
 
+
+
+/* ===== AFMB Acil İstihdam Bürosu ===== */
+.afmb-popup.rescue-office{width:min(470px,calc(100vw - 28px));max-height:min(760px,calc(100vh - 34px));overflow:auto;background:radial-gradient(circle at 80% 0,rgba(255,209,102,.07),transparent 26%),linear-gradient(155deg,#241f11,#111827 48%,#0e1728);scrollbar-width:thin}
+.rescue-office .rescue-head{position:relative;padding-bottom:14px;background:linear-gradient(180deg,rgba(255,209,102,.035),transparent)}
+.rescue-seniority{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,226,154,.16)}
+.rescue-seniority span{display:inline-flex;padding:5px 7px;border:1px solid #5b4a22;border-radius:7px;background:#211d11;color:#ffe39a;font-size:8px;font-weight:1000;letter-spacing:.65px}
+.rescue-seniority small{color:#827a64;font-size:8px;font-weight:900}
+.rescue-mini-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:7px;color:#a99d7d;font-size:8px;font-weight:1000;letter-spacing:.5px}
+.rescue-mini-title small{color:#716c5c;font-size:7px;letter-spacing:0;text-align:right}
+.rescue-motivation-wrap{margin-bottom:11px}
+.rescue-motivation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.rescue-motivation-btn{display:flex;align-items:center;gap:7px;min-height:38px;border:1px solid #3c3a31;border-radius:10px;background:#171a20;color:#a8a28e;padding:7px 8px;text-align:left;font-size:11px;font-weight:900;transition:.15s}
+.rescue-motivation-btn span{min-width:0}
+.rescue-motivation-btn:hover{border-color:#665a35;background:#1d1d19;color:#ddd0a6}
+.rescue-motivation-btn.selected{border-color:#8b7130;background:#302812;color:#ffe49a;box-shadow:inset 0 0 0 1px rgba(255,209,102,.08)}
+.rescue-motivation-btn:disabled{opacity:.45;cursor:default}
+.rescue-assignment{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:10px;align-items:center;margin-bottom:10px;padding:11px;border:1px solid #4a4027;border-radius:13px;background:linear-gradient(135deg,#1d1d18,#131923)}
+.rescue-job-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#2c2819;border:1px solid #51451e;font-size:23px}
+.rescue-assignment small{display:block;color:#80775f;font-size:7px;font-weight:1000;letter-spacing:.65px}
+.rescue-assignment strong{display:block;margin-top:3px;color:#f5ecd1;font-size:12px}
+.rescue-assignment p{margin:3px 0 0;color:#918b79;font-size:8px;line-height:1.35}
+.rescue-pay{align-self:stretch;min-width:72px;display:grid;place-items:center;text-align:center;border-left:1px solid #403925;color:#82775d;font-size:7px;font-weight:1000;line-height:1.3}
+.rescue-pay b{color:#ffe29a;font-size:11px}
+.rescue-stage{position:relative;min-height:145px;margin-bottom:10px;border:1px solid #34392f;border-radius:14px;background:radial-gradient(circle at 50% 15%,rgba(255,209,102,.045),transparent 38%),#111720;overflow:hidden;padding:12px;display:grid;place-items:center;text-align:center}
+.rescue-stage.idle{color:#7f8a9b}
+.rescue-idle-seal{font-size:34px;opacity:.38;filter:grayscale(.2)}
+.rescue-stage.idle strong{font-size:11px;color:#aaadac}.rescue-stage.idle small{max-width:300px;font-size:8px;line-height:1.5}
+.rescue-work-title{color:#7d8ca4;font-size:8px;font-weight:1000;letter-spacing:.7px}
+.rescue-work-big{font-size:18px;font-weight:1000;color:#f3f6fb;line-height:1.2}
+.rescue-work-sub{color:#7f8da3;font-size:8px;font-weight:850;line-height:1.4}
+.rescue-action-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%}
+.rescue-action-btn{min-height:47px;border:1px solid #3a465a;border-radius:11px;background:#182235;color:#dfe7f4;padding:7px 6px;font-size:9px;font-weight:1000;transition:transform .1s,border-color .1s,background .1s}
+.rescue-action-btn:not(:disabled):active{transform:scale(.97)}
+.rescue-action-btn.correct{border-color:#50ad8e;background:#17362e}
+.rescue-action-btn.wrong{border-color:#9c4d5d;background:#3a2027}
+.rescue-action-btn:disabled{opacity:.42;cursor:default}
+.rescue-single-action{width:min(300px,100%);min-height:58px;border:0;border-radius:13px;background:#ffd166;color:#2b2000;font-size:13px;font-weight:1000;box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.rescue-single-action:active{transform:translateY(1px)}
+.rescue-clean-zone{position:absolute;inset:10px}
+.rescue-dirt{position:absolute;width:48px;height:48px;border:1px solid #64543b;border-radius:50%;background:radial-gradient(circle,#755b36 0 25%,#463824 45%,#26251e 70%,transparent 72%);font-size:21px;display:grid;place-items:center;transform:translate(-50%,-50%);transition:left .14s,top .14s}
+.rescue-boss-screen{width:100%;display:grid;gap:10px;place-items:center}
+.rescue-boss-door{font-size:38px;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25))}
+.rescue-boss-alert{width:min(320px,100%);min-height:53px;border:1px solid #3c4657;border-radius:12px;background:#171e2a;color:#77869d;font-weight:1000}
+.rescue-boss-alert.hot{border-color:#b84d5c;background:#471e27;color:#ffb5bd;box-shadow:0 0 25px rgba(255,90,105,.10);animation:bossAlertPulse .35s ease-in-out infinite alternate}
+.rescue-motivation-fx{padding:5px 8px;border-radius:999px;border:1px solid #393729;background:#171812;color:#93896e;font-size:7px;font-weight:1000}
+.rescue-stage.hit{animation:rescueStageTap .14s ease}
+.rescue-payroll{width:100%;border:1px solid #68572b;border-radius:12px;background:#f1e8cf;color:#262014;padding:12px;text-align:left;box-shadow:0 12px 25px rgba(0,0,0,.22);transform:rotate(-.5deg)}
+.rescue-payroll-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:2px solid #3a3120;padding-bottom:7px;margin-bottom:7px}
+.rescue-payroll-head strong{font-size:12px}.rescue-payroll-head span{font-size:8px;font-weight:1000}
+.rescue-payroll-row{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:9px;font-weight:850}
+.rescue-payroll-row.net{margin-top:5px;padding-top:7px;border-top:1px dashed #77694c;font-size:12px;font-weight:1000}
+.rescue-payroll-foot{margin-top:8px;color:#6b5d42;font-size:7px;font-weight:900;line-height:1.4}
+.rescue-actions{grid-template-columns:1fr}
+.rescue-start{min-height:44px;background:linear-gradient(180deg,#35445d,#263349);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+@keyframes rescueStageTap{50%{transform:scale(.992)}}
+@keyframes bossAlertPulse{to{box-shadow:0 0 0 5px rgba(255,95,110,.07),0 0 26px rgba(255,90,105,.12)}}
+@media(max-width:520px){
+  .afmb-popup.rescue-office{width:calc(100vw - 20px);max-height:calc(100vh - 94px)}
+  .rescue-motivation{grid-template-columns:1fr 1fr}
+  .rescue-assignment{grid-template-columns:42px minmax(0,1fr)}.rescue-pay{grid-column:1/-1;border-left:0;border-top:1px solid #403925;padding-top:7px;display:block}
+  .rescue-action-grid{gap:5px}.rescue-action-btn{font-size:8px;min-height:48px}
+  .rescue-stage{min-height:155px}
+}
+
 </style>
 </head>
 <body>
@@ -1848,28 +1913,51 @@ header{
 </div>
 
 <div class="afmb-float" id="rescueFloat">
-  <div class="afmb-popup" id="rescuePopup">
+  <div class="afmb-popup rescue-office" id="rescuePopup">
     <button class="afmb-close" id="rescueClose" aria-label="Kapat">×</button>
     <div class="rescue-head">
-      <span class="tag">🏛 AFMB • ACİL İSTİHDAM</span>
-      <h2>Ekonomi çöktü. İşe gidiyorsun.</h2>
-      <p>Bakiye 10 ₳D altına düştü ve bekleyen kuponun yok. 10 saniyede 20 kamu evrakı damgala; AFMB sana 1.000 ₳D sanal mesai ücreti ödesin.</p>
+      <span class="tag">🏛 AFMB • MALİ REHABİLİTASYON</span>
+      <h2 id="rescueTitle">Ekonomik özgürlüğünüz sona ermiştir.</h2>
+      <p id="rescueIntro">AFMB Acil İstihdam Bürosu sizi geçici olarak kamu hizmetine almıştır. Başarılı mesai karşılığı net 1.000 ₳D ödenir.</p>
+      <div class="rescue-seniority"><span id="rescueRank">GEÇİCİ PERSONEL</span><small id="rescueVisits">0 tamamlanmış mesai</small></div>
     </div>
     <div class="rescue-body">
+      <div class="rescue-motivation-wrap" id="rescueMotivationWrap">
+        <div class="rescue-mini-title"><span>MESAİ MOTİVASYON YÖNTEMİ</span><small>Çalışma koşullarını etkilemez.</small></div>
+        <div class="rescue-motivation">
+          <button class="rescue-motivation-btn" data-rescue-motivation="STICK">🪵 <span>Kurumsal Sopa</span></button>
+          <button class="rescue-motivation-btn" data-rescue-motivation="WHIP">🐎 <span>Geleneksel Kırbaç</span></button>
+          <button class="rescue-motivation-btn" data-rescue-motivation="RULER">📏 <span>Müdür Cetveli</span></button>
+          <button class="rescue-motivation-btn selected" data-rescue-motivation="STARE">👁️ <span>Sessiz Bakış</span></button>
+        </div>
+      </div>
+
+      <div class="rescue-assignment">
+        <span class="rescue-job-icon" id="rescueJobIcon">📑</span>
+        <div><small>BUGÜNKÜ GÖREV EMRİ</small><strong id="rescueJobName">Evrak Damgalama Memuru</strong><p id="rescueJobDesc">Kurumun kâğıt tüketimine anlam kazandır.</p></div>
+        <span class="rescue-pay">NET<br><b>1.000 ₳D</b></span>
+      </div>
+
       <div class="rescue-stats">
         <div class="rescue-stat"><small>SÜRE</small><strong id="rescueTime">10.0 sn</strong></div>
-        <div class="rescue-stat"><small>DAMGA</small><strong id="rescueCount">0 / 20</strong></div>
+        <div class="rescue-stat"><small id="rescueProgressLabel">İŞLEM</small><strong id="rescueCount">0 / 20</strong></div>
       </div>
+
+      <div class="rescue-stage idle" id="rescueStage">
+        <div class="rescue-idle-seal">🏛</div>
+        <strong>Görev emri hazır.</strong>
+        <small>Motivasyon yöntemini seç. Sonra kurum seni uygun gördüğü ölçüde çalıştıracaktır.</small>
+      </div>
+
       <div class="rescue-actions">
         <button class="rescue-start" id="rescueStart">Mesaiye Başla</button>
-        <button class="stamp-btn" id="stampBtn" disabled>📑 EVRAK DAMGALA</button>
       </div>
-      <div class="rescue-msg" id="rescueMsg">AFMB Notu: “Bütçe açığını vatandaşın bilek gücüyle kapatıyoruz.”</div>
+      <div class="rescue-msg" id="rescueMsg">AFMB Notu: “Vatandaş yeniden üretim sürecine kazandırılacaktır.”</div>
     </div>
   </div>
   <button class="afmb-launcher alert" id="rescueLauncher" aria-expanded="false">
     <span class="bank-icon">🏛</span>
-    <span class="launcher-copy"><strong>AFMB ACİL DESTEK</strong><small>1.000 ₳D kazan</small></span>
+    <span class="launcher-copy"><strong>AFMB ACİL İSTİHDAM</strong><small>1.000 ₳D mesai ücreti</small></span>
     <span class="launcher-badge">!</span>
   </button>
 </div>
@@ -2335,7 +2423,7 @@ function getClubNames(country,level){
     return `${root} ${tag} ${word}`;
   });
 }
-let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueClicks=0,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,openMarkets=new Set();
+let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
@@ -4520,6 +4608,22 @@ function hasPendingCoupon(){
     return !c.status&&Array.isArray(c.selections)&&c.selections.length>0;
   });
 }
+const RESCUE_SENIORITY_KEY='projectAfyonRescueSeniorityV1';
+const RESCUE_LAST_JOB_KEY='projectAfyonRescueLastJobV1';
+const rescueMotivations={
+  STICK:{label:'🪵 Kurumsal Sopa',line:'Kurumsal sopa masaya bırakıldı. Temas yok; mesaj yeterince açık.'},
+  WHIP:{label:'🐎 Geleneksel Kırbaç',line:'ŞLAK! AFMB performansınızı tamamen sembolik yöntemlerle destekliyor.'},
+  RULER:{label:'📏 Müdür Cetveli',line:'Cetvel masaya kondu. Kurumumuz ölçme ve değerlendirmeye önem verir.'},
+  STARE:{label:'👁️ Şube Müdürünün Sessiz Bakışı',line:'Şube müdürü hiçbir şey söylemiyor. Bu, söylenenlerden daha kötü.'}
+};
+const rescueJobs={
+  STAMP:{icon:'📑',name:'Evrak Damgalama Memuru',desc:'Kurumun kâğıt tüketimine anlam kazandır.',duration:10000,target:20,progress:'DAMGA'},
+  TEA:{icon:'☕',name:'Çay Ocağı Geçici Personeli',desc:'Yanlış çay, kurum içi krize neden olabilir.',duration:12000,target:8,progress:'SERVİS'},
+  COPY:{icon:'🖨️',name:'Fotokopi Makinesi Operatörü',desc:'Makine bozuk değildir. Sadece karakterlidir.',duration:12000,target:10,progress:'MÜDAHALE'},
+  ARCHIVE:{icon:'🗃️',name:'Arşiv Memuru',desc:'Dosyaları doğru rafa kaldır. Kimse bir daha bulamasın.',duration:12000,target:8,progress:'DOSYA'},
+  CLEAN:{icon:'🧹',name:'AFMB Koridor Hizmetleri',desc:'Temizlediğin yere yeniden evrak atılabilir.',duration:10000,target:10,progress:'TEMİZLİK'},
+  BOSS:{icon:'🚪',name:'Müdür Geliyor!',desc:'Çalışmaktan çok çalışıyor gibi görünmek önemlidir.',duration:13000,target:4,progress:'YAKALANMADAN'}
+};
 function rescueEligible(){
   if(onlineMode){
     return !!onlineSession
@@ -4530,8 +4634,29 @@ function rescueEligible(){
   }
   return state.balance<10&&!hasPendingCoupon();
 }
+function rescueSeniorityCount(){
+  return Math.max(0,Number(localStorage.getItem(RESCUE_SENIORITY_KEY)||0)||0);
+}
+function rescueRank(count=rescueSeniorityCount()){
+  if(count>=20)return 'AYIN MALİ FELAKETİ';
+  if(count>=10)return 'AFMB ACİL İSTİHDAM DEMİRBAŞI';
+  if(count>=5)return 'KIDEMLİ MALİ FELAKET';
+  if(count>=3)return 'KADROLU GİBİ GEÇİCİ';
+  if(count>=1)return 'TEKRAR GELEN VATANDAŞ';
+  return 'GEÇİCİ PERSONEL';
+}
+function bumpRescueSeniority(){
+  const next=rescueSeniorityCount()+1;
+  localStorage.setItem(RESCUE_SENIORITY_KEY,String(next));
+  return next;
+}
+function clearRescueJobTimers(){
+  rescueJobTimers.forEach(id=>clearTimeout(id));
+  rescueJobTimers=[];
+}
 function stopRescueTimer(){
   if(rescueTimer){clearInterval(rescueTimer);rescueTimer=null}
+  clearRescueJobTimers();
 }
 function setRescuePopup(open){
   rescuePopupOpen=!!open;
@@ -4540,48 +4665,242 @@ function setRescuePopup(open){
   if(popup)popup.classList.toggle('open',rescuePopupOpen);
   if(launcher)launcher.setAttribute('aria-expanded',String(rescuePopupOpen));
 }
+function pickRescueJob(){
+  const keys=Object.keys(rescueJobs);
+  const last=localStorage.getItem(RESCUE_LAST_JOB_KEY);
+  const pool=keys.filter(k=>k!==last);
+  rescueJobKey=pool[Math.floor(Math.random()*pool.length)]||keys[0];
+  localStorage.setItem(RESCUE_LAST_JOB_KEY,rescueJobKey);
+  renderRescueAssignment();
+}
+function renderRescueSeniority(){
+  const count=rescueSeniorityCount();
+  const rank=document.getElementById('rescueRank');
+  const visits=document.getElementById('rescueVisits');
+  if(rank)rank.textContent=rescueRank(count);
+  if(visits)visits.textContent=count+' tamamlanmış mesai';
+  const title=document.getElementById('rescueTitle');
+  if(title){
+    title.textContent=count>=10?'Yine siz. Artık kart basalım mı?':count>=5?'AFMB sizi artık ismen tanıyor.':count>=1?'Sayın vatandaş, sizi tekrar görmekten memnun değiliz.':'Ekonomik özgürlüğünüz sona ermiştir.';
+  }
+}
+function renderRescueAssignment(){
+  if(!rescueJobKey)pickRescueJob();
+  const job=rescueJobs[rescueJobKey];
+  document.getElementById('rescueJobIcon').textContent=job.icon;
+  document.getElementById('rescueJobName').textContent=job.name;
+  document.getElementById('rescueJobDesc').textContent=job.desc;
+  document.getElementById('rescueProgressLabel').textContent=job.progress;
+  document.getElementById('rescueTime').textContent=(job.duration/1000).toFixed(1)+' sn';
+  document.getElementById('rescueCount').textContent='0 / '+job.target;
+}
+function renderRescueIdle(){
+  const stage=document.getElementById('rescueStage');
+  stage.className='rescue-stage idle';
+  stage.innerHTML='<div class="rescue-idle-seal">🏛</div><strong>Görev emri hazır.</strong><small>'+rescueMotivations[rescueMotivation].line+'</small>';
+}
+function setRescueMotivation(key){
+  if(rescueEndsAt||!rescueMotivations[key])return;
+  rescueMotivation=key;
+  document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.classList.toggle('selected',btn.dataset.rescueMotivation===key));
+  renderRescueIdle();
+  document.getElementById('rescueMsg').textContent='AFMB seçim kaydı: '+rescueMotivations[key].label+'. Seçiminizin çalışma koşulları üzerinde herhangi bir etkisi bulunmamaktadır.';
+}
 function renderRescue(){
   const wrap=document.getElementById('rescueFloat');
   const start=document.getElementById('rescueStart');
-  const stamp=document.getElementById('stampBtn');
   if(!wrap)return;
   const eligible=rescueEligible();
-  wrap.classList.toggle('show',eligible);
-  if(!eligible){
+  const showingPayroll=Date.now()<rescuePayrollUntil;
+  wrap.classList.toggle('show',eligible||showingPayroll);
+  if(!eligible&&!showingPayroll){
     stopRescueTimer();
-    rescueClicks=0;rescueEndsAt=0;
-    rescuePopupOpen=false;
-    rescueAutoOpened=false;
+    rescueProgress=0;rescueEndsAt=0;rescueJobKey=null;rescueFinishing=false;
+    rescuePopupOpen=false;rescueAutoOpened=false;
     setRescuePopup(false);
     return;
   }
+  if(showingPayroll){
+    rescuePopupOpen=true;
+    setRescuePopup(true);
+    return;
+  }
+  if(!rescueJobKey)pickRescueJob();
   if(!rescueAutoOpened){
     rescueAutoOpened=true;
     rescuePopupOpen=true;
   }
   setRescuePopup(rescuePopupOpen);
-  if(!rescueEndsAt){
-    document.getElementById('rescueTime').textContent='10.0 sn';
-    document.getElementById('rescueCount').textContent='0 / 20';
+  renderRescueSeniority();
+  if(!rescueEndsAt&&!rescueFinishing){
+    renderRescueAssignment();
+    renderRescueIdle();
     start.disabled=false;
-    start.textContent='Mesaiye Başla';
-    stamp.disabled=true;
-    document.getElementById('rescueMsg').textContent='AFMB Notu: “Bütçe açığını vatandaşın bilek gücüyle kapatıyoruz.”';
+    start.textContent='Mesaiye Başla • '+rescueJobs[rescueJobKey].icon;
+    document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.disabled=false);
+    document.getElementById('rescueMsg').textContent='AFMB Notu: “Vatandaş yeniden üretim sürecine kazandırılacaktır.”';
   }
 }
+function updateRescueProgress(){
+  const job=rescueJobs[rescueJobKey];
+  document.getElementById('rescueCount').textContent=rescueProgress+' / '+job.target;
+}
+function rescueMotivationFx(){
+  return '<span class="rescue-motivation-fx">'+rescueMotivations[rescueMotivation].label+'</span>';
+}
+function rescueStagePulse(){
+  const stage=document.getElementById('rescueStage');
+  stage.classList.remove('hit');
+  void stage.offsetWidth;
+  stage.classList.add('hit');
+}
+function nextTeaOrder(){
+  const options=[
+    {key:'PLAIN',label:'ŞEKERSİZ',icon:'☕'},
+    {key:'ONE',label:'TEK ŞEKER',icon:'☕'},
+    {key:'LIGHT',label:'AÇIK ÇAY',icon:'🫖'}
+  ];
+  const order=options[Math.floor(Math.random()*options.length)];
+  rescueJobState.answer=order.key;
+  document.getElementById('rescueStage').innerHTML='<div class="rescue-work-title">DAHİLİ HAT '+(101+Math.floor(Math.random()*38))+'</div><div class="rescue-work-big">“'+order.label+' gelsin.”</div><div class="rescue-action-grid">'+options.map(o=>'<button class="rescue-action-btn" data-rescue-action="TEA" data-value="'+o.key+'">'+o.icon+' '+o.label+'</button>').join('')+'</div>'+rescueMotivationFx();
+}
+function nextCopyStep(){
+  const steps=[
+    {key:'LID',label:'KAPAĞI AÇ',icon:'📂'},
+    {key:'GREEN',label:'YEŞİL TUŞ',icon:'🟢'},
+    {key:'TONER',label:'TONERE VUR',icon:'👊'}
+  ];
+  const step=steps[Math.floor(Math.random()*steps.length)];
+  rescueJobState.answer=step.key;
+  document.getElementById('rescueStage').innerHTML='<div class="rescue-work-title">ARIZA KODU: '+randomFrom(['E-17','KÂĞIT?','TONER YOK','BİLİNMİYOR'])+'</div><div class="rescue-work-big">'+step.icon+' '+step.label+'</div><div class="rescue-work-sub">AFMB teknik servis: “Sırayla bir şeyler deneyin.”</div><div class="rescue-action-grid">'+steps.map(o=>'<button class="rescue-action-btn" data-rescue-action="COPY" data-value="'+o.key+'">'+o.label+'</button>').join('')+'</div>'+rescueMotivationFx();
+}
+function nextArchiveFile(){
+  const shelves=[
+    {key:'URGENT',label:'ÇOK ACİL',icon:'🔴'},
+    {key:'NORMAL',label:'ACİL',icon:'🟡'},
+    {key:'OLD',label:'1998’DEN BERİ',icon:'🟤'}
+  ];
+  const shelf=shelves[Math.floor(Math.random()*shelves.length)];
+  rescueJobState.answer=shelf.key;
+  const file=randomFrom(['Korner Tahminleri/14-B','Çay Şekeri İhalesi','Kaybolan Zımba Dosyası','Bütçe Açığı Ek-7','Müdürlük Koltuk Tutanağı']);
+  document.getElementById('rescueStage').innerHTML='<div class="rescue-work-title">GELEN DOSYA</div><div class="rescue-work-big">📁 '+file+'</div><div class="rescue-work-sub">Dosyanın üzerinde yalnızca “'+shelf.label+'” yazıyor.</div><div class="rescue-action-grid">'+shelves.map(o=>'<button class="rescue-action-btn" data-rescue-action="ARCHIVE" data-value="'+o.key+'">'+o.icon+' '+o.label+'</button>').join('')+'</div>'+rescueMotivationFx();
+}
+function moveRescueDirt(){
+  const dirt=document.querySelector('.rescue-dirt');
+  if(!dirt)return;
+  dirt.style.left=(12+Math.random()*76)+'%';
+  dirt.style.top=(18+Math.random()*64)+'%';
+  dirt.textContent=randomFrom(['🧻','☕','📄','🫗']);
+}
+function scheduleBossAlert(){
+  if(!rescueEndsAt||rescueProgress>=rescueJobs.BOSS.target)return;
+  const wait=700+Math.floor(Math.random()*900);
+  const id=setTimeout(()=>{
+    if(!rescueEndsAt)return;
+    rescueJobState.bossHot=true;
+    const btn=document.getElementById('rescueBossButton');
+    if(btn){btn.disabled=false;btn.classList.add('hot');btn.textContent='⚠ MÜDÜR KORİDORDA — ÇALIŞIYOR GİBİ GÖRÜN';}
+    const miss=setTimeout(()=>{
+      if(!rescueEndsAt||!rescueJobState.bossHot)return;
+      rescueJobState.bossHot=false;
+      if(btn){btn.disabled=true;btn.classList.remove('hot');btn.textContent='Müdür geçti. Şüphelendi.';}
+      document.getElementById('rescueMsg').textContent='Müdür sizi boş bakarken gördü. Tutanak tutulmadı; henüz.';
+      scheduleBossAlert();
+    },1200);
+    rescueJobTimers.push(miss);
+  },wait);
+  rescueJobTimers.push(id);
+}
+function renderRescueJobRunning(){
+  const stage=document.getElementById('rescueStage');
+  stage.className='rescue-stage';
+  if(rescueJobKey==='STAMP'){
+    stage.innerHTML='<div class="rescue-work-title">EVRAK NO: '+Math.floor(100000+Math.random()*899999)+'</div><div class="rescue-work-big">20 evrak. 10 saniye. Soru sormayın.</div><button class="rescue-single-action" data-rescue-action="STAMP">📑 EVRAK DAMGALA</button>'+rescueMotivationFx();
+  }else if(rescueJobKey==='TEA'){
+    nextTeaOrder();
+  }else if(rescueJobKey==='COPY'){
+    nextCopyStep();
+  }else if(rescueJobKey==='ARCHIVE'){
+    nextArchiveFile();
+  }else if(rescueJobKey==='CLEAN'){
+    stage.innerHTML='<div class="rescue-work-title">AFMB 4. KAT KORİDORU</div><div class="rescue-work-sub">Lekeyi yakala. Temizlenen alanın korunacağı taahhüt edilmemektedir.</div><div class="rescue-clean-zone"><button class="rescue-dirt" data-rescue-action="CLEAN" aria-label="Temizle">☕</button></div>'+rescueMotivationFx();
+    moveRescueDirt();
+  }else if(rescueJobKey==='BOSS'){
+    rescueJobState.bossHot=false;
+    stage.innerHTML='<div class="rescue-boss-screen"><div class="rescue-work-title">KURUMSAL VERİMLİLİK PROTOKOLÜ</div><div class="rescue-boss-door">🚪</div><button class="rescue-boss-alert" id="rescueBossButton" data-rescue-action="BOSS" disabled>Müdür henüz görünmüyor.</button>'+rescueMotivationFx()+'</div>';
+    scheduleBossAlert();
+  }
+}
+function rescueAdvance(){
+  rescueProgress++;
+  updateRescueProgress();
+  rescueStagePulse();
+  if(rescueProgress>=rescueJobs[rescueJobKey].target){
+    finishRescue(true);
+    return true;
+  }
+  return false;
+}
+function handleRescueAction(action,value,button){
+  if(!rescueEndsAt||Date.now()>rescueEndsAt||rescueFinishing)return;
+  if(action==='STAMP'){
+    if(!rescueAdvance()){
+      const title=document.querySelector('#rescueStage .rescue-work-title');
+      if(title)title.textContent='EVRAK NO: '+Math.floor(100000+Math.random()*899999);
+    }
+    return;
+  }
+  if(action==='TEA'||action==='COPY'||action==='ARCHIVE'){
+    if(value===rescueJobState.answer){
+      button.classList.add('correct');
+      if(rescueAdvance())return;
+      if(action==='TEA')nextTeaOrder();
+      if(action==='COPY')nextCopyStep();
+      if(action==='ARCHIVE')nextArchiveFile();
+    }else{
+      button.classList.add('wrong');
+      document.getElementById('rescueMsg').textContent=action==='TEA'?'“Ben bunu istemedim.” Çay geri döndü.':action==='COPY'?'Makine daha da yüksek ses çıkardı. AFMB bunu ilerleme saymadı.':'Dosya raftan geri fırladı. Bürokrasi kendini koruyor.';
+    }
+    return;
+  }
+  if(action==='CLEAN'){
+    if(rescueAdvance())return;
+    moveRescueDirt();
+    document.getElementById('rescueMsg').textContent='Temizlendi. Bir memur aynı yere yeni bir kâğıt bıraktı.';
+    return;
+  }
+  if(action==='BOSS'){
+    if(!rescueJobState.bossHot)return;
+    rescueJobState.bossHot=false;
+    button.disabled=true;button.classList.remove('hot');button.textContent='📂 Dosya açıldı. Çok ciddi bakıyorsunuz.';
+    if(rescueAdvance())return;
+    document.getElementById('rescueMsg').textContent='Müdür geçti. Çalıştığınıza dair kanaat oluşmuş olabilir.';
+    scheduleBossAlert();
+  }
+}
+function showRescuePayroll(){
+  const job=rescueJobs[rescueJobKey];
+  const count=rescueSeniorityCount();
+  const stage=document.getElementById('rescueStage');
+  stage.className='rescue-stage';
+  stage.innerHTML='<div class="rescue-payroll"><div class="rescue-payroll-head"><strong>🏛 AFMB PERSONEL BORDROSU</strong><span>#'+String(count).padStart(4,'0')+'</span></div><div class="rescue-payroll-row"><span>Görev</span><b>'+job.name+'</b></div><div class="rescue-payroll-row"><span>Brüt mesai ücreti</span><b>1.340 ₳D</b></div><div class="rescue-payroll-row"><span>Damga vergisi</span><b>-120 ₳D</b></div><div class="rescue-payroll-row"><span>Kurumsal sandalye kullanım bedeli</span><b>-80 ₳D</b></div><div class="rescue-payroll-row"><span>Çay fonu</span><b>-140 ₳D</b></div><div class="rescue-payroll-row net"><span>NET ÖDEME</span><b>1.000 ₳D</b></div><div class="rescue-payroll-foot">Personel statüsü: '+rescueRank(count)+'<br>“Hayırlı olsun. Çok harcamayın.” — AFMB Bordro Servisi</div></div>';
+  document.getElementById('rescueStart').disabled=true;
+  document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.disabled=true);
+}
 async function finishRescue(success){
+  if(rescueFinishing)return;
+  rescueFinishing=true;
   stopRescueTimer();
   rescueEndsAt=0;
   const start=document.getElementById('rescueStart');
-  const stamp=document.getElementById('stampBtn');
-  stamp.disabled=true;
   if(success){
+    start.disabled=true;
+    document.getElementById('rescueMsg').textContent='Mesai kabul edildi. AFMB Bordro Servisi kesintileri icat ediyor…';
     if(onlineMode){
-      start.disabled=true;
-      document.getElementById('rescueMsg').textContent='20/20! AFMB bordroyu sunucuda onaylıyor…';
       const {data,error}=await supabaseClient.rpc('claim_afmb_rescue');
       if(error){
         console.error('AFMB rescue',error);
+        rescueFinishing=false;
         start.disabled=false;
         start.textContent='Tekrar Kontrol Et';
         document.getElementById('rescueMsg').textContent=error.message.includes('PENDING')
@@ -4591,48 +4910,60 @@ async function finishRescue(success){
         return;
       }
       if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
-      toast('AFMB mesai ücreti: +1.000 ₳D. Tekrar batmamaya çalış. 😭');
+      bumpRescueSeniority();
+      renderRescueSeniority();
+      rescuePayrollUntil=Date.now()+3800;
+      showRescuePayroll();
+      toast('AFMB bordrosu işlendi: net +1.000 ₳D. Yine bekleriz. Mecburen. 🏛');
+      renderWallet();
       await refreshOnlineAccount();
+      setTimeout(()=>{rescuePayrollUntil=0;rescueFinishing=false;renderRescue()},3900);
       return;
     }
     state.balance+=1000;
     save();
     renderWallet();
-    document.getElementById('rescueMsg').textContent='20/20! Devlet dairesi senden memnun. +1.000 ₳D yatırıldı.';
-    toast('AFMB mesai ücreti: +1.000 ₳D. Tekrar batmamaya çalış. 😭');
-    setTimeout(renderRescue,700);
+    bumpRescueSeniority();
+    renderRescueSeniority();
+    rescuePayrollUntil=Date.now()+3800;
+    showRescuePayroll();
+    document.getElementById('rescueMsg').textContent='Mesai tamamlandı. Kurumumuz emeğinizi gerekli kesintilerden sonra takdir etmiştir.';
+    toast('AFMB bordrosu işlendi: net +1.000 ₳D. Yine bekleriz. Mecburen. 🏛');
+    setTimeout(()=>{rescuePayrollUntil=0;rescueFinishing=false;renderRescue()},3900);
   }else{
+    rescueFinishing=false;
     start.disabled=false;
-    start.textContent='Tekrar Mesaiye Başla';
-    document.getElementById('rescueMsg').textContent=`${rescueClicks}/20 damga. AFMB performans değerlendirmesi: “Yetersiz ama yeniden deneyebilir.”`;
+    start.textContent='Mesaiyi Tekrarla';
+    document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.disabled=false);
+    document.getElementById('rescueMsg').textContent=rescueProgress+'/'+rescueJobs[rescueJobKey].target+' işlem. AFMB performans değerlendirmesi: “Yetersiz ama yeniden kullanılabilir.”';
+    renderRescueJobRunning();
+    stopRescueTimer();
+    rescueEndsAt=0;
   }
 }
 function tickRescue(){
   if(!rescueEndsAt)return;
   const left=Math.max(0,rescueEndsAt-Date.now());
   document.getElementById('rescueTime').textContent=(left/1000).toFixed(1)+' sn';
-  if(left<=0)finishRescue(rescueClicks>=20);
+  if(left<=0)finishRescue(rescueProgress>=rescueJobs[rescueJobKey].target);
 }
 function startRescue(){
-  if(!rescueEligible()||rescueEndsAt)return;
-  rescueClicks=0;
-  rescueEndsAt=Date.now()+10000;
-  document.getElementById('rescueCount').textContent='0 / 20';
+  if(!rescueEligible()||rescueEndsAt||rescueFinishing)return;
+  if(!rescueJobKey)pickRescueJob();
+  const job=rescueJobs[rescueJobKey];
+  rescueProgress=0;
+  rescueJobState={};
+  rescueEndsAt=Date.now()+job.duration;
+  document.getElementById('rescueTime').textContent=(job.duration/1000).toFixed(1)+' sn';
+  updateRescueProgress();
   document.getElementById('rescueStart').disabled=true;
-  document.getElementById('stampBtn').disabled=false;
-  document.getElementById('rescueMsg').textContent='Müdür bakıyor. Damgala kankam, damgala!';
+  document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.disabled=true);
+  document.getElementById('rescueMsg').textContent=rescueMotivations[rescueMotivation].line;
+  renderRescueJobRunning();
   stopRescueTimer();
+  rescueEndsAt=Date.now()+job.duration;
   rescueTimer=setInterval(tickRescue,100);
   tickRescue();
-}
-function stampPaper(){
-  if(!rescueEndsAt||Date.now()>rescueEndsAt)return;
-  rescueClicks++;
-  document.getElementById('rescueCount').textContent=`${rescueClicks} / 20`;
-  const btn=document.getElementById('stampBtn');
-  btn.classList.add('active');
-  setTimeout(()=>btn.classList.remove('active'),70);
-  if(rescueClicks>=20)finishRescue(true);
 }
 
 function marketPayloadForPick(p){
@@ -6264,7 +6595,12 @@ document.querySelector('.sidebar[data-page-section="bulletin"]').addEventListene
   if(e.target===e.currentTarget)e.currentTarget.classList.remove('mobile-open');
 });
 document.getElementById('rescueStart').addEventListener('click',startRescue);
-document.getElementById('stampBtn').addEventListener('click',stampPaper);
+document.getElementById('rescueStage').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-rescue-action]');
+  if(!btn)return;
+  handleRescueAction(btn.dataset.rescueAction,btn.dataset.value||'',btn);
+});
+document.querySelectorAll('[data-rescue-motivation]').forEach(btn=>btn.addEventListener('click',()=>setRescueMotivation(btn.dataset.rescueMotivation)));
 document.getElementById('rescueLauncher').addEventListener('click',()=>setRescuePopup(!rescuePopupOpen));
 document.getElementById('rescueClose').addEventListener('click',()=>setRescuePopup(false));
 document.getElementById('placeCoupon').addEventListener('click',async()=>{
