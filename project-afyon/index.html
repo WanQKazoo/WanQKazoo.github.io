@@ -6558,7 +6558,7 @@ function updateChancePlayLabel(){
       btn.textContent='PARAYI AL • '+money(payout)+' • ×'+x;
       btn.classList.add('session-cashout');
     }
-    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1));
+    btn.disabled=chanceBusy||((activeChanceGame==='mines'&&Number(activeChanceSession.safe_count||0)<1)||(activeChanceGame==='high_card'&&Number(activeChanceSession.streak||0)<1)||(activeChanceGame==='penalty_series'&&Number(activeChanceSession.goals||0)<1)||(activeChanceGame==='inspector_escape'&&Number(activeChanceSession.floors||0)<1)||(activeChanceGame==='vault_crack'&&Number(activeChanceSession.locks||0)<1)||(activeChanceGame==='stamp_memory'&&Number(activeChanceSession.rounds||0)<1));
     return;
   }
   btn.disabled=chanceBusy;
@@ -6615,6 +6615,15 @@ function prepareChanceStage(gameKey){
   }else if(game.type==='penalty'){
     stage.classList.add('game-polish','penalty-stage-polish');
     stage.innerHTML='<div class="penalty-shell polished"><div class="game-hud"><div class="game-hud-stat"><small>SERİ</small><strong id="penaltyScore">0 / 5 GOL</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="penaltyMultiplier">×0.92</strong></div></div><div class="penalty-progress" id="penaltyProgress">'+Array.from({length:5},(_,i)=>'<span data-penalty-progress="'+i+'"></span>').join('')+'</div><div class="penalty-stadium"><div class="penalty-pitch polished" id="penaltyPitch"><div class="penalty-goal polished"></div><div class="penalty-keeper" id="penaltyKeeper">🧤</div><div class="penalty-ball" id="penaltyBall">⚽</div><div class="penalty-callout" id="penaltyCallout">VUR!</div></div></div><div class="penalty-kicks polished"><button class="penalty-kick" data-penalty-kick="LEFT" disabled>↙ SOL KÖŞE</button><button class="penalty-kick" data-penalty-kick="CENTER" disabled>⬆ ORTA</button><button class="penalty-kick" data-penalty-kick="RIGHT" disabled>SAĞ KÖŞE ↘</button></div></div>';
+  }else if(game.type==='inspector'){
+    stage.classList.add('game-polish','inspector-stage-polish');
+    stage.innerHTML='<div class="inspector-shell"><div class="game-hud"><div class="game-hud-stat"><small>KAT</small><strong id="inspectorFloor">0 / 5</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="inspectorMultiplier">×1.00</strong></div></div><div class="inspector-building"><div class="inspector-sign">AFMB DENETİM KORİDORU</div><div class="inspector-doors">'+[0,1,2].map(i=>'<button class="inspector-door" data-inspector-door="'+i+'" disabled><span class="door-light"></span><strong>'+(i+1)+'. KAPI</strong><small>?</small></button>').join('')+'</div><div class="inspector-caption" id="inspectorCaption">Müfettiş henüz kata çıkmadı. Kaçış kapını seç.</div></div><div class="inspector-progress">'+Array.from({length:5},(_,i)=>'<span data-inspector-progress="'+i+'"></span>').join('')+'</div></div>';
+  }else if(game.type==='vault'){
+    stage.classList.add('game-polish','vault-stage-polish');
+    stage.innerHTML='<div class="vault-shell"><div class="game-hud"><div class="game-hud-stat"><small>KİLİT</small><strong id="vaultLocks">0 / 4</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="vaultMultiplier">×1.00</strong></div></div><div class="vault-door"><div class="vault-dial">🔐</div><div class="vault-meter" id="vaultMeter"><span class="vault-target" id="vaultTarget"></span><span class="vault-needle" id="vaultNeedle"></span></div><div class="vault-scale"><span>0</span><span>50</span><span>100</span></div><button class="vault-stop" data-vault-stop disabled>🛑 DUR</button><div class="vault-caption" id="vaultCaption">İbreyi yeşil bölgede durdur. Her kilitte hedef daralır.</div></div></div>';
+  }else if(game.type==='memory'){
+    stage.classList.add('game-polish','memory-stage-polish');
+    stage.innerHTML='<div class="memory-shell"><div class="game-hud"><div class="game-hud-stat"><small>TUR</small><strong id="memoryRound">0 / 5</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="memoryMultiplier">×1.00</strong></div></div><div class="memory-board" id="memoryBoard">'+Array.from({length:6},(_,i)=>'<button class="memory-file" data-memory-file="'+i+'" disabled><span class="memory-folder">📁</span><strong>DOSYA</strong><small>GİZLİ</small></button>').join('')+'</div><div class="memory-caption" id="memoryCaption">Onaylı dosya kısa süre açılacak. Yerini unutma.</div></div>';
   }else if(game.type==='raid'){
     stage.classList.add('game-polish','raid-stage-polish');
     const stallEmoji={SIMIT:'🥨',MISIR:'🌽',KESTANE:'🌰'};
@@ -6743,7 +6752,7 @@ async function startChanceSession(){
     game_key:gameKey,
     status:'active',
     stake,
-    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:0.90
+    multiplier:gameKey==='mines'?0.85:gameKey==='high_card'?0.90:gameKey==='penalty_series'?0.92:1.00
   };
 
   if(gameKey==='mines'){
@@ -6760,6 +6769,12 @@ async function startChanceSession(){
     Object.assign(session,{crash_multiplier:crash,started_at:new Date().toISOString()});
   }else if(gameKey==='penalty_series'){
     Object.assign(session,{goals:0});
+  }else if(gameKey==='inspector_escape'){
+    Object.assign(session,{floors:0});
+  }else if(gameKey==='vault_crack'){
+    Object.assign(session,{locks:0,vault_pos:0,target_center:50,target_width:30});
+  }else if(gameKey==='stamp_memory'){
+    Object.assign(session,{rounds:0,target_file:-1,revealing:false});
   }
 
   activeChanceSession=session;
@@ -6772,11 +6787,17 @@ async function startChanceSession(){
   if(gameKey==='high_card')activateHighCard();
   if(gameKey==='rocket')activateRocket();
   if(gameKey==='penalty_series')activatePenalty();
+  if(gameKey==='inspector_escape')activateInspectorEscape();
+  if(gameKey==='vault_crack')activateVaultCrack();
+  if(gameKey==='stamp_memory')activateStampMemory();
 
   setChanceResult(
     gameKey==='mines'?'5 mayın lokal olarak gizlendi. Kutunu seç. 💣':
     gameKey==='high_card'?'Kart açık. Yüksek mi düşük mü? 🃏':
     gameKey==='penalty_series'?'Top sende. Köşeyi seç ve vur. ⚽':
+    gameKey==='inspector_escape'?'Müfettiş koridora çıktı. Üç kapıdan birini seç. 🕵️':
+    gameKey==='vault_crack'?'İbre hareket ediyor. Yeşil bölgede DUR de. 🔐':
+    gameKey==='stamp_memory'?'Onaylı dosyayı gör ve yerini unutma. 🗂️':
     'Roket kalktı! Patlamadan parayı al. 🚀'
   );
   updateChancePlayLabel();
