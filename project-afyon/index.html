@@ -7287,13 +7287,13 @@ async function pickMemoryFile(choice){
 function activateRocket(){
   const startMs=new Date(activeChanceSession.started_at).getTime()||Date.now();
   const crash=Number(activeChanceSession.crash_multiplier);
-  const crashMs=Math.max(0,((crash-0.90)/0.08)*1000);
+  const crashMs=Math.max(0,((crash-1.00)/0.08)*1000);
 
   const tick=()=>{
     if(!activeChanceSession||activeChanceGame!=='rocket'||activeChanceSession.status!=='active')return;
     const elapsed=Math.max(0,(Date.now()-startMs)/1000);
-    const x=Math.min(4,0.90+0.08*elapsed);
-    const progress=clamp((x-.90)/(4-.90),0,1);
+    const x=Math.min(4,1.00+0.08*elapsed);
+    const progress=clamp((x-1.00)/(4-1.00),0,1);
     const curveProgress=Math.pow(progress,.78);
     activeChanceSession.multiplier=x;
 
@@ -7380,7 +7380,7 @@ async function cashOutChanceSession(){
       result={rounds:Number(session.rounds||0),cashed:true};
     }else if(activeChanceGame==='rocket'){
       const elapsed=Math.max(0,(Date.now()-new Date(session.started_at).getTime())/1000);
-      multiplier=Math.min(4,roundChance(0.90+0.08*elapsed));
+      multiplier=Math.min(4,roundChance(1.00+0.08*elapsed));
       if(multiplier>=Number(session.crash_multiplier)){
         clearRocketTimers();
         const shell=document.getElementById('rocketShell');
