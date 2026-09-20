@@ -1961,6 +1961,27 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
 .boxing-main-poster:focus-visible{outline:2px solid #ff9aa6;outline-offset:3px}
 .boxing-main-center button{cursor:pointer;position:relative;z-index:2;touch-action:manipulation}
 
+
+/* Prototype 0.57.4 — Mobile coupon launcher overlap hotfix */
+@media(max-width:1050px){
+  body[data-page="bulletin"] .mobile-slip-launcher{
+    bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;
+    transition:opacity .16s ease,transform .16s ease;
+  }
+  body[data-page="bulletin"] .mobile-slip-launcher.panel-open{
+    display:none!important;
+    pointer-events:none!important;
+  }
+  body[data-page="bulletin"] .sidebar.mobile-open{
+    padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+@media(max-width:820px){
+  body[data-page="bulletin"]{
+    padding-bottom:calc(154px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2307,7 +2328,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.3 AFMB Pending Gate</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.57.4 Mobile Slip Hotfix</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -5050,6 +5071,14 @@ function openLivingCoupon(coupon){
     }
   });
 }
+function setMobileSlipOpen(open){
+  const sidebar=document.querySelector('.sidebar[data-page-section="bulletin"]');
+  const launcher=document.getElementById('mobileSlipLauncher');
+  if(!sidebar||!launcher)return;
+  sidebar.classList.toggle('mobile-open',!!open);
+  launcher.classList.toggle('panel-open',!!open);
+  launcher.setAttribute('aria-hidden',open?'true':'false');
+}
 function renderLivingCouponLauncher(){
   const launcher=document.getElementById('mobileSlipLauncher');
   const text=document.getElementById('mobileSlipText');
@@ -6023,7 +6052,7 @@ async function placeOnlineCoupon(stake){
   const {error}=await supabaseClient.rpc('place_coupon',{p_stake:stake,p_selections:payload});
   if(error){toast('Kupon reddedildi: '+error.message);return}
   picks=[];
-  document.querySelector('.sidebar[data-page-section="bulletin"]')?.classList.remove('mobile-open');
+  setMobileSlipOpen(false);
   await refreshOnlineAccount();
   await refreshOnlineSelected(false);
   renderAll();
@@ -7340,7 +7369,7 @@ document.getElementById('authOpen').addEventListener('click',()=>document.getEle
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
 document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeBoxingBout();closeBoxingFighterProfile();closeChanceGame();document.getElementById('mobileMoreSheet')?.classList.remove('open');setBulletinFilterOpen(false);}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeBoxingBout();closeBoxingFighterProfile();closeChanceGame();document.getElementById('mobileMoreSheet')?.classList.remove('open');setBulletinFilterOpen(false);setMobileSlipOpen(false);}});
 document.getElementById('authLogin').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
   updateAuthUi('Giriş yapılıyor…');
@@ -7391,10 +7420,10 @@ document.getElementById('mobileSlipLauncher').addEventListener('click',()=>{
     if(living){openLivingCoupon(living);return;}
   }
   const sidebar=document.querySelector('.sidebar[data-page-section="bulletin"]');
-  sidebar.classList.toggle('mobile-open');
+  setMobileSlipOpen(!sidebar?.classList.contains('mobile-open'));
 });
 document.querySelector('.sidebar[data-page-section="bulletin"]').addEventListener('click',e=>{
-  if(e.target===e.currentTarget)e.currentTarget.classList.remove('mobile-open');
+  if(e.target===e.currentTarget)setMobileSlipOpen(false);
 });
 document.getElementById('rescueStart').addEventListener('click',startRescue);
 document.getElementById('rescueStage').addEventListener('click',e=>{
@@ -7424,7 +7453,7 @@ document.getElementById('placeCoupon').addEventListener('click',async()=>{
     selections:picks.map(p=>({...p})),status:'pending',paid:false,
     season:state.season,week:state.week,created:new Date().toISOString()
   });
-  save();picks=[];document.querySelector('.sidebar[data-page-section="bulletin"]')?.classList.remove('mobile-open');renderAll();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
+  save();picks=[];setMobileSlipOpen(false);renderAll();toast('Kupon oluşturuldu. AFMB gelişmeleri izliyor. 🏛');
 });
 
 document.getElementById('matchDetailModal').addEventListener('click',function(e){
