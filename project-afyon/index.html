@@ -1662,6 +1662,12 @@ header{
   .match.special .market-group.wide .market-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
+
+.conference-stat.special{border-color:#6b542b;background:#241d11;color:#edcd84}
+.conference-score.special{border-color:#5a4727;background:linear-gradient(180deg,#211a10,#111827)}
+.conference-score.special .conference-score-top span{color:#e2bf70}
+.live-event.special{border-color:#514326;background:linear-gradient(90deg,rgba(213,167,70,.09),#111827)}
+
 </style>
 </head>
 <body>
@@ -2986,6 +2992,7 @@ function renderLiveCenter(){
     const isCouponMatch=id=>couponMatchIds.has(id);
     const footballCount=liveMatches.filter(m=>(m.sport||'football')==='football').length;
     const efootballCount=liveMatches.filter(m=>m.sport==='efootball').length;
+    const specialCount=liveMatches.filter(m=>m.sport==='special').length;
     const couponLiveCount=liveMatches.filter(m=>isCouponMatch(m.id)).length;
     const minutes=liveMatches.map(m=>liveMinute(m.id));
     const avgMinute=Math.round(minutes.reduce((a,b)=>a+b,0)/Math.max(1,minutes.length));
@@ -3000,6 +3007,7 @@ function renderLiveCenter(){
       statsEl.innerHTML=
         (footballCount?'<span class="conference-stat football">⚽ '+footballCount+' Futbol</span>':'')+
         (efootballCount?'<span class="conference-stat efootball">🎮 '+efootballCount+' e-Futbol</span>':'')+
+        (specialCount?'<span class="conference-stat special">🎪 '+specialCount+' Özel</span>':'')+
         (couponLiveCount?'<span class="conference-stat my-coupon">🎟 '+couponLiveCount+' Kuponunda</span>':'');
     }
 
@@ -3014,10 +3022,19 @@ function renderLiveCenter(){
       scoresEl.innerHTML=visible.map(m=>{
         const sport=m.sport||'football';
         const snap=liveSnapshot(m.id)||{homeGoals:0,awayGoals:0,minute:liveMinute(m.id)};
-        const home=sportTeamName(onlineClubsById[m.home_club_id]?.name||'Ev',sport);
-        const away=sportTeamName(onlineClubsById[m.away_club_id]?.name||'Dep',sport);
+        const special=sport==='special'?specialMatchLabels(m):null;
+        const home=special?special.home:sportTeamName(onlineClubsById[m.home_club_id]?.name||'Ev',sport);
+        const away=special?special.away:sportTeamName(onlineClubsById[m.away_club_id]?.name||'Dep',sport);
         const onCoupon=isCouponMatch(m.id);
-        return `<div class="conference-score ${sport==='efootball'?'efootball':''} ${onCoupon?'on-coupon':''}">
+        if(sport==='special'&&m.special_key==='SHEEP_JUMP'){
+          return '<div class="conference-score special '+(onCoupon?'on-coupon':'')+'">'+
+            '<div class="conference-score-top"><span>🐑 Özel Etkinlik</span><b>'+(snap.minute>=90?'90+':snap.minute)+"'</b></div>"+
+            '<div class="conference-score-team"><span>'+(m.special_title||'Sudan Koyun Atlatma')+'</span><b>🐑</b></div>'+
+            '<div class="conference-score-team"><span>'+home+'</span><b>●</b></div>'+
+            (onCoupon?'<span class="conference-score-tag">🎟 KUPONUNDA</span>':'')+
+          '</div>';
+        }
+        return `<div class="conference-score ${sport==='efootball'?'efootball':sport==='special'?'special':''} ${onCoupon?'on-coupon':''}">
           <div class="conference-score-top"><span>${sportInfo(sport).icon} ${sportInfo(sport).label}</span><b>${snap.minute>=90?'90+':snap.minute}'</b></div>
           <div class="conference-score-team"><span>${home}</span><b>${snap.homeGoals}</b></div>
           <div class="conference-score-team"><span>${away}</span><b>${snap.awayGoals}</b></div>
@@ -3035,13 +3052,15 @@ function renderLiveCenter(){
         if(e.event_type==='goal'){
           if(e.side==='home')homeGoals++;else awayGoals++;
         }
-        const important=e.event_type==='goal'||e.event_type==='big_chance'||e.event_type==='yellow_card'||(e.event_type==='shot'&&e.payload?.on_target);
+        const important=sport==='special'||e.event_type==='goal'||e.event_type==='big_chance'||e.event_type==='yellow_card'||(e.event_type==='shot'&&e.payload?.on_target);
         if(!important)return;
         const info=matchEventInfo(e);
-        const actor=e.side==='home'?onlineClubsById[m.home_club_id]?.name:onlineClubsById[m.away_club_id]?.name;
-        const home=sportTeamName(onlineClubsById[m.home_club_id]?.name||'Ev',sport);
-        const away=sportTeamName(onlineClubsById[m.away_club_id]?.name||'Dep',sport);
-        const actorName=sportTeamName(actor||'Takım',sport);
+        const special=sport==='special'?specialMatchLabels(m):null;
+        const home=special?special.home:sportTeamName(onlineClubsById[m.home_club_id]?.name||'Ev',sport);
+        const away=special?special.away:sportTeamName(onlineClubsById[m.away_club_id]?.name||'Dep',sport);
+        const actorName=sport==='special'
+          ?(e.side==='home'?home:e.side==='away'?away:'AFMB Olay Kaydı')
+          :sportTeamName((e.side==='home'?onlineClubsById[m.home_club_id]?.name:onlineClubsById[m.away_club_id]?.name)||'Takım',sport);
         const eventScore=homeGoals+'-'+awayGoals;
         events.push({
           matchId:m.id,
@@ -3054,7 +3073,7 @@ function renderLiveCenter(){
           kind:info.kind,
           match:home+' - '+away,
           score:eventScore,
-          commentary:commentatorLine(e,actorName,sport,e.event_type==='goal'?eventScore:''),
+          commentary:sport==='special'?(e.payload?.text||''):commentatorLine(e,actorName,sport,e.event_type==='goal'?eventScore:''),
           onCoupon:isCouponMatch(m.id)
         });
       });
@@ -3066,8 +3085,8 @@ function renderLiveCenter(){
     feed.innerHTML=events.length
       ?events.slice(0,14).map(e=>{
         const lastMinute=e.minute>=85&&e.kind==='goal';
-        return `<div class="live-event ${e.sport==='efootball'?'efootball':''} ${e.onCoupon?'on-coupon':''}">
-          <div class="conference-event-top"><strong>${lastMinute?'🚨 ':''}${sportInfo(e.sport).icon} ${e.icon} ${e.minute}' ${e.title}</strong><small>${e.sport==='efootball'?'e-Futbol':'Futbol'}</small></div>
+        return `<div class="live-event ${e.sport==='efootball'?'efootball':e.sport==='special'?'special':''} ${e.onCoupon?'on-coupon':''}">
+          <div class="conference-event-top"><strong>${lastMinute?'🚨 ':''}${sportInfo(e.sport).icon} ${e.icon} ${e.minute}' ${e.title}</strong><small>${e.sport==='efootball'?'e-Futbol':e.sport==='special'?'Özel Etkinlik':'Futbol'}</small></div>
           <div><strong>${e.actor}</strong> ${e.kind==='goal'?'<span class="conference-event-score">'+e.score+'</span>':''}</div>
           <div class="conference-event-match">${e.match}</div>
           ${e.commentary?'<div class="conference-event-commentary">'+e.commentary+'</div>':''}
