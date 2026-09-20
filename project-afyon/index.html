@@ -2402,7 +2402,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
             <section class="chance-arcade-section featured">
               <div class="chance-arcade-head"><div><small>ÖNE ÇIKAN</small><strong>Bu gece AFMB Lunaparkı</strong></div><span>Risk sana ait, tutanak kuruma.</span></div>
               <div class="chance-feature-grid">
-                <button class="chance-card chance-card-hero" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Roket yükselirken herkes sakindir. 3.20’den sonra aynı kişiler “biraz daha gider” uzmanına dönüşmektedir.</p><span class="odds">Ne zaman çıkacağını sen seç</span><span class="chance-cta">UÇUŞA GİT →</span></button>
+                <button class="chance-card chance-card-hero" data-open-game="rocket"><span class="icon">🚀</span><span class="tag">CANLI ÇARPAN</span><h3>Roket Kaçışı</h3><p>Roket yükselirken herkes sakindir. 3.20’den sonra aynı kişiler “biraz daha gider” uzmanına dönüşmektedir.</p><span class="odds">×1.00’dan başlar • ne zaman çıkacağını sen seç</span><span class="chance-cta">UÇUŞA GİT →</span></button>
                 <button class="chance-card chance-card-feature" data-open-game="marble_race"><span class="icon">🔵</span><span class="tag">AFMB KLASİĞİ</span><h3>Bilye Ligi</h3><p>Sekiz bilye devlet ciddiyetiyle yokuşa bırakılır.</p><span class="odds">Kazanan: ×6.00</span></button>
                 <button class="chance-card chance-card-feature" data-open-game="mines"><span class="icon">💣</span><span class="tag">RİSKİ SEN YÖNET</span><h3>Afyon Mayın Tarlası</h3><p>“Bir kutu daha” ifadesi yine kırmızıyla işaretli.</p><span class="odds">Devam et veya çık</span></button>
               </div>
@@ -2618,7 +2618,7 @@ const LIVE_DURATION=180000;
 const chanceGames={
   marble_race:{title:'Bilye Ligi',desc:'Sekiz bilye, tek tercih. AFMB favori bilyenin aileden biri gibi savunulmamasını tavsiye eder. • ×6.00',emoji:'🔵',type:'race',racer:'●',mode:'single',choices:[['BLUE','Devlet Mavisi'],['RED','Bordro Bordosu'],['YELLOW','İhale Sarısı'],['GREEN','Tahsis Yeşili'],['PURPLE','Müdür Moru'],['ORANGE','Dosya Turuncusu'],['WHITE','Form Beyazı'],['BLACK','Müfettiş Siyahı']]},
   mines:{title:'Afyon Mayın Tarlası',desc:'Beş mayın bulunmaktadır. “Son bir kutu” ifadesi AFMB risk raporlarında kırmızıyla işaretlidir.',emoji:'💣',type:'mines',mode:'session',choices:[]},
-  rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
+  rocket:{title:'Roket Kaçışı',desc:'Roket ×1.00’dan kalkar; çarpan yükselir, özgüven de yükselir. Patlamadan önce ne zaman çıkacağını sen seçersin.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
   penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; 5/5 seri artık tam ×7.00 öder.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
   boss_hallway:{title:'Müdür Koridoru',desc:'Her katta üç kaçış noktası vardır. Müdür birini kontrol eder. Yakalanmadan ilerle, bordronu istediğin an kap.',emoji:'🚪',type:'corridor',mode:'session',choices:[]},
