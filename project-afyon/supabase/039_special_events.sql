@@ -315,7 +315,7 @@ begin
     v_key:=case when v_seq=1 then 'AROG_FINAL' else 'SHEEP_JUMP' end;
     v_id:='special-'||to_char(p_date,'YYYYMMDD')||'-'||case when v_seq=1 then 'arog' else 'sheep' end;
 
-    if exists(select 1 from public.matches where id=v_id) then
+    if exists(select 1 from public.matches where id=v_id and status<>'scheduled') then
       continue;
     end if;
 
@@ -328,7 +328,7 @@ begin
         select 1 from public.matches x
         where x.season=v_season
           and x.week=v_week
-          and x.sport in ('football','efootball')
+          and x.sport='football'
           and x.league_level=1
           and x.kickoff_at is not null
           and abs(extract(epoch from (x.kickoff_at-v_candidate)))<20*60
@@ -341,6 +341,7 @@ begin
       and not exists(
         select 1 from public.matches sx
         where sx.sport='special'
+          and sx.id<>v_id
           and sx.kickoff_at is not null
           and abs(extract(epoch from (sx.kickoff_at-v_candidate)))<20*60
       ) then
@@ -371,7 +372,15 @@ begin
         else 'Büyük Menderes • Geleneksel Çoban Bayramı'
       end,
       case when v_key='AROG_FINAL' then '🏺' else '🐑' end
-    );
+    )
+    on conflict (id) do update
+      set kickoff_at=excluded.kickoff_at,
+          special_title=excluded.special_title,
+          special_home_label=excluded.special_home_label,
+          special_away_label=excluded.special_away_label,
+          special_subtitle=excluded.special_subtitle,
+          special_icon=excluded.special_icon
+      where public.matches.status='scheduled';
 
     if v_key='AROG_FINAL' then
       insert into public.match_markets(match_id,market_key,selection_key,odd,locked) values
@@ -382,7 +391,8 @@ begin
         (v_id,'SP_PTERANODON','YES',1.80,false),(v_id,'SP_PTERANODON','NO',1.80,false),
         (v_id,'SP_BACKWARD_GOAL','YES',1.80,false),(v_id,'SP_BACKWARD_GOAL','NO',1.80,false),
         (v_id,'SP_NEW_RULE','YES',1.80,false),(v_id,'SP_NEW_RULE','NO',1.80,false),
-        (v_id,'SP_FOREIGN_OBJECT','YES',1.80,false),(v_id,'SP_FOREIGN_OBJECT','NO',1.80,false);
+        (v_id,'SP_FOREIGN_OBJECT','YES',1.80,false),(v_id,'SP_FOREIGN_OBJECT','NO',1.80,false)
+      on conflict (match_id,market_key,selection_key) do nothing;
     else
       insert into public.match_markets(match_id,market_key,selection_key,odd,locked) values
         (v_id,'SP_SHEEP_WINNER','KINALI',5.20,false),
@@ -399,7 +409,8 @@ begin
         (v_id,'SP_SHEEP_DRAMATIC','YES',1.80,false),(v_id,'SP_SHEEP_DRAMATIC','NO',1.80,false),
         (v_id,'SP_SHEEP_JURY','YES',1.80,false),(v_id,'SP_SHEEP_JURY','NO',1.80,false),
         (v_id,'SP_SHEEP_GRAZE','YES',1.80,false),(v_id,'SP_SHEEP_GRAZE','NO',1.80,false),
-        (v_id,'SP_SHEEP_ARCH','YES',1.80,false),(v_id,'SP_SHEEP_ARCH','NO',1.80,false);
+        (v_id,'SP_SHEEP_ARCH','YES',1.80,false),(v_id,'SP_SHEEP_ARCH','NO',1.80,false)
+      on conflict (match_id,market_key,selection_key) do nothing;
     end if;
   end loop;
 end;
