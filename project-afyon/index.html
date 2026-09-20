@@ -987,6 +987,75 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
 .bulletin-group-head.boxing .boxing-group-copy strong{font-size:10px}
 .bulletin-group-head.boxing .boxing-group-copy em{font-style:normal;color:#ffdad6;font-size:9px;font-weight:1000;letter-spacing:.25px}
 .bulletin-group-head.boxing .boxing-group-meta{color:#a98286;font-size:8px;font-weight:900;text-align:right;line-height:1.5}
+
+/* ===== Prototype 0.53.4 — Coupon slip viewport fix ===== */
+body[data-page="bulletin"] .slip{
+  display:flex;
+  flex-direction:column;
+  max-height:calc(100dvh - 112px);
+}
+body[data-page="bulletin"] .slip-head{flex:0 0 auto}
+body[data-page="bulletin"] .slip-body{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+}
+body[data-page="bulletin"] #slipItems{
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  padding-right:2px;
+}
+body[data-page="bulletin"] #slipControls{
+  flex:0 0 auto;
+  position:relative;
+  z-index:2;
+  padding-top:2px;
+  background:#0d1626;
+  box-shadow:0 -10px 24px rgba(5,10,18,.28);
+}
+.slip-balance{
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:2px 0 8px;
+  padding:8px 9px;
+  border:1px solid #2a3b57;
+  border-radius:9px;
+  background:#111d30;
+}
+.slip-balance span{color:#7f91ad;font-size:8px;font-weight:1000;letter-spacing:.5px}
+.slip-balance strong{color:#ffd166;font-size:12px}
+@media(max-width:1050px){
+  body[data-page="bulletin"] .sidebar.mobile-open{
+    padding:9vh 12px 78px;
+  }
+  body[data-page="bulletin"] .sidebar.mobile-open .slip{
+    display:flex;
+    flex-direction:column;
+    height:min(82dvh,720px);
+    max-height:calc(100dvh - 105px);
+    overflow:hidden;
+  }
+  body[data-page="bulletin"] .sidebar.mobile-open .slip-body{
+    flex:1 1 auto;
+    min-height:0;
+  }
+  body[data-page="bulletin"] .sidebar.mobile-open #slipItems{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto;
+  }
+  body[data-page="bulletin"] .sidebar.mobile-open #slipControls{
+    flex:0 0 auto;
+  }
+  body[data-page="bulletin"] .sidebar.mobile-open .slip-balance{
+    display:flex;
+  }
+}
 </style>
 </head>
 <body>
@@ -1248,6 +1317,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
           <div class="slip-body">
             <div id="slipItems"></div>
             <div id="slipControls" style="display:none">
+              <div class="slip-balance"><span>MEVCUT BAKİYE</span><strong id="slipBalance">—</strong></div>
               <div class="slip-summary">
                 <div class="summary-line"><span>Toplam oran</span><strong id="totalOdds">1.00</strong></div>
                 <div class="summary-line return-line"><span>Olası dönüş</span><strong id="possibleReturn">0 ₳D</strong></div>
@@ -1273,7 +1343,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
     </button>
   </main>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.53.3 Fight Night Calendar</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.53.4 Coupon UX</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -1827,30 +1897,39 @@ function setOnlineBalance(value){
 }
 function renderWallet(){
   const el=document.getElementById('walletValue');
+  const slipBalance=document.getElementById('slipBalance');
+  const setSlipBalance=value=>{if(slipBalance)slipBalance.textContent=value};
   if(onlineSession){
     if(Number.isFinite(onlineAuthoritativeBalance)){
       el.textContent=money(onlineAuthoritativeBalance);
+      setSlipBalance(money(onlineAuthoritativeBalance));
     }else{
-      el.textContent=onlineBootstrapFailed?'Bağlantı…':'…';
+      const value=onlineBootstrapFailed?'Bağlantı…':'…';
+      el.textContent=value;
+      setSlipBalance(value);
     }
     syncChanceWallet();
     return;
   }
   if(onlineMode){
     el.textContent='Giriş yap';
+    setSlipBalance('Giriş yap');
     syncChanceWallet();
     return;
   }
   if(onlineBootstrapFailed){
     el.textContent='Bağlantı…';
+    setSlipBalance('Bağlantı…');
     syncChanceWallet();
     return;
   }
   if(!walletHydrated){
     el.textContent='…';
+    setSlipBalance('…');
     return;
   }
   el.textContent=money(state.balance);
+  setSlipBalance(money(state.balance));
   syncChanceWallet();
 }
 
@@ -5439,6 +5518,7 @@ document.querySelectorAll('.stake-preset').forEach(btn=>btn.addEventListener('cl
   updateSlipMath();
 }));
 document.getElementById('mobileSlipLauncher').addEventListener('click',()=>{
+  renderWallet();
   if(!picks.length){
     const living=getLivingCoupon();
     if(living){openLivingCoupon(living);return;}
