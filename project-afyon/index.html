@@ -1349,7 +1349,7 @@ body[data-page="boxing"] .layout{grid-template-columns:1fr;padding-top:24px}body
         <div class="chance-stake"><label>OYUN MİKTARI</label><input id="chanceStake" type="number" min="10" step="10" value="100"></div>
         <div><span class="chance-choice-label">SEÇİMİN</span><div class="chance-choices" id="chanceChoices"></div></div>
       </div>
-      <div class="chance-stage idle" id="chanceStage">Bir oyun ve seçim yap.<br>Sonucu sunucu belirleyecek. 🏛️</div>
+      <div class="chance-stage idle" id="chanceStage">Bir oyun ve seçim yap.<br>AFMB sonucu değiştirmez; yalnızca tutanağı son derece ciddi biçimde tutar. 🏛️</div>
       <button class="chance-play" id="chancePlay">OYNA • 100 ₳D</button>
       <div class="chance-result" id="chanceResult">Sonuç burada görünecek.</div>
     </div>
@@ -1367,15 +1367,15 @@ const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHA
 const LIVE_DURATION=180000;
 
 const chanceGames={
-  marble_race:{title:'Bilye Ligi',desc:'8 bilye • kazanan seçim ×6.00',emoji:'🔵',type:'race',racer:'●',mode:'single',choices:[['BLUE','Devlet Mavisi'],['RED','Bordro Bordosu'],['YELLOW','İhale Sarısı'],['GREEN','Tahsis Yeşili'],['PURPLE','Müdür Moru'],['ORANGE','Dosya Turuncusu'],['WHITE','Form Beyazı'],['BLACK','Müfettiş Siyahı']]},
-  mines:{title:'Afyon Mayın Tarlası',desc:'5 mayın • ×0.85 tabanından küçük adımlarla büyür • istediğin an çık',emoji:'💣',type:'mines',mode:'session',choices:[]},
-  rocket:{title:'Roket Kaçışı',desc:'Çarpan artık yavaş yükselir • doğru anda çık • roket patlarsa stake gider',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
-  high_card:{title:'AFMB Yüksek Kart',desc:'Sonraki kart daha yüksek mi düşük mü? Her doğru tahminde çarpan büyür.',emoji:'🃏',type:'card',mode:'session',choices:[]},
-  penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleciyle 5 penaltılık düello • her golde çarpan büyür • istediğin an çık',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
-  zabita_raid:{title:'Zabıta Baskını',desc:'Bir tezgâh seç • zabıta seninkine gelmezse ×1.40',emoji:'🚨',type:'raid',mode:'single',choices:[['SIMIT','🥨 Simit'],['MISIR','🌽 Mısır'],['KESTANE','🌰 Kestane']]},
+  marble_race:{title:'Bilye Ligi',desc:'Sekiz bilye, tek tercih. AFMB favori bilyenin aileden biri gibi savunulmamasını tavsiye eder. • ×6.00',emoji:'🔵',type:'race',racer:'●',mode:'single',choices:[['BLUE','Devlet Mavisi'],['RED','Bordro Bordosu'],['YELLOW','İhale Sarısı'],['GREEN','Tahsis Yeşili'],['PURPLE','Müdür Moru'],['ORANGE','Dosya Turuncusu'],['WHITE','Form Beyazı'],['BLACK','Müfettiş Siyahı']]},
+  mines:{title:'Afyon Mayın Tarlası',desc:'Beş mayın bulunmaktadır. “Son bir kutu” ifadesi AFMB risk raporlarında kırmızıyla işaretlidir.',emoji:'💣',type:'mines',mode:'session',choices:[]},
+  rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
+  high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
+  penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; kaçırınca dosya sessizce kapatılır.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
+  zabita_raid:{title:'Zabıta Baskını',desc:'Simit, mısır veya kestane. Zabıta yalnızca birine gider; AFMB esnaf dayanışmasına karışmamaktadır. • ×1.40',emoji:'🚨',type:'raid',mode:'single',choices:[['SIMIT','🥨 Simit'],['MISIR','🌽 Mısır'],['KESTANE','🌰 Kestane']]},
   afmb_wheel:{title:'AFMB Çarkı',desc:'Emekli oyun',emoji:'🏛️',type:'wheel',mode:'single',choices:[],retired:true},
-  memur_box:{title:'Hangi Kutuda Memur Var?',desc:'3 kutu • doğru seçim ×2.40',emoji:'📦',type:'boxes',mode:'single',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
-  coin_flip:{title:'Yazı — Tura',desc:'Doğru seçim ×1.85',emoji:'🪙',type:'coin',mode:'single',choices:[['HEADS','Yazı'],['TAILS','Tura']]},
+  memur_box:{title:'Hangi Kutuda Memur Var?',desc:'Üç kutudan birinde memur bulunmaktadır. Diğer kutular hakkında Bilgi Edinme başvuruları sonuçsuz kalmıştır. • ×2.40',emoji:'📦',type:'boxes',mode:'single',choices:[['BOX1','1. Kutu'],['BOX2','2. Kutu'],['BOX3','3. Kutu']]},
+  coin_flip:{title:'Yazı — Tura',desc:'Yazı veya tura. AFMB Ar-Ge bu teknolojinin daha ileri bir sürümünü henüz açıklamamıştır. • ×1.85',emoji:'🪙',type:'coin',mode:'single',choices:[['HEADS','Yazı'],['TAILS','Tura']]},
   bureaucracy_hurdles:{title:'Bürokrasi Engelli Koşusu',desc:'Emekli oyun',emoji:'🏃‍♂️',type:'hurdles',mode:'single',choices:[['LOW','0–1 Engel'],['MID','2–3 Engel'],['ALL','4/4 Engel']],retired:true}
 };
 
@@ -4401,7 +4401,7 @@ function renderBoxingFightNight(){
   if(!bouts.length){box.innerHTML='<div class="boxing-event-empty">Henüz Fight Night programı yok.</div>';return}
   const first=bouts[0];
   const day=new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'long',weekday:'long'}).format(new Date(first.scheduled_at));
-  box.innerHTML='<div class="boxing-event-day"><div><strong>'+first.event_name+'</strong><small>'+first.venue+' • '+day+'</small></div><small>10 dk kart • 12 dk ana maç</small></div><div class="boxing-night-list">'+
+  box.innerHTML='<div class="boxing-event-day"><div><strong>'+first.event_name+'</strong><small>'+first.venue+' • '+day+'</small></div><small>AFMB: “Ana maçta acelemiz yok.”</small></div><div class="boxing-night-list">'+
     bouts.map(function(b){
       const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
       if(!red||!blue)return '';
@@ -4504,7 +4504,7 @@ function renderBoxingBoutDetail(){
       '<div class="boxing-round-clock"><strong>VS</strong><span class="'+centerClass+'">'+centerText+'</span><em>'+b.rounds+' raund • '+Math.round(Number(b.duration_seconds)/60)+' gerçek dakika</em></div>'+
       '<div class="boxing-corner blue"><span class="flag">'+boxingFlag(blue.country)+'</span><button class="boxing-fighter-link" data-boxing-fighter="'+blue.id+'">'+blue.name+(boxingIsChampion(blue)?' 🏆':'')+'</button><small>'+boxingRecord(blue)+' • '+blue.style+'</small></div></div></div>'+
     '<div class="boxing-live-body">'+
-      '<div class="boxing-commentator"><div class="boxing-commentator-head"><span>🎙 AFMB RİNG SPİKERİ</span><span>'+(b.status==='live'?'CANLI ANLATIM':b.status==='finished'?'MAÇ ARŞİVİ':'MAÇ ÖNCESİ')+'</span></div><div class="boxing-commentator-line">'+latestLine+'<small>Ortak dünya anlatımı • herkes aynı olay akışını görür</small></div></div>'+
+      '<div class="boxing-commentator"><div class="boxing-commentator-head"><span>🎙 AFMB RİNG SPİKERİ</span><span>'+(b.status==='live'?'CANLI ANLATIM':b.status==='finished'?'MAÇ ARŞİVİ':'MAÇ ÖNCESİ')+'</span></div><div class="boxing-commentator-line">'+latestLine+'<small>AFMB Ring Masası resmî anlatımı • yorumlar spikerin şahsi heyecanıdır</small></div></div>'+
       '<div class="boxing-rounds">'+rounds+'</div>'+
       '<div class="boxing-live-grid"><div class="boxing-live-panel"><h4>📊 RİNG VERİSİ</h4>'+statRow('ÖNEMLİ İSABET',rs.landed,bs.landed)+statRow('SERT / KOMBO',rs.power,bs.power)+statRow('GÖVDE',rs.body,bs.body)+statRow('KONTRA',rs.counters,bs.counters)+statRow('KNOCKDOWN',rs.kd,bs.kd)+
         '<div class="boxing-pressure-head"><span>'+red.name+' %'+rpct+'</span><span>SON 75 SN BASKI</span><span>%'+bpct+' '+blue.name+'</span></div><div class="boxing-pressure"><span class="red" style="width:'+rpct+'%"></span><span class="blue" style="width:'+bpct+'%"></span></div></div>'+
