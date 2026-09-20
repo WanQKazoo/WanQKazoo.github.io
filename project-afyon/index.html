@@ -2773,7 +2773,7 @@ let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,on
 let onlineBoxingFighters=[],onlineBoxingBouts=[],onlineBoxingMarketsByBout={},onlineBoxingTitles=[],boxingWeightFilter='all',boxingLastRefresh=0;
 let activeBoxingBoutId=null,onlineBoxingBoutEvents=[];
 let activeBoxingFighterId=null,onlineBoxingFighterHistory=[];
-let onlineSchedulePulse={soon:0,today:0,nextMatches:[],lastRefresh:0};
+let onlineSchedulePulse={soon:0,today:0,nextMatches:[],highlights:[],lastRefresh:0};
 let matchCenterDateOffset=0,matchCenterFilter='all',onlineMatchCenterLastRefresh=0;
 const closedMatchCenterCountries=new Set();
 const closedMatchCenterGroups=new Set();
@@ -4226,8 +4226,9 @@ async function refreshOnlineSchedulePulse(force=false){
   const soonEnd=new Date(nowMs+30*60*1000);
   const {start,end}=turkeyDayBounds(now);
   const soonCutoff=new Date(Math.min(soonEnd.getTime(),end.getTime()));
+  const matchFields='id,sport,kickoff_at,country,league_level,special_key,special_title,special_icon,special_subtitle';
 
-  const [soonRes,todayRes,nextRes]=await Promise.all([
+  const [soonRes,todayRes,nextRes,footballRes,efootballRes,specialRes]=await Promise.all([
     supabaseClient.from('matches')
       .select('id',{count:'exact',head:true})
       .eq('season',state.season)
@@ -4246,19 +4247,106 @@ async function refreshOnlineSchedulePulse(force=false){
       .gte('kickoff_at',now.toISOString())
       .lt('kickoff_at',end.toISOString())
       .order('kickoff_at',{ascending:true})
-      .limit(24)
+      .limit(24),
+    supabaseClient.from('matches')
+      .select(matchFields)
+      .eq('season',state.season).eq('sport','football').eq('status','scheduled')
+      .gte('kickoff_at',now.toISOString()).lt('kickoff_at',end.toISOString())
+      .order('kickoff_at',{ascending:true}).limit(1),
+    supabaseClient.from('matches')
+      .select(matchFields)
+      .eq('season',state.season).eq('sport','efootball').eq('status','scheduled')
+      .gte('kickoff_at',now.toISOString()).lt('kickoff_at',end.toISOString())
+      .order('kickoff_at',{ascending:true}).limit(1),
+    supabaseClient.from('matches')
+      .select(matchFields)
+      .eq('season',state.season).eq('sport','special').eq('status','scheduled')
+      .gte('kickoff_at',now.toISOString()).lt('kickoff_at',end.toISOString())
+      .order('kickoff_at',{ascending:true}).limit(4)
   ]);
 
-  if(soonRes.error)throw soonRes.error;
-  if(todayRes.error)throw todayRes.error;
-  if(nextRes.error)throw nextRes.error;
+  for(const res of [soonRes,todayRes,nextRes,footballRes,efootballRes,specialRes]){
+    if(res.error)throw res.error;
+  }
 
   onlineSchedulePulse.soon=Number(soonRes.count||0);
   onlineSchedulePulse.today=Number(todayRes.count||0);
   onlineSchedulePulse.nextMatches=nextRes.data||[];
+  onlineSchedulePulse.highlights=[
+    ...(footballRes.data||[]),
+    ...(efootballRes.data||[]),
+    ...(specialRes.data||[])
+  ];
   onlineSchedulePulse.lastRefresh=nowMs;
 }
+
+function renderBulletinTodayHero(){
+  const dateEl=document.getElementById('todayHeroDate');
+  const liveEl=document.getElementById('todayHeroLive');
+  const titleEl=document.getElementById('todayHeroTitle');
+  const summaryEl=document.getElementById('todayHeroSummary');
+  const nextTimeEl=document.getElementById('todayHeroNextTime');
+  const nextMetaEl=document.getElementById('todayHeroNextMeta');
+  const strip=document.getElementById('todayProgramStrip');
+  if(!dateEl||!strip)return;
+
+  const now=new Date();
+  const todayKey=istanbulDateKey(now);
+  const dayText=new Intl.DateTimeFormat('tr-TR',{
+    timeZone:'Europe/Istanbul',weekday:'long',day:'numeric',month:'long'
+  }).format(now).toLocaleUpperCase('tr-TR');
+  dateEl.textContent='BUGÜN • '+dayText;
+
+  const liveCount=onlineConferenceMatches.filter(m=>m.status==='live').length;
+  if(liveEl){
+    liveEl.textContent=liveCount?'● '+liveCount+' CANLI':'● ORTAK DÜNYA';
+    liveEl.classList.toggle('live',liveCount>0);
+  }
+
+  const highlights=onlineSchedulePulse.highlights||[];
+  const football=highlights.find(x=>x.sport==='football')||null;
+  const efootball=highlights.find(x=>x.sport==='efootball')||null;
+  const specials=highlights.filter(x=>x.sport==='special');
+
+  const boxingToday=onlineBoxingBouts
+    .filter(b=>b.status==='scheduled'&&new Date(b.scheduled_at).getTime()>Date.now()&&istanbulDateKey(b.scheduled_at)===todayKey)
+    .sort((a,b)=>new Date(a.scheduled_at)-new Date(b.scheduled_at));
+  const boxingMain=boxingToday.find(b=>b.is_title_fight||b.is_main_event)||boxingToday[0]||null;
+
+  const featured=[];
+  if(football)featured.push({kind:'football',time:football.kickoff_at,title:(countryFlags[football.country]||'⚽')+' '+football.country,meta:leagueNames[football.league_level]||'Futbol'});
+  if(boxingMain){
+    const red=boxingFighter(boxingMain.red_fighter_id),blue=boxingFighter(boxingMain.blue_fighter_id);
+    featured.push({kind:'boxing',time:boxingMain.scheduled_at,title:'🥊 '+(boxingMain.is_title_fight?'Kemer Maçı':'Fight Night Ana Maç'),meta:red&&blue?red.name+' vs '+blue.name:boxingMain.event_name});
+  }
+  specials.forEach(x=>featured.push({kind:'special',time:x.kickoff_at,title:(x.special_icon||'🎪')+' '+(x.special_title||'AFMB Özel'),meta:x.special_subtitle||'AFMB Özel Spor Programı'}));
+  if(featured.length<4&&efootball)featured.push({kind:'efootball',time:efootball.kickoff_at,title:'🎮 e-Futbol',meta:(countryFlags[efootball.country]||'')+' '+efootball.country+' • hızlı maç'});
+  featured.sort((a,b)=>new Date(a.time)-new Date(b.time));
+
+  if(titleEl){
+    titleEl.textContent=liveCount
+      ?liveCount+' karşılaşma şu an canlı.'
+      :featured.length
+        ?'Günün büyük programı hazır.'
+        :'Bugünün programı tamamlandı.';
+  }
+  if(summaryEl){
+    summaryEl.textContent=featured.length
+      ?'1. Lig kuşağından Fight Night’a, gecenin sonunda AFMB özel etkinliklerine uzanan tek akış.'
+      :'Yeni program açıklandığında burada görünecek.';
+  }
+
+  const next=featured.find(x=>new Date(x.time).getTime()>Date.now())||null;
+  if(nextTimeEl)nextTimeEl.textContent=next?formatIstanbulTime(next.time):'—';
+  if(nextMetaEl)nextMetaEl.textContent=next?next.title.replace(/^[^\s]+\s/,''):'Bugün için sıradaki başlangıç yok';
+
+  strip.innerHTML=featured.length
+    ?featured.slice(0,4).map(x=>'<div class="today-program-item '+x.kind+'"><small>'+formatIstanbulTime(x.time)+' • '+sportInfo(x.kind==='boxing'?'boxing':x.kind==='special'?'special':x.kind).label+'</small><strong>'+x.title+'</strong><span>'+x.meta+'</span></div>').join('')
+    :'<div class="today-program-empty">Bugün için öne çıkan yeni başlangıç kalmadı.</div>';
+}
+
 function renderSchedulePulse(){
+  renderBulletinTodayHero();
   const pulse=document.getElementById('schedulePulse');
   if(!pulse)return;
   if(!onlineMode){
@@ -4986,7 +5074,47 @@ function updateSlipMath(){
   if(place)place.textContent=stake>0?'KUPONU OYNA • '+money(stake):'KUPONU OYNA';
   renderLivingCouponLauncher();
 }
+
+function renderCouponHero(){
+  const box=document.getElementById('couponHeroPanel');
+  if(!box)return;
+  const coupon=getLivingCoupon();
+  if(!coupon){
+    box.innerHTML='<div class="coupon-hero-empty"><strong>Aktif kupon yok.</strong><br>Bültenden seçim yaptığında yaşayan kuponun burada ana karakter olacak.</div>';
+    return;
+  }
+  const copy=livingCouponCopy(coupon),r=copy.r;
+  const remaining=r.live+r.waiting;
+  const next=r.lastSelection
+    ||coupon.selections.find(s=>couponLegRuntime(s).state==='live')
+    ||coupon.selections.find(s=>couponLegRuntime(s).state==='waiting')
+    ||null;
+  const nextRuntime=next?couponLegRuntime(next):null;
+  const nextState=nextRuntime?.state==='live'?'CANLI':nextRuntime?.state==='waiting'?'BEKLİYOR':'SONUÇLANDI';
+  const cls=r.lastLeg?' last-leg':r.lost?' danger':'';
+  const headline=r.lastLeg
+    ?(r.live?'Son ayak şu an oynanıyor.':'Son ayak kaldı.')
+    :r.live
+      ?r.live+' seçim şu an canlı.'
+      :remaining+' seçim sonucu bekliyor.';
+  const progress=Math.max(0,Math.min(100,Math.round((r.won/Math.max(1,r.total))*100)));
+  box.innerHTML='<div class="coupon-live-hero'+cls+'">'+
+    '<div class="coupon-live-kicker"><span>🎟 YAŞAYAN KUPON</span><span>'+copy.activeCount+' aktif kupon</span></div>'+
+    '<div class="coupon-live-title"><div><h3>'+headline+'</h3><p>'+r.won+'/'+r.total+' ayak tamamlandı • toplam oran '+Number(coupon.odds||1).toFixed(2)+'</p></div>'+
+      '<div class="coupon-live-return"><small>OLASI DÖNÜŞ</small><strong>'+money(coupon.return||0)+'</strong></div></div>'+
+    '<div class="coupon-live-progress">'+
+      '<div class="coupon-live-stat"><small>TUTAN</small><strong>🟢 '+r.won+'</strong></div>'+
+      '<div class="coupon-live-stat"><small>CANLI</small><strong>🔴 '+r.live+'</strong></div>'+
+      '<div class="coupon-live-stat"><small>BEKLEYEN</small><strong>⏳ '+r.waiting+'</strong></div>'+
+    '</div>'+
+    (next?'<button class="coupon-live-next" id="couponHeroOpen" type="button"><span>'+sportInfo(next.sport||'football').icon+'</span><div><strong>'+next.match+'</strong><small>'+next.market+' • '+next.label+'</small></div><b>'+nextState+' →</b></button>':'')+
+    '<div style="height:3px;margin-top:11px;border-radius:99px;background:#1b2a40;overflow:hidden"><span style="display:block;width:'+progress+'%;height:100%;background:#63e6be"></span></div>'+
+  '</div>';
+  document.getElementById('couponHeroOpen')?.addEventListener('click',()=>openLivingCoupon(coupon));
+}
+
 function renderCoupons(){
+  renderCouponHero();
   const list=document.getElementById('couponList');
   if(!state.coupons.length){
     list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';
@@ -5021,6 +5149,14 @@ function renderCoupons(){
             const clock=boxingBoutClock(b);
             score=clock.break?'CANLI • KÖŞE MOLASI':'CANLI • R'+clock.round;
           }
+        }else if(s.sport==='special'){
+          const m=r.match;
+          if(r.state==='won'||r.state==='lost'){
+            score=m?.special_key==='SHEEP_JUMP'
+              ?'MS • '+(specialSheepNames[m?.special_outcomes?.SP_SHEEP_WINNER]||'Sonuçlandı')
+              :'MS • Sonuçlandı';
+          }else if(r.state==='live')score='CANLI • AFMB olay akışı';
+          else score='Bekliyor';
         }else{
           const final=r.final;
           const live=liveSnapshot(s.id);
@@ -6008,20 +6144,37 @@ function renderBoxingFightNight(){
   if(!bouts.length){box.innerHTML='<div class="boxing-event-empty">Henüz Fight Night programı yok.</div>';return}
   const first=bouts[0];
   const day=new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'long',weekday:'long'}).format(new Date(first.scheduled_at));
-  box.innerHTML='<div class="boxing-event-day"><div><strong>'+first.event_name+'</strong><small>'+first.venue+' • '+day+'</small></div><small>AFMB: “Ana maçta acelemiz yok.”</small></div><div class="boxing-night-list">'+
-    bouts.map(function(b){
-      const red=boxingFighter(b.red_fighter_id),blue=boxingFighter(b.blue_fighter_id);
-      if(!red||!blue)return '';
-      const action=b.status==='live'?'● CANLI İZLE':b.status==='finished'?'TEKRAR':'MAÇ DETAYI';
-      return '<div class="boxing-bout-row '+b.status+' '+(b.is_main_event?'main':'')+'">'+
-        '<div class="boxing-bout-meta"><strong>'+(b.is_title_fight?'🏆 KEMER MAÇI':b.is_main_event?'⭐ ANA MAÇ':'KART '+b.card_order)+'</strong><small>'+boxingWeightNames[b.weight_class]+'</small><small>'+b.rounds+' RND '+(boxingRematchLabel(b.rematch_no)?'• '+boxingRematchLabel(b.rematch_no):'')+'</small></div>'+
-        '<div class="boxing-bout-pair"><div class="boxing-bout-fighter"><button class="boxing-fighter-link" data-boxing-fighter="'+red.id+'">'+boxingFlag(red.country)+' '+red.name+(boxingIsChampion(red)?' 🏆':'')+'</button><small>'+boxingRecord(red)+'</small></div><div class="boxing-bout-fighter"><button class="boxing-fighter-link" data-boxing-fighter="'+blue.id+'">'+boxingFlag(blue.country)+' '+blue.name+(boxingIsChampion(blue)?' 🏆':'')+'</button><small>'+boxingRecord(blue)+'</small></div></div>'+
-        '<div class="boxing-bout-action"><span class="boxing-bout-status">'+boxingBoutStatusText(b)+'</span><button class="boxing-bout-watch" data-boxing-bout="'+b.id+'">'+action+'</button></div>'+
-      '</div>';
-    }).join('')+'</div>';
+  const main=bouts.find(b=>b.is_title_fight||b.is_main_event)||bouts[bouts.length-1];
+  const red=boxingFighter(main.red_fighter_id),blue=boxingFighter(main.blue_fighter_id);
+  const action=main.status==='live'?'● CANLI İZLE':main.status==='finished'?'TEKRAR':'MAÇ DETAYI';
+
+  const renderRow=function(b){
+    const r=boxingFighter(b.red_fighter_id),bl=boxingFighter(b.blue_fighter_id);
+    if(!r||!bl)return '';
+    const rowAction=b.status==='live'?'● CANLI İZLE':b.status==='finished'?'TEKRAR':'MAÇ DETAYI';
+    return '<div class="boxing-bout-row '+b.status+'">'+
+      '<div class="boxing-bout-meta"><strong>'+(b.is_title_fight?'🏆 KEMER MAÇI':'KART '+b.card_order)+'</strong><small>'+boxingWeightNames[b.weight_class]+'</small><small>'+b.rounds+' RND '+(boxingRematchLabel(b.rematch_no)?'• '+boxingRematchLabel(b.rematch_no):'')+'</small></div>'+
+      '<div class="boxing-bout-pair"><div class="boxing-bout-fighter"><button class="boxing-fighter-link" data-boxing-fighter="'+r.id+'">'+boxingFlag(r.country)+' '+r.name+(boxingIsChampion(r)?' 🏆':'')+'</button><small>'+boxingRecord(r)+'</small></div><div class="boxing-bout-fighter"><button class="boxing-fighter-link" data-boxing-fighter="'+bl.id+'">'+boxingFlag(bl.country)+' '+bl.name+(boxingIsChampion(bl)?' 🏆':'')+'</button><small>'+boxingRecord(bl)+'</small></div></div>'+
+      '<div class="boxing-bout-action"><span class="boxing-bout-status">'+boxingBoutStatusText(b)+'</span><button class="boxing-bout-watch" data-boxing-bout="'+b.id+'">'+rowAction+'</button></div>'+
+    '</div>';
+  };
+
+  const poster=red&&blue
+    ?'<div class="boxing-main-poster">'+
+      '<div class="boxing-main-corner"><span class="flag">'+boxingFlag(red.country)+'</span><button class="boxing-fighter-link" data-boxing-fighter="'+red.id+'">'+red.name+(boxingIsChampion(red)?' 🏆':'')+'</button><small>'+boxingRecord(red)+' • '+red.style+'</small></div>'+
+      '<div class="boxing-main-center"><small>'+(main.is_title_fight?'🏆 KEMER MAÇI':'⭐ ANA MAÇ')+'</small><strong>'+formatIstanbulTime(main.scheduled_at)+'</strong><span>'+boxingWeightNames[main.weight_class]+' • '+main.rounds+' raund</span><button data-boxing-bout="'+main.id+'">'+action+'</button></div>'+
+      '<div class="boxing-main-corner"><span class="flag">'+boxingFlag(blue.country)+'</span><button class="boxing-fighter-link" data-boxing-fighter="'+blue.id+'">'+blue.name+(boxingIsChampion(blue)?' 🏆':'')+'</button><small>'+boxingRecord(blue)+' • '+blue.style+'</small></div>'+
+    '</div>'
+    :'';
+
+  const under=bouts.filter(b=>b.id!==main.id).map(renderRow).join('');
+  box.innerHTML='<div class="boxing-event-day"><div><strong>'+first.event_name+'</strong><small>'+first.venue+' • '+day+'</small></div><small>AFMB: “Ana maçın kendi ağırlığı vardır.”</small></div>'+
+    poster+
+    '<div class="boxing-night-under-card">'+under+'</div>';
   box.querySelectorAll('[data-boxing-bout]').forEach(btn=>btn.addEventListener('click',()=>openBoxingBout(btn.dataset.boxingBout)));
   bindBoxingFighterLinks(box);
 }
+
 function boxingEventIcon(type){
   return ({jab:'👊',power_shot:'💥',combo:'🥊',body_shot:'🫁',counter:'⚡',knockdown:'⬇️',cut:'🩸',warning:'⚠️',round_end:'🔔',fight_end:'🏁'})[type]||'🥊';
 }
@@ -6164,6 +6317,7 @@ function renderBoxingRanking(){
   bindBoxingFighterLinks(box);
 }
 function renderBoxing(){
+  renderBulletinTodayHero();
   const count=document.getElementById('boxingFighterCount'),tr=document.getElementById('boxingTurkeyCount');
   if(count)count.textContent=onlineBoxingFighters.length||'—';
   if(tr)tr.textContent=onlineBoxingFighters.filter(f=>f.country==='Türkiye').length||'—';
@@ -7020,12 +7174,17 @@ function applyPageRoute(){
   document.querySelectorAll('[data-page-nav]').forEach(link=>{
     link.classList.toggle('active',link.dataset.pageNav===page);
   });
+  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['leagues','news','games'].includes(page));
+  document.getElementById('mobileMoreSheet')?.classList.remove('open');
   document.title='Project Afyon — '+pageNames[page];
   renderWallet();
   if(page==='matches'){renderMatchCenter();renderLiveCenter();}
   if(page==='boxing')renderBoxing();
 }
 window.addEventListener('popstate',applyPageRoute);
+document.getElementById('mobileMoreOpen')?.addEventListener('click',()=>document.getElementById('mobileMoreSheet')?.classList.add('open'));
+document.getElementById('mobileMoreClose')?.addEventListener('click',()=>document.getElementById('mobileMoreSheet')?.classList.remove('open'));
+document.getElementById('mobileMoreSheet')?.addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('open')});
 document.querySelectorAll('[data-page-nav]').forEach(link=>{
   link.addEventListener('click',e=>{
     if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
@@ -7112,7 +7271,7 @@ document.getElementById('authOpen').addEventListener('click',()=>document.getEle
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
 document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeBoxingBout();closeBoxingFighterProfile();closeChanceGame();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClubModal();closeBoxingBout();closeBoxingFighterProfile();closeChanceGame();document.getElementById('mobileMoreSheet')?.classList.remove('open');setBulletinFilterOpen(false);}});
 document.getElementById('authLogin').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
   updateAuthUi('Giriş yapılıyor…');
@@ -7225,6 +7384,21 @@ document.getElementById('simulateLeague').addEventListener('click',()=>{
   toast('Hakem düdüğü çaldı! 180 saniyelik canlı hafta başladı. 🔴');
 });
 
+
+function renderBulletinFilterSummary(){
+  const el=document.getElementById('bulletinFilterSummary');
+  if(!el)return;
+  const country=bulletinCountry==='Tümü'?'Tüm ülkeler':bulletinCountry;
+  const league=bulletinLevel===0?'Tüm ligler':leagueNames[bulletinLevel];
+  el.textContent=country+' • '+league;
+}
+function setBulletinFilterOpen(open){
+  const panel=document.getElementById('bulletinFilterPanel');
+  const toggle=document.getElementById('bulletinFilterToggle');
+  if(panel)panel.classList.toggle('open',!!open);
+  if(toggle)toggle.setAttribute('aria-expanded',open?'true':'false');
+}
+
 function syncBulletinLeagueFilters(){
   const leagueTabs=document.getElementById('leagueTabs');
   const countryTabs=document.getElementById('countryTabs');
@@ -7243,7 +7417,24 @@ function syncBulletinLeagueFilters(){
     bulletinLevel=0;
     document.querySelectorAll('.league-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.level)===0));
   }
+  renderBulletinFilterSummary();
 }
+
+document.getElementById('bulletinFilterToggle')?.addEventListener('click',()=>{
+  const panel=document.getElementById('bulletinFilterPanel');
+  setBulletinFilterOpen(!panel?.classList.contains('open'));
+});
+document.getElementById('bulletinFilterReset')?.addEventListener('click',async()=>{
+  bulletinCountry='Tümü';
+  bulletinLevel=0;
+  document.querySelectorAll('.country-tab').forEach(x=>x.classList.toggle('active',x.dataset.country==='Tümü'));
+  document.querySelectorAll('.league-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.level)===0));
+  renderBulletinFilterSummary();
+  setBulletinFilterOpen(false);
+  picks=[];
+  if(onlineMode)await refreshOnlineBulletin();
+  renderMatches();renderSlip();renderCoupons();
+});
 document.querySelectorAll('.sport-tab').forEach(b=>b.addEventListener('click',async()=>{
   document.querySelectorAll('.sport-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
   bulletinSport=b.dataset.sport;
