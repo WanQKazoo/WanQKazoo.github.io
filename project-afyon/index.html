@@ -1982,6 +1982,232 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   }
 }
 
+
+
+/* ===== Prototype 0.58 — AFMB Lunapark Fun Pack ===== */
+.chance-new-zone{
+  position:relative;
+  padding-top:18px!important;
+}
+.chance-new-zone:before{
+  content:"YENİ";
+  position:absolute;
+  right:2px;
+  top:17px;
+  color:rgba(99,230,190,.055);
+  font-size:42px;
+  font-weight:1000;
+  letter-spacing:-2px;
+  pointer-events:none;
+}
+.chance-new-card{
+  position:relative;
+  overflow:hidden;
+  border-color:#35516a!important;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(99,230,190,.08),transparent 31%),
+    linear-gradient(150deg,#122038,#0e1728)!important;
+}
+.chance-new-card:after{
+  content:"";
+  position:absolute;
+  inset:auto 10px 8px 10px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,#63e6be,transparent);
+  opacity:.22;
+}
+.chance-new-card .tag{color:#7ee7c7!important}
+
+/* Müfettişten Kaçış */
+.inspector-shell{display:grid;gap:12px}
+.inspector-building{
+  position:relative;
+  overflow:hidden;
+  min-height:248px;
+  padding:18px;
+  border:1px solid #324763;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg,rgba(122,147,180,.06),transparent 28%),
+    repeating-linear-gradient(90deg,transparent 0 32%,rgba(255,255,255,.018) 32% 33%),
+    linear-gradient(180deg,#121e31,#0b1423);
+}
+.inspector-building:before{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;height:34%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.19));
+  pointer-events:none;
+}
+.inspector-sign{
+  position:relative;
+  z-index:1;
+  margin-bottom:18px;
+  color:#8ca0bd;
+  font-size:8px;
+  font-weight:1000;
+  letter-spacing:1px;
+  text-align:center;
+}
+.inspector-doors{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.inspector-door{
+  min-height:132px;
+  border:1px solid #3a506d;
+  border-radius:12px 12px 4px 4px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.035),transparent 15% 85%,rgba(0,0,0,.16)),
+    linear-gradient(180deg,#263750,#17253a);
+  color:#d9e4f4;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 12px 22px rgba(0,0,0,.17);
+  transition:transform .16s,border-color .16s,background .16s;
+}
+.inspector-door:not(:disabled):hover{transform:translateY(-3px);border-color:#6a87a9}
+.inspector-door strong{display:block;margin-top:24px;font-size:11px}
+.inspector-door small{display:block;margin-top:14px;font-size:22px}
+.inspector-door .door-light{
+  display:block;width:8px;height:8px;margin:10px auto 0;border-radius:50%;
+  background:#54657d;box-shadow:0 0 0 4px rgba(84,101,125,.12)
+}
+.inspector-door.safe{border-color:#3a9e81;background:linear-gradient(180deg,#153d35,#142a31)}
+.inspector-door.safe .door-light{background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.12)}
+.inspector-door.caught{border-color:#9f4455;background:linear-gradient(180deg,#431d27,#241827);animation:inspectorShake .28s ease}
+.inspector-door.caught .door-light{background:#ff6474;box-shadow:0 0 0 4px rgba(255,100,116,.12)}
+.inspector-caption{
+  position:relative;z-index:1;
+  margin-top:16px;
+  color:#8698b4;
+  font-size:9px;
+  font-weight:850;
+  text-align:center;
+}
+.inspector-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.inspector-progress span{height:6px;border-radius:999px;background:#22324a}
+.inspector-progress span.on{background:#63e6be;box-shadow:0 0 14px rgba(99,230,190,.22)}
+@keyframes inspectorShake{0%,100%{transform:translateX(0)}30%{transform:translateX(-4px)}70%{transform:translateX(4px)}}
+
+/* AFMB Kasa Kırma */
+.vault-shell{display:grid;gap:12px}
+.vault-door{
+  min-height:274px;
+  padding:22px 20px;
+  border:1px solid #4d5366;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 25%,rgba(255,209,102,.08),transparent 30%),
+    linear-gradient(145deg,#272d3a,#141c2b 65%,#0f1827);
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.018),inset 0 0 40px rgba(0,0,0,.25);
+}
+.vault-dial{
+  width:58px;height:58px;margin:0 auto 18px;
+  display:grid;place-items:center;
+  border:5px solid #4a5262;border-radius:50%;
+  background:#141c29;
+  font-size:26px;
+  box-shadow:inset 0 0 0 3px #1e2938,0 8px 20px rgba(0,0,0,.25)
+}
+.vault-meter{
+  position:relative;
+  height:30px;
+  margin:16px 0 6px;
+  border:1px solid #40516a;
+  border-radius:999px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 9.5%,rgba(255,255,255,.045) 9.5% 10%),
+    linear-gradient(180deg,#0b1422,#111e31);
+  overflow:visible;
+}
+.vault-target{
+  position:absolute;top:3px;bottom:3px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#2f8f75,#63e6be,#2f8f75);
+  box-shadow:0 0 18px rgba(99,230,190,.26);
+}
+.vault-needle{
+  position:absolute;top:-7px;bottom:-7px;width:3px;
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(255,255,255,.09),0 0 16px rgba(255,255,255,.45);
+  transform:translateX(-50%);
+}
+.vault-needle:before{
+  content:"";position:absolute;top:-5px;left:50%;transform:translateX(-50%);
+  width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #fff;
+}
+.vault-needle.hit{background:#63e6be;box-shadow:0 0 18px rgba(99,230,190,.6)}
+.vault-needle.miss{background:#ff6474;box-shadow:0 0 18px rgba(255,100,116,.55)}
+.vault-scale{display:flex;justify-content:space-between;color:#657995;font-size:7px;font-weight:900}
+.vault-stop{
+  display:block;width:100%;margin-top:18px;
+  border:1px solid #8d3f4c;border-radius:12px;
+  background:linear-gradient(180deg,#53202b,#321722);
+  color:#ffe7ea;padding:13px;
+  font-size:12px;font-weight:1000;letter-spacing:.7px;
+  box-shadow:0 10px 26px rgba(82,21,34,.22);
+}
+.vault-stop:not(:disabled):active{transform:scale(.985)}
+.vault-caption{margin-top:12px;color:#8799b3;font-size:9px;font-weight:850;text-align:center}
+
+/* Mühür Nerede? */
+.memory-shell{display:grid;gap:12px}
+.memory-board{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  padding:14px;
+  border:1px solid #344761;
+  border-radius:17px;
+  background:
+    linear-gradient(180deg,rgba(126,153,194,.05),transparent 28%),
+    #0d1727;
+}
+.memory-file{
+  min-height:112px;
+  border:1px solid #31445f;
+  border-radius:11px;
+  background:linear-gradient(160deg,#17263c,#101a2a);
+  color:#dce6f4;
+  transition:transform .15s,border-color .15s,background .15s;
+}
+.memory-file:not(:disabled):hover{transform:translateY(-2px);border-color:#607a9d}
+.memory-file .memory-folder{display:block;font-size:30px;filter:drop-shadow(0 5px 10px rgba(0,0,0,.2))}
+.memory-file strong{display:block;margin-top:7px;font-size:9px;letter-spacing:.7px}
+.memory-file small{display:block;margin-top:4px;color:#647894;font-size:7px;font-weight:900}
+.memory-file.approved{
+  border-color:#4ac69e;
+  background:linear-gradient(160deg,#174136,#102a2a);
+  box-shadow:0 0 0 1px rgba(99,230,190,.08),0 0 24px rgba(99,230,190,.09)
+}
+.memory-file.approved small{color:#80ebc9}
+.memory-file.wrong{
+  border-color:#954151;
+  background:linear-gradient(160deg,#421e29,#221827);
+  animation:inspectorShake .28s ease
+}
+.memory-caption{
+  min-height:18px;
+  color:#899bb6;
+  font-size:9px;font-weight:900;
+  text-align:center
+}
+
+@media(max-width:620px){
+  .inspector-building{min-height:220px;padding:13px}
+  .inspector-doors{gap:7px}
+  .inspector-door{min-height:118px}
+  .inspector-door strong{font-size:9px}
+  .vault-door{min-height:248px;padding:18px 14px}
+  .memory-board{gap:7px;padding:10px}
+  .memory-file{min-height:94px}
+  .memory-file .memory-folder{font-size:25px}
+}
+
 </style>
 </head>
 <body>
