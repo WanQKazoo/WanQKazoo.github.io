@@ -1442,6 +1442,26 @@ header{
 .news-card.afmb-news:after{
   background:linear-gradient(90deg,transparent,rgba(255,209,102,.48),transparent);
 }
+.news-card.baba-news{
+  border-color:#665126;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(255,209,102,.12),transparent 34%),
+    linear-gradient(145deg,#241d10,#111928)!important;
+}
+.news-card.baba-news .tag{background:#4a3815;color:#ffe19a}
+.news-card.baba-news h4{color:#fff1c1}
+.news-card.baba-news p+p{margin-top:9px}
+.news-case-file{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;
+  margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,225,154,.18);
+}
+.news-case-file span{
+  display:flex;justify-content:space-between;gap:10px;padding:7px 8px;
+  border:1px solid #493c22;border-radius:9px;background:#17160f;
+  color:#9f9377;font-size:8px;font-weight:900;
+}
+.news-case-file b{color:#ffe099;text-align:right}
+@media(max-width:720px){.news-case-file{grid-template-columns:1fr}}
 
 .boxing-hero{
   position:relative;
@@ -2780,6 +2800,23 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
         <section class="section-card" id="newsSection" data-page-section="news">
           <div class="section-title"><div><h2>📰 Afyon Futbol Gündemi</h2><p>Project Afyon evrenindeki gelişmeler ve son derece ciddi kurum açıklamaları</p></div></div>
           <div class="news-grid">
+            <article class="news-card afmb-news baba-news">
+              <span class="tag">🚨 AFMB SON DAKİKA • BABA-01</span>
+              <h4>Atlas’ın maçına baba müdahalesi: saha kenarında yetki karmaşası</h4>
+              <p>AFMB Spor Düzeni ve Gereksiz Müdahaleler Dairesi, bugün oynanan Atlas’ın müsabakasında <strong>Mert Berk Parsak isimli bir velinin karşılaşmanın doğal akışına sözlü olarak dahil olduğunu</strong> doğruladı.</p>
+              <p>Görgü tanıklarının ifadelerine göre olay, “Hocam ama orada…” şeklinde başlayan ve kısa süre içerisinde teknik değerlendirme, hakem yorumu ve taktik bilgilendirme içeren kontrolsüz bir açıklamaya dönüştü. Yetkililer, şahsın herhangi bir teknik ekip kartı, hakem lisansı veya FIFA yetkilendirmesi bulunmamasına rağmen yaklaşık 14 saniye boyunca kendisini maçın çözülmemiş meselelerinden sorumlu kişi olarak konumlandırdığını bildirdi.</p>
+              <p>Olayın ardından yapılan teknik incelemede durumun sanılandan daha ciddi olduğu ortaya çıktı. AFMB Siber Suçlar ve Halı Saha Yazılımları Şubesi, söz konusu velinin <strong>Project Afyon’un kaynak kodlarına erişebildiğini</strong> tespit etti. Kurum içinde kısa süreli panik yaşandığı, bazı yetkililerin “Adam hem Atlas’ın babası hem admin, bunun yetkisi tam olarak nerede bitiyor?” sorusuna cevap aradığı öğrenildi.</p>
+              <p>AFMB açıklamasında, “Atlas’ın babası olduğu tespit edilmiştir. Ancak bu durum kendisine VAR odasına doğrudan erişim hakkı vermemektedir. Kaynak koduna erişebilmesi ise soruşturmayı gereksiz derecede karmaşık hâle getirmiştir.” ifadelerine yer verildi. Kurum yetkilileri ayrıca olası bir disiplin cezası öncesinde <strong>“acaba adam bizi koddan siler mi?”</strong> ihtimalinin değerlendirmeye alındığını doğruladı.</p>
+              <p>Atlas’ın ise olay sırasında maça devam ettiği, babasının müdahalesini büyük ölçüde görmezden geldiği ve kurum kayıtlarına göre <strong>olaydaki en profesyonel kişi olduğu</strong> belirtildi. Bir sonraki müsabakada Mert Berk Parsak’a “Sadece İzle — Kodlara Dokunma” ibareli plastik sandalye tahsis edilmesi gündemde.</p>
+              <div class="news-case-file">
+                <span>AFMB OLAY KODU <b>BABA-01</b></span>
+                <span>DURUM <b>Kontrol altında</b></span>
+                <span>KAYNAK KODUNA ERİŞİM <b>Maalesef var</b></span>
+                <span>TEKRAR RİSKİ <b>Çok yüksek</b></span>
+                <span>AFMB’NİN YAPTIRIM CESARETİ <b>Düşük</b></span>
+                <span>ATLAS’IN SUÇU <b>Yok</b></span>
+              </div>
+            </article>
             <article class="news-card"><span class="tag">📰 AFMB RESMÎ SPOR GAZETESİ</span><h4>Dayılar Köyü’nde kazılar sona erdi, Denizli’de bayram havası</h4><p>Denizli Dayılar Köyü'ndeki arkeolojik kazıların sona ermesi tüm Denizli'de bayram etkisi yaptı. Denizli takımlarının bir süre maçlara daha motive çıkacağı tahmin ediliyor.</p></article>
             <article class="news-card"><span class="tag">ORTAK DÜNYA</span><h4>Sezon aynı, sonuç aynı</h4><p>Bütün oyuncular aynı fikstürü ve aynı maç sonuçlarını görüyor. Project Afyon artık tek bir ortak futbol evreni.</p></article>
             <article class="news-card"><span class="tag">FİKSTÜR</span><h4>Bülten artık saate bakıyor</h4><p>Yaklaşan karşılaşmalar kickoff saatine göre sıralanıyor; başlayan maçlar otomatik olarak kilitleniyor.</p></article>
@@ -2965,7 +3002,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.65 Koyun Spikeri</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.66 BABA-01</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
