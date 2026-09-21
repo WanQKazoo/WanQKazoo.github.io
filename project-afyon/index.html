@@ -2243,6 +2243,109 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   .boxing-scorecard>b{margin-top:0;text-align:right}
 }
 
+
+
+/* ===== Prototype 0.60 — AFMB Vatandaş Profili ===== */
+.profile-page{overflow:hidden;border-color:#34445e;background:linear-gradient(180deg,#0f1828,#0b1321)}
+.profile-page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:18px 20px;border-bottom:1px solid #26364f;background:
+  radial-gradient(circle at 88% 0,rgba(232,189,98,.09),transparent 32%),
+  linear-gradient(145deg,#142036,#101827)}
+.profile-page-eyebrow{display:block;color:#d8b56a;font-size:8px;font-weight:1000;letter-spacing:1.05px}
+.profile-page-head h2{margin:5px 0 4px;font-size:22px;letter-spacing:-.55px}
+.profile-page-head p{max-width:720px;margin:0;color:#8294af;font-size:9px;line-height:1.55}
+.profile-page-note{flex:0 0 auto;padding:6px 8px;border:1px solid #4c472e;border-radius:999px;background:#211c12;color:#d4bb80;font-size:7px;font-weight:1000;letter-spacing:.65px}
+.profile-shell{padding:16px;display:grid;gap:16px}
+.profile-loading,.profile-login-gate{padding:32px 18px;border:1px dashed #34445e;border-radius:15px;background:#0c1524;color:#7d8fa9;text-align:center;font-size:10px;line-height:1.6}
+.profile-login-gate strong{display:block;margin-bottom:5px;color:#fff;font-size:15px}
+.profile-login-gate button{margin-top:12px;border:1px solid #476283;border-radius:9px;background:#16253a;color:#e6eef9;padding:9px 13px;font-size:9px;font-weight:1000}
+.citizen-card{position:relative;overflow:hidden;display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:16px;align-items:center;padding:18px;border:2px solid #33445f;border-radius:20px;background:
+  radial-gradient(circle at 85% 10%,rgba(99,230,190,.08),transparent 30%),
+  linear-gradient(145deg,#142238,#0e1828 68%,#101a2a)}
+.citizen-card:after{content:"AFMB";position:absolute;right:18px;bottom:-21px;color:rgba(255,255,255,.025);font-size:82px;font-weight:1000;letter-spacing:-4px}
+.citizen-card.frame-DOSSIER_BLUE{border-color:#4b7aad;box-shadow:inset 0 0 0 1px rgba(112,170,231,.10)}
+.citizen-card.frame-TENDER_GOLD{border-color:#b88d39;box-shadow:0 0 0 1px rgba(232,189,98,.08),inset 0 0 22px rgba(232,189,98,.05)}
+.citizen-card.frame-DIRECTOR_PURPLE{border-color:#71569b;box-shadow:0 0 22px rgba(113,86,155,.10)}
+.citizen-card.frame-EMERGENCY_RED{border-color:#884150;box-shadow:0 0 24px rgba(136,65,80,.12)}
+.citizen-card.frame-STATE_SERIOUS{border-color:#c6a95f;box-shadow:inset 0 0 0 2px rgba(198,169,95,.13),0 12px 32px rgba(0,0,0,.18)}
+.citizen-avatar{position:relative;z-index:1;width:96px;height:96px;border:1px solid #3b4d68;border-radius:24px;background:linear-gradient(150deg,#1a2a42,#0f1929);display:grid;place-items:center;font-size:48px;box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.citizen-identity{position:relative;z-index:1;min-width:0}
+.citizen-identity small{display:block;color:#687d9c;font-size:7px;font-weight:1000;letter-spacing:.8px}
+.citizen-name-row{display:flex;align-items:center;gap:8px;margin-top:4px}
+.citizen-name-row strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px;letter-spacing:-.6px}
+.citizen-edit-name{border:1px solid #31445f;border-radius:8px;background:#111c2e;color:#8295b2;padding:5px 7px;font-size:8px;font-weight:1000}
+.citizen-title{display:inline-flex;margin-top:6px;padding:5px 8px;border:1px solid #39465a;border-radius:999px;background:#101a2a;color:#d9e2ef;font-size:8px;font-weight:950}
+.citizen-risk{margin-top:9px;color:#8495ae;font-size:9px;line-height:1.45}
+.citizen-stamp{position:relative;z-index:1;align-self:stretch;min-width:170px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px;border:1px dashed #68573a;border-radius:16px;background:rgba(35,27,16,.62);text-align:center;transform:rotate(-2deg)}
+.citizen-stamp span{font-size:22px}
+.citizen-stamp strong{margin-top:5px;max-width:150px;color:#e4c77f;font-size:10px;line-height:1.25}
+.citizen-stamp small{margin-top:4px;color:#8d7c5d;font-size:6px;font-weight:950;letter-spacing:.5px}
+.profile-name-editor{display:none;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;margin-top:10px;max-width:460px}
+.profile-name-editor.open{display:grid}
+.profile-name-editor input{min-width:0;border:1px solid #344861;border-radius:9px;background:#0c1625;color:#fff;padding:8px 10px;font-size:10px}
+.profile-name-editor button{border:1px solid #3b536f;border-radius:9px;background:#15243a;color:#dce8f7;padding:8px 10px;font-size:8px;font-weight:1000}
+.profile-name-editor .save{border-color:#347a67;background:#173c33;color:#aaf7dc}
+.profile-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.profile-stat{padding:11px 12px;border:1px solid #293a54;border-radius:12px;background:#0d1726}
+.profile-stat small{display:block;color:#6f819d;font-size:7px;font-weight:1000;letter-spacing:.5px}
+.profile-stat strong{display:block;margin-top:3px;font-size:15px}
+.profile-section-block{padding:15px;border:1px solid #293a54;border-radius:16px;background:#0c1524}
+.profile-section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:10px}
+.profile-section-head small{display:block;color:#788ba8;font-size:7px;font-weight:1000;letter-spacing:.8px}
+.profile-section-head strong{display:block;margin-top:2px;font-size:15px}
+.profile-section-head>span{color:#647691;font-size:8px}
+.profile-badge-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.profile-badge{position:relative;min-height:112px;padding:12px;border:1px solid #2b3c57;border-radius:13px;background:#101a2b}
+.profile-badge .icon{display:block;font-size:24px}
+.profile-badge strong{display:block;margin-top:8px;font-size:10px}
+.profile-badge p{margin:4px 0 0;color:#788aa6;font-size:7px;line-height:1.45}
+.profile-badge.earned{border-color:#4c624a;background:linear-gradient(150deg,#16251f,#101a2a)}
+.profile-badge.earned:after{content:"KAZANILDI";position:absolute;right:8px;top:8px;color:#76d9b5;font-size:6px;font-weight:1000;letter-spacing:.6px}
+.profile-badge.locked{filter:saturate(.2);opacity:.48}
+.profile-badge.locked .icon{filter:grayscale(1)}
+.profile-cosmetic-group+.profile-cosmetic-group{margin-top:16px;padding-top:15px;border-top:1px solid #24344c}
+.profile-cosmetic-title{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:8px}
+.profile-cosmetic-title strong{font-size:12px}
+.profile-cosmetic-title small{color:#70819d;font-size:7px}
+.profile-shop-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.profile-shop-card{display:grid;grid-template-columns:42px minmax(0,1fr);gap:9px;align-items:start;padding:11px;border:1px solid #293a54;border-radius:12px;background:#0e1828}
+.profile-shop-card.equipped{border-color:#4b7b6d;background:linear-gradient(145deg,#14271f,#0e1827)}
+.profile-shop-card .icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid #31435e;border-radius:11px;background:#142137;font-size:22px}
+.profile-shop-copy{min-width:0}
+.profile-shop-copy strong{display:block;font-size:9px}
+.profile-shop-copy p{margin:3px 0 0;color:#71839f;font-size:7px;line-height:1.4}
+.profile-shop-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:3px}
+.profile-shop-price{color:#e8c96f;font-size:9px;font-weight:1000}
+.profile-shop-price.owned{color:#72cdb0}
+.profile-shop-card button{border:1px solid #3b526f;border-radius:8px;background:#142238;color:#dce8f8;padding:7px 9px;font-size:7px;font-weight:1000}
+.profile-shop-card button.buy{border-color:#735f31;background:#2c2415;color:#f1d386}
+.profile-shop-card button:disabled{opacity:.55;cursor:default}
+.profile-cosmetic-note{margin-top:12px;padding:9px 10px;border:1px dashed #374761;border-radius:10px;color:#7789a5;font-size:8px;line-height:1.45}
+.profile-cosmetic-note strong{color:#d8c48d}
+@media(max-width:820px){
+  .citizen-card{grid-template-columns:82px minmax(0,1fr);gap:12px}
+  .citizen-avatar{width:76px;height:76px;border-radius:20px;font-size:38px}
+  .citizen-stamp{grid-column:1/-1;min-width:0;align-self:auto;transform:none;flex-direction:row;gap:8px;padding:9px 11px}
+  .citizen-stamp strong{max-width:none}
+  .profile-stats{grid-template-columns:repeat(3,1fr)}
+  .profile-badge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile-shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  .profile-page-head{padding:14px;display:block}
+  .profile-page-note{display:inline-flex;margin-top:9px}
+  .profile-shell{padding:10px}
+  .citizen-card{grid-template-columns:62px minmax(0,1fr);padding:13px}
+  .citizen-avatar{width:58px;height:58px;border-radius:16px;font-size:31px}
+  .citizen-name-row strong{font-size:18px}
+  .citizen-title{font-size:7px}
+  .citizen-risk{font-size:8px}
+  .profile-stats{grid-template-columns:repeat(2,1fr)}
+  .profile-badge-grid{grid-template-columns:1fr 1fr}
+  .profile-shop-grid{grid-template-columns:1fr}
+  .profile-name-editor{grid-template-columns:1fr 1fr}
+  .profile-name-editor input{grid-column:1/-1}
+}
+
 </style>
 </head>
 <body>
@@ -2542,6 +2645,20 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
             <div class="chance-history-list" id="chanceHistory"><div class="empty">Henüz lunapark kaydı yok.</div></div>
           </div>
         </section>
+
+        <section class="section-card profile-page" id="profileSection" data-page-section="profile">
+          <div class="profile-page-head">
+            <div>
+              <span class="profile-page-eyebrow">🏛 AFMB VATANDAŞ KAYIT SİSTEMİ</span>
+              <h2>Vatandaş Dosyası</h2>
+              <p>Rozetler kazanılır. Unvan, çerçeve, mühür ve vesikalık ise ₳D karşılığında tamamen gereksiz biçimde güzelleştirilebilir.</p>
+            </div>
+            <span class="profile-page-note">KOZMETİKTİR • OYUN AVANTAJI VERMEZ</span>
+          </div>
+          <div class="profile-shell" id="profileContent">
+            <div class="profile-loading">AFMB arşiv görevlisi dosyanı yanlış raftan getiriyor…</div>
+          </div>
+        </section>
       </div>
 
       <aside class="sidebar" data-page-section="bulletin">
@@ -2590,6 +2707,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     <div class="mobile-more-panel">
       <div class="mobile-more-head"><div><small>PROJECT AFYON</small><strong>Daha Fazla</strong></div><button id="mobileMoreClose" type="button">×</button></div>
       <div class="mobile-more-grid">
+        <a data-page-nav="profile" href="?page=profile"><span>🪪</span><strong>Profil</strong><small>AFMB vatandaş dosyan</small></a>
         <a data-page-nav="leagues" href="?page=leagues"><span>🏆</span><strong>Ligler</strong><small>Puan, fikstür, kulüpler</small></a>
         <a data-page-nav="news" href="?page=news"><span>📰</span><strong>Haberler</strong><small>AFMB gündemi</small></a>
         <a data-page-nav="games" href="?page=games"><span>🎰</span><strong>Şans</strong><small>AFMB Lunaparkı</small></a>
@@ -2597,7 +2715,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.59 Boxing Scorecards</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.60 AFMB Vatandaş Profili</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3118,6 +3236,7 @@ function getClubNames(country,level){
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
+let onlineProfileData=null,profileBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
@@ -6285,6 +6404,7 @@ async function initOnline(){
     await refreshOnlineSchedulePulse(true);
     await refreshOnlineAccount();
     await refreshChanceHistory();
+    if(onlineSession)await refreshMyProfile();
     renderAll();
     updateAuthUi();
     if(onlinePollTimer)clearInterval(onlinePollTimer);
@@ -7776,7 +7896,183 @@ async function playChanceGame(){
   await playSingleChanceGame();
 }
 
-function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue()}
+
+const profileCategoryMeta={
+  avatar:{label:'VESİKALIK',note:'Devlet seni hangi emojiyle tanısın?'},
+  title:{label:'UNVAN',note:'Tamamen kendi kendine verilmiş kurumsal ağırlık.'},
+  frame:{label:'DOSYA ÇERÇEVESİ',note:'Evrakın dış kenarı değişince insanın statüsü değişiyormuş gibi olur.'},
+  stamp:{label:'RESMÎ MÜHÜR',note:'Dosyanın üzerine gereğinden ciddi bir damga.'}
+};
+function profileEsc(value){
+  return String(value??'').replace(/[&<>"']/g,function(ch){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+  });
+}
+function profileCatalogItem(key){
+  return (onlineProfileData?.cosmetic_catalog||[]).find(function(x){return x.key===key})||null;
+}
+function profileEquippedKey(category){
+  const l=onlineProfileData?.loadout||{};
+  if(category==='avatar')return l.avatar_key||'COOL';
+  if(category==='title')return l.title_key||'CITIZEN';
+  if(category==='frame')return l.frame_key||'STANDARD';
+  if(category==='stamp')return l.stamp_key||'NONE';
+  return '';
+}
+function profileRiskCopy(data){
+  const st=data?.stats||{};
+  if(Number(st.rescue_visits||0)>=10)return 'AFMB DEĞERLENDİRMESİ: Dosya artık arşive kaldırılmıyor. Personel “nasıl olsa yine gelecek” görüşünde.';
+  if(Number(st.total_stake||0)>=25000)return 'AFMB DEĞERLENDİRMESİ: Vatandaş yatırımcı değil, hareketli bütçe kalemi olarak izlenmektedir.';
+  if(Number(st.chance_plays||0)>=20)return 'AFMB DEĞERLENDİRMESİ: Lunapark görevlileri vatandaşı vardiya arkadaşlarından biri sanmaya başlamıştır.';
+  if(Number(st.coupons||0)>=10)return 'AFMB DEĞERLENDİRMESİ: Kupon arşivinde kendisine ait raf oluşmuştur. Kurum bunu başarı saymamaktadır.';
+  return 'AFMB DEĞERLENDİRMESİ: Henüz olağan şüpheli seviyesinde. Dosya kalınlığı kabul edilebilir sınırlar içindedir.';
+}
+function goToProfile(){
+  const url=new URL(window.location.href);
+  url.searchParams.set('page','profile');
+  history.pushState({page:'profile'},'',url);
+  applyPageRoute();
+  window.scrollTo(0,0);
+}
+async function refreshMyProfile(){
+  if(!onlineSession){
+    onlineProfileData=null;
+    renderProfile();
+    return;
+  }
+  const box=document.getElementById('profileContent');
+  if(box&&!onlineProfileData)box.innerHTML='<div class="profile-loading">AFMB arşiv görevlisi dosyanı yanlış raftan getiriyor…</div>';
+  const {data,error}=await supabaseClient.rpc('get_my_profile');
+  if(error){
+    console.error('Profile',error);
+    if(box)box.innerHTML='<div class="profile-loading">Vatandaş dosyası getirilemedi. Arşiv görevlisi “sistemde görünmüyor” dedi.</div>';
+    return;
+  }
+  onlineProfileData=data||null;
+  if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
+  renderWallet();
+  renderProfile();
+}
+function renderProfile(){
+  const box=document.getElementById('profileContent');
+  const authBtn=document.getElementById('authOpen');
+  if(authBtn){
+    const avatar=onlineSession&&onlineProfileData?profileCatalogItem(profileEquippedKey('avatar')):null;
+    authBtn.textContent=avatar?.icon||'😎';
+    authBtn.title=onlineSession?'AFMB Vatandaş Dosyan':'Project Afyon hesabı';
+  }
+  if(!box)return;
+
+  if(!onlineSession){
+    box.innerHTML='<div class="profile-login-gate"><strong>🪪 Vatandaş dosyası için giriş gerekli.</strong>Misafirlerin devlet nezdinde yeterince dosyası bulunmamaktadır.<br><button type="button" id="profileLoginOpen">OTURUM AÇ / KAYDOL</button></div>';
+    document.getElementById('profileLoginOpen')?.addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
+    return;
+  }
+  if(!onlineProfileData){
+    box.innerHTML='<div class="profile-loading">AFMB vatandaş dosyanı hazırlıyor…</div>';
+    return;
+  }
+
+  const data=onlineProfileData;
+  const catalog=data.cosmetic_catalog||[];
+  const owned=new Set(data.owned_cosmetics||[]);
+  const earned=new Map((data.badges||[]).map(function(x){return [x.key,x]}));
+  const badgeCatalog=data.badge_catalog||[];
+  const loadout=data.loadout||{};
+  const avatar=profileCatalogItem(loadout.avatar_key||'COOL')||{icon:'😎',name:'Vatandaş'};
+  const title=profileCatalogItem(loadout.title_key||'CITIZEN')||{icon:'📄',name:'Sıradan Afyon Vatandaşı'};
+  const stamp=profileCatalogItem(loadout.stamp_key||'NONE')||{icon:'—',name:'Mühürsüz'};
+  const frameKey=loadout.frame_key||'STANDARD';
+  const name=profileEsc(data.profile?.display_name||'Afyon Vatandaşı');
+  const st=data.stats||{};
+
+  const badges=badgeCatalog.map(function(b){
+    const have=earned.has(b.key);
+    return '<article class="profile-badge '+(have?'earned':'locked')+'"><span class="icon">'+profileEsc(b.icon)+'</span><strong>'+profileEsc(b.name)+'</strong><p>'+profileEsc(b.description)+'</p></article>';
+  }).join('');
+
+  const groups=['avatar','title','frame','stamp'].map(function(category){
+    const meta=profileCategoryMeta[category];
+    const equipped=profileEquippedKey(category);
+    const cards=catalog.filter(function(x){return x.category===category}).map(function(item){
+      const isFree=Number(item.price||0)===0;
+      const isOwned=isFree||owned.has(item.key);
+      const isEquipped=equipped===item.key;
+      const buttonLabel=isEquipped?'KULLANILIYOR':isOwned?'KULLAN':'AL • '+money(Number(item.price||0));
+      return '<article class="profile-shop-card '+(isEquipped?'equipped':'')+'">'+
+        '<span class="icon">'+profileEsc(item.icon)+'</span>'+
+        '<div class="profile-shop-copy"><strong>'+profileEsc(item.name)+'</strong><p>'+profileEsc(item.description)+'</p></div>'+
+        '<div class="profile-shop-foot"><span class="profile-shop-price '+(isOwned?'owned':'')+'">'+(isFree?'ÜCRETSİZ':isOwned?'SATIN ALINDI':money(Number(item.price||0)))+'</span>'+
+        '<button type="button" class="'+(!isOwned?'buy':'')+'" data-profile-cosmetic="'+profileEsc(item.key)+'" '+(isEquipped?'disabled':'')+'>'+buttonLabel+'</button></div>'+
+      '</article>';
+    }).join('');
+    return '<div class="profile-cosmetic-group"><div class="profile-cosmetic-title"><strong>'+meta.label+'</strong><small>'+meta.note+'</small></div><div class="profile-shop-grid">'+cards+'</div></div>';
+  }).join('');
+
+  box.innerHTML=
+    '<article class="citizen-card frame-'+profileEsc(frameKey)+'">'+
+      '<div class="citizen-avatar">'+profileEsc(avatar.icon)+'</div>'+
+      '<div class="citizen-identity"><small>AFMB VATANDAŞ DOSYA ADI</small><div class="citizen-name-row"><strong>'+name+'</strong><button type="button" class="citizen-edit-name" id="profileEditName">DÜZENLE</button></div>'+
+        '<span class="citizen-title">'+profileEsc(title.icon)+' '+profileEsc(title.name)+'</span>'+
+        '<div class="citizen-risk">'+profileEsc(profileRiskCopy(data))+'</div>'+
+        '<div class="profile-name-editor" id="profileNameEditor"><input id="profileNameInput" maxlength="24" value="'+name+'"><button type="button" class="save" id="profileNameSave">KAYDET</button><button type="button" id="profileNameCancel">VAZGEÇ</button></div>'+
+      '</div>'+
+      '<div class="citizen-stamp"><span>'+profileEsc(stamp.icon)+'</span><div><strong>'+profileEsc(stamp.name)+'</strong><small>AFMB DOSYA MÜHRÜ</small></div></div>'+
+    '</article>'+
+    '<div class="profile-stats">'+
+      '<div class="profile-stat"><small>BAKİYE</small><strong>'+money(Number(data.balance||0))+'</strong></div>'+
+      '<div class="profile-stat"><small>KUPON</small><strong>'+Number(st.coupons||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>KAZANAN KUPON</small><strong>'+Number(st.won_coupons||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>LUNAPARK</small><strong>'+Number(st.chance_plays||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>AFMB MESAİSİ</small><strong>'+Number(st.rescue_visits||0)+'</strong></div>'+
+    '</div>'+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🏅 RESMÎ OLMAYAN BAŞARILAR</small><strong>Rozet Vitrini</strong></div><span>'+earned.size+' / '+badgeCatalog.length+' kazanıldı</span></div><div class="profile-badge-grid">'+badges+'</div></section>'+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🛍 AFMB GEREKSİZ HARCAMALAR BİRİMİ</small><strong>Profil Geliştirmeleri</strong></div><span>Toplam harcama hiçbir oranı değiştirmez.</span></div>'+groups+
+      '<div class="profile-cosmetic-note"><strong>AFMB Yasal Uyarısı:</strong> Bu ürünlerin hiçbiri kupon tutturmaz, roketi geç patlatmaz, hakemi ikna etmez veya koyunun suya atlama isteğini artırmaz. Yalnızca dosyan daha pahalı görünür.</div></section>';
+
+  document.getElementById('profileEditName')?.addEventListener('click',()=>document.getElementById('profileNameEditor')?.classList.add('open'));
+  document.getElementById('profileNameCancel')?.addEventListener('click',()=>document.getElementById('profileNameEditor')?.classList.remove('open'));
+  document.getElementById('profileNameSave')?.addEventListener('click',saveProfileName);
+  box.querySelectorAll('[data-profile-cosmetic]').forEach(function(btn){
+    btn.addEventListener('click',()=>profileCosmeticAction(btn.dataset.profileCosmetic));
+  });
+}
+async function saveProfileName(){
+  if(!onlineSession||profileBusy)return;
+  const input=document.getElementById('profileNameInput');
+  const name=String(input?.value||'').trim();
+  if(name.length<2||name.length>24){toast('Dosya adı 2–24 karakter olsun kankam 😄');return}
+  profileBusy=true;
+  const {error}=await supabaseClient.from('profiles').update({display_name:name}).eq('id',onlineSession.user.id);
+  profileBusy=false;
+  if(error){toast('AFMB isim değişikliğini reddetti: '+error.message);return}
+  await refreshMyProfile();
+  toast('Dosya adı güncellendi. Nüfus müdürlüğüne haber verilmedi. 🏛');
+}
+async function profileCosmeticAction(key){
+  if(!onlineSession||profileBusy)return;
+  const item=(onlineProfileData?.cosmetic_catalog||[]).find(function(x){return x.key===key});
+  if(!item)return;
+  const owned=Number(item.price||0)===0||(onlineProfileData?.owned_cosmetics||[]).includes(key);
+  profileBusy=true;
+  const {data,error}=await supabaseClient.rpc('profile_cosmetic_action',{
+    p_action:owned?'EQUIP':'BUY',
+    p_key:key
+  });
+  profileBusy=false;
+  if(error){
+    if(String(error.message||'').includes('YETERSIZ_AD'))toast('AFMB: “Estetik kaygılarınız bakiyenizden büyük.” 😄');
+    else toast('Profil işlemi reddedildi: '+error.message);
+    return;
+  }
+  onlineProfileData=data||onlineProfileData;
+  if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
+  renderWallet();
+  renderProfile();
+  toast(owned?'Profil görünümü değiştirildi. 🪪':'Satın alındı ve dosyana takıldı. AFMB teşekkür etmiyor. 🏛');
+}
+
+function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue();renderProfile()}
 
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
@@ -7837,7 +8133,7 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları'};
+const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları',profile:'Profil'};
 function currentPageRoute(){
   const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
   return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
@@ -7851,12 +8147,16 @@ function applyPageRoute(){
   document.querySelectorAll('[data-page-nav]').forEach(link=>{
     link.classList.toggle('active',link.dataset.pageNav===page);
   });
-  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['leagues','news','games'].includes(page));
+  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['profile','leagues','news','games'].includes(page));
   document.getElementById('mobileMoreSheet')?.classList.remove('open');
   document.title='Project Afyon — '+pageNames[page];
   renderWallet();
   if(page==='matches'){renderMatchCenter();renderLiveCenter();}
   if(page==='boxing')renderBoxing();
+  if(page==='profile'){
+    renderProfile();
+    if(onlineSession)refreshMyProfile().catch(err=>console.error('Profile route',err));
+  }
 }
 window.addEventListener('popstate',applyPageRoute);
 document.getElementById('mobileMoreOpen')?.addEventListener('click',()=>document.getElementById('mobileMoreSheet')?.classList.add('open'));
@@ -7944,7 +8244,10 @@ document.getElementById('chanceClose').addEventListener('click',closeChanceGame)
 document.getElementById('chanceModal').addEventListener('click',e=>{if(e.target.id==='chanceModal')closeChanceGame()});
 document.getElementById('chanceStake').addEventListener('input',updateChancePlayLabel);
 document.getElementById('chancePlay').addEventListener('click',playChanceGame);
-document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
+document.getElementById('authOpen').addEventListener('click',()=>{
+  if(onlineSession){goToProfile();return;}
+  document.getElementById('authModal').classList.add('open');
+});
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
 document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
@@ -7954,7 +8257,7 @@ document.getElementById('authLogin').addEventListener('click',async()=>{
   updateAuthUi('Giriş yapılıyor…');
   const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
   if(error){updateAuthUi(error.message);return}
-  onlineSession=data.session;await refreshOnlineAccount();await refreshChanceHistory();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
+  onlineSession=data.session;await refreshOnlineAccount();await refreshChanceHistory();await refreshMyProfile();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
 });
 document.getElementById('authSignup').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
@@ -7963,10 +8266,10 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   const {data,error}=await supabaseClient.auth.signUp({email,password});
   if(error){updateAuthUi(error.message);return}
   onlineSession=data.session||null;
-  if(onlineSession){await refreshOnlineAccount();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
+  if(onlineSession){await refreshOnlineAccount();await refreshMyProfile();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;onlineProfileData=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();renderProfile();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
   onlineSession=session;
   if(!session){
@@ -7980,6 +8283,7 @@ supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
     if(onlineMode){
       if(!activeChanceSession?.local)await refreshOnlineAccount();
       await refreshChanceHistory();
+      if(session)await refreshMyProfile();
     }
   }catch(e){
     console.error(e);
