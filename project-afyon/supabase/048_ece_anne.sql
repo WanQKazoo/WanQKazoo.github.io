@@ -64,17 +64,21 @@ begin
       exit;
     end if;
 
-    v_r:=random();
-    if v_r<0.64 then
+    if v_i=1 then
       v_token:='BABA';
-    elsif v_r<0.76 then
-      v_token:='BABA BABA';
-    elsif v_r<0.85 then
-      v_token:='HAVVA';
-    elsif v_r<0.94 then
-      v_token:='NEM NEM';
     else
-      v_token:='AAAANNN... AN AN AN 🚗';
+      v_r:=random();
+      if v_r<0.64 then
+        v_token:='BABA';
+      elsif v_r<0.76 then
+        v_token:='BABA BABA';
+      elsif v_r<0.85 then
+        v_token:='HAVVA';
+      elsif v_r<0.94 then
+        v_token:='NEM NEM';
+      else
+        v_token:='AAAANNN... AN AN AN 🚗';
+      end if;
     end if;
     v_sequence:=v_sequence||jsonb_build_array(v_token);
   end loop;
