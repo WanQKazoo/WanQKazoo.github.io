@@ -2346,6 +2346,51 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   .profile-name-editor input{grid-column:1/-1}
 }
 
+
+/* Coupon archive controls */
+.coupon-archive-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:12px 16px 0;padding:9px;
+  border:1px solid #283a55;border-radius:14px;background:#0c1524;
+}
+.coupon-filter-tabs{display:flex;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.coupon-filter-tabs::-webkit-scrollbar{display:none}
+.coupon-filter{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;
+  border:1px solid #2a3c58;border-radius:10px;background:#111d30;color:#8092ae;
+  padding:8px 10px;font-size:9px;font-weight:1000;white-space:nowrap;
+}
+.coupon-filter span{
+  min-width:18px;padding:2px 5px;border-radius:999px;background:#192740;
+  color:#a8bad3;font-size:7px;text-align:center;
+}
+.coupon-filter:hover{border-color:#4c6485;color:#dce7f6}
+.coupon-filter.active{border-color:#5a789c;background:#182943;color:#fff}
+.coupon-filter[data-coupon-filter="pending"].active{border-color:#aa8438;background:#332812;color:#ffe09a}
+.coupon-filter[data-coupon-filter="won"].active{border-color:#34765f;background:#15362e;color:#99f0d1}
+.coupon-filter[data-coupon-filter="lost"].active{border-color:#7d3e50;background:#321722;color:#ff9eae}
+.coupon-history-actions{display:flex;gap:6px;flex:0 0 auto}
+.coupon-history-clear,.coupon-history-restore{
+  border:1px solid #344760;border-radius:10px;background:#111b2b;color:#9babc1;
+  padding:8px 10px;font-size:8px;font-weight:1000;white-space:nowrap;
+}
+.coupon-history-clear:hover:not(:disabled),.coupon-history-restore:hover{border-color:#6d5b38;color:#ffe1a0}
+.coupon-history-clear:disabled{opacity:.42;cursor:not-allowed}
+.coupon-history-restore{border-color:#315d50;color:#82dabb;background:#10271f}
+.coupon-filter-empty{
+  margin:0;padding:28px 16px;border:1px dashed #30415b;border-radius:14px;
+  background:#0c1523;color:#7588a5;text-align:center;font-size:10px;font-weight:800;
+}
+#couponsSection .coupon-list:before{content:none!important}
+@media(max-width:720px){
+  .coupon-archive-toolbar{align-items:stretch;flex-direction:column;margin:10px 10px 0;padding:8px}
+  .coupon-filter-tabs{width:100%}
+  .coupon-filter{flex:1 0 auto;justify-content:center;padding:9px 8px}
+  .coupon-history-actions{width:100%}
+  .coupon-history-clear,.coupon-history-restore{flex:1}
+  #couponsSection .coupon-list{padding:10px}
+}
+
 </style>
 </head>
 <body>
@@ -2540,6 +2585,18 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
           <div class="coupon-hero-panel" id="couponHeroPanel">
             <div class="coupon-hero-empty">Aktif kupon bilgisi hazırlanıyor…</div>
           </div>
+          <div class="coupon-archive-toolbar">
+            <div class="coupon-filter-tabs" id="couponFilterTabs">
+              <button class="coupon-filter active" type="button" data-coupon-filter="all">Tümü <span id="couponFilterAllCount">0</span></button>
+              <button class="coupon-filter" type="button" data-coupon-filter="pending">⏳ Bekleyen <span id="couponFilterPendingCount">0</span></button>
+              <button class="coupon-filter" type="button" data-coupon-filter="won">✓ Kazanan <span id="couponFilterWonCount">0</span></button>
+              <button class="coupon-filter" type="button" data-coupon-filter="lost">× Kaybeden <span id="couponFilterLostCount">0</span></button>
+            </div>
+            <div class="coupon-history-actions">
+              <button class="coupon-history-clear" id="couponHistoryClear" type="button">🧹 Geçmişi Temizle</button>
+              <button class="coupon-history-restore" id="couponHistoryRestore" type="button" hidden>↩ Gizlenenleri Göster</button>
+            </div>
+          </div>
           <div class="coupon-list" id="couponList"></div>
         </section>
 
@@ -2715,7 +2772,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.60 AFMB Vatandaş Profili</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.60.1 Coupon Archive</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3235,6 +3292,8 @@ function getClubNames(country,level){
 }
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
+const COUPON_HISTORY_HIDDEN_PREFIX='projectAfyonCouponHistoryHiddenV1:';
+let couponHistoryFilter='all',hiddenCouponHistoryKeys=new Set(),hiddenCouponHistoryScope='';
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
 let onlineProfileData=null,profileBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
@@ -5593,8 +5652,91 @@ function renderCouponHero(){
   document.getElementById('couponHeroOpen')?.addEventListener('click',()=>openLivingCoupon(coupon));
 }
 
+
+function couponArchiveKey(coupon,index=0){
+  return String(coupon?.id??coupon?.created??('coupon-'+index));
+}
+function couponArchiveStatus(coupon){
+  return coupon?.status||(!coupon?.selections?'legacy':'pending');
+}
+function couponHistoryStorageKey(){
+  const scope=onlineSession?.user?.id||'local';
+  return COUPON_HISTORY_HIDDEN_PREFIX+scope;
+}
+function syncCouponHistoryScope(){
+  const key=couponHistoryStorageKey();
+  if(key===hiddenCouponHistoryScope)return;
+  hiddenCouponHistoryScope=key;
+  try{
+    const saved=JSON.parse(localStorage.getItem(key)||'[]');
+    hiddenCouponHistoryKeys=new Set(Array.isArray(saved)?saved.map(String):[]);
+  }catch(_){
+    hiddenCouponHistoryKeys=new Set();
+  }
+}
+function saveHiddenCouponHistory(){
+  syncCouponHistoryScope();
+  localStorage.setItem(hiddenCouponHistoryScope,JSON.stringify([...hiddenCouponHistoryKeys]));
+}
+function couponIsHistory(coupon){
+  const status=couponArchiveStatus(coupon);
+  return status==='won'||status==='lost'||status==='legacy';
+}
+function renderCouponArchiveTools(){
+  syncCouponHistoryScope();
+  const rows=state.coupons.map((c,index)=>({c,key:couponArchiveKey(c,index),status:couponArchiveStatus(c)}));
+  const visible=rows.filter(x=>!couponIsHistory(x.c)||!hiddenCouponHistoryKeys.has(x.key));
+  const counts={
+    all:visible.length,
+    pending:visible.filter(x=>x.status==='pending').length,
+    won:visible.filter(x=>x.status==='won').length,
+    lost:visible.filter(x=>x.status==='lost').length
+  };
+  const ids={all:'couponFilterAllCount',pending:'couponFilterPendingCount',won:'couponFilterWonCount',lost:'couponFilterLostCount'};
+  Object.entries(ids).forEach(([key,id])=>{const el=document.getElementById(id);if(el)el.textContent=counts[key]||0;});
+  document.querySelectorAll('[data-coupon-filter]').forEach(btn=>btn.classList.toggle('active',btn.dataset.couponFilter===couponHistoryFilter));
+
+  const clear=document.getElementById('couponHistoryClear');
+  const restore=document.getElementById('couponHistoryRestore');
+  const visibleHistory=visible.filter(x=>couponIsHistory(x.c)).length;
+  const hiddenCount=rows.filter(x=>couponIsHistory(x.c)&&hiddenCouponHistoryKeys.has(x.key)).length;
+  if(clear){
+    clear.disabled=visibleHistory===0;
+    clear.textContent=visibleHistory?'🧹 Geçmişi Temizle ('+visibleHistory+')':'🧹 Geçmiş Temiz';
+  }
+  if(restore){
+    restore.hidden=hiddenCount===0;
+    restore.textContent='↩ Gizlenenleri Göster ('+hiddenCount+')';
+  }
+}
+function clearCouponHistoryView(){
+  syncCouponHistoryScope();
+  let hidden=0;
+  state.coupons.forEach((coupon,index)=>{
+    if(!couponIsHistory(coupon))return;
+    const key=couponArchiveKey(coupon,index);
+    if(!hiddenCouponHistoryKeys.has(key)){hiddenCouponHistoryKeys.add(key);hidden++;}
+    openCouponIds.delete(key);
+  });
+  if(!hidden){toast('Temizlenecek sonuçlanmış kupon yok kankam.');return;}
+  saveHiddenCouponHistory();
+  if(couponHistoryFilter!=='pending')couponHistoryFilter='all';
+  renderCoupons();
+  toast(hidden+' sonuçlanmış kupon görünümden kaldırıldı. Server kayıtları duruyor. 🧹');
+}
+function restoreCouponHistoryView(){
+  syncCouponHistoryScope();
+  const count=hiddenCouponHistoryKeys.size;
+  hiddenCouponHistoryKeys.clear();
+  saveHiddenCouponHistory();
+  renderCoupons();
+  toast(count?'Gizlenen kupon geçmişi tekrar gösteriliyor. ↩':'Gizlenmiş kupon yok.');
+}
+
 function renderCoupons(){
   renderCouponHero();
+  syncCouponHistoryScope();
+  renderCouponArchiveTools();
   const list=document.getElementById('couponList');
   if(!state.coupons.length){
     list.innerHTML='<div class="empty">Henüz kupon yok. Afyon Merkez Bankası şimdilik sakin.</div>';
@@ -5602,15 +5744,36 @@ function renderCoupons(){
     return;
   }
 
-  const visibleKeys=new Set();
-  list.innerHTML=state.coupons.slice().sort((a,b)=>{
-    const aTime=new Date(a.created||0).getTime()||0;
-    const bTime=new Date(b.created||0).getTime()||0;
+  const sortedCoupons=state.coupons.slice().sort((a,b)=>{
+    const aTime=new Date(a.created||a.created_at||0).getTime()||0;
+    const bTime=new Date(b.created||b.created_at||0).getTime()||0;
     return bTime-aTime;
-  }).map((c,index)=>{
-    const couponKey=String(c.id??c.created??('coupon-'+index));
+  });
+  const filteredCoupons=sortedCoupons.filter((c,index)=>{
+    const status=couponArchiveStatus(c);
+    const key=couponArchiveKey(c,index);
+    if(couponIsHistory(c)&&hiddenCouponHistoryKeys.has(key))return false;
+    return couponHistoryFilter==='all'||status===couponHistoryFilter;
+  });
+
+  if(!filteredCoupons.length){
+    const copy=couponHistoryFilter==='pending'
+      ?'Bekleyen kupon yok. AFMB bu sakinliği şüpheyle karşılıyor.'
+      :couponHistoryFilter==='won'
+        ?'Görünen kazanan kupon yok.'
+        :couponHistoryFilter==='lost'
+          ?'Görünen kaybeden kupon yok. Bu da bir başarı sayılabilir.'
+          :'Kupon arşivi temiz görünüyor.';
+    list.innerHTML='<div class="coupon-filter-empty">'+copy+'</div>';
+    openCouponIds.clear();
+    return;
+  }
+
+  const visibleKeys=new Set();
+  list.innerHTML=filteredCoupons.map((c,index)=>{
+    const couponKey=couponArchiveKey(c,index);
     visibleKeys.add(couponKey);
-    const status=c.status||(!c.selections?'legacy':'pending');
+    const status=couponArchiveStatus(c);
     const runtime=status==='pending'?couponRuntime(c):null;
     const statusText=status==='won'?'KAZANDI':status==='lost'?'KAYBETTİ':status==='legacy'?'ESKİ KUPON':runtime?.live?'CANLI':'BEKLİYOR';
     const extra=status==='won'&&c.payout?` • Ödeme ${money(c.payout)}`:'';
@@ -8176,6 +8339,14 @@ document.querySelectorAll('[data-page-nav]').forEach(link=>{
 });
 applyPageRoute();
 syncBulletinLeagueFilters();
+
+
+document.querySelectorAll('[data-coupon-filter]').forEach(btn=>btn.addEventListener('click',()=>{
+  couponHistoryFilter=btn.dataset.couponFilter||'all';
+  renderCoupons();
+}));
+document.getElementById('couponHistoryClear')?.addEventListener('click',clearCouponHistoryView);
+document.getElementById('couponHistoryRestore')?.addEventListener('click',restoreCouponHistoryView);
 
 document.getElementById('matchCenterPrev').addEventListener('click',async function(){
   matchCenterDateOffset--;await reloadMatchCenter();
