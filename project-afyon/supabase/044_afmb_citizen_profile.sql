@@ -424,7 +424,16 @@ begin
 end;
 $function$;
 
+create index if not exists profile_badges_badge_key_idx on public.profile_badges(badge_key);
+create index if not exists profile_cosmetics_cosmetic_key_idx on public.profile_cosmetics(cosmetic_key);
+create index if not exists profile_loadouts_avatar_key_idx on public.profile_loadouts(avatar_key);
+create index if not exists profile_loadouts_title_key_idx on public.profile_loadouts(title_key);
+create index if not exists profile_loadouts_frame_key_idx on public.profile_loadouts(frame_key);
+create index if not exists profile_loadouts_stamp_key_idx on public.profile_loadouts(stamp_key);
+
 revoke all on function public.get_my_profile() from public;
+revoke all on function public.get_my_profile() from anon;
 revoke all on function public.profile_cosmetic_action(text,text) from public;
+revoke all on function public.profile_cosmetic_action(text,text) from anon;
 grant execute on function public.get_my_profile() to authenticated;
 grant execute on function public.profile_cosmetic_action(text,text) to authenticated;
