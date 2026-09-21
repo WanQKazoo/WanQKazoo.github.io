@@ -2965,7 +2965,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.64 Ece Anne</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.65 Koyun Spikeri</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -4482,6 +4482,10 @@ function matchEventInfo(e){
     const onTarget=!!e.payload?.on_target;
     return {icon:onTarget?'🥅':'💨',title:onTarget?'İsabetli şut':'Şut',kind:onTarget?'target':'shot'};
   }
+  if(e.event_type==='sheep_commentary'){
+    const sheep=specialSheepNames[e.payload?.sheep]||e.payload?.sheep||'Koyun';
+    return {icon:'🎙️',title:sheep+' geliyor!',kind:'special'};
+  }
   const special={
     special_ridvan:['🎙️','Rıdvan Dilmen olaya karıştı'],
     special_pteranodon:['🦖','Pteranodon müdahalesi'],
@@ -4645,7 +4649,8 @@ function renderSpecialMatchDetail(box,m,events){
     if(e.side==='home')owner=labels.home;
     else if(e.side==='away')owner=labels.away;
     if(e.event_type==='sheep_winner'&&e.payload?.winner)owner=specialSheepNames[e.payload.winner]||e.payload.winner;
-    const note=e.payload?.text?'<small class="commentary">'+e.payload.text+'</small>':'';
+    if(e.event_type==='sheep_commentary'&&e.payload?.sheep)owner=specialSheepNames[e.payload.sheep]||e.payload.sheep;
+    const note=e.payload?.text?'<small class="commentary"><b>🎙️ Spiker:</b> '+e.payload.text+'</small>':'';
     return '<div class="match-event '+info.kind+'"><span class="minute">'+e.minute+"'</span><span class=\"icon\">"+info.icon+'</span><div><strong>'+info.title+'</strong><small>'+owner+'</small>'+note+'</div></div>';
   }).join(''):'<div class="match-detail-empty">'+(m.status==='scheduled'?'Etkinlik henüz başlamadı. AFMB tutanak kâğıtlarını hazırlıyor.':'Henüz görünür özel olay yok.')+'</div>';
 
