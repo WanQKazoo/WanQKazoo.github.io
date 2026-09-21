@@ -2,6 +2,19 @@
 -- Server-authoritative single-round special chance game.
 -- Win chance: 25%. Win multiplier: x3.60 (90% theoretical RTP).
 
+alter table public.chance_plays
+drop constraint if exists chance_plays_game_key_check;
+
+alter table public.chance_plays
+add constraint chance_plays_game_key_check
+check (game_key = any(array[
+  'marble_race','duck_derby','snail_league','afmb_wheel',
+  'memur_box','chicken_run','coin_flip','marble_royale',
+  'mines','rocket','high_card','bureaucracy_hurdles',
+  'penalty_series','zabita_raid','inspector_escape',
+  'vault_crack','stamp_memory','ece_anne'
+]::text[]));
+
 create or replace function public.play_ece_anne(p_client_id uuid,p_stake bigint)
 returns jsonb
 language plpgsql
