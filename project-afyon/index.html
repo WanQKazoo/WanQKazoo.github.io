@@ -2473,6 +2473,27 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
 .admin-game-row strong{font-size:9px}.admin-game-row small{display:block;margin-top:2px;color:#6f829e;font-size:7px}
 .admin-game-row b{align-self:center;color:#e8ca70;font-size:9px}
 .admin-subgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.admin-live-list,.admin-page-list{display:grid;gap:7px}
+.admin-live-row,.admin-page-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px 10px;border:1px solid #243650;border-radius:10px;background:#0f1a2a}
+.admin-live-main{display:flex;align-items:center;gap:8px;min-width:0}
+.admin-live-dot{width:8px;height:8px;border-radius:50%;background:#53647c;box-shadow:0 0 0 4px rgba(83,100,124,.10)}
+.admin-live-dot.online{background:#63e6be;box-shadow:0 0 0 4px rgba(99,230,190,.10)}
+.admin-live-copy{min-width:0}.admin-live-copy strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px}
+.admin-live-copy small{display:block;margin-top:2px;color:#6e819d;font-size:7px}
+.admin-live-row>b{color:#91a6c1;font-size:7px}
+.admin-page-row{grid-template-columns:110px minmax(0,1fr) auto}
+.admin-page-row>strong{font-size:8px}
+.admin-page-track{height:7px;border-radius:999px;background:#1d2a40;overflow:hidden}
+.admin-page-track span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#6d8ef7,#63e6be)}
+.admin-page-row>small{color:#7186a2;font-size:7px;font-weight:900}
+.admin-economy-table{min-width:720px}
+.admin-net{font-weight:1000}.admin-net.positive{color:#73d8b5}.admin-net.negative{color:#ff9a9f}.admin-net.neutral{color:#9aabc1}
+.admin-retention-note{margin-top:8px;padding:8px 9px;border:1px dashed #31435e;border-radius:9px;color:#667b98;font-size:7px;line-height:1.45}
+.admin-kpi.live{border-color:#315d50;background:linear-gradient(145deg,#10241e,#0e1828)}
+.admin-kpi.live strong{color:#63e6be}
+.admin-kpi.danger strong{color:#ff9a9f}
+
 @media(max-width:960px){.admin-kpis{grid-template-columns:repeat(2,1fr)}.admin-grid,.admin-subgrid{grid-template-columns:1fr}}
 @media(max-width:620px){
   .admin-head{display:block;padding:15px}.admin-lock{display:inline-flex;margin-top:9px}
@@ -2920,7 +2941,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.62 Owner Dashboard</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.63 Control Room</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3443,7 +3464,7 @@ const openCouponIds=new Set();
 const COUPON_HISTORY_HIDDEN_PREFIX='projectAfyonCouponHistoryHiddenV1:';
 let couponHistoryFilter='all',hiddenCouponHistoryKeys=new Set(),hiddenCouponHistoryScope='';
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
-let onlineProfileData=null,profileBusy=false,adminDashboardData=null,adminBusy=false;
+let onlineProfileData=null,profileBusy=false,adminDashboardData=null,adminBusy=false,activityHeartbeatTimer=null,activityHeartbeatBusy=false,lastActivityPingAt=0,lastActivityPage='';
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
@@ -6695,6 +6716,42 @@ function updateAuthUi(message=''){
     status.textContent=message||'Misafir olarak ortak dünyayı izleyebilirsin; kupon için giriş gerekli.';
   }
 }
+
+function stopActivityHeartbeat(){
+  if(activityHeartbeatTimer){clearInterval(activityHeartbeatTimer);activityHeartbeatTimer=null}
+  lastActivityPingAt=0;
+  lastActivityPage='';
+}
+async function pingUserActivity(force=false){
+  if(!onlineMode||!onlineSession||document.hidden||activityHeartbeatBusy)return;
+  const page=currentPageRoute();
+  const now=Date.now();
+  if(!force&&page===lastActivityPage&&now-lastActivityPingAt<45000)return;
+  activityHeartbeatBusy=true;
+  try{
+    const {error}=await supabaseClient.rpc('touch_activity',{p_page:page});
+    if(!error){
+      lastActivityPingAt=Date.now();
+      lastActivityPage=page;
+    }else{
+      console.warn('Activity heartbeat',error.message||error);
+    }
+  }catch(e){
+    console.warn('Activity heartbeat',e);
+  }finally{
+    activityHeartbeatBusy=false;
+  }
+}
+function startActivityHeartbeat(){
+  stopActivityHeartbeat();
+  if(!onlineSession)return;
+  pingUserActivity(true);
+  activityHeartbeatTimer=setInterval(()=>pingUserActivity(false),60000);
+}
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden&&onlineSession)pingUserActivity(true);
+});
+
 async function initOnline(){
   onlineBootstrapFailed=false;
   walletHydrated=false;
@@ -6716,6 +6773,7 @@ async function initOnline(){
     await refreshOnlineAccount();
     await refreshChanceHistory();
     if(onlineSession)await refreshMyProfile();
+    startActivityHeartbeat();
     renderAll();
     updateAuthUi();
     if(onlinePollTimer)clearInterval(onlinePollTimer);
@@ -8581,6 +8639,29 @@ async function profileBuyLuxury(key){
 }
 
 
+
+function adminPct(value){
+  return value==null||!Number.isFinite(Number(value))?'—':Number(value).toFixed(Number(value)%1?1:0)+'%';
+}
+function adminAgo(value){
+  if(!value)return '—';
+  const ms=Date.now()-new Date(value).getTime();
+  if(!Number.isFinite(ms))return '—';
+  if(ms<60000)return 'şimdi';
+  if(ms<3600000)return Math.floor(ms/60000)+' dk';
+  if(ms<86400000)return Math.floor(ms/3600000)+' sa';
+  return Math.floor(ms/86400000)+' gün';
+}
+function adminPageName(key){
+  const names={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlar',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları',profile:'Profil',admin:'Admin'};
+  return names[key]||String(key||'—');
+}
+function adminEconomyName(row){
+  const key=String(row?.key||'');
+  if(key.startsWith('chance:'))return adminGameName(key.slice(7));
+  return row?.name||key||'—';
+}
+
 function adminDate(value){
   if(!value)return '—';
   const d=new Date(value);
@@ -8654,27 +8735,48 @@ function renderAdminDashboard(){
     return;
   }
   const data=adminDashboardData;
-  const s=data.summary||{};
+  const st=data.summary||{};
   const daily=data.daily||[];
   const users=data.recent_users||[];
   const coupons=data.recent_coupons||[];
   const chance=data.recent_chance||[];
-  const games=data.popular_games||[];
+  const onlineUsers=data.online_users||[];
+  const pageUsage=data.page_usage||[];
+  const economy=data.economy_systems||[];
   const maxActivity=Math.max(1,...daily.map(function(d){return Number(d.coupons||0)+Number(d.chance_plays||0)}));
+  const maxPagePings=Math.max(1,...pageUsage.map(function(p){return Number(p.pings||0)}));
 
   const dayRows=daily.map(function(d){
     const activity=Number(d.coupons||0)+Number(d.chance_plays||0);
     const pct=Math.max(3,(activity/maxActivity)*100);
     return '<div class="admin-day"><div class="admin-day-date">'+profileEsc(adminDayLabel(d.date))+'</div>'+
       '<div class="admin-day-bar"><span style="width:'+pct.toFixed(1)+'%"></span></div>'+
-      '<div class="admin-day-stats"><span>Üye <b>'+Number(d.members||0)+'</b></span><span>Kupon <b>'+Number(d.coupons||0)+'</b></span><span>Şans <b>'+Number(d.chance_plays||0)+'</b></span></div></div>';
+      '<div class="admin-day-stats"><span>DAU <b>'+Number(d.dau||0)+'</b></span><span>Yeni <b>'+Number(d.members||0)+'</b></span><span>Kupon <b>'+Number(d.coupons||0)+'</b></span><span>Şans <b>'+Number(d.chance_plays||0)+'</b></span></div></div>';
   }).join('');
+
+  const onlineRows=onlineUsers.map(function(u){
+    const age=Date.now()-new Date(u.last_seen_at).getTime();
+    const isOnline=Number.isFinite(age)&&age<=120000;
+    return '<div class="admin-live-row"><div class="admin-live-main"><span class="admin-live-dot '+(isOnline?'online':'')+'"></span><div class="admin-live-copy"><strong>'+profileEsc(u.display_name||'Vatandaş')+'</strong><small>'+profileEsc(adminPageName(u.last_page))+' • '+Number(u.session_count||0)+' oturum</small></div></div><b>'+profileEsc(adminAgo(u.last_seen_at))+'</b></div>';
+  }).join('')||'<div class="admin-loading">Son 15 dakikada oturum yok.</div>';
+
+  const pageRows=pageUsage.map(function(p){
+    const pct=Math.max(4,(Number(p.pings||0)/maxPagePings)*100);
+    return '<div class="admin-page-row"><strong>'+profileEsc(adminPageName(p.page))+'</strong><div class="admin-page-track"><span style="width:'+pct.toFixed(1)+'%"></span></div><small>'+Number(p.users||0)+' kişi • '+Number(p.pings||0)+' ping</small></div>';
+  }).join('')||'<div class="admin-loading">Sayfa telemetrisi yeni başladı.</div>';
+
+  const economyRows=economy.map(function(e){
+    const volume=Number(e.volume||0),payout=Number(e.payout||0),net=Number(e.net||0);
+    const rtp=volume>0?(payout/volume)*100:null;
+    const netClass=net>0?'positive':net<0?'negative':'neutral';
+    return '<tr><td><strong>'+profileEsc(adminEconomyName(e))+'</strong></td><td>'+Number(e.plays||0)+'</td><td>'+money(volume)+'</td><td>'+money(payout)+'</td><td class="admin-net '+netClass+'">'+(net>0?'+':'')+money(net)+'</td><td>'+(rtp==null?'—':rtp.toFixed(1)+'%')+'</td></tr>';
+  }).join('')||'<tr><td colspan="6">Ekonomi hareketi yok.</td></tr>';
 
   const userRows=users.map(function(u){
     return '<tr><td><strong>'+profileEsc(u.display_name||'Vatandaş')+'</strong><br><small>'+profileEsc(adminShortId(u.id))+'</small></td>'+
-      '<td>'+adminDate(u.created_at)+'</td><td>'+money(Number(u.balance||0))+'</td><td>'+Number(u.coupons||0)+'</td>'+
-      '<td>'+Number(u.chance_plays||0)+'</td><td>'+money(Number(u.luxury_spent||0))+'</td></tr>';
-  }).join('')||'<tr><td colspan="6">Kayıt yok.</td></tr>';
+      '<td>'+adminDate(u.created_at)+'</td><td>'+adminDate(u.last_seen_at)+'</td><td>'+profileEsc(adminPageName(u.last_page))+'</td><td>'+Number(u.sessions||0)+'</td>'+
+      '<td>'+money(Number(u.balance||0))+'</td><td>'+Number(u.coupons||0)+'</td><td>'+Number(u.chance_plays||0)+'</td><td>'+money(Number(u.luxury_spent||0))+'</td></tr>';
+  }).join('')||'<tr><td colspan="9">Kayıt yok.</td></tr>';
 
   const couponRows=coupons.map(function(c){
     return '<tr><td>'+adminDate(c.created_at)+'</td><td><strong>'+profileEsc(c.display_name||'Vatandaş')+'</strong></td>'+
@@ -8686,33 +8788,44 @@ function renderAdminDashboard(){
       '<td>'+profileEsc(adminGameName(c.game_key))+'</td><td>'+money(Number(c.stake||0))+'</td><td>×'+Number(c.multiplier||0).toFixed(2)+'</td><td>'+money(Number(c.payout||0))+'</td></tr>';
   }).join('')||'<tr><td colspan="6">Oyun kaydı yok.</td></tr>';
 
-  const gameRows=games.map(function(g){
-    return '<div class="admin-game-row"><div><strong>'+profileEsc(adminGameName(g.game_key))+'</strong><small>'+Number(g.plays||0)+' oyun • '+money(Number(g.stake||0))+' hacim</small></div><b>'+money(Number(g.payout||0))+' ödeme</b></div>';
-  }).join('')||'<div class="admin-loading">Henüz şans oyunu kaydı yok.</div>';
+  const couponNet=Number(st.coupon_stake||0)-Number(st.coupon_payout||0);
+  const chanceNet=Number(st.chance_stake||0)-Number(st.chance_payout||0);
+  const sinkTotal=Number(st.luxury_spent||0)+Number(st.cosmetic_spent||0);
 
   box.innerHTML=
     '<div class="admin-toolbar"><div class="admin-toolbar-copy"><small>SON RAPOR</small><strong>'+adminDate(data.generated_at)+'</strong></div><button class="admin-refresh" id="adminRefresh" type="button">↻ RAPORU YENİLE</button></div>'+
     '<div class="admin-kpis">'+
-      '<div class="admin-kpi blue"><small>TOPLAM ÜYE</small><strong>'+Number(s.members||0)+'</strong><span>Bugün +'+Number(s.new_today||0)+' • 7 gün +'+Number(s.new_7d||0)+'</span></div>'+
-      '<div class="admin-kpi good"><small>AKTİF OYUNCU</small><strong>'+Number(s.active_24h||0)+'</strong><span>24 saat • 7 gün '+Number(s.active_7d||0)+'</span></div>'+
-      '<div class="admin-kpi"><small>TOPLAM KUPON</small><strong>'+Number(s.coupons||0)+'</strong><span>'+Number(s.pending_coupons||0)+' bekliyor • '+Number(s.won_coupons||0)+' kazandı • '+Number(s.lost_coupons||0)+' kaybetti</span></div>'+
-      '<div class="admin-kpi warn"><small>KUPON HACMİ</small><strong>'+money(Number(s.coupon_stake||0))+'</strong><span>'+money(Number(s.coupon_payout||0))+' toplam ödeme</span></div>'+
-      '<div class="admin-kpi"><small>ŞANS OYUNLARI</small><strong>'+Number(s.chance_plays||0)+'</strong><span>'+money(Number(s.chance_stake||0))+' toplam hacim</span></div>'+
-      '<div class="admin-kpi"><small>ŞANS ÖDEMESİ</small><strong>'+money(Number(s.chance_payout||0))+'</strong><span>Lunapark toplam payout</span></div>'+
-      '<div class="admin-kpi warn"><small>LÜKSE YAKILAN</small><strong>'+money(Number(s.luxury_spent||0))+'</strong><span>Good Life para sink</span></div>'+
-      '<div class="admin-kpi blue"><small>TOPLAM CÜZDAN</small><strong>'+money(Number(s.wallet_balance||0))+'</strong><span>Tüm oyuncuların mevcut ₳D bakiyesi</span></div>'+
+      '<div class="admin-kpi live"><small>● ŞU AN ONLINE</small><strong>'+Number(st.online_now||0)+'</strong><span>Son 2 dk • 15 dk içinde '+Number(st.online_15m||0)+'</span></div>'+
+      '<div class="admin-kpi blue"><small>TOPLAM ÜYE</small><strong>'+Number(st.members||0)+'</strong><span>Bugün +'+Number(st.new_today||0)+' • 7 gün +'+Number(st.new_7d||0)+'</span></div>'+
+      '<div class="admin-kpi good"><small>DAU / WAU / MAU</small><strong>'+Number(st.dau||0)+' / '+Number(st.wau||0)+' / '+Number(st.mau||0)+'</strong><span>Günlük • 7 gün • 30 gün aktif</span></div>'+
+      '<div class="admin-kpi"><small>RETENTION</small><strong>D1 '+adminPct(st.d1_retention)+'</strong><span>D7 '+adminPct(st.d7_retention)+' • D1 '+Number(st.d1_returned||0)+'/'+Number(st.d1_eligible||0)+' • D7 '+Number(st.d7_returned||0)+'/'+Number(st.d7_eligible||0)+'</span></div>'+
+      '<div class="admin-kpi"><small>TOPLAM KUPON</small><strong>'+Number(st.coupons||0)+'</strong><span>'+Number(st.pending_coupons||0)+' bekliyor • '+Number(st.won_coupons||0)+' kazandı • '+Number(st.lost_coupons||0)+' kaybetti</span></div>'+
+      '<div class="admin-kpi '+(couponNet>=0?'good':'danger')+'"><small>KUPON AFMB NET</small><strong>'+(couponNet>0?'+':'')+money(couponNet)+'</strong><span>'+money(Number(st.coupon_stake||0))+' hacim • '+money(Number(st.coupon_payout||0))+' ödeme</span></div>'+
+      '<div class="admin-kpi"><small>ŞANS OYUNLARI</small><strong>'+Number(st.chance_plays||0)+'</strong><span>'+money(Number(st.chance_stake||0))+' toplam hacim</span></div>'+
+      '<div class="admin-kpi '+(chanceNet>=0?'good':'danger')+'"><small>LUNAPARK AFMB NET</small><strong>'+(chanceNet>0?'+':'')+money(chanceNet)+'</strong><span>'+money(Number(st.chance_payout||0))+' toplam ödeme</span></div>'+
+      '<div class="admin-kpi warn"><small>KALICI PARA SINK</small><strong>'+money(sinkTotal)+'</strong><span>Lüks '+money(Number(st.luxury_spent||0))+' • Kozmetik '+money(Number(st.cosmetic_spent||0))+'</span></div>'+
+      '<div class="admin-kpi danger"><small>AFMB MESAİ DAĞITIMI</small><strong>'+money(Number(st.rescue_granted||0))+'</strong><span>Ekonomiye geri verilen ₳D</span></div>'+
+      '<div class="admin-kpi blue"><small>TOPLAM CÜZDAN</small><strong>'+money(Number(st.wallet_balance||0))+'</strong><span>Tüm oyuncuların mevcut ₳D bakiyesi</span></div>'+
+      '<div class="admin-kpi"><small>24S / 7G AKTİF</small><strong>'+Number(st.active_24h||0)+' / '+Number(st.active_7d||0)+'</strong><span>Heartbeat + geçmiş aksiyon kayıtları</span></div>'+
     '</div>'+
     '<div class="admin-grid">'+
-      '<section class="admin-panel"><div class="admin-panel-head"><div><small>📈 SON 7 GÜN</small><strong>Aktivite Nabzı</strong></div><span>Kupon + şans oyunu</span></div><div class="admin-daily">'+dayRows+'</div></section>'+
-      '<section class="admin-panel"><div class="admin-panel-head"><div><small>🎰 LUNAPARK</small><strong>En Çok Oynananlar</strong></div><span>İlk 8</span></div><div class="admin-game-list">'+gameRows+'</div></section>'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>📈 SON 7 GÜN</small><strong>Aktivite Nabzı</strong></div><span>DAU + aksiyonlar</span></div><div class="admin-daily">'+dayRows+'</div></section>'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>🟢 CANLI</small><strong>Son Görülen Oyuncular</strong></div><span>Yeşil = son 2 dk</span></div><div class="admin-live-list">'+onlineRows+'</div></section>'+
     '</div>'+
-    '<section class="admin-panel"><div class="admin-panel-head"><div><small>👥 ÜYELER</small><strong>Son Kayıtlar</strong></div><span>Son 20</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Vatandaş</th><th>Kayıt</th><th>Bakiye</th><th>Kupon</th><th>Şans</th><th>Lüks</th></tr></thead><tbody>'+userRows+'</tbody></table></div></section>'+
+    '<div class="admin-grid">'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>💸 EKONOMİ RADARI</small><strong>Sistem Bazlı ₳D Akışı</strong></div><span>+ net = ₳D yakar • - net = ₳D dağıtır</span></div><div class="admin-table-wrap"><table class="admin-table admin-economy-table"><thead><tr><th>Sistem</th><th>İşlem</th><th>Hacim</th><th>Ödeme</th><th>AFMB Net</th><th>RTP</th></tr></thead><tbody>'+economyRows+'</tbody></table></div><div class="admin-retention-note">Bu tablo gerçek kayıtlı akışları gösterir; eski dönemde ayrı transaction ledger tutulmadığı için toplam cüzdanı geriye dönük muhasebe denklemiyle zorla eşitlemez.</div></section>'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>🧭 SON 7 GÜN</small><strong>Sayfa Kullanımı</strong></div><span>Heartbeat başladıktan sonrası</span></div><div class="admin-page-list">'+pageRows+'</div></section>'+
+    '</div>'+
+    '<section class="admin-panel"><div class="admin-panel-head"><div><small>👥 ÜYELER</small><strong>Oyuncu Kontrol Tablosu</strong></div><span>Son 20 kayıt</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Vatandaş</th><th>Kayıt</th><th>Son Görülme</th><th>Son Sayfa</th><th>Oturum</th><th>Bakiye</th><th>Kupon</th><th>Şans</th><th>Lüks</th></tr></thead><tbody>'+userRows+'</tbody></table></div></section>'+
     '<div class="admin-subgrid">'+
       '<section class="admin-panel"><div class="admin-panel-head"><div><small>🎟 KUPON</small><strong>Son Kuponlar</strong></div><span>Son 20</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Tarih</th><th>Vatandaş</th><th>Miktar</th><th>Oran</th><th>Durum</th><th>Ödeme</th></tr></thead><tbody>'+couponRows+'</tbody></table></div></section>'+
       '<section class="admin-panel"><div class="admin-panel-head"><div><small>🎮 ŞANS</small><strong>Son Oyunlar</strong></div><span>Son 20</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Tarih</th><th>Vatandaş</th><th>Oyun</th><th>Miktar</th><th>Çarpan</th><th>Ödeme</th></tr></thead><tbody>'+chanceRows+'</tbody></table></div></section>'+
     '</div>';
 
-  document.getElementById('adminRefresh')?.addEventListener('click',()=>refreshAdminDashboard(true));
+  document.getElementById('adminRefresh')?.addEventListener('click',async()=>{
+    await pingUserActivity(true);
+    await refreshAdminDashboard(true);
+  });
 }
 
 function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue();renderProfile()}
@@ -8794,6 +8907,7 @@ function applyPageRoute(){
   document.getElementById('mobileMoreSheet')?.classList.remove('open');
   document.title='Project Afyon — '+pageNames[page];
   renderWallet();
+  if(onlineSession&&!document.hidden)pingUserActivity(true);
   if(page==='matches'){renderMatchCenter();renderLiveCenter();}
   if(page==='boxing')renderBoxing();
   if(page==='profile'){
@@ -8912,7 +9026,7 @@ document.getElementById('authLogin').addEventListener('click',async()=>{
   updateAuthUi('Giriş yapılıyor…');
   const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
   if(error){updateAuthUi(error.message);return}
-  onlineSession=data.session;await refreshOnlineAccount();await refreshChanceHistory();await refreshMyProfile();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
+  onlineSession=data.session;await refreshOnlineAccount();await refreshChanceHistory();await refreshMyProfile();startActivityHeartbeat();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
 });
 document.getElementById('authSignup').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
@@ -8921,13 +9035,14 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   const {data,error}=await supabaseClient.auth.signUp({email,password});
   if(error){updateAuthUi(error.message);return}
   onlineSession=data.session||null;
-  if(onlineSession){await refreshOnlineAccount();await refreshMyProfile();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
+  if(onlineSession){await refreshOnlineAccount();await refreshMyProfile();startActivityHeartbeat();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;onlineProfileData=null;adminDashboardData=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();renderProfile();});
+document.getElementById('authSignout').addEventListener('click',async()=>{stopActivityHeartbeat();await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;onlineProfileData=null;adminDashboardData=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();renderProfile();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
   onlineSession=session;
   if(!session){
+    stopActivityHeartbeat();
     onlineAuthoritativeBalance=null;
     onlineRescuePending=false;
     if(onlineMode)walletHydrated=true;
@@ -8938,7 +9053,7 @@ supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
     if(onlineMode){
       if(!activeChanceSession?.local)await refreshOnlineAccount();
       await refreshChanceHistory();
-      if(session)await refreshMyProfile();
+      if(session){await refreshMyProfile();startActivityHeartbeat();}
     }
   }catch(e){
     console.error(e);
