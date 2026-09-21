@@ -2420,6 +2420,66 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   .profile-lifestyle-total{text-align:left;margin-top:12px}
 }
 
+
+/* ===== Prototype 0.62 — Owner Admin Dashboard ===== */
+[data-admin-nav][hidden]{display:none!important}
+.admin-page{overflow:hidden;border-color:#3d4960;background:linear-gradient(180deg,#0d1523,#09111d)}
+.admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px;border-bottom:1px solid #283850;background:
+  radial-gradient(circle at 90% 0,rgba(116,192,252,.10),transparent 30%),
+  linear-gradient(145deg,#142139,#0e1727)}
+.admin-eyebrow{display:block;color:#7bc6ff;font-size:8px;font-weight:1000;letter-spacing:1.1px}
+.admin-head h2{margin:5px 0 4px;font-size:23px}
+.admin-head p{margin:0;max-width:720px;color:#7e91ad;font-size:9px;line-height:1.55}
+.admin-lock{flex:0 0 auto;padding:7px 9px;border:1px solid #315b7c;border-radius:999px;background:#10263a;color:#8fd1ff;font-size:7px;font-weight:1000;letter-spacing:.7px}
+.admin-shell{padding:16px;display:grid;gap:14px}
+.admin-loading,.admin-denied{padding:34px 18px;border:1px dashed #33455f;border-radius:15px;background:#0c1524;color:#7c8eaa;text-align:center;font-size:10px;line-height:1.6}
+.admin-denied strong{display:block;margin-bottom:5px;color:#fff;font-size:15px}
+.admin-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.admin-toolbar-copy small{display:block;color:#617692;font-size:7px;font-weight:1000}
+.admin-toolbar-copy strong{display:block;margin-top:3px;font-size:13px}
+.admin-refresh{border:1px solid #3a5c7a;border-radius:9px;background:#12243a;color:#a9d9ff;padding:8px 11px;font-size:8px;font-weight:1000}
+.admin-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.admin-kpi{position:relative;overflow:hidden;padding:13px;border:1px solid #293a55;border-radius:13px;background:#0e1828}
+.admin-kpi small{display:block;color:#6f829f;font-size:7px;font-weight:1000;letter-spacing:.55px}
+.admin-kpi strong{display:block;margin-top:4px;font-size:19px}
+.admin-kpi span{display:block;margin-top:4px;color:#6f829b;font-size:7px}
+.admin-kpi.good strong{color:#73d8b5}.admin-kpi.warn strong{color:#f0cf73}.admin-kpi.blue strong{color:#83c9ff}
+.admin-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
+.admin-panel{padding:14px;border:1px solid #293a54;border-radius:15px;background:#0c1524;min-width:0}
+.admin-panel-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:10px}
+.admin-panel-head small{display:block;color:#6b809d;font-size:7px;font-weight:1000;letter-spacing:.65px}
+.admin-panel-head strong{display:block;margin-top:2px;font-size:14px}
+.admin-panel-head span{color:#5f718b;font-size:7px}
+.admin-daily{display:grid;gap:7px}
+.admin-day{display:grid;grid-template-columns:70px minmax(0,1fr) 145px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #1c2a3f}
+.admin-day:last-child{border-bottom:0}
+.admin-day-date{font-size:8px;font-weight:1000;color:#9fb0c8}
+.admin-day-bar{height:8px;border-radius:999px;background:#1d2a40;overflow:hidden}
+.admin-day-bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#4ba3d8,#63e6be)}
+.admin-day-stats{display:flex;justify-content:flex-end;gap:8px;color:#6f829e;font-size:7px;font-weight:900}
+.admin-day-stats b{color:#dce7f5}
+.admin-table-wrap{overflow:auto}
+.admin-table{width:100%;border-collapse:collapse;min-width:620px}
+.admin-table th,.admin-table td{padding:9px 8px;border-bottom:1px solid #1e2c42;text-align:left;font-size:8px;white-space:nowrap}
+.admin-table th{color:#667c99;font-size:7px;letter-spacing:.55px;text-transform:uppercase}
+.admin-table td{color:#aebdd1}
+.admin-table td strong{color:#fff}
+.admin-status{display:inline-flex;padding:4px 6px;border-radius:999px;font-size:6px;font-weight:1000}
+.admin-status.pending{background:#2b2515;color:#f2d174}
+.admin-status.won{background:#14372e;color:#77e0bc}
+.admin-status.lost{background:#351a22;color:#ff9a9f}
+.admin-game-list{display:grid;gap:7px}
+.admin-game-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:9px 10px;border:1px solid #243650;border-radius:10px;background:#0f1a2a}
+.admin-game-row strong{font-size:9px}.admin-game-row small{display:block;margin-top:2px;color:#6f829e;font-size:7px}
+.admin-game-row b{align-self:center;color:#e8ca70;font-size:9px}
+.admin-subgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:960px){.admin-kpis{grid-template-columns:repeat(2,1fr)}.admin-grid,.admin-subgrid{grid-template-columns:1fr}}
+@media(max-width:620px){
+  .admin-head{display:block;padding:15px}.admin-lock{display:inline-flex;margin-top:9px}
+  .admin-shell{padding:10px}.admin-kpis{grid-template-columns:1fr 1fr}
+  .admin-day{grid-template-columns:58px minmax(0,1fr);gap:8px}.admin-day-stats{grid-column:1/-1;justify-content:flex-start}
+}
+
 /* Coupon archive controls */
 .coupon-archive-toolbar{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -2472,7 +2532,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   <header>
     <div class="container nav">
       <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div class="brand-copy"><span class="brand-title">Project Afyon</span> <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
-      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="boxing" href="?page=boxing">🥊 Boks</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a></nav>
+      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="boxing" href="?page=boxing">🥊 Boks</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a><a class="nav-btn" data-page-nav="admin" data-admin-nav href="?page=admin" hidden>🛡 Admin</a></nav>
       <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">…</span></div><div class="auth-entry"><span class="auth-callout" id="authCallout">Oturum Aç / Kaydol</span><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div></div>
     </div>
   </header>
@@ -2776,6 +2836,20 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
           </div>
         </section>
 
+        <section class="section-card admin-page" id="adminSection" data-page-section="admin">
+          <div class="admin-head">
+            <div>
+              <span class="admin-eyebrow">🛡 AFMB İÇ HİZMETLER • SAHİP PANELİ</span>
+              <h2>Yönetim Masası</h2>
+              <p>Üyelik, aktivite, kupon hacmi, şans oyunları ve ekonomi akışının salt-okunur görünümü. Bu ekran yalnızca yetkili hesapta açılır.</p>
+            </div>
+            <span class="admin-lock">🔒 OWNER ONLY</span>
+          </div>
+          <div class="admin-shell" id="adminContent">
+            <div class="admin-loading">AFMB iç hizmetler sunucusu mühürlü dosyaları getiriyor…</div>
+          </div>
+        </section>
+
         <section class="section-card profile-page" id="profileSection" data-page-section="profile">
           <div class="profile-page-head">
             <div>
@@ -2838,6 +2912,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
       <div class="mobile-more-head"><div><small>PROJECT AFYON</small><strong>Daha Fazla</strong></div><button id="mobileMoreClose" type="button">×</button></div>
       <div class="mobile-more-grid">
         <a data-page-nav="profile" href="?page=profile"><span>🪪</span><strong>Profil</strong><small>AFMB vatandaş dosyan</small></a>
+        <a data-page-nav="admin" data-admin-nav href="?page=admin" hidden><span>🛡</span><strong>Admin</strong><small>İç hizmetler paneli</small></a>
         <a data-page-nav="leagues" href="?page=leagues"><span>🏆</span><strong>Ligler</strong><small>Puan, fikstür, kulüpler</small></a>
         <a data-page-nav="news" href="?page=news"><span>📰</span><strong>Haberler</strong><small>AFMB gündemi</small></a>
         <a data-page-nav="games" href="?page=games"><span>🎰</span><strong>Şans</strong><small>AFMB Lunaparkı</small></a>
@@ -2845,7 +2920,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.61 Good Life</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.62 Owner Dashboard</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3368,7 +3443,7 @@ const openCouponIds=new Set();
 const COUPON_HISTORY_HIDDEN_PREFIX='projectAfyonCouponHistoryHiddenV1:';
 let couponHistoryFilter='all',hiddenCouponHistoryKeys=new Set(),hiddenCouponHistoryScope='';
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
-let onlineProfileData=null,profileBusy=false;
+let onlineProfileData=null,profileBusy=false,adminDashboardData=null,adminBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
@@ -8239,8 +8314,12 @@ async function refreshMyProfile(){
   if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
   renderWallet();
   renderProfile();
+  if(currentPageRoute()==='admin'&&data?.is_admin&&!adminBusy)refreshAdminDashboard(true).catch(err=>console.error('Admin refresh',err));
 }
 function renderProfile(){
+  document.querySelectorAll('[data-admin-nav]').forEach(function(el){
+    el.hidden=!(onlineSession&&onlineProfileData?.is_admin);
+  });
   const box=document.getElementById('profileContent');
   const authBtn=document.getElementById('authOpen');
   if(authBtn){
@@ -8501,6 +8580,141 @@ async function profileBuyLuxury(key){
   toast(item.icon+' '+item.name+' alındı. Mali müşavir kısa süreliğine sustu. 💸');
 }
 
+
+function adminDate(value){
+  if(!value)return '—';
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime()))return '—';
+  return d.toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+}
+function adminDayLabel(value){
+  const d=new Date(String(value)+'T12:00:00');
+  if(Number.isNaN(d.getTime()))return String(value||'');
+  return d.toLocaleDateString('tr-TR',{weekday:'short',day:'2-digit',month:'2-digit'});
+}
+function adminShortId(value){
+  const x=String(value||'');
+  return x.length>6?'#'+x.slice(-6):x;
+}
+function adminGameName(key){
+  const names={
+    marble_race:'Bilye Ligi',duck_derby:'Ördek Derbisi',snail_league:'Salyangoz Ligi',afmb_wheel:'AFMB Çarkı',
+    memur_box:'Memur Kutusu',chicken_run:'Tavuk Koşusu',coin_flip:'Yazı–Tura',marble_royale:'Bilye Royale',
+    mines:'Mayın Tarlası',rocket:'Roket Kaçışı',high_card:'Yüksek Kart',bureaucracy_hurdles:'Bürokrasi Engelleri',
+    penalty_series:'Penaltı Serisi',zabita_raid:'Zabıta Baskını',inspector_escape:'Müfettişten Kaçış',
+    vault_crack:'Kasa Kırma',stamp_memory:'Mühür Nerede?'
+  };
+  return names[key]||String(key||'—').replaceAll('_',' ');
+}
+function adminStatus(status){
+  const s=String(status||'').toLowerCase();
+  const labels={pending:'BEKLİYOR',won:'KAZANDI',lost:'KAYBETTİ',void:'İPTAL'};
+  return '<span class="admin-status '+profileEsc(s)+'">'+profileEsc(labels[s]||s.toUpperCase())+'</span>';
+}
+async function refreshAdminDashboard(force=false){
+  const box=document.getElementById('adminContent');
+  if(!box)return;
+  if(!onlineSession){
+    adminDashboardData=null;
+    box.innerHTML='<div class="admin-denied"><strong>🔒 Yönetim masası kilitli.</strong>Önce owner hesabınla oturum aç.</div>';
+    return;
+  }
+  if(!onlineProfileData){
+    await refreshMyProfile();
+  }
+  if(!onlineProfileData?.is_admin){
+    adminDashboardData=null;
+    box.innerHTML='<div class="admin-denied"><strong>⛔ Yetki yok.</strong>Bu bölüm yalnızca Project Afyon sahibine açıktır.</div>';
+    return;
+  }
+  if(adminBusy)return;
+  if(adminDashboardData&&!force){renderAdminDashboard();return}
+  adminBusy=true;
+  box.innerHTML='<div class="admin-loading">AFMB iç hizmetler raporu hazırlanıyor…</div>';
+  const {data,error}=await supabaseClient.rpc('get_admin_dashboard');
+  adminBusy=false;
+  if(error){
+    console.error('Admin dashboard',error);
+    adminDashboardData=null;
+    box.innerHTML='<div class="admin-denied"><strong>⚠ Yönetim raporu alınamadı.</strong>'+profileEsc(error.message||'ADMIN_REQUIRED')+'</div>';
+    return;
+  }
+  adminDashboardData=data||null;
+  renderAdminDashboard();
+}
+function renderAdminDashboard(){
+  const box=document.getElementById('adminContent');
+  if(!box)return;
+  if(!onlineSession||!onlineProfileData?.is_admin){
+    box.innerHTML='<div class="admin-denied"><strong>⛔ Yetki yok.</strong>Bu bölüm yalnızca Project Afyon sahibine açıktır.</div>';
+    return;
+  }
+  if(!adminDashboardData){
+    box.innerHTML='<div class="admin-loading">AFMB iç hizmetler raporu hazırlanıyor…</div>';
+    return;
+  }
+  const data=adminDashboardData;
+  const s=data.summary||{};
+  const daily=data.daily||[];
+  const users=data.recent_users||[];
+  const coupons=data.recent_coupons||[];
+  const chance=data.recent_chance||[];
+  const games=data.popular_games||[];
+  const maxActivity=Math.max(1,...daily.map(function(d){return Number(d.coupons||0)+Number(d.chance_plays||0)}));
+
+  const dayRows=daily.map(function(d){
+    const activity=Number(d.coupons||0)+Number(d.chance_plays||0);
+    const pct=Math.max(3,(activity/maxActivity)*100);
+    return '<div class="admin-day"><div class="admin-day-date">'+profileEsc(adminDayLabel(d.date))+'</div>'+
+      '<div class="admin-day-bar"><span style="width:'+pct.toFixed(1)+'%"></span></div>'+
+      '<div class="admin-day-stats"><span>Üye <b>'+Number(d.members||0)+'</b></span><span>Kupon <b>'+Number(d.coupons||0)+'</b></span><span>Şans <b>'+Number(d.chance_plays||0)+'</b></span></div></div>';
+  }).join('');
+
+  const userRows=users.map(function(u){
+    return '<tr><td><strong>'+profileEsc(u.display_name||'Vatandaş')+'</strong><br><small>'+profileEsc(adminShortId(u.id))+'</small></td>'+
+      '<td>'+adminDate(u.created_at)+'</td><td>'+money(Number(u.balance||0))+'</td><td>'+Number(u.coupons||0)+'</td>'+
+      '<td>'+Number(u.chance_plays||0)+'</td><td>'+money(Number(u.luxury_spent||0))+'</td></tr>';
+  }).join('')||'<tr><td colspan="6">Kayıt yok.</td></tr>';
+
+  const couponRows=coupons.map(function(c){
+    return '<tr><td>'+adminDate(c.created_at)+'</td><td><strong>'+profileEsc(c.display_name||'Vatandaş')+'</strong></td>'+
+      '<td>'+money(Number(c.stake||0))+'</td><td>×'+Number(c.total_odds||0).toFixed(2)+'</td><td>'+adminStatus(c.status)+'</td><td>'+money(Number(c.payout||0))+'</td></tr>';
+  }).join('')||'<tr><td colspan="6">Kupon yok.</td></tr>';
+
+  const chanceRows=chance.map(function(c){
+    return '<tr><td>'+adminDate(c.created_at)+'</td><td><strong>'+profileEsc(c.display_name||'Vatandaş')+'</strong></td>'+
+      '<td>'+profileEsc(adminGameName(c.game_key))+'</td><td>'+money(Number(c.stake||0))+'</td><td>×'+Number(c.multiplier||0).toFixed(2)+'</td><td>'+money(Number(c.payout||0))+'</td></tr>';
+  }).join('')||'<tr><td colspan="6">Oyun kaydı yok.</td></tr>';
+
+  const gameRows=games.map(function(g){
+    return '<div class="admin-game-row"><div><strong>'+profileEsc(adminGameName(g.game_key))+'</strong><small>'+Number(g.plays||0)+' oyun • '+money(Number(g.stake||0))+' hacim</small></div><b>'+money(Number(g.payout||0))+' ödeme</b></div>';
+  }).join('')||'<div class="admin-loading">Henüz şans oyunu kaydı yok.</div>';
+
+  box.innerHTML=
+    '<div class="admin-toolbar"><div class="admin-toolbar-copy"><small>SON RAPOR</small><strong>'+adminDate(data.generated_at)+'</strong></div><button class="admin-refresh" id="adminRefresh" type="button">↻ RAPORU YENİLE</button></div>'+
+    '<div class="admin-kpis">'+
+      '<div class="admin-kpi blue"><small>TOPLAM ÜYE</small><strong>'+Number(s.members||0)+'</strong><span>Bugün +'+Number(s.new_today||0)+' • 7 gün +'+Number(s.new_7d||0)+'</span></div>'+
+      '<div class="admin-kpi good"><small>AKTİF OYUNCU</small><strong>'+Number(s.active_24h||0)+'</strong><span>24 saat • 7 gün '+Number(s.active_7d||0)+'</span></div>'+
+      '<div class="admin-kpi"><small>TOPLAM KUPON</small><strong>'+Number(s.coupons||0)+'</strong><span>'+Number(s.pending_coupons||0)+' bekliyor • '+Number(s.won_coupons||0)+' kazandı • '+Number(s.lost_coupons||0)+' kaybetti</span></div>'+
+      '<div class="admin-kpi warn"><small>KUPON HACMİ</small><strong>'+money(Number(s.coupon_stake||0))+'</strong><span>'+money(Number(s.coupon_payout||0))+' toplam ödeme</span></div>'+
+      '<div class="admin-kpi"><small>ŞANS OYUNLARI</small><strong>'+Number(s.chance_plays||0)+'</strong><span>'+money(Number(s.chance_stake||0))+' toplam hacim</span></div>'+
+      '<div class="admin-kpi"><small>ŞANS ÖDEMESİ</small><strong>'+money(Number(s.chance_payout||0))+'</strong><span>Lunapark toplam payout</span></div>'+
+      '<div class="admin-kpi warn"><small>LÜKSE YAKILAN</small><strong>'+money(Number(s.luxury_spent||0))+'</strong><span>Good Life para sink</span></div>'+
+      '<div class="admin-kpi blue"><small>TOPLAM CÜZDAN</small><strong>'+money(Number(s.wallet_balance||0))+'</strong><span>Tüm oyuncuların mevcut ₳D bakiyesi</span></div>'+
+    '</div>'+
+    '<div class="admin-grid">'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>📈 SON 7 GÜN</small><strong>Aktivite Nabzı</strong></div><span>Kupon + şans oyunu</span></div><div class="admin-daily">'+dayRows+'</div></section>'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>🎰 LUNAPARK</small><strong>En Çok Oynananlar</strong></div><span>İlk 8</span></div><div class="admin-game-list">'+gameRows+'</div></section>'+
+    '</div>'+
+    '<section class="admin-panel"><div class="admin-panel-head"><div><small>👥 ÜYELER</small><strong>Son Kayıtlar</strong></div><span>Son 20</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Vatandaş</th><th>Kayıt</th><th>Bakiye</th><th>Kupon</th><th>Şans</th><th>Lüks</th></tr></thead><tbody>'+userRows+'</tbody></table></div></section>'+
+    '<div class="admin-subgrid">'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>🎟 KUPON</small><strong>Son Kuponlar</strong></div><span>Son 20</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Tarih</th><th>Vatandaş</th><th>Miktar</th><th>Oran</th><th>Durum</th><th>Ödeme</th></tr></thead><tbody>'+couponRows+'</tbody></table></div></section>'+
+      '<section class="admin-panel"><div class="admin-panel-head"><div><small>🎮 ŞANS</small><strong>Son Oyunlar</strong></div><span>Son 20</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Tarih</th><th>Vatandaş</th><th>Oyun</th><th>Miktar</th><th>Çarpan</th><th>Ödeme</th></tr></thead><tbody>'+chanceRows+'</tbody></table></div></section>'+
+    '</div>';
+
+  document.getElementById('adminRefresh')?.addEventListener('click',()=>refreshAdminDashboard(true));
+}
+
 function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue();renderProfile()}
 
 function toast(msg){
@@ -8562,7 +8776,7 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları',profile:'Profil'};
+const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları',profile:'Profil',admin:'Admin'};
 function currentPageRoute(){
   const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
   return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
@@ -8576,7 +8790,7 @@ function applyPageRoute(){
   document.querySelectorAll('[data-page-nav]').forEach(link=>{
     link.classList.toggle('active',link.dataset.pageNav===page);
   });
-  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['profile','leagues','news','games'].includes(page));
+  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['profile','leagues','news','games','admin'].includes(page));
   document.getElementById('mobileMoreSheet')?.classList.remove('open');
   document.title='Project Afyon — '+pageNames[page];
   renderWallet();
@@ -8585,6 +8799,10 @@ function applyPageRoute(){
   if(page==='profile'){
     renderProfile();
     if(onlineSession)refreshMyProfile().catch(err=>console.error('Profile route',err));
+  }
+  if(page==='admin'){
+    renderAdminDashboard();
+    if(onlineSession)refreshAdminDashboard(true).catch(err=>console.error('Admin route',err));
   }
 }
 window.addEventListener('popstate',applyPageRoute);
@@ -8706,7 +8924,7 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   if(onlineSession){await refreshOnlineAccount();await refreshMyProfile();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;onlineProfileData=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();renderProfile();});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;onlineProfileData=null;adminDashboardData=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();renderProfile();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
   onlineSession=session;
   if(!session){
