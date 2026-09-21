@@ -124,7 +124,7 @@ insert into public.profile_badge_catalog(badge_key,icon,name,description,sort_or
   ('ROKET_MUHENDISI','🚀','Roket Mühendisi (Belgesiz)','Roketten en az ×2.50 ile inmeyi başardın.',50),
   ('KART_PROFESORU','🃏','Kart Profesörü','Yüksek-alçakta ×3.00 veya üstünü gördün. Diploma yok.',60),
   ('PENALTI_BAKANI','⚽','Penaltı Bakanı','5/5 seri ve ×7.00. Kaleciler sendikası rahatsız.',70),
-  ('MUfETTISTEN_KACTI','🕵️','Müfettişten Kaçtı','Müfettişten tam seri kaçış. Adres bilgisi paylaşılmadı.',80),
+  ('MUFETTISTEN_KACTI','🕵️','Müfettişten Kaçtı','Müfettişten tam seri kaçış. Adres bilgisi paylaşılmadı.',80),
   ('BOKS_LOBISI','🥊','Boks Lobisi','Kazanan bir boks kuponuyla ring masasına nüfuz ettin.',90),
   ('GECICI_PERSONEL','🧹','Geçici Personel','En az bir AFMB Acil İstihdam mesaisini tamamladın.',100),
   ('AFMB_DEMIRBASI','🏛️','AFMB Demirbaşı','Beş kez kurtarma mesaisi. Artık personel seni tanıyor.',110),
@@ -194,7 +194,7 @@ begin
     insert into public.profile_badges(user_id,badge_key) values(p_user,'PENALTI_BAKANI') on conflict do nothing;
   end if;
   if exists(select 1 from public.chance_plays where user_id=p_user and game_key='inspector_escape' and multiplier>=7.20) then
-    insert into public.profile_badges(user_id,badge_key) values(p_user,'MUfETTISTEN_KACTI') on conflict do nothing;
+    insert into public.profile_badges(user_id,badge_key) values(p_user,'MUFETTISTEN_KACTI') on conflict do nothing;
   end if;
   if exists(
     select 1
