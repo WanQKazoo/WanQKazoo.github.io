@@ -3236,6 +3236,7 @@ function getClubNames(country,level){
 let selectedCountry='İngiltere',selectedLevel=1,picks=[],liveTimer=null,rescueTimer=null,rescueEndsAt=0,rescuePopupOpen=false,rescueAutoOpened=false,rescueJobKey=null,rescueProgress=0,rescueMotivation='STARE',rescueFinishing=false,rescuePayrollUntil=0,rescueJobState={},rescueJobTimers=[],openMarkets=new Set();
 const openCouponIds=new Set();
 let activeChanceGame=null,activeChanceChoice=null,chanceBusy=false,onlineChanceHistory=[],activeChanceSession=null,rocketFrame=null,rocketPollTimer=null,rocketPollBusy=false,chanceAuxFrame=null,chanceAuxTimer=null;
+let onlineProfileData=null,profileBusy=false;
 let onlineMode=false,onlineSession=null,onlineWorld=null,onlinePollTimer=null,onlinePollBusy=false,onlineAccountTick=0,walletHydrated=false,onlineAuthoritativeBalance=null,onlineBootstrapFailed=false,onlineRescuePending=false;
 let onlineClubLists={},onlineClubsById={},onlinePlayersByClub={},onlineSelectedMatches=[],onlineBulletinMatches=[],onlineConferenceMatches=[],onlineConferenceEventsByMatch={},onlineMatchCenterMatches=[],onlineMatchMap={},onlineMarketsByMatch={},onlineEventsByMatch={};
 let onlineClubInsights={},onlineInsightLastRefresh=0,activeMatchDetailId=null,onlineMatchDetailEvents=[];
@@ -6403,6 +6404,7 @@ async function initOnline(){
     await refreshOnlineSchedulePulse(true);
     await refreshOnlineAccount();
     await refreshChanceHistory();
+    if(onlineSession)await refreshMyProfile();
     renderAll();
     updateAuthUi();
     if(onlinePollTimer)clearInterval(onlinePollTimer);
@@ -7894,7 +7896,183 @@ async function playChanceGame(){
   await playSingleChanceGame();
 }
 
-function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue()}
+
+const profileCategoryMeta={
+  avatar:{label:'VESİKALIK',note:'Devlet seni hangi emojiyle tanısın?'},
+  title:{label:'UNVAN',note:'Tamamen kendi kendine verilmiş kurumsal ağırlık.'},
+  frame:{label:'DOSYA ÇERÇEVESİ',note:'Evrakın dış kenarı değişince insanın statüsü değişiyormuş gibi olur.'},
+  stamp:{label:'RESMÎ MÜHÜR',note:'Dosyanın üzerine gereğinden ciddi bir damga.'}
+};
+function profileEsc(value){
+  return String(value??'').replace(/[&<>"']/g,function(ch){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+  });
+}
+function profileCatalogItem(key){
+  return (onlineProfileData?.cosmetic_catalog||[]).find(function(x){return x.key===key})||null;
+}
+function profileEquippedKey(category){
+  const l=onlineProfileData?.loadout||{};
+  if(category==='avatar')return l.avatar_key||'COOL';
+  if(category==='title')return l.title_key||'CITIZEN';
+  if(category==='frame')return l.frame_key||'STANDARD';
+  if(category==='stamp')return l.stamp_key||'NONE';
+  return '';
+}
+function profileRiskCopy(data){
+  const st=data?.stats||{};
+  if(Number(st.rescue_visits||0)>=10)return 'AFMB DEĞERLENDİRMESİ: Dosya artık arşive kaldırılmıyor. Personel “nasıl olsa yine gelecek” görüşünde.';
+  if(Number(st.total_stake||0)>=25000)return 'AFMB DEĞERLENDİRMESİ: Vatandaş yatırımcı değil, hareketli bütçe kalemi olarak izlenmektedir.';
+  if(Number(st.chance_plays||0)>=20)return 'AFMB DEĞERLENDİRMESİ: Lunapark görevlileri vatandaşı vardiya arkadaşlarından biri sanmaya başlamıştır.';
+  if(Number(st.coupons||0)>=10)return 'AFMB DEĞERLENDİRMESİ: Kupon arşivinde kendisine ait raf oluşmuştur. Kurum bunu başarı saymamaktadır.';
+  return 'AFMB DEĞERLENDİRMESİ: Henüz olağan şüpheli seviyesinde. Dosya kalınlığı kabul edilebilir sınırlar içindedir.';
+}
+function goToProfile(){
+  const url=new URL(window.location.href);
+  url.searchParams.set('page','profile');
+  history.pushState({page:'profile'},'',url);
+  applyPageRoute();
+  window.scrollTo(0,0);
+}
+async function refreshMyProfile(){
+  if(!onlineSession){
+    onlineProfileData=null;
+    renderProfile();
+    return;
+  }
+  const box=document.getElementById('profileContent');
+  if(box&&!onlineProfileData)box.innerHTML='<div class="profile-loading">AFMB arşiv görevlisi dosyanı yanlış raftan getiriyor…</div>';
+  const {data,error}=await supabaseClient.rpc('get_my_profile');
+  if(error){
+    console.error('Profile',error);
+    if(box)box.innerHTML='<div class="profile-loading">Vatandaş dosyası getirilemedi. Arşiv görevlisi “sistemde görünmüyor” dedi.</div>';
+    return;
+  }
+  onlineProfileData=data||null;
+  if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
+  renderWallet();
+  renderProfile();
+}
+function renderProfile(){
+  const box=document.getElementById('profileContent');
+  const authBtn=document.getElementById('authOpen');
+  if(authBtn){
+    const avatar=onlineSession&&onlineProfileData?profileCatalogItem(profileEquippedKey('avatar')):null;
+    authBtn.textContent=avatar?.icon||'😎';
+    authBtn.title=onlineSession?'AFMB Vatandaş Dosyan':'Project Afyon hesabı';
+  }
+  if(!box)return;
+
+  if(!onlineSession){
+    box.innerHTML='<div class="profile-login-gate"><strong>🪪 Vatandaş dosyası için giriş gerekli.</strong>Misafirlerin devlet nezdinde yeterince dosyası bulunmamaktadır.<br><button type="button" id="profileLoginOpen">OTURUM AÇ / KAYDOL</button></div>';
+    document.getElementById('profileLoginOpen')?.addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
+    return;
+  }
+  if(!onlineProfileData){
+    box.innerHTML='<div class="profile-loading">AFMB vatandaş dosyanı hazırlıyor…</div>';
+    return;
+  }
+
+  const data=onlineProfileData;
+  const catalog=data.cosmetic_catalog||[];
+  const owned=new Set(data.owned_cosmetics||[]);
+  const earned=new Map((data.badges||[]).map(function(x){return [x.key,x]}));
+  const badgeCatalog=data.badge_catalog||[];
+  const loadout=data.loadout||{};
+  const avatar=profileCatalogItem(loadout.avatar_key||'COOL')||{icon:'😎',name:'Vatandaş'};
+  const title=profileCatalogItem(loadout.title_key||'CITIZEN')||{icon:'📄',name:'Sıradan Afyon Vatandaşı'};
+  const stamp=profileCatalogItem(loadout.stamp_key||'NONE')||{icon:'—',name:'Mühürsüz'};
+  const frameKey=loadout.frame_key||'STANDARD';
+  const name=profileEsc(data.profile?.display_name||'Afyon Vatandaşı');
+  const st=data.stats||{};
+
+  const badges=badgeCatalog.map(function(b){
+    const have=earned.has(b.key);
+    return '<article class="profile-badge '+(have?'earned':'locked')+'"><span class="icon">'+profileEsc(b.icon)+'</span><strong>'+profileEsc(b.name)+'</strong><p>'+profileEsc(b.description)+'</p></article>';
+  }).join('');
+
+  const groups=['avatar','title','frame','stamp'].map(function(category){
+    const meta=profileCategoryMeta[category];
+    const equipped=profileEquippedKey(category);
+    const cards=catalog.filter(function(x){return x.category===category}).map(function(item){
+      const isFree=Number(item.price||0)===0;
+      const isOwned=isFree||owned.has(item.key);
+      const isEquipped=equipped===item.key;
+      const buttonLabel=isEquipped?'KULLANILIYOR':isOwned?'KULLAN':'AL • '+money(Number(item.price||0));
+      return '<article class="profile-shop-card '+(isEquipped?'equipped':'')+'">'+
+        '<span class="icon">'+profileEsc(item.icon)+'</span>'+
+        '<div class="profile-shop-copy"><strong>'+profileEsc(item.name)+'</strong><p>'+profileEsc(item.description)+'</p></div>'+
+        '<div class="profile-shop-foot"><span class="profile-shop-price '+(isOwned?'owned':'')+'">'+(isFree?'ÜCRETSİZ':isOwned?'SATIN ALINDI':money(Number(item.price||0)))+'</span>'+
+        '<button type="button" class="'+(!isOwned?'buy':'')+'" data-profile-cosmetic="'+profileEsc(item.key)+'" '+(isEquipped?'disabled':'')+'>'+buttonLabel+'</button></div>'+
+      '</article>';
+    }).join('');
+    return '<div class="profile-cosmetic-group"><div class="profile-cosmetic-title"><strong>'+meta.label+'</strong><small>'+meta.note+'</small></div><div class="profile-shop-grid">'+cards+'</div></div>';
+  }).join('');
+
+  box.innerHTML=
+    '<article class="citizen-card frame-'+profileEsc(frameKey)+'">'+
+      '<div class="citizen-avatar">'+profileEsc(avatar.icon)+'</div>'+
+      '<div class="citizen-identity"><small>AFMB VATANDAŞ DOSYA ADI</small><div class="citizen-name-row"><strong>'+name+'</strong><button type="button" class="citizen-edit-name" id="profileEditName">DÜZENLE</button></div>'+
+        '<span class="citizen-title">'+profileEsc(title.icon)+' '+profileEsc(title.name)+'</span>'+
+        '<div class="citizen-risk">'+profileEsc(profileRiskCopy(data))+'</div>'+
+        '<div class="profile-name-editor" id="profileNameEditor"><input id="profileNameInput" maxlength="24" value="'+name+'"><button type="button" class="save" id="profileNameSave">KAYDET</button><button type="button" id="profileNameCancel">VAZGEÇ</button></div>'+
+      '</div>'+
+      '<div class="citizen-stamp"><span>'+profileEsc(stamp.icon)+'</span><div><strong>'+profileEsc(stamp.name)+'</strong><small>AFMB DOSYA MÜHRÜ</small></div></div>'+
+    '</article>'+
+    '<div class="profile-stats">'+
+      '<div class="profile-stat"><small>BAKİYE</small><strong>'+money(Number(data.balance||0))+'</strong></div>'+
+      '<div class="profile-stat"><small>KUPON</small><strong>'+Number(st.coupons||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>KAZANAN KUPON</small><strong>'+Number(st.won_coupons||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>LUNAPARK</small><strong>'+Number(st.chance_plays||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>AFMB MESAİSİ</small><strong>'+Number(st.rescue_visits||0)+'</strong></div>'+
+    '</div>'+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🏅 RESMÎ OLMAYAN BAŞARILAR</small><strong>Rozet Vitrini</strong></div><span>'+earned.size+' / '+badgeCatalog.length+' kazanıldı</span></div><div class="profile-badge-grid">'+badges+'</div></section>'+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🛍 AFMB GEREKSİZ HARCAMALAR BİRİMİ</small><strong>Profil Geliştirmeleri</strong></div><span>Toplam harcama hiçbir oranı değiştirmez.</span></div>'+groups+
+      '<div class="profile-cosmetic-note"><strong>AFMB Yasal Uyarısı:</strong> Bu ürünlerin hiçbiri kupon tutturmaz, roketi geç patlatmaz, hakemi ikna etmez veya koyunun suya atlama isteğini artırmaz. Yalnızca dosyan daha pahalı görünür.</div></section>';
+
+  document.getElementById('profileEditName')?.addEventListener('click',()=>document.getElementById('profileNameEditor')?.classList.add('open'));
+  document.getElementById('profileNameCancel')?.addEventListener('click',()=>document.getElementById('profileNameEditor')?.classList.remove('open'));
+  document.getElementById('profileNameSave')?.addEventListener('click',saveProfileName);
+  box.querySelectorAll('[data-profile-cosmetic]').forEach(function(btn){
+    btn.addEventListener('click',()=>profileCosmeticAction(btn.dataset.profileCosmetic));
+  });
+}
+async function saveProfileName(){
+  if(!onlineSession||profileBusy)return;
+  const input=document.getElementById('profileNameInput');
+  const name=String(input?.value||'').trim();
+  if(name.length<2||name.length>24){toast('Dosya adı 2–24 karakter olsun kankam 😄');return}
+  profileBusy=true;
+  const {error}=await supabaseClient.from('profiles').update({display_name:name}).eq('id',onlineSession.user.id);
+  profileBusy=false;
+  if(error){toast('AFMB isim değişikliğini reddetti: '+error.message);return}
+  await refreshMyProfile();
+  toast('Dosya adı güncellendi. Nüfus müdürlüğüne haber verilmedi. 🏛');
+}
+async function profileCosmeticAction(key){
+  if(!onlineSession||profileBusy)return;
+  const item=(onlineProfileData?.cosmetic_catalog||[]).find(function(x){return x.key===key});
+  if(!item)return;
+  const owned=Number(item.price||0)===0||(onlineProfileData?.owned_cosmetics||[]).includes(key);
+  profileBusy=true;
+  const {data,error}=await supabaseClient.rpc('profile_cosmetic_action',{
+    p_action:owned?'EQUIP':'BUY',
+    p_key:key
+  });
+  profileBusy=false;
+  if(error){
+    if(String(error.message||'').includes('YETERSIZ_AD'))toast('AFMB: “Estetik kaygılarınız bakiyenizden büyük.” 😄');
+    else toast('Profil işlemi reddedildi: '+error.message);
+    return;
+  }
+  onlineProfileData=data||onlineProfileData;
+  if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
+  renderWallet();
+  renderProfile();
+  toast(owned?'Profil görünümü değiştirildi. 🪪':'Satın alındı ve dosyana takıldı. AFMB teşekkür etmiyor. 🏛');
+}
+
+function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue();renderProfile()}
 
 function toast(msg){
   const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
@@ -7955,7 +8133,7 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları'};
+const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları',profile:'Profil'};
 function currentPageRoute(){
   const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
   return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
@@ -7969,12 +8147,16 @@ function applyPageRoute(){
   document.querySelectorAll('[data-page-nav]').forEach(link=>{
     link.classList.toggle('active',link.dataset.pageNav===page);
   });
-  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['leagues','news','games'].includes(page));
+  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['profile','leagues','news','games'].includes(page));
   document.getElementById('mobileMoreSheet')?.classList.remove('open');
   document.title='Project Afyon — '+pageNames[page];
   renderWallet();
   if(page==='matches'){renderMatchCenter();renderLiveCenter();}
   if(page==='boxing')renderBoxing();
+  if(page==='profile'){
+    renderProfile();
+    if(onlineSession)refreshMyProfile().catch(err=>console.error('Profile route',err));
+  }
 }
 window.addEventListener('popstate',applyPageRoute);
 document.getElementById('mobileMoreOpen')?.addEventListener('click',()=>document.getElementById('mobileMoreSheet')?.classList.add('open'));
@@ -8062,7 +8244,10 @@ document.getElementById('chanceClose').addEventListener('click',closeChanceGame)
 document.getElementById('chanceModal').addEventListener('click',e=>{if(e.target.id==='chanceModal')closeChanceGame()});
 document.getElementById('chanceStake').addEventListener('input',updateChancePlayLabel);
 document.getElementById('chancePlay').addEventListener('click',playChanceGame);
-document.getElementById('authOpen').addEventListener('click',()=>document.getElementById('authModal').classList.add('open'));
+document.getElementById('authOpen').addEventListener('click',()=>{
+  if(onlineSession){goToProfile();return;}
+  document.getElementById('authModal').classList.add('open');
+});
 document.getElementById('authClose').addEventListener('click',()=>document.getElementById('authModal').classList.remove('open'));
 document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')e.currentTarget.classList.remove('open')});
 document.getElementById('clubModal').addEventListener('click',e=>{if(e.target.id==='clubModal')closeClubModal()});
@@ -8072,7 +8257,7 @@ document.getElementById('authLogin').addEventListener('click',async()=>{
   updateAuthUi('Giriş yapılıyor…');
   const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
   if(error){updateAuthUi(error.message);return}
-  onlineSession=data.session;await refreshOnlineAccount();await refreshChanceHistory();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
+  onlineSession=data.session;await refreshOnlineAccount();await refreshChanceHistory();await refreshMyProfile();document.getElementById('authModal').classList.remove('open');toast('Hoş geldin Afyon vatandaşı. 🏛');
 });
 document.getElementById('authSignup').addEventListener('click',async()=>{
   const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
@@ -8081,10 +8266,10 @@ document.getElementById('authSignup').addEventListener('click',async()=>{
   const {data,error}=await supabaseClient.auth.signUp({email,password});
   if(error){updateAuthUi(error.message);return}
   onlineSession=data.session||null;
-  if(onlineSession){await refreshOnlineAccount();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
+  if(onlineSession){await refreshOnlineAccount();await refreshMyProfile();updateAuthUi('Hesap açıldı. 5.000 ₳D cüzdan hazır.');}
   else updateAuthUi('Hesap açıldı. Supabase e-posta doğrulaması istiyorsa gelen kutunu kontrol et.');
 });
-document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();});
+document.getElementById('authSignout').addEventListener('click',async()=>{await supabaseClient.auth.signOut();onlineSession=null;onlineAuthoritativeBalance=null;onlineRescuePending=false;onlineProfileData=null;walletHydrated=true;state.coupons=[];onlineChanceHistory=[];updateAuthUi();renderWallet();renderCoupons();renderChanceHistory();renderRescue();renderProfile();});
 supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
   onlineSession=session;
   if(!session){
@@ -8098,6 +8283,7 @@ supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
     if(onlineMode){
       if(!activeChanceSession?.local)await refreshOnlineAccount();
       await refreshChanceHistory();
+      if(session)await refreshMyProfile();
     }
   }catch(e){
     console.error(e);
