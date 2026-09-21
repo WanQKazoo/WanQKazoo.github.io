@@ -2347,6 +2347,79 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
 }
 
 
+
+/* ===== Prototype 0.61 — Good Life / Lifestyle Progression ===== */
+.profile-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.profile-lifestyle-card{position:relative;overflow:hidden;padding:18px;border:1px solid #665a36;border-radius:18px;background:
+  radial-gradient(circle at 88% 8%,rgba(232,189,98,.14),transparent 30%),
+  linear-gradient(145deg,#1b1b20,#111a28 72%);box-shadow:0 14px 35px rgba(0,0,0,.18)}
+.profile-lifestyle-card:after{content:"₳D";position:absolute;right:14px;bottom:-28px;color:rgba(255,255,255,.025);font-size:100px;font-weight:1000}
+.profile-lifestyle-top{position:relative;z-index:1;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.profile-lifestyle-kicker{display:block;color:#e2bd68;font-size:7px;font-weight:1000;letter-spacing:1px}
+.profile-lifestyle-title{display:flex;align-items:center;gap:10px;margin-top:5px}
+.profile-lifestyle-title span{font-size:30px}
+.profile-lifestyle-title strong{display:block;font-size:20px}
+.profile-lifestyle-title small{display:block;margin-top:2px;color:#8293ad;font-size:8px}
+.profile-lifestyle-total{flex:0 0 auto;text-align:right}
+.profile-lifestyle-total small{display:block;color:#887b5e;font-size:7px;font-weight:1000}
+.profile-lifestyle-total strong{display:block;margin-top:3px;color:#f0d17c;font-size:18px}
+.profile-lifestyle-progress{position:relative;z-index:1;margin-top:14px}
+.profile-lifestyle-progress-copy{display:flex;justify-content:space-between;gap:10px;color:#8393aa;font-size:8px;font-weight:900}
+.profile-progress-track{height:8px;margin-top:7px;border-radius:999px;background:#252a35;overflow:hidden}
+.profile-progress-track span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#b8903f,#efd37d)}
+.profile-lifestyle-max{color:#efd37d!important}
+.profile-dream-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.profile-dream-card{min-height:150px;padding:12px;border:1px solid #34455e;border-radius:14px;background:linear-gradient(145deg,#101b2d,#0c1524)}
+.profile-dream-card.empty{display:grid;place-items:center;border-style:dashed;color:#657893;text-align:center}
+.profile-dream-card.empty span{display:block;font-size:25px;margin-bottom:5px}
+.profile-dream-card-head{display:flex;align-items:center;gap:9px}
+.profile-dream-icon{width:44px;height:44px;display:grid;place-items:center;border:1px solid #3b4d68;border-radius:12px;background:#152239;font-size:23px}
+.profile-dream-card-head small{display:block;color:#6f829e;font-size:7px;font-weight:1000}
+.profile-dream-card-head strong{display:block;margin-top:2px;font-size:10px}
+.profile-dream-progress{margin-top:12px}
+.profile-dream-progress>div:first-child{display:flex;justify-content:space-between;gap:8px;color:#7587a1;font-size:7px;font-weight:900}
+.profile-dream-progress b{color:#e6c76e}
+.profile-dream-actions{display:flex;gap:6px;margin-top:11px}
+.profile-dream-actions button{flex:1;border:1px solid #3a4c66;border-radius:8px;background:#142238;color:#dbe7f6;padding:7px 8px;font-size:7px;font-weight:1000}
+.profile-dream-actions button.buy{border-color:#796431;background:#2d2515;color:#f1d582}
+.profile-luxury-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.profile-luxury-card{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:9px;padding:12px;border:1px solid #2c3e59;border-radius:13px;background:#0f1929}
+.profile-luxury-card.owned{border-color:#416f60;background:linear-gradient(145deg,#12251f,#0f1929)}
+.profile-luxury-card.dream{box-shadow:inset 0 0 0 1px rgba(232,189,98,.22);border-color:#685b37}
+.profile-luxury-card .icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid #354966;border-radius:12px;background:#152239;font-size:25px}
+.profile-luxury-copy strong{display:block;font-size:10px}
+.profile-luxury-copy p{margin:4px 0 0;color:#71839e;font-size:7px;line-height:1.45}
+.profile-luxury-price{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;color:#e7c86f;font-size:9px;font-weight:1000}
+.profile-luxury-price .owned-label{color:#77d5b5}
+.profile-luxury-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.25fr;gap:6px}
+.profile-luxury-actions button{border:1px solid #3a4d68;border-radius:8px;background:#142238;color:#cfdced;padding:8px 7px;font-size:7px;font-weight:1000}
+.profile-luxury-actions button.targeted{border-color:#746238;background:#2a2417;color:#edd180}
+.profile-luxury-actions button.buy{border-color:#39755f;background:#17382f;color:#aaf1d7}
+.profile-luxury-actions button:disabled{opacity:.5;cursor:default}
+.profile-luxury-confirm{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:18px;background:rgba(3,7,14,.82);backdrop-filter:blur(8px)}
+.profile-luxury-confirm-card{width:min(460px,100%);padding:20px;border:1px solid #6d5d36;border-radius:20px;background:
+  radial-gradient(circle at 86% 0,rgba(232,189,98,.13),transparent 34%),
+  linear-gradient(145deg,#171d29,#0d1625);box-shadow:0 28px 80px rgba(0,0,0,.48)}
+.profile-luxury-confirm-icon{font-size:46px}
+.profile-luxury-confirm-card small{display:block;margin-top:9px;color:#d3ad5c;font-size:7px;font-weight:1000;letter-spacing:1px}
+.profile-luxury-confirm-card h3{margin:5px 0 6px;font-size:22px}
+.profile-luxury-confirm-card p{margin:0;color:#8fa0b9;font-size:10px;line-height:1.6}
+.profile-luxury-confirm-price{margin-top:15px;padding:12px;border:1px solid #4c4329;border-radius:12px;background:#211c12;text-align:center;color:#efd37d;font-size:20px;font-weight:1000}
+.profile-luxury-confirm-note{margin-top:9px;color:#667a97!important;font-size:8px!important;text-align:center}
+.profile-luxury-confirm-actions{display:grid;grid-template-columns:1fr 1.35fr;gap:8px;margin-top:15px}
+.profile-luxury-confirm-actions button{border:1px solid #3a4c66;border-radius:10px;background:#131f32;color:#cbd8ea;padding:10px;font-size:8px;font-weight:1000}
+.profile-luxury-confirm-actions button.confirm{border-color:#7c6632;background:#302614;color:#f1d582}
+@media(max-width:820px){
+  .profile-luxury-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile-dream-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .profile-stats{grid-template-columns:repeat(2,1fr)}
+  .profile-luxury-grid{grid-template-columns:1fr}
+  .profile-lifestyle-top{display:block}
+  .profile-lifestyle-total{text-align:left;margin-top:12px}
+}
+
 /* Coupon archive controls */
 .coupon-archive-toolbar{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -2708,9 +2781,9 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
             <div>
               <span class="profile-page-eyebrow">🏛 AFMB VATANDAŞ KAYIT SİSTEMİ</span>
               <h2>Vatandaş Dosyası</h2>
-              <p>Rozetler kazanılır. Unvan, çerçeve, mühür ve vesikalık ise ₳D karşılığında tamamen gereksiz biçimde güzelleştirilebilir.</p>
+              <p>Kazanmak yetmez. Hayat standardını yükselt, üç büyük hedef seç, gereksiz lüksleri topla ve AFMB dosyanı mali bir ibret vesikasına dönüştür.</p>
             </div>
-            <span class="profile-page-note">KOZMETİKTİR • OYUN AVANTAJI VERMEZ</span>
+            <span class="profile-page-note">KAZAN • HEDEFLE • HARCAMASINI BİL</span>
           </div>
           <div class="profile-shell" id="profileContent">
             <div class="profile-loading">AFMB arşiv görevlisi dosyanı yanlış raftan getiriyor…</div>
@@ -2772,7 +2845,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.60.1 Coupon Archive</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.61 Good Life</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -8090,6 +8163,57 @@ function profileRiskCopy(data){
   if(Number(st.coupons||0)>=10)return 'AFMB DEĞERLENDİRMESİ: Kupon arşivinde kendisine ait raf oluşmuştur. Kurum bunu başarı saymamaktadır.';
   return 'AFMB DEĞERLENDİRMESİ: Henüz olağan şüpheli seviyesinde. Dosya kalınlığı kabul edilebilir sınırlar içindedir.';
 }
+
+const profileLifestyleLevels=[
+  {min:0,icon:'🪑',title:'Plastik Sandalye'},
+  {min:5000,icon:'☕',title:'Kahvehane Patronu'},
+  {min:15000,icon:'😎',title:'Mahalle Zengini'},
+  {min:35000,icon:'🚘',title:'Galerici'},
+  {min:75000,icon:'🥂',title:'VIP Tribün'},
+  {min:150000,icon:'💼',title:'Şehrin Ağabeyi'},
+  {min:300000,icon:'🛥️',title:'Marina Müdavimi'},
+  {min:600000,icon:'💎',title:'Monaco Kaçağı'},
+  {min:1200000,icon:'👑',title:'Petrol Şeyhi'},
+  {min:2500000,icon:'🌍',title:'Finansal Tehdit'}
+];
+function profileLifestyleInfo(spent){
+  const total=Math.max(0,Number(spent||0));
+  let index=0;
+  for(let i=0;i<profileLifestyleLevels.length;i++){
+    if(total>=profileLifestyleLevels[i].min)index=i;
+  }
+  const current=profileLifestyleLevels[index];
+  const next=profileLifestyleLevels[index+1]||null;
+  const pct=next?Math.max(0,Math.min(100,((total-current.min)/(next.min-current.min))*100)):100;
+  return {level:index+1,current,next,pct,total};
+}
+function profileLuxuryItem(key){
+  return (onlineProfileData?.luxury_catalog||[]).find(function(x){return x.key===key})||null;
+}
+function profileLuxuryConfirmCopy(item){
+  const price=Number(item?.price||0);
+  if(price>=2000000)return {
+    eyebrow:'AFMB SON UYARI FORMU',
+    text:'Buna gerçekten gerek yok. Hiçbir oranı değiştirmeyecek, hiçbir gelir üretmeyecek ve paranın tamamı gidecek.',
+    button:'BEN KARARIMI VERDİM'
+  };
+  if(price>=500000)return {
+    eyebrow:'AFMB MALİ PANİK TUTANAĞI',
+    text:'Bankan seni arıyor. Muhtemelen önemli değildir. Finans danışmanın ise artık telefonunu açmıyor.',
+    button:'AL, DANIŞMANI KOV'
+  };
+  if(price>=100000)return {
+    eyebrow:'AFMB GEREKSİZ YATIRIM KOMİSYONU',
+    text:'Finans danışmanın bu kararı kesinlikle önermiyor. AFMB danışmanın görüşünü bağlayıcı bulmadı.',
+    button:'YİNE DE AL'
+  };
+  return {
+    eyebrow:'AFMB HARCAMA FORMU',
+    text:'Bu alım ekonomik olarak gereksiz, duygusal olarak anlaşılabilir bulundu.',
+    button:'SATIN AL'
+  };
+}
+
 function goToProfile(){
   const url=new URL(window.location.href);
   url.searchParams.set('page','profile');
@@ -8148,6 +8272,14 @@ function renderProfile(){
   const frameKey=loadout.frame_key||'STANDARD';
   const name=profileEsc(data.profile?.display_name||'Afyon Vatandaşı');
   const st=data.stats||{};
+  const balance=Number(data.balance||0);
+  const luxurySpent=Number(data.luxury_spent||0);
+  const luxuryCatalog=data.luxury_catalog||[];
+  const ownedLuxuryRows=data.owned_luxuries||[];
+  const luxuryOwned=new Set(ownedLuxuryRows.map(function(x){return x.key}));
+  const dreams=data.dreams||[];
+  const dreamByKey=new Map(dreams.map(function(x){return [x.key,x]}));
+  const lifestyle=profileLifestyleInfo(luxurySpent);
 
   const badges=badgeCatalog.map(function(b){
     const have=earned.has(b.key);
@@ -8172,6 +8304,46 @@ function renderProfile(){
     return '<div class="profile-cosmetic-group"><div class="profile-cosmetic-title"><strong>'+meta.label+'</strong><small>'+meta.note+'</small></div><div class="profile-shop-grid">'+cards+'</div></div>';
   }).join('');
 
+  const dreamCards=[1,2,3].map(function(slot){
+    const dream=dreams.find(function(x){return Number(x.slot)===slot});
+    if(!dream){
+      return '<article class="profile-dream-card empty"><div><span>💭</span><strong>Hayal #'+slot+'</strong><br><small>Koleksiyondan bir şeyi HEDEFLE.</small></div></article>';
+    }
+    const item=profileLuxuryItem(dream.key);
+    if(!item)return '';
+    const price=Number(item.price||0);
+    const pct=Math.max(0,Math.min(100,(balance/Math.max(1,price))*100));
+    const ready=balance>=price;
+    return '<article class="profile-dream-card">'+
+      '<div class="profile-dream-card-head"><div class="profile-dream-icon">'+profileEsc(item.icon)+'</div><div><small>HAYAL #'+slot+'</small><strong>'+profileEsc(item.name)+'</strong></div></div>'+
+      '<div class="profile-dream-progress"><div><span>'+money(balance)+' / '+money(price)+'</span><b>'+(ready?'ALABİLİRSİN':Math.floor(pct)+'%')+'</b></div><div class="profile-progress-track"><span style="width:'+pct.toFixed(1)+'%"></span></div></div>'+
+      '<div class="profile-dream-actions"><button type="button" data-dream-clear="'+slot+'">KALDIR</button><button type="button" class="buy" data-luxury-buy="'+profileEsc(item.key)+'" '+(ready?'':'disabled')+'>'+(ready?'HAYALİ GERÇEKLEŞTİR':'BİRİKTİR')+'</button></div>'+
+    '</article>';
+  }).join('');
+
+  const luxuryCards=luxuryCatalog.map(function(item){
+    const isOwned=luxuryOwned.has(item.key);
+    const dream=dreamByKey.get(item.key);
+    const price=Number(item.price||0);
+    const canBuy=balance>=price;
+    const missing=Math.max(0,price-balance);
+    return '<article class="profile-luxury-card '+(isOwned?'owned ':'')+(dream?'dream':'')+'">'+
+      '<span class="icon">'+profileEsc(item.icon)+'</span>'+
+      '<div class="profile-luxury-copy"><strong>'+profileEsc(item.name)+'</strong><p>'+profileEsc(item.description)+'</p></div>'+
+      '<div class="profile-luxury-price"><span>'+money(price)+'</span><span class="'+(isOwned?'owned-label':'')+'">'+(isOwned?'✓ KOLEKSİYONDA':dream?'💭 HAYAL #'+dream.slot:'')+'</span></div>'+
+      '<div class="profile-luxury-actions">'+
+        (isOwned
+          ?'<button type="button" disabled>ALINDI</button><button type="button" disabled>AFMB KAYDINDA</button>'
+          :'<button type="button" class="'+(dream?'targeted':'')+'" data-luxury-dream="'+profileEsc(item.key)+'">'+(dream?'HEDEFTEN ÇIKAR':'HEDEFLE')+'</button>'+
+           '<button type="button" class="buy" data-luxury-buy="'+profileEsc(item.key)+'" '+(canBuy?'':'disabled')+'>'+(canBuy?'SATIN AL':'EKSİK '+money(missing))+'</button>')+
+      '</div>'+
+    '</article>';
+  }).join('');
+
+  const nextText=lifestyle.next
+    ?'Sonraki: '+lifestyle.next.icon+' '+lifestyle.next.title+' • '+money(lifestyle.next.min-luxurySpent)+' daha yak'
+    :'Maksimum hayat standardı. AFMB ekonomi servisi seni ayrı tabloda izliyor.';
+
   box.innerHTML=
     '<article class="citizen-card frame-'+profileEsc(frameKey)+'">'+
       '<div class="citizen-avatar">'+profileEsc(avatar.icon)+'</div>'+
@@ -8182,15 +8354,25 @@ function renderProfile(){
       '</div>'+
       '<div class="citizen-stamp"><span>'+profileEsc(stamp.icon)+'</span><div><strong>'+profileEsc(stamp.name)+'</strong><small>AFMB DOSYA MÜHRÜ</small></div></div>'+
     '</article>'+
+    '<section class="profile-lifestyle-card">'+
+      '<div class="profile-lifestyle-top"><div><span class="profile-lifestyle-kicker">💸 HAYAT STANDARDI</span><div class="profile-lifestyle-title"><span>'+lifestyle.current.icon+'</span><div><strong>Seviye '+lifestyle.level+' — '+profileEsc(lifestyle.current.title)+'</strong><small>Kazanmak yetmez. Harcamasını bileceksin.</small></div></div></div>'+
+      '<div class="profile-lifestyle-total"><small>GEREKSİZ HARCAMA</small><strong>'+money(luxurySpent)+'</strong></div></div>'+
+      '<div class="profile-lifestyle-progress"><div class="profile-lifestyle-progress-copy"><span>'+profileEsc(nextText)+'</span><b class="'+(!lifestyle.next?'profile-lifestyle-max':'')+'">'+Math.round(lifestyle.pct)+'%</b></div><div class="profile-progress-track"><span style="width:'+lifestyle.pct.toFixed(1)+'%"></span></div></div>'+
+    '</section>'+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🎯 UZUN VADELİ MALİ HATALAR</small><strong>Hayallerim</strong></div><span>En fazla 3 hedef • Para otomatik harcanmaz.</span></div><div class="profile-dream-grid">'+dreamCards+'</div></section>'+
     '<div class="profile-stats">'+
-      '<div class="profile-stat"><small>BAKİYE</small><strong>'+money(Number(data.balance||0))+'</strong></div>'+
+      '<div class="profile-stat"><small>BAKİYE</small><strong>'+money(balance)+'</strong></div>'+
+      '<div class="profile-stat"><small>OYUNLARDA DÖNEN</small><strong>'+money(Number(st.total_stake||0))+'</strong></div>'+
       '<div class="profile-stat"><small>KUPON</small><strong>'+Number(st.coupons||0)+'</strong></div>'+
       '<div class="profile-stat"><small>KAZANAN KUPON</small><strong>'+Number(st.won_coupons||0)+'</strong></div>'+
       '<div class="profile-stat"><small>LUNAPARK</small><strong>'+Number(st.chance_plays||0)+'</strong></div>'+
       '<div class="profile-stat"><small>AFMB MESAİSİ</small><strong>'+Number(st.rescue_visits||0)+'</strong></div>'+
+      '<div class="profile-stat"><small>LÜKSE HARCANAN</small><strong>'+money(luxurySpent)+'</strong></div>'+
+      '<div class="profile-stat"><small>SAÇMALIK KOLEKSİYONU</small><strong>'+luxuryOwned.size+' / '+luxuryCatalog.length+'</strong></div>'+
     '</div>'+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🛥 AFMB YAŞAM TARZI DAİRESİ</small><strong>Gereksiz Lüks Koleksiyonu</strong></div><span>Ekonomik güç vermez. Yalnızca servet yakar.</span></div><div class="profile-luxury-grid">'+luxuryCards+'</div><div class="profile-cosmetic-note"><strong>AFMB Mali Notu:</strong> Lüks satın alımları geri ödenmez. Spor araba oran yükseltmez, yat kupon tutturmaz, özel jet de hakemi ikna etmez.</div></section>'+
     '<section class="profile-section-block"><div class="profile-section-head"><div><small>🏅 RESMÎ OLMAYAN BAŞARILAR</small><strong>Rozet Vitrini</strong></div><span>'+earned.size+' / '+badgeCatalog.length+' kazanıldı</span></div><div class="profile-badge-grid">'+badges+'</div></section>'+
-    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🛍 AFMB GEREKSİZ HARCAMALAR BİRİMİ</small><strong>Profil Geliştirmeleri</strong></div><span>Toplam harcama hiçbir oranı değiştirmez.</span></div>'+groups+
+    '<section class="profile-section-block"><div class="profile-section-head"><div><small>🛍 AFMB GEREKSİZ HARCAMALAR BİRİMİ</small><strong>Profil Geliştirmeleri</strong></div><span>Avatar, unvan, çerçeve ve mühür.</span></div>'+groups+
       '<div class="profile-cosmetic-note"><strong>AFMB Yasal Uyarısı:</strong> Bu ürünlerin hiçbiri kupon tutturmaz, roketi geç patlatmaz, hakemi ikna etmez veya koyunun suya atlama isteğini artırmaz. Yalnızca dosyan daha pahalı görünür.</div></section>';
 
   document.getElementById('profileEditName')?.addEventListener('click',()=>document.getElementById('profileNameEditor')?.classList.add('open'));
@@ -8198,6 +8380,15 @@ function renderProfile(){
   document.getElementById('profileNameSave')?.addEventListener('click',saveProfileName);
   box.querySelectorAll('[data-profile-cosmetic]').forEach(function(btn){
     btn.addEventListener('click',()=>profileCosmeticAction(btn.dataset.profileCosmetic));
+  });
+  box.querySelectorAll('[data-luxury-dream]').forEach(function(btn){
+    btn.addEventListener('click',()=>profileToggleDream(btn.dataset.luxuryDream));
+  });
+  box.querySelectorAll('[data-dream-clear]').forEach(function(btn){
+    btn.addEventListener('click',()=>profileSetDream(Number(btn.dataset.dreamClear),null));
+  });
+  box.querySelectorAll('[data-luxury-buy]').forEach(function(btn){
+    btn.addEventListener('click',()=>openProfileLuxuryConfirm(btn.dataset.luxuryBuy));
   });
 }
 async function saveProfileName(){
@@ -8233,6 +8424,81 @@ async function profileCosmeticAction(key){
   renderWallet();
   renderProfile();
   toast(owned?'Profil görünümü değiştirildi. 🪪':'Satın alındı ve dosyana takıldı. AFMB teşekkür etmiyor. 🏛');
+}
+
+
+async function profileSetDream(slot,key){
+  if(!onlineSession||profileBusy)return;
+  profileBusy=true;
+  const {data,error}=await supabaseClient.rpc('profile_set_dream',{p_slot:Number(slot),p_key:key||null});
+  profileBusy=false;
+  if(error){toast('Hayal dosyaya işlenemedi: '+error.message);return}
+  onlineProfileData=data||onlineProfileData;
+  if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
+  renderWallet();
+  renderProfile();
+}
+async function profileToggleDream(key){
+  const item=profileLuxuryItem(key);
+  if(!item||!onlineProfileData)return;
+  const dreams=onlineProfileData.dreams||[];
+  const current=dreams.find(function(x){return x.key===key});
+  if(current){await profileSetDream(Number(current.slot),null);toast('Hedef dosyadan çıkarıldı. 💭');return}
+  const used=new Set(dreams.map(function(x){return Number(x.slot)}));
+  const slot=[1,2,3].find(function(x){return !used.has(x)});
+  if(!slot){toast('Üç hayal slotu dolu kankam. Önce bir hedefi kaldır. 😄');return}
+  await profileSetDream(slot,key);
+  toast(item.icon+' '+item.name+' artık Hayallerim bölümünde.');
+}
+function closeProfileLuxuryConfirm(){
+  document.getElementById('profileLuxuryConfirm')?.remove();
+}
+function openProfileLuxuryConfirm(key){
+  if(profileBusy)return;
+  const item=profileLuxuryItem(key);
+  if(!item)return;
+  const balance=Number(onlineProfileData?.balance||0);
+  const price=Number(item.price||0);
+  if(balance<price){toast('Bu hayal için '+money(price-balance)+' daha lazım. 💸');return}
+  closeProfileLuxuryConfirm();
+  const copy=profileLuxuryConfirmCopy(item);
+  const modal=document.createElement('div');
+  modal.className='profile-luxury-confirm';
+  modal.id='profileLuxuryConfirm';
+  modal.innerHTML='<div class="profile-luxury-confirm-card">'+
+    '<div class="profile-luxury-confirm-icon">'+profileEsc(item.icon)+'</div>'+
+    '<small>'+profileEsc(copy.eyebrow)+'</small>'+
+    '<h3>'+profileEsc(item.name)+'</h3>'+
+    '<p>'+profileEsc(copy.text)+'</p>'+
+    '<div class="profile-luxury-confirm-price">'+money(price)+'</div>'+
+    '<p class="profile-luxury-confirm-note">Hiçbir oyun avantajı sağlamaz. ₳D bakiyenden gerçekten düşer.</p>'+
+    '<div class="profile-luxury-confirm-actions"><button type="button" data-luxury-cancel>ŞİMDİLİK VAZGEÇ</button><button type="button" class="confirm" data-luxury-confirm>'+profileEsc(copy.button)+'</button></div>'+
+  '</div>';
+  modal.addEventListener('click',function(e){if(e.target===modal)closeProfileLuxuryConfirm()});
+  modal.querySelector('[data-luxury-cancel]')?.addEventListener('click',closeProfileLuxuryConfirm);
+  modal.querySelector('[data-luxury-confirm]')?.addEventListener('click',async function(){
+    closeProfileLuxuryConfirm();
+    await profileBuyLuxury(key);
+  });
+  document.body.appendChild(modal);
+}
+async function profileBuyLuxury(key){
+  if(!onlineSession||profileBusy)return;
+  const item=profileLuxuryItem(key);
+  if(!item)return;
+  profileBusy=true;
+  const {data,error}=await supabaseClient.rpc('profile_buy_luxury',{p_key:key});
+  profileBusy=false;
+  if(error){
+    if(String(error.message||'').includes('YETERSIZ_AD'))toast('AFMB: “Hayalleriniz bakiyenizden büyük.” 😄');
+    else toast('Lüks satın alma reddedildi: '+error.message);
+    return;
+  }
+  onlineProfileData=data||onlineProfileData;
+  if(data&&Number.isFinite(Number(data.balance)))setOnlineBalance(Number(data.balance));
+  renderWallet();
+  renderProfile();
+  toast(item.icon+' '+item.name+' alındı. Mali müşavir kısa süreliğine sustu. 💸');
 }
 
 function renderAll(){renderTopState();renderWallet();renderSchedulePulse();renderMatches();renderMatchCenter();renderSlip();renderCoupons();renderLeagueCenter();renderBoxing();renderChanceHistory();renderRescue();renderProfile()}
