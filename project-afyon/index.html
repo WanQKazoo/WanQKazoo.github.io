@@ -2521,6 +2521,27 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
 .news-card.muhur-news .news-case-file span{border-color:#542737;background:#1d1117}
 .news-card.muhur-news .news-case-file b{color:#ffafb9}
 
+
+/* ===== Prototype 0.71 — AFMB Blackjack ===== */
+.blackjack-stage{padding:0!important;background:transparent!important;border:0!important}
+.blackjack-shell{display:grid;gap:12px}
+.blackjack-table{
+  display:grid;gap:14px;padding:18px;border:1px solid #355646;border-radius:18px;
+  background:radial-gradient(circle at 50% 15%,rgba(107,171,133,.10),transparent 38%),linear-gradient(160deg,#10261d,#0c1717 72%);
+}
+.blackjack-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.blackjack-top small{color:#78a991;font-size:7px;font-weight:1000;letter-spacing:.8px}
+.blackjack-top strong{font-size:12px}.blackjack-rule{color:#c9a95e;font-size:8px;font-weight:1000}
+.blackjack-row{display:grid;gap:8px;padding:11px;border:1px solid #2d493d;border-radius:13px;background:rgba(8,18,16,.55)}
+.blackjack-row-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.blackjack-row-head span{font-size:8px;font-weight:1000;color:#78988a}.blackjack-row-head b{font-size:13px}
+.blackjack-hand{display:flex;flex-wrap:wrap;gap:8px;min-height:82px;align-items:center}
+.bj-card{position:relative;width:58px;height:80px;display:grid;place-items:center;border:1px solid #d8d9dc;border-radius:9px;background:#f6f5f0;color:#1b1b20;font-weight:1000;box-shadow:0 5px 14px rgba(0,0,0,.22)}
+.bj-card.red{color:#b33140}.bj-card .rank{position:absolute;top:5px;left:6px;font-size:12px}.bj-card .suit{font-size:25px}.bj-card .rank.bottom{left:auto;top:auto;right:6px;bottom:5px;transform:rotate(180deg)}
+.bj-card.back{border-color:#465c79;background:repeating-linear-gradient(45deg,#18273d,#18273d 6px,#223653 6px,#223653 12px);color:#b9c8da;font-size:8px;letter-spacing:.8px}
+.blackjack-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.blackjack-actions button{min-height:44px;border:1px solid #3c5c4d;border-radius:11px;background:#13251e;color:#d9e9df;font-size:10px;font-weight:1000}.blackjack-actions button:hover:not(:disabled){border-color:#71a58c;background:#193126}.blackjack-actions button:disabled{opacity:.45}
+.blackjack-caption{padding:9px 11px;border:1px dashed #324c40;border-radius:10px;color:#799486;font-size:8px;line-height:1.5;text-align:center}
+@media(max-width:520px){.blackjack-table{padding:13px}.bj-card{width:51px;height:72px}.blackjack-hand{min-height:74px;gap:6px}}
+
 </style>
 </head>
 <body>
@@ -2856,6 +2877,7 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
               <div class="chance-arcade-head"><div><small>RİSK MASASI</small><strong>Karar verdikçe büyüyen oyunlar</strong></div><span>Çıkmayı bilmek de oyundur.</span></div>
               <div class="chance-arcade-grid">
                 <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Kart yükselir mi düşer mi? Özgüven üçüncü elde başlar.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
+                <button class="chance-card chance-new-card" data-open-game="blackjack"><span class="icon">♠️</span><span class="tag">21</span><h3>AFMB Blackjack</h3><p>21’e yaklaş, geçme. Krupiye 17’de durur; kurum kart saymayı tavsiye etmez.</p><span class="odds">Blackjack 3:2 • HIT / STAND</span></button>
                 <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">5/5 final: ×7.00 • istediğin an çık</span></button>
                 <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
               </div>
@@ -2966,7 +2988,7 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.70 Koyun Kadrosu</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.71 Blackjack</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3095,6 +3117,7 @@ const chanceGames={
   mines:{title:'Afyon Mayın Tarlası',desc:'Beş mayın bulunmaktadır. “Son bir kutu” ifadesi AFMB risk raporlarında kırmızıyla işaretlidir.',emoji:'💣',type:'mines',mode:'session',choices:[]},
   rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
+  blackjack:{title:'AFMB Blackjack',desc:'21’e yaklaş, geçme. Krupiye 17’de durur. Doğal Blackjack 3:2 öder; beraberlikte stake geri döner.',emoji:'♠️',type:'blackjack',mode:'server_session',choices:[]},
   penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; kaçırınca dosya sessizce kapatılır.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
   inspector_escape:{title:'Müfettişten Kaçış',desc:'Her katta üç kapı var. Birinin arkasında müfettiş bekliyor. Doğru kapıyı bul, bir üst kata kaç veya kazancını al.',emoji:'🕵️',type:'inspector',mode:'session',choices:[]},
   ece_anne:{title:'Ece Anne Der mi?',desc:'Ece konuşur. Genellikle baba der. Bazen havva, nem nem veya açıklanamayan araç sesleri çıkar. ANNE derse tur anında biter. • %25 • ×3.60',emoji:'👧',type:'ece',mode:'server',choices:[]},
@@ -7270,6 +7293,10 @@ function chanceHistorySummary(x){
   if(x.game_key==='mines')return (x.result?.safe_count??0)+' güvenli kutu';
   if(x.game_key==='rocket')return 'Patlama ×'+Number(x.result?.crash_multiplier||0).toFixed(2);
   if(x.game_key==='high_card')return (x.result?.streak??0)+' doğru tahmin';
+  if(x.game_key==='blackjack'){
+    const labels={blackjack:'Doğal 21',dealer_blackjack:'Dealer Blackjack',win:'Kazandın',loss:'Kaybettin',push:'Push',bust:'21 üstü'};
+    return (labels[x.result?.outcome]||'Blackjack')+' • '+(x.result?.player_score??'?')+' / '+(x.result?.dealer_score??'?');
+  }
   if(x.game_key==='penalty_series')return (x.result?.goals??0)+' gol';
   if(x.game_key==='inspector_escape')return (x.result?.floors??0)+' kat kaçış';
   if(x.game_key==='vault_crack')return (x.result?.locks??0)+' kilit';
@@ -7319,7 +7346,7 @@ function openChanceGame(gameKey){
   const choices=document.getElementById('chanceChoices');
   choices.innerHTML=game.choices.length
     ?game.choices.map((x,i)=>'<button class="chance-choice '+(i===0?'selected':'')+'" data-chance-choice="'+x[0]+'">'+x[1]+'</button>').join('')
-    :'<span class="chance-session-note">'+(game.mode==='session'?'Önce oyunu başlat. Kararlarını oyun alanında vereceksin.':'Bu oyunda seçim yok; AFMB ne derse o.')+'</span>';
+    :'<span class="chance-session-note">'+(['session','server_session'].includes(game.mode)?'Önce oyunu başlat. Kararlarını oyun alanında vereceksin.':'Bu oyunda seçim yok; AFMB ne derse o.')+'</span>';
   document.querySelectorAll('[data-chance-choice]').forEach(btn=>btn.addEventListener('click',()=>{
     if(chanceBusy||activeChanceSession)return;
     activeChanceChoice=btn.dataset.chanceChoice;
@@ -7347,6 +7374,11 @@ function updateChancePlayLabel(){
   const btn=document.getElementById('chancePlay');
   const stake=Math.max(0,Math.floor(Number(document.getElementById('chanceStake').value)||0));
   btn.classList.remove('rocket-cashout','session-cashout');
+  if(activeChanceGame==='blackjack'&&activeChanceSession?.status==='active'){
+    btn.textContent='EL OYNUYOR • HIT / STAND';
+    btn.disabled=true;
+    return;
+  }
   if(activeChanceSession?.status==='active'){
     const x=Number(activeChanceSession.multiplier||1).toFixed(2);
     const payout=Math.max(0,Math.round(Number(activeChanceSession.stake||0)*Number(activeChanceSession.multiplier||0)));
@@ -7363,6 +7395,8 @@ function updateChancePlayLabel(){
   btn.disabled=chanceBusy;
   if(activeChanceGame==='rocket'&&chanceGames[activeChanceGame]?.mode==='session'){
     btn.textContent='UÇUŞU BAŞLAT • '+money(stake);
+  }else if(activeChanceGame==='blackjack'){
+    btn.textContent='MASAYA OTUR • '+money(stake);
   }else{
     btn.textContent=(chanceGames[activeChanceGame]?.mode==='session'?'BAŞLA • ':'OYNA • ')+money(stake);
   }
@@ -7411,6 +7445,9 @@ function prepareChanceStage(gameKey){
   }else if(game.type==='card'){
     stage.classList.add('game-polish','card-stage-polish');
     stage.innerHTML='<div class="card-shell polished"><div class="game-hud"><div class="game-hud-stat"><small>AFMB KART MASASI</small><strong id="highCardMeta">Seri 0</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="cardMultiplier">×0.90</strong></div></div><div class="card-streak" id="cardStreak">'+Array.from({length:6},(_,i)=>'<span data-card-streak="'+i+'"></span>').join('')+'</div><div class="card-table"><div class="playing-card polished" id="highCardCard"><span class="card-corner">AFMB</span><strong class="card-face-value" id="highCardFace">?</strong><span class="card-suit" id="highCardSuit">♠</span><span class="card-corner bottom">AFMB</span></div></div><div class="card-actions polished"><button class="card-guess" data-card-guess="HIGHER" disabled>⬆ DAHA YÜKSEK</button><button class="card-guess" data-card-guess="LOWER" disabled>⬇ DAHA DÜŞÜK</button></div></div>';
+  }else if(game.type==='blackjack'){
+    stage.classList.add('blackjack-stage');
+    stage.innerHTML='<div class="blackjack-shell"><div class="blackjack-table"><div class="blackjack-top"><div><small>♠️ AFMB 21 MASASI</small><strong>Krupiye 17’de durur</strong></div><span class="blackjack-rule">BLACKJACK 3:2</span></div><div class="blackjack-row"><div class="blackjack-row-head"><span>KRUPİYE</span><b id="blackjackDealerScore">—</b></div><div class="blackjack-hand" id="blackjackDealerHand"><div class="bj-card back">AFMB</div></div></div><div class="blackjack-row"><div class="blackjack-row-head"><span>SEN</span><b id="blackjackPlayerScore">—</b></div><div class="blackjack-hand" id="blackjackPlayerHand"><div class="bj-card back">AFMB</div></div></div><div class="blackjack-actions"><button type="button" data-blackjack-action="HIT" disabled>➕ HIT • KART ÇEK</button><button type="button" data-blackjack-action="STAND" disabled>✋ STAND • DUR</button></div><div class="blackjack-caption" id="blackjackCaption">Kartlar server tarafından dağıtılır. AFMB krupiyenin cebine kart koymadığını beyan eder.</div></div></div>';
   }else if(game.type==='penalty'){
     stage.classList.add('game-polish','penalty-stage-polish');
     stage.innerHTML='<div class="penalty-shell polished"><div class="game-hud"><div class="game-hud-stat"><small>SERİ</small><strong id="penaltyScore">0 / 5 GOL</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="penaltyMultiplier">×0.92</strong></div></div><div class="penalty-progress" id="penaltyProgress">'+Array.from({length:5},(_,i)=>'<span data-penalty-progress="'+i+'"></span>').join('')+'</div><div class="penalty-stadium"><div class="penalty-pitch polished" id="penaltyPitch"><div class="penalty-goal polished"></div><div class="penalty-keeper" id="penaltyKeeper">🧤</div><div class="penalty-ball" id="penaltyBall">⚽</div><div class="penalty-callout" id="penaltyCallout">VUR!</div></div></div><div class="penalty-kicks polished"><button class="penalty-kick" data-penalty-kick="LEFT" disabled>↙ SOL KÖŞE</button><button class="penalty-kick" data-penalty-kick="CENTER" disabled>⬆ ORTA</button><button class="penalty-kick" data-penalty-kick="RIGHT" disabled>SAĞ KÖŞE ↘</button></div></div>';
@@ -8019,7 +8056,7 @@ async function finishChanceSession(){
   clearRocketTimers();
   clearChanceAuxTimers();
   document.getElementById('chanceStake').disabled=false;
-  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick],[data-inspector-door]').forEach(x=>x.disabled=true);
+  document.querySelectorAll('[data-mine-cell],[data-card-guess],[data-penalty-kick],[data-inspector-door],[data-blackjack-action]').forEach(x=>x.disabled=true);
   activeChanceSession=null;
   await refreshChanceHistory();
 }
@@ -8117,11 +8154,124 @@ async function playSingleChanceGame(){
     chanceBusy=false;updateChancePlayLabel();
   }
 }
+
+function blackjackCardMeta(card){
+  if(card===null||card===undefined)return {hidden:true};
+  const n=Number(card),rank=(n%13)+1,suitIndex=Math.floor(n/13)%4;
+  const suits=['♠','♥','♦','♣'],rankLabel={1:'A',11:'J',12:'Q',13:'K'}[rank]||String(rank);
+  return {hidden:false,rank:rankLabel,suit:suits[suitIndex],red:suitIndex===1||suitIndex===2};
+}
+function blackjackCardHtml(card){
+  const m=blackjackCardMeta(card);
+  if(m.hidden)return '<div class="bj-card back">AFMB</div>';
+  return '<div class="bj-card '+(m.red?'red':'')+'"><span class="rank">'+m.rank+'</span><span class="suit">'+m.suit+'</span><span class="rank bottom">'+m.rank+'</span></div>';
+}
+function renderBlackjackState(data){
+  const player=Array.isArray(data?.player_cards)?data.player_cards:[];
+  const dealer=Array.isArray(data?.dealer_cards)?data.dealer_cards:[];
+  const ph=document.getElementById('blackjackPlayerHand'),dh=document.getElementById('blackjackDealerHand');
+  const ps=document.getElementById('blackjackPlayerScore'),ds=document.getElementById('blackjackDealerScore');
+  const caption=document.getElementById('blackjackCaption');
+  if(ph)ph.innerHTML=player.map(blackjackCardHtml).join('');
+  if(dh)dh.innerHTML=dealer.map(blackjackCardHtml).join('');
+  if(ps)ps.textContent=String(data?.player_score??'—');
+  if(ds)ds.textContent=dealer.some(x=>x===null)?String(data?.dealer_score??'—')+' + ?':String(data?.dealer_score??'—');
+  if(caption){
+    caption.textContent=data?.status==='active'
+      ?(Number(data?.player_score||0)===21?'21! Stand ile krupiyeyi aç.':'HIT ile kart çek veya STAND ile dur.')
+      :'El tamamlandı. AFMB sonuç tutanağını kapattı.';
+  }
+  document.querySelectorAll('[data-blackjack-action]').forEach(btn=>{
+    btn.disabled=chanceBusy||data?.status!=='active'||(btn.dataset.blackjackAction==='HIT'&&Number(data?.player_score||0)>=21);
+  });
+}
+function blackjackResultCopy(data){
+  const payout=Number(data?.payout||0),stake=Number(data?.stake||0),outcome=data?.outcome;
+  if(outcome==='blackjack')return ['🂡 BLACKJACK! Doğal 21 • Ödeme '+money(payout)+' • 3:2','win'];
+  if(outcome==='dealer_blackjack')return ['Krupiyede doğal Blackjack. AFMB masayı sessizce topladı.','loss'];
+  if(outcome==='bust')return ['💥 '+Number(data?.player_score||0)+' • 21 geçildi. '+money(stake)+' masada kaldı.','loss'];
+  if(outcome==='win')return ['🏆 '+Number(data?.player_score||0)+' - '+Number(data?.dealer_score||0)+' • Kazandın • '+money(payout),'win'];
+  if(outcome==='push')return ['🤝 '+Number(data?.player_score||0)+' - '+Number(data?.dealer_score||0)+' • Push • '+money(payout)+' geri döndü','win'];
+  return ['🃏 '+Number(data?.player_score||0)+' - '+Number(data?.dealer_score||0)+' • Krupiye aldı.','loss'];
+}
+function activateBlackjack(){
+  document.querySelectorAll('[data-blackjack-action]').forEach(btn=>{
+    btn.addEventListener('click',()=>blackjackAction(btn.dataset.blackjackAction));
+  });
+  renderBlackjackState(activeChanceSession||{status:'idle',player_cards:[],dealer_cards:[]});
+}
+async function startBlackjackGame(){
+  const stake=Math.floor(Number(document.getElementById('chanceStake').value)||0);
+  if(stake<10){toast('Minimum 10 ₳D.');return}
+  if(stake>state.balance){toast('AFMB: Bu kadar ₳D yok kankam.');return}
+  chanceBusy=true;updateChancePlayLabel();prepareChanceStage('blackjack');
+  setChanceResult('♠️ AFMB krupiyesi desteyi karıştırıyor…');
+  try{
+    const {data,error}=await supabaseClient.rpc('start_blackjack',{p_stake:stake});
+    if(error)throw error;
+    if(data?.balance!=null){setOnlineBalance(data.balance);renderWallet();}
+    activeChanceSession=data?.status==='active'?data:null;
+    document.getElementById('chanceStake').disabled=data?.status==='active';
+    activateBlackjack();
+    renderBlackjackState(data);
+    if(data?.status==='active'){
+      setChanceResult('Kartlar dağıtıldı. HIT veya STAND. Krupiyenin kapalı kartına bakmak disiplin suçudur.');
+    }else{
+      const [copy,cls]=blackjackResultCopy(data);
+      setChanceResult(copy,cls);
+      await refreshChanceHistory();
+    }
+  }catch(err){
+    await refreshOnlineAccount();
+    activeChanceSession=null;
+    document.getElementById('chanceStake').disabled=false;
+    setChanceResult('Blackjack masası açılamadı: '+(err.message||err),'loss');
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+    if(activeChanceSession)renderBlackjackState(activeChanceSession);
+  }
+}
+async function blackjackAction(action){
+  if(chanceBusy||!activeChanceSession||activeChanceGame!=='blackjack')return;
+  chanceBusy=true;updateChancePlayLabel();
+  document.querySelectorAll('[data-blackjack-action]').forEach(x=>x.disabled=true);
+  try{
+    const {data,error}=await supabaseClient.rpc('blackjack_action',{
+      p_session_id:activeChanceSession.session_id,
+      p_action:action
+    });
+    if(error)throw error;
+    if(data?.balance!=null){setOnlineBalance(data.balance);renderWallet();}
+    renderBlackjackState(data);
+    if(data?.status==='active'){
+      activeChanceSession=data;
+      setChanceResult('Kart geldi: '+Number(data.player_score||0)+'. '+(Number(data.player_score||0)===21?'21! Şimdi STAND.':'HIT veya STAND.'));
+    }else{
+      activeChanceSession=null;
+      document.getElementById('chanceStake').disabled=false;
+      const [copy,cls]=blackjackResultCopy(data);
+      setChanceResult(copy,cls);
+      await refreshChanceHistory();
+    }
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Blackjack hamlesi kaydedilemedi: '+(err.message||err),'loss');
+  }finally{
+    chanceBusy=false;updateChancePlayLabel();
+    if(activeChanceSession)renderBlackjackState(activeChanceSession);
+  }
+}
+
 async function playChanceGame(){
   if(chanceBusy||!activeChanceGame)return;
   if(!onlineMode||!onlineSession){
     document.getElementById('authModal').classList.add('open');
     toast('₳D ile oynamak için giriş yap kankam 😄');
+    return;
+  }
+  if(activeChanceGame==='blackjack'){
+    if(activeChanceSession?.status==='active')return;
+    await startBlackjackGame();
     return;
   }
   if(activeChanceSession?.status==='active'){
@@ -8557,7 +8707,7 @@ function adminGameName(key){
     memur_box:'Memur Kutusu',chicken_run:'Tavuk Koşusu',coin_flip:'Yazı–Tura',marble_royale:'Bilye Royale',
     mines:'Mayın Tarlası',rocket:'Roket Kaçışı',high_card:'Yüksek Kart',bureaucracy_hurdles:'Bürokrasi Engelleri',
     penalty_series:'Penaltı Serisi',zabita_raid:'Zabıta Baskını',inspector_escape:'Müfettişten Kaçış',
-    vault_crack:'Kasa Kırma',stamp_memory:'Mühür Nerede?',ece_anne:'Ece Anne Der mi?'
+    vault_crack:'Kasa Kırma',stamp_memory:'Mühür Nerede?',ece_anne:'Ece Anne Der mi?',blackjack:'AFMB Blackjack'
   };
   return names[key]||String(key||'—').replaceAll('_',' ');
 }
