@@ -2542,6 +2542,20 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
 .blackjack-caption{padding:9px 11px;border:1px dashed #324c40;border-radius:10px;color:#799486;font-size:8px;line-height:1.5;text-align:center}
 @media(max-width:520px){.blackjack-table{padding:13px}.bj-card{width:51px;height:72px}.blackjack-hand{min-height:74px;gap:6px}}
 
+
+/* ===== Prototype 0.72 — AFMB Casino Katı ===== */
+.casino-stage{padding:0!important;background:transparent!important;border:0!important}
+.casino-shell{display:grid;gap:12px;padding:17px;border:1px solid #4e4130;border-radius:18px;background:radial-gradient(circle at 50% 0,rgba(207,173,96,.10),transparent 36%),linear-gradient(150deg,#211c14,#0e151d 72%)}
+.casino-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.casino-head small{color:#bda66f;font-size:7px;font-weight:1000;letter-spacing:.8px}.casino-head strong{display:block;margin-top:3px;font-size:12px}.casino-badge{padding:5px 7px;border:1px solid #5d4d31;border-radius:999px;color:#e6ca84;font-size:7px;font-weight:1000}
+.roulette-display{display:grid;place-items:center;gap:10px;padding:15px}.roulette-wheel-mini{width:132px;height:132px;display:grid;place-items:center;border:10px solid #2b2419;border-radius:50%;background:conic-gradient(#7b2634 0 10deg,#15191d 10deg 20deg,#7b2634 20deg 30deg,#15191d 30deg 40deg,#7b2634 40deg 50deg,#15191d 50deg 60deg,#7b2634 60deg 70deg,#15191d 70deg 80deg,#7b2634 80deg 90deg,#15191d 90deg 100deg,#7b2634 100deg 110deg,#15191d 110deg 120deg,#7b2634 120deg 130deg,#15191d 130deg 140deg,#7b2634 140deg 150deg,#15191d 150deg 160deg,#7b2634 160deg 170deg,#15191d 170deg 180deg,#7b2634 180deg 190deg,#15191d 190deg 200deg,#7b2634 200deg 210deg,#15191d 210deg 220deg,#7b2634 220deg 230deg,#15191d 230deg 240deg,#7b2634 240deg 250deg,#15191d 250deg 260deg,#7b2634 260deg 270deg,#15191d 270deg 280deg,#7b2634 280deg 290deg,#15191d 290deg 300deg,#7b2634 300deg 310deg,#15191d 310deg 320deg,#7b2634 320deg 330deg,#15191d 330deg 340deg,#17613b 340deg 360deg);box-shadow:inset 0 0 0 5px #b49650,0 12px 25px rgba(0,0,0,.3);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.roulette-wheel-mini.spinning{transform:rotate(1080deg)}.roulette-result-ball{width:64px;height:64px;display:grid;place-items:center;border:4px solid #e3cf9c;border-radius:50%;background:#191d22;color:#fff;font-size:26px;font-weight:1000}.roulette-result-ball.red{background:#7b2634}.roulette-result-ball.black{background:#15191d}.roulette-result-ball.green{background:#17613b}
+.casino-choice-readout{text-align:center;color:#8d9aae;font-size:8px}.casino-choice-readout b{color:#e7d29c}
+.baccarat-board{display:grid;grid-template-columns:1fr 1fr;gap:9px}.baccarat-side{padding:11px;border:1px solid #314154;border-radius:12px;background:#111b28}.baccarat-side strong{display:flex;justify-content:space-between;gap:8px;font-size:9px}.baccarat-cards{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;min-height:76px}.baccarat-cards .bj-card{width:50px;height:70px}
+.sicbo-board{display:grid;place-items:center;gap:11px;padding:15px}.sicbo-dice{display:flex;gap:10px}.sicbo-die{width:62px;height:62px;display:grid;place-items:center;border:1px solid #d8d9dc;border-radius:12px;background:#f1efe9;color:#17191d;font-size:31px;font-weight:1000;box-shadow:0 6px 15px rgba(0,0,0,.22)}.sicbo-dice.shake{animation:sicShake .42s ease 2}.sicbo-total{font-size:11px;color:#a9b5c7}.sicbo-total b{font-size:20px;color:#e8ca70}
+.casino-result-line{padding:9px 10px;border:1px dashed #4d4434;border-radius:10px;color:#92866c;font-size:8px;text-align:center}
+@keyframes sicShake{25%{transform:translateX(-4px) rotate(-2deg)}75%{transform:translateX(4px) rotate(2deg)}}
+@media(max-width:560px){.baccarat-board{grid-template-columns:1fr}.roulette-wheel-mini{width:112px;height:112px}.sicbo-die{width:54px;height:54px}}
+
 </style>
 </head>
 <body>
@@ -2877,9 +2891,17 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
               <div class="chance-arcade-head"><div><small>RİSK MASASI</small><strong>Karar verdikçe büyüyen oyunlar</strong></div><span>Çıkmayı bilmek de oyundur.</span></div>
               <div class="chance-arcade-grid">
                 <button class="chance-card" data-open-game="high_card"><span class="icon">🃏</span><span class="tag">SERİ YAP</span><h3>AFMB Yüksek Kart</h3><p>Kart yükselir mi düşer mi? Özgüven üçüncü elde başlar.</p><span class="odds">6 doğru = otomatik ödeme</span></button>
-                <button class="chance-card chance-new-card" data-open-game="blackjack"><span class="icon">♠️</span><span class="tag">21</span><h3>AFMB Blackjack</h3><p>21’e yaklaş, geçme. Krupiye 17’de durur; kurum kart saymayı tavsiye etmez.</p><span class="odds">Blackjack 3:2 • HIT / STAND</span></button>
                 <button class="chance-card" data-open-game="penalty_series"><span class="icon">⚽</span><span class="tag">SERİ</span><h3>AFMB Penaltı Serisi</h3><p>Kaleci üç köşeden birini tutar. Vatandaş diğer ikisini bulur.</p><span class="odds">5/5 final: ×7.00 • istediğin an çık</span></button>
                 <button class="chance-card" data-open-game="zabita_raid"><span class="icon">🚨</span><span class="tag">KAÇAK TEZGÂH</span><h3>Zabıta Baskını</h3><p>Üç esnaf, bir zabıta ekibi ve gereğinden yüksek özgüven.</p><span class="odds">Yakalanmazsan: ×1.40</span></button>
+              </div>
+            </section>
+            <section class="chance-arcade-section">
+              <div class="chance-arcade-head"><div><small>🎩 AFMB CASINO KATI</small><strong>Krupiye, çark ve zar aynı katta</strong></div><span>Sonuçlar server odasında mühürlenir.</span></div>
+              <div class="chance-arcade-grid">
+                <button class="chance-card chance-new-card" data-open-game="blackjack"><span class="icon">♠️</span><span class="tag">21</span><h3>AFMB Blackjack</h3><p>21’e yaklaş, geçme. Krupiye 17’de durur; kurum kart saymayı tavsiye etmez.</p><span class="odds">Blackjack 3:2 • HIT / STAND</span></button>
+                <button class="chance-card chance-new-card" data-open-game="roulette"><span class="icon">🎡</span><span class="tag">TEK SIFIR</span><h3>Avrupa Ruleti</h3><p>0–36. Kırmızı, siyah, tek, çift veya doğrudan yeşil sıfır.</p><span class="odds">Basit bahis ×2 • 0: ×36</span></button>
+                <button class="chance-card chance-new-card" data-open-game="baccarat"><span class="icon">🂡</span><span class="tag">MASA OYUNU</span><h3>AFMB Baccarat</h3><p>Player, Banker veya Tie. Üçüncü kartı kurum kuralları belirler.</p><span class="odds">Player ×2 • Banker ×1.95 • Tie ×9</span></button>
+                <button class="chance-card chance-new-card" data-open-game="sic_bo"><span class="icon">🎲</span><span class="tag">3 ZAR</span><h3>AFMB Sic Bo</h3><p>Üç zar atılır. Low/High, Tek/Çift veya herhangi bir üçlü.</p><span class="odds">Basit bahis ×2 • Üçlü ×31</span></button>
               </div>
             </section>
             <section class="chance-arcade-section chance-new-zone">
@@ -2988,7 +3010,7 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.71 Blackjack</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.72 Casino Katı</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -3118,6 +3140,9 @@ const chanceGames={
   rocket:{title:'Roket Kaçışı',desc:'Roket yükselir, özgüven de yükselir. AFMB ikincisinin birinciden hızlı yükselmesini sakıncalı bulmaktadır.',emoji:'🚀',type:'rocket',mode:'session',choices:[]},
   high_card:{title:'AFMB Yüksek Kart',desc:'Yüksek mi, düşük mü? Üç doğru tahminden sonra kendini kart uzmanı ilan etmek için resmî yeterlilik bulunmamaktadır.',emoji:'🃏',type:'card',mode:'session',choices:[]},
   blackjack:{title:'AFMB Blackjack',desc:'21’e yaklaş, geçme. Krupiye 17’de durur. Doğal Blackjack 3:2 öder; beraberlikte stake geri döner.',emoji:'♠️',type:'blackjack',mode:'server_session',choices:[]},
+  roulette:{title:'Avrupa Ruleti',desc:'Tek sıfırlı çark. Kırmızı/siyah, tek/çift, 1–18/19–36 veya doğrudan 0.',emoji:'🎡',type:'roulette',mode:'server_table',choices:[['RED','🔴 Kırmızı'],['BLACK','⚫ Siyah'],['ODD','Tek'],['EVEN','Çift'],['LOW','1–18'],['HIGH','19–36'],['ZERO','🟢 0']]},
+  baccarat:{title:'AFMB Baccarat',desc:'Player, Banker veya Tie. Üçüncü kart çekimi klasik Punto Banco kurallarıyla server tarafında çözülür.',emoji:'🂡',type:'baccarat',mode:'server_table',choices:[['PLAYER','Player'],['BANKER','Banker'],['TIE','Tie']]},
+  sic_bo:{title:'AFMB Sic Bo',desc:'Üç zar. Low/High ve Tek/Çift üçlülerde kaybeder; herhangi bir üçlü büyük ödeme yapar.',emoji:'🎲',type:'sicbo',mode:'server_table',choices:[['LOW','Low • 4–10'],['HIGH','High • 11–17'],['ODD','Tek'],['EVEN','Çift'],['TRIPLE','🎲 Üçlü']]},
   penalty_series:{title:'AFMB Penaltı Serisi',desc:'Kaleci üç köşeden birini seçer. Vatandaş diğer ikisini bulmaya çalışır; kaçırınca dosya sessizce kapatılır.',emoji:'⚽',type:'penalty',mode:'session',choices:[]},
   inspector_escape:{title:'Müfettişten Kaçış',desc:'Her katta üç kapı var. Birinin arkasında müfettiş bekliyor. Doğru kapıyı bul, bir üst kata kaç veya kazancını al.',emoji:'🕵️',type:'inspector',mode:'session',choices:[]},
   ece_anne:{title:'Ece Anne Der mi?',desc:'Ece konuşur. Genellikle baba der. Bazen havva, nem nem veya açıklanamayan araç sesleri çıkar. ANNE derse tur anında biter. • %25 • ×3.60',emoji:'👧',type:'ece',mode:'server',choices:[]},
@@ -7262,7 +7287,9 @@ function chanceLabel(gameKey,value){
     MUHASEBE_HATASI:'Muhasebe hatası',
     LOW:'0–1 Engel',MID:'2–3 Engel',ALL:'4/4 Engel',
     SAFE:'Zabıtadan kurtuldun',CAUGHT:'Zabıtaya yakalandın',
-    SIMIT:'Simit',MISIR:'Mısır',KESTANE:'Kestane'
+    SIMIT:'Simit',MISIR:'Mısır',KESTANE:'Kestane',
+    RED:'Kırmızı',BLACK:'Siyah',ODD:'Tek',EVEN:'Çift',LOW:'Alt',HIGH:'Üst',ZERO:'0',
+    PLAYER:'Player',BANKER:'Banker',TIE:'Tie',TRIPLE:'Üçlü'
   };
   return labels[value]||value||'—';
 }
@@ -7297,6 +7324,9 @@ function chanceHistorySummary(x){
     const labels={blackjack:'Doğal 21',dealer_blackjack:'Dealer Blackjack',win:'Kazandın',loss:'Kaybettin',push:'Push',bust:'21 üstü'};
     return (labels[x.result?.outcome]||'Blackjack')+' • '+(x.result?.player_score??'?')+' / '+(x.result?.dealer_score??'?');
   }
+  if(x.game_key==='roulette')return 'Çark: '+(x.result?.number??'?')+' • '+chanceLabel('roulette',x.result?.choice);
+  if(x.game_key==='baccarat')return (x.result?.winner||'?')+' • '+(x.result?.player_score??'?')+' / '+(x.result?.banker_score??'?');
+  if(x.game_key==='sic_bo')return 'Zarlar '+((x.result?.dice||[]).join('-'))+' • Toplam '+(x.result?.sum??'?');
   if(x.game_key==='penalty_series')return (x.result?.goals??0)+' gol';
   if(x.game_key==='inspector_escape')return (x.result?.floors??0)+' kat kaçış';
   if(x.game_key==='vault_crack')return (x.result?.locks??0)+' kilit';
@@ -7351,7 +7381,7 @@ function openChanceGame(gameKey){
     if(chanceBusy||activeChanceSession)return;
     activeChanceChoice=btn.dataset.chanceChoice;
     document.querySelectorAll('[data-chance-choice]').forEach(x=>x.classList.toggle('selected',x===btn));
-    if(['raid','race','boxes','coin'].includes(chanceGames[activeChanceGame]?.type))prepareChanceStage(activeChanceGame);
+    if(['raid','race','boxes','coin','roulette','baccarat','sicbo'].includes(chanceGames[activeChanceGame]?.type))prepareChanceStage(activeChanceGame);
   }));
   document.getElementById('chanceStake').disabled=false;
   prepareChanceStage(gameKey);
@@ -7448,6 +7478,15 @@ function prepareChanceStage(gameKey){
   }else if(game.type==='blackjack'){
     stage.classList.add('blackjack-stage');
     stage.innerHTML='<div class="blackjack-shell"><div class="blackjack-table"><div class="blackjack-top"><div><small>♠️ AFMB 21 MASASI</small><strong>Krupiye 17’de durur</strong></div><span class="blackjack-rule">BLACKJACK 3:2</span></div><div class="blackjack-row"><div class="blackjack-row-head"><span>KRUPİYE</span><b id="blackjackDealerScore">—</b></div><div class="blackjack-hand" id="blackjackDealerHand"><div class="bj-card back">AFMB</div></div></div><div class="blackjack-row"><div class="blackjack-row-head"><span>SEN</span><b id="blackjackPlayerScore">—</b></div><div class="blackjack-hand" id="blackjackPlayerHand"><div class="bj-card back">AFMB</div></div></div><div class="blackjack-actions"><button type="button" data-blackjack-action="HIT" disabled>➕ HIT • KART ÇEK</button><button type="button" data-blackjack-action="STAND" disabled>✋ STAND • DUR</button></div><div class="blackjack-caption" id="blackjackCaption">Kartlar server tarafından dağıtılır. AFMB krupiyenin cebine kart koymadığını beyan eder.</div></div></div>';
+  }else if(game.type==='roulette'){
+    stage.classList.add('casino-stage');
+    stage.innerHTML='<div class="casino-shell"><div class="casino-head"><div><small>🎡 AFMB TEK SIFIR RULETİ</small><strong>0–36 Avrupa Çarkı</strong></div><span class="casino-badge">SEÇİM: '+chanceLabel('roulette',activeChanceChoice)+'</span></div><div class="roulette-display"><div class="roulette-wheel-mini" id="rouletteWheel"><div class="roulette-result-ball" id="rouletteBall">?</div></div><div class="casino-choice-readout">Kırmızı/Siyah • Tek/Çift • Alt/Üst <b>×2</b> • 0 <b>×36</b></div></div><div class="casino-result-line" id="casinoResultLine">Top henüz bırakılmadı.</div></div>';
+  }else if(game.type==='baccarat'){
+    stage.classList.add('casino-stage');
+    stage.innerHTML='<div class="casino-shell"><div class="casino-head"><div><small>🂡 AFMB BACCARAT MASASI</small><strong>Punto Banco</strong></div><span class="casino-badge">SEÇİM: '+chanceLabel('baccarat',activeChanceChoice)+'</span></div><div class="baccarat-board"><div class="baccarat-side"><strong><span>PLAYER</span><span id="baccaratPlayerScore">—</span></strong><div class="baccarat-cards" id="baccaratPlayerCards"><div class="bj-card back">AFMB</div></div></div><div class="baccarat-side"><strong><span>BANKER</span><span id="baccaratBankerScore">—</span></strong><div class="baccarat-cards" id="baccaratBankerCards"><div class="bj-card back">AFMB</div></div></div></div><div class="casino-result-line" id="casinoResultLine">Kartlar dağıtılmayı bekliyor.</div></div>';
+  }else if(game.type==='sicbo'){
+    stage.classList.add('casino-stage');
+    stage.innerHTML='<div class="casino-shell"><div class="casino-head"><div><small>🎲 AFMB SİC BO MASASI</small><strong>Üç zar • tek atış</strong></div><span class="casino-badge">SEÇİM: '+chanceLabel('sic_bo',activeChanceChoice)+'</span></div><div class="sicbo-board"><div class="sicbo-dice" id="sicboDice"><div class="sicbo-die">?</div><div class="sicbo-die">?</div><div class="sicbo-die">?</div></div><div class="sicbo-total">TOPLAM <b id="sicboTotal">—</b></div></div><div class="casino-result-line" id="casinoResultLine">Zarlar kurum kasasında bekliyor.</div></div>';
   }else if(game.type==='penalty'){
     stage.classList.add('game-polish','penalty-stage-polish');
     stage.innerHTML='<div class="penalty-shell polished"><div class="game-hud"><div class="game-hud-stat"><small>SERİ</small><strong id="penaltyScore">0 / 5 GOL</strong></div><div class="game-hud-stat right"><small>ÇARPAN</small><strong id="penaltyMultiplier">×0.92</strong></div></div><div class="penalty-progress" id="penaltyProgress">'+Array.from({length:5},(_,i)=>'<span data-penalty-progress="'+i+'"></span>').join('')+'</div><div class="penalty-stadium"><div class="penalty-pitch polished" id="penaltyPitch"><div class="penalty-goal polished"></div><div class="penalty-keeper" id="penaltyKeeper">🧤</div><div class="penalty-ball" id="penaltyBall">⚽</div><div class="penalty-callout" id="penaltyCallout">VUR!</div></div></div><div class="penalty-kicks polished"><button class="penalty-kick" data-penalty-kick="LEFT" disabled>↙ SOL KÖŞE</button><button class="penalty-kick" data-penalty-kick="CENTER" disabled>⬆ ORTA</button><button class="penalty-kick" data-penalty-kick="RIGHT" disabled>SAĞ KÖŞE ↘</button></div></div>';
@@ -8155,6 +8194,80 @@ async function playSingleChanceGame(){
   }
 }
 
+
+function casinoChoiceLabel(gameKey,value){
+  const game=chanceGames[gameKey];
+  return game?.choices?.find(x=>x[0]===value)?.[1]||value||'—';
+}
+async function animateCasinoTableResult(gameKey,data){
+  const r=data?.result||{};
+  if(gameKey==='roulette'){
+    const wheel=document.getElementById('rouletteWheel'),ball=document.getElementById('rouletteBall'),line=document.getElementById('casinoResultLine');
+    if(wheel)wheel.classList.add('spinning');
+    if(line)line.textContent='Top dönüyor… AFMB sonuç ekranına bakmıyor.';
+    await chanceWait(1150);
+    if(wheel)wheel.classList.remove('spinning');
+    if(ball){
+      ball.textContent=String(r.number??'?');
+      ball.className='roulette-result-ball '+String(r.color||'').toLowerCase();
+    }
+    if(line)line.textContent='Çark '+r.number+' • '+(r.color==='RED'?'KIRMIZI':r.color==='BLACK'?'SİYAH':'YEŞİL');
+  }else if(gameKey==='baccarat'){
+    const pc=(r.player_cards||[]).filter(x=>x!==null),bc=(r.banker_cards||[]).filter(x=>x!==null);
+    const ph=document.getElementById('baccaratPlayerCards'),bh=document.getElementById('baccaratBankerCards');
+    const ps=document.getElementById('baccaratPlayerScore'),bs=document.getElementById('baccaratBankerScore'),line=document.getElementById('casinoResultLine');
+    if(line)line.textContent='Kartlar açılıyor…';
+    await chanceWait(450);
+    if(ph)ph.innerHTML=pc.map(blackjackCardHtml).join('');
+    if(bh)bh.innerHTML=bc.map(blackjackCardHtml).join('');
+    if(ps)ps.textContent=String(r.player_score??'—');
+    if(bs)bs.textContent=String(r.banker_score??'—');
+    if(line)line.textContent='SONUÇ: '+String(r.winner||'?')+' • '+r.player_score+' - '+r.banker_score;
+  }else if(gameKey==='sic_bo'){
+    const wrap=document.getElementById('sicboDice'),total=document.getElementById('sicboTotal'),line=document.getElementById('casinoResultLine');
+    if(wrap)wrap.classList.add('shake');
+    if(line)line.textContent='Zarlar atıldı… Tutanak hazırlanıyor.';
+    await chanceWait(650);
+    const dice=Array.isArray(r.dice)?r.dice:[];
+    if(wrap){wrap.classList.remove('shake');wrap.innerHTML=dice.map(x=>'<div class="sicbo-die">'+x+'</div>').join('');}
+    if(total)total.textContent=String(r.sum??'—');
+    if(line)line.textContent=(r.triple?'ÜÇLÜ • ':'')+'Toplam '+r.sum;
+  }
+}
+async function playCasinoTableGame(){
+  const stake=Math.floor(Number(document.getElementById('chanceStake').value)||0);
+  if(stake<10){toast('Minimum 10 ₳D.');return}
+  if(stake>state.balance){toast('AFMB: Bu kadar ₳D yok kankam.');return}
+  if(!activeChanceChoice){toast('Önce seçim yap.');return}
+  const gameKey=activeChanceGame;
+  chanceBusy=true;updateChancePlayLabel();prepareChanceStage(gameKey);
+  setChanceResult('AFMB casino masası sonucu hazırlıyor…');
+  try{
+    const {data,error}=await supabaseClient.rpc('play_casino_table',{
+      p_client_id:chanceLocalId(),
+      p_game_key:gameKey,
+      p_stake:stake,
+      p_choice:activeChanceChoice
+    });
+    if(error)throw error;
+    if(data?.balance!=null){setOnlineBalance(data.balance);renderWallet();}
+    await animateCasinoTableResult(gameKey,data);
+    const payout=Number(data?.payout||0),net=payout-stake;
+    const r=data?.result||{};
+    let headline='';
+    if(gameKey==='roulette')headline='🎡 '+r.number+' '+(r.color==='RED'?'KIRMIZI':r.color==='BLACK'?'SİYAH':'YEŞİL');
+    else if(gameKey==='baccarat')headline='🂡 '+String(r.winner||'')+' • '+r.player_score+' - '+r.banker_score;
+    else headline='🎲 '+(r.dice||[]).join('-')+' • '+r.sum;
+    if(net>0)setChanceResult(headline+' • Ödeme '+money(payout)+' • Net +'+money(net),'win');
+    else if(payout===stake)setChanceResult(headline+' • PUSH • '+money(stake)+' geri döndü','win');
+    else setChanceResult(headline+' • '+money(stake)+' AFMB casino kayıtlarına geçti.','loss');
+    await refreshChanceHistory();
+  }catch(err){
+    await refreshOnlineAccount();
+    setChanceResult('Casino masası işlemi iptal etti: '+(err.message||err),'loss');
+  }finally{chanceBusy=false;updateChancePlayLabel();}
+}
+
 function blackjackCardMeta(card){
   if(card===null||card===undefined)return {hidden:true};
   const n=Number(card),rank=(n%13)+1,suitIndex=Math.floor(n/13)%4;
@@ -8267,6 +8380,10 @@ async function playChanceGame(){
   if(!onlineMode||!onlineSession){
     document.getElementById('authModal').classList.add('open');
     toast('₳D ile oynamak için giriş yap kankam 😄');
+    return;
+  }
+  if(['roulette','baccarat','sic_bo'].includes(activeChanceGame)){
+    await playCasinoTableGame();
     return;
   }
   if(activeChanceGame==='blackjack'){
@@ -8707,7 +8824,8 @@ function adminGameName(key){
     memur_box:'Memur Kutusu',chicken_run:'Tavuk Koşusu',coin_flip:'Yazı–Tura',marble_royale:'Bilye Royale',
     mines:'Mayın Tarlası',rocket:'Roket Kaçışı',high_card:'Yüksek Kart',bureaucracy_hurdles:'Bürokrasi Engelleri',
     penalty_series:'Penaltı Serisi',zabita_raid:'Zabıta Baskını',inspector_escape:'Müfettişten Kaçış',
-    vault_crack:'Kasa Kırma',stamp_memory:'Mühür Nerede?',ece_anne:'Ece Anne Der mi?',blackjack:'AFMB Blackjack'
+    vault_crack:'Kasa Kırma',stamp_memory:'Mühür Nerede?',ece_anne:'Ece Anne Der mi?',blackjack:'AFMB Blackjack',
+    roulette:'Avrupa Ruleti',baccarat:'AFMB Baccarat',sic_bo:'AFMB Sic Bo'
   };
   return names[key]||String(key||'—').replaceAll('_',' ');
 }
