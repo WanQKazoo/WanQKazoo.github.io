@@ -2512,6 +2512,15 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
 @keyframes nightPulse{to{opacity:.35}}@keyframes nightLineIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(max-width:800px){body[data-page="night"] .layout{padding-top:14px}.night-body{grid-template-columns:1fr}.night-cast{grid-template-columns:1fr}.night-host{grid-template-columns:38px minmax(0,1fr)}.night-host span{width:38px;height:38px}.night-hero h2{font-size:24px}}
 
+
+/* ===== Prototype 0.69.2 — MÜHÜR-01 ===== */
+.news-card.muhur-news{border-color:#793646;background:radial-gradient(circle at 90% 0,rgba(255,83,105,.12),transparent 34%),linear-gradient(145deg,#29131a,#111928)!important}
+.news-card.muhur-news .tag{background:#4a1924;color:#ff9fad}
+.news-card.muhur-news h4{color:#ffd8de}
+.news-card.muhur-news .news-case-file{border-top-color:rgba(255,120,140,.2)}
+.news-card.muhur-news .news-case-file span{border-color:#542737;background:#1d1117}
+.news-card.muhur-news .news-case-file b{color:#ffafb9}
+
 </style>
 </head>
 <body>
@@ -2724,6 +2733,24 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
         <section class="section-card" id="newsSection" data-page-section="news">
           <div class="section-title"><div><h2>📰 Afyon Futbol Gündemi</h2><p>Project Afyon evrenindeki gelişmeler ve son derece ciddi kurum açıklamaları</p></div></div>
           <div class="news-grid">
+            <article class="news-card afmb-news muhur-news">
+              <span class="tag">🚨 AFMB EKONOMİ ALARMI • MÜHÜR-01</span>
+              <h4>“Mühür Nerede?” patladı: AFMB kasasında 4,3 milyon ₳D’lik açıklanamayan boşluk</h4>
+              <p>AFMB Kamu Zararı ve Gereksiz Ödeme İnceleme Kurulu, deneysel <strong>Mühür Nerede?</strong> oyununda yalnızca 9 oyun sonunda 863.930 ₳D vatandaş girişi karşılığında <strong>5.182.510 ₳D ödeme yapıldığını</strong> doğruladı.</p>
+              <p>Kurum hesaplamalarına göre AFMB’nin net kaybı <strong>4.318.580 ₳D</strong> oldu. İncelemede tek bir oyunda 4.320.000 ₳D ödeme yapıldığı görülürken, ilgili memurun bu tutarı gördükten sonra “Ben sadece dosyaları kapatıyordum” dediği öğrenildi.</p>
+              <p>Oyun acil kararla erişime kapatıldı. AFMB Dijital Denetim Dairesi, olayın “şans oyunu”, “hafıza testi” veya “kontrolsüz para dağıtım programı” sınıflarından hangisine girdiğini belirlemek üzere komisyon kurdu.</p>
+              <p>Kurumun kısa açıklaması ise şöyle oldu: <strong>“Mühür bulunamamıştır. Para da büyük ölçüde bulunamamaktadır.”</strong></p>
+              <div class="news-case-file">
+                <span>AFMB OLAY KODU <b>MÜHÜR-01</b></span>
+                <span>OYUN SAYISI <b>9</b></span>
+                <span>VATANDAŞ GİRİŞİ <b>863.930 ₳D</b></span>
+                <span>AFMB ÖDEMESİ <b>5.182.510 ₳D</b></span>
+                <span>NET KAMU ZARARI <b>4.318.580 ₳D</b></span>
+                <span>TEK TUR REKORU <b>4.320.000 ₳D</b></span>
+                <span>DURUM <b>Oyun kapatıldı</b></span>
+                <span>MÜHÜR <b>Bulunamadı</b></span>
+              </div>
+            </article>
             <article class="news-card afmb-news baba-news">
               <span class="tag">🚨 AFMB SON DAKİKA • BABA-01</span>
               <h4>Atlas’ın boks maçına baba müdahalesi: ring kenarında yetki karmaşası</h4>
@@ -2939,7 +2966,7 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.69.1 Mert Ringde</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.69.2 MÜHÜR-01</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -8776,6 +8803,17 @@ function buildNightDeskLines(d){
   lines.push(['erdal','O zaman bu programı isterse silebilir.']);
   lines.push(['cengiz','Mert Bey haklıdır.']);
 
+  lines.push(['nevzat','İkinci dosyamız MÜHÜR-01. AFMB’nin deneysel hafıza oyunu Mühür Nerede? ekonomik olarak kontrolsüz biçimde açıldı.']);
+  lines.push(['cengiz','Nevzat bu mühür değil, kasa açılmış.']);
+  lines.push(['nevzat','Rakamları veriyorum: 9 oyunda 863.930 ₳D yatırıldı. AFMB toplam 5.182.510 ₳D ödeme yaptı. Net kamu zararı 4.318.580 ₳D.']);
+  lines.push(['erdal','Ben bunu üç ay önce söylemiştim.']);
+  lines.push(['nevzat','Tek bir oyunda 4.320.000 ₳D ödeme çıkmış.']);
+  lines.push(['cengiz','Bu oyun değil, sosyal yardım programı.']);
+  lines.push(['nevzat','Mühür Nerede? acil kararla erişime kapatıldı.']);
+  lines.push(['erdal','Peki mühür bulundu mu?']);
+  lines.push(['nevzat','Hayır.']);
+  lines.push(['cengiz','Para da bulunamadı.']);
+
   const chance=d.chance||{},plays=Number(chance.plays||0),net=Number(chance.net||0);
   if(plays>0){
     lines.push(['nevzat','Günün mali dosyası: '+plays+' şans oyunu oynandı. Net sonuç '+(net>=0?'+':'')+money(net)+'.']);
@@ -8829,6 +8867,7 @@ function renderNightDesk(){
   const lines=buildNightDeskLines(d);
   const chance=d.chance||{},coupon=d.coupon||{},sp=d.special||{},boxing=d.boxing||{};
   const ticker=[
+    'MÜHÜR-01 • 863.930 giriş • 5.182.510 ödeme • AFMB net −4.318.580',
     'BABA-01 • Kaynak koduna erişim: Maalesef var',
     Number(chance.plays||0)>0?('ŞANS MASASI • '+chance.plays+' oyun • Net '+(Number(chance.net||0)>=0?'+':'')+money(chance.net||0)):'ŞANS MASASI • Bugün sessiz',
     sp.title?((sp.icon||'🎪')+' '+sp.title+' • '+String(sp.status||'').toUpperCase()):'AFMB ÖZEL • Dosya bekleniyor'
