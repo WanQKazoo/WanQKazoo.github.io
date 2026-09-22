@@ -10,6 +10,7 @@ create table if not exists private.afmb_night_votes(
 );
 
 alter table private.afmb_night_votes enable row level security;
+create index if not exists afmb_night_votes_user_id_idx on private.afmb_night_votes(user_id);
 revoke all on table private.afmb_night_votes from public,anon,authenticated;
 
 create or replace function public.get_afmb_night_desk()
