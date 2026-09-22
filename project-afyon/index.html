@@ -2525,6 +2525,39 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   #couponsSection .coupon-list{padding:10px}
 }
 
+
+/* ===== Prototype 0.68 — AFMB Gece Masası ===== */
+body[data-page="night"] .layout{grid-template-columns:1fr;padding-top:24px}
+body[data-page="night"] .content{width:100%}
+body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
+.night-page{overflow:hidden;border-color:#29374f;background:#0a101b}
+.night-hero{position:relative;overflow:hidden;padding:22px;border-bottom:1px solid #27364e;background:radial-gradient(circle at 80% 0,rgba(203,52,70,.17),transparent 32%),linear-gradient(135deg,#131d31,#090f1a 72%)}
+.night-hero:after{content:"CANLI";position:absolute;right:18px;bottom:-20px;font-size:92px;font-weight:1000;color:rgba(255,255,255,.025);letter-spacing:-6px}
+.night-live{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid #7c3040;border-radius:999px;background:#30131c;color:#ff9daa;font-size:8px;font-weight:1000;letter-spacing:.9px}
+.night-live i{width:7px;height:7px;border-radius:50%;background:#ff5369;box-shadow:0 0 12px #ff5369;animation:nightPulse .8s ease-in-out infinite alternate}
+.night-hero h2{margin:10px 0 4px;font-size:30px;letter-spacing:-1px}.night-hero p{margin:0;color:#899ab4;font-size:10px;line-height:1.6}
+.night-cast{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px;position:relative;z-index:1}
+.night-host{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center;padding:10px;border:1px solid #2c3d59;border-radius:13px;background:rgba(12,20,35,.82)}
+.night-host span{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#182841;font-size:24px}.night-host strong{display:block;font-size:11px}.night-host small{display:block;margin-top:3px;color:#7183a1;font-size:8px;font-weight:850}
+.night-ticker{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid #3c2630;background:#1f1017;overflow:hidden}
+.night-ticker b{flex:0 0 auto;color:#fff;background:#b72f45;border-radius:5px;padding:4px 6px;font-size:7px;letter-spacing:.8px}.night-ticker span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#eabcc4;font-size:9px;font-weight:900}
+.night-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,.65fr);gap:12px;padding:14px}
+.night-panel{border:1px solid #263650;border-radius:15px;background:#0f1829;overflow:hidden}.night-panel-head{padding:11px 13px;border-bottom:1px solid #25354e;background:#111d30}.night-panel-head strong{font-size:11px}.night-panel-head small{display:block;margin-top:3px;color:#7284a0;font-size:8px}
+.night-feed{display:grid;gap:8px;padding:12px}
+.night-line{display:grid;grid-template-columns:40px minmax(0,1fr);gap:9px;align-items:start;padding:10px;border:1px solid #263750;border-radius:12px;background:#111c2e;animation:nightLineIn .35s ease both}
+.night-line .avatar{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#1b2b45;font-size:21px}
+.night-line .who{display:flex;align-items:center;gap:6px}.night-line .who strong{font-size:10px}.night-line .who small{color:#6f829f;font-size:7px;font-weight:900}.night-line p{margin:5px 0 0;color:#c5d0df;font-size:10px;line-height:1.55}
+.night-line.nevzat{border-left:3px solid #6b83aa}.night-line.cengiz{border-left:3px solid #bd7455}.night-line.erdal{border-left:3px solid #8e72bc}.night-line.phone{border-left:3px solid #4f9f81;background:#10251f}
+.night-side{display:grid;gap:12px;align-content:start}
+.night-topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:11px}.night-topic{padding:10px;border:1px solid #2a3b56;border-radius:11px;background:#0d1726}.night-topic small{display:block;color:#6f819e;font-size:7px;font-weight:1000}.night-topic strong{display:block;margin-top:4px;font-size:13px}.night-topic em{display:block;margin-top:3px;color:#8394ae;font-size:8px;font-style:normal}
+.night-phone{margin:0 11px 11px;padding:11px;border:1px solid #315443;border-radius:12px;background:#10231e}.night-phone small{color:#72bba0;font-size:7px;font-weight:1000}.night-phone strong{display:block;margin:4px 0;font-size:11px}.night-phone p{margin:0;color:#9fc4b6;font-size:9px;line-height:1.5}
+.night-poll{padding:11px}.night-poll-question{padding:11px;border:1px solid #534424;border-radius:12px;background:#211b10;color:#ffe29a;font-size:10px;font-weight:1000;text-align:center}
+.night-poll-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.night-vote{border:1px solid #31425e;border-radius:10px;background:#111c2e;color:#b9c7da;padding:9px;font-size:9px;font-weight:1000}.night-vote:hover:not(:disabled){border-color:#6b83aa;color:#fff}.night-vote.selected{border-color:#c69e4d;background:#302710;color:#ffe29a}.night-vote:disabled{opacity:.72}
+.night-poll-results{display:grid;gap:6px;margin-top:10px}.night-result{display:grid;grid-template-columns:74px 1fr 36px;gap:7px;align-items:center;font-size:8px;color:#8092ad}.night-bar{height:7px;border-radius:999px;background:#1b2940;overflow:hidden}.night-bar span{display:block;height:100%;background:linear-gradient(90deg,#5c789f,#d1aa5d);border-radius:999px}.night-result b{text-align:right;color:#cbd7e8}
+.night-auth{margin:18px;padding:26px;border:1px dashed #34445f;border-radius:15px;text-align:center;color:#8193ae}
+@keyframes nightPulse{to{opacity:.35}}@keyframes nightLineIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:800px){body[data-page="night"] .layout{padding-top:14px}.night-body{grid-template-columns:1fr}.night-cast{grid-template-columns:1fr}.night-host{grid-template-columns:38px minmax(0,1fr)}.night-host span{width:38px;height:38px}.night-hero h2{font-size:24px}}
+
 </style>
 </head>
 <body>
@@ -2533,7 +2566,7 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
   <header>
     <div class="container nav">
       <a class="brand" href="?page=bulletin"><div class="brand-mark">₳D</div><div class="brand-copy"><span class="brand-title">Project Afyon</span> <span class="online-pill">ONLINE BETA</span><small>FANTASY FOOTBALL UNIVERSE</small></div></a>
-      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="boxing" href="?page=boxing">🥊 Boks</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a><a class="nav-btn" data-page-nav="admin" data-admin-nav href="?page=admin" hidden>🛡 Admin</a></nav>
+      <nav class="main-nav"><a class="nav-btn active" data-page-nav="bulletin" href="?page=bulletin">⚽ Bülten</a><a class="nav-btn" data-page-nav="matches" href="?page=matches">📡 Maç Merkezi</a><a class="nav-btn" data-page-nav="coupons" href="?page=coupons">🎟 Kuponlarım</a><a class="nav-btn" data-page-nav="leagues" href="?page=leagues">🏆 Ligler</a><a class="nav-btn" data-page-nav="news" href="?page=news">📰 Haberler</a><a class="nav-btn" data-page-nav="night" data-night-nav href="?page=night" hidden>📺 Gece</a><a class="nav-btn" data-page-nav="boxing" href="?page=boxing">🥊 Boks</a><a class="nav-btn" data-page-nav="games" href="?page=games">🎰 Şans</a><a class="nav-btn" data-page-nav="admin" data-admin-nav href="?page=admin" hidden>🛡 Admin</a></nav>
       <div class="nav-right"><div class="wallet">Bakiye: <span id="walletValue">…</span></div><div class="auth-entry"><span class="auth-callout" id="authCallout">Oturum Aç / Kaydol</span><button class="profile auth-profile" id="authOpen" title="Project Afyon hesabı">😎</button></div></div>
     </div>
   </header>
@@ -2761,6 +2794,20 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
           </div>
         </section>
 
+        <section class="section-card night-page" id="nightDeskSection" data-page-section="night">
+          <div class="night-hero">
+            <span class="night-live"><i></i> CANLI • AFMB TELEVİZYONU</span>
+            <h2>📺 AFMB Gece Masası</h2>
+            <p>Günün kuponları, saçmalıkları, spor olayları ve mali hasarı üç kişinin gereğinden fazla ciddiye aldığı gece programı.</p>
+            <div class="night-cast">
+              <div class="night-host"><span>🎙️</span><div><strong>Nevzat Tutanak</strong><small>SUNUCU • CİDDİYETTEN SORUMLU</small></div></div>
+              <div class="night-host"><span>🥊</span><div><strong>Cengiz “Sol Kroşe” Yılmaz</strong><small>ESKİ SPORCU • HER ŞEYİN ÇÖZÜMÜ TEMAS</small></div></div>
+              <div class="night-host"><span>🕵️</span><div><strong>Erdal Dosya</strong><small>AFMB UZMANI • “BEN DEMİŞTİM” DAİRESİ</small></div></div>
+            </div>
+          </div>
+          <div id="nightDeskContent"><div class="night-auth">Yayın hazırlanıyor… AFMB reji ekibi kabloları birbirine bakarak değerlendiriyor.</div></div>
+        </section>
+
         <section class="section-card" id="boxingSection" data-page-section="boxing">
           <div class="boxing-hero">
             <div class="boxing-hero-top">
@@ -2933,12 +2980,13 @@ body[data-page="bulletin"] .sim-bar[hidden]{display:none!important}
         <a data-page-nav="admin" data-admin-nav href="?page=admin" hidden><span>🛡</span><strong>Admin</strong><small>İç hizmetler paneli</small></a>
         <a data-page-nav="leagues" href="?page=leagues"><span>🏆</span><strong>Ligler</strong><small>Puan, fikstür, kulüpler</small></a>
         <a data-page-nav="news" href="?page=news"><span>📰</span><strong>Haberler</strong><small>AFMB gündemi</small></a>
+        <a data-page-nav="night" data-night-nav href="?page=night" hidden><span>📺</span><strong>Gece Masası</strong><small>Canlı AFMB stüdyosu</small></a>
         <a data-page-nav="games" href="?page=games"><span>🎰</span><strong>Şans</strong><small>AFMB Lunaparkı</small></a>
       </div>
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.67 Kasa Emekli</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.68 Gece Masası</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -8841,7 +8889,161 @@ function startLiveTimer(){
   liveTimer=setInterval(tickLive,1000);
 }
 
-const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',boxing:'Boks',games:'Şans Oyunları',profile:'Profil',admin:'Admin'};
+
+let nightDeskData=null;
+let nightDeskBusy=false;
+function nightDeskOpenNow(){
+  const hour=Number(new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Istanbul',hour:'2-digit',hour12:false}).format(new Date()));
+  return hour>=19||hour<3;
+}
+function updateNightDeskNav(){
+  const show=nightDeskOpenNow()||currentPageRoute()==='night';
+  document.querySelectorAll('[data-night-nav]').forEach(el=>el.hidden=!show);
+}
+function nightEsc(value){
+  return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function nightGameName(key){
+  if(chanceGames[key]?.title)return chanceGames[key].title;
+  const old={vault_crack:'Kasa Kırma',afmb_wheel:'AFMB Çarkı'};
+  return old[key]||key||'Şans oyunları';
+}
+function nightSpeaker(key,text,delay=0){
+  const cast={
+    nevzat:['🎙️','Nevzat Tutanak','SUNUCU'],
+    cengiz:['🥊','Cengiz “Sol Kroşe”','ESKİ SPORCU'],
+    erdal:['🕵️','Erdal Dosya','AFMB UZMANI'],
+    phone:['☎️','İsmini Vermek İstemeyen Vatandaş','TELEFON BAĞLANTISI']
+  };
+  const x=cast[key]||cast.nevzat;
+  return '<div class="night-line '+key+'" style="animation-delay:'+delay+'ms"><span class="avatar">'+x[0]+'</span><div><div class="who"><strong>'+x[1]+'</strong><small>'+x[2]+'</small></div><p>'+nightEsc(text)+'</p></div></div>';
+}
+function buildNightDeskLines(d){
+  const lines=[];
+  lines.push(['nevzat','Sayın seyirciler, bu akşam ilk dosyamız BABA-01. Atlas’ın boks karşılaşmasına baba müdahalesi iddiasını konuşacağız.']);
+  lines.push(['cengiz','Nevzat ben görüntüleri izledim. Baba haklı.']);
+  lines.push(['nevzat','Henüz görüntü yayınlanmadı.']);
+  lines.push(['cengiz','Ben yine de izledim.']);
+  lines.push(['erdal','Burada esas mesele şu: Bu şahsın Project Afyon kaynak kodlarına erişimi var.']);
+  lines.push(['nevzat','Evet.']);
+  lines.push(['erdal','O zaman bu programı isterse silebilir.']);
+  lines.push(['cengiz','Mert Bey haklıdır.']);
+
+  const chance=d.chance||{},plays=Number(chance.plays||0),net=Number(chance.net||0);
+  if(plays>0){
+    lines.push(['nevzat','Günün mali dosyası: '+plays+' şans oyunu oynandı. Net sonuç '+(net>=0?'+':'')+money(net)+'.']);
+    if(net<0){
+      lines.push(['cengiz',nightGameName(chance.favorite_game)+' tarafında ciddi temas var. Vatandaş oyunu oynamamış, oyun vatandaşı oynamış.']);
+      lines.push(['erdal','Ben bu kaybı üç ay önce görmüştüm. Sistem o tarihte henüz yoktu ama görmüştüm.']);
+    }else{
+      lines.push(['erdal','Vatandaş bugün sistemden para çıkarmış görünüyor. AFMB gelir kaynağını nezaket sınırları içinde şüpheyle izliyor.']);
+    }
+  }
+
+  const c=d.coupon||{};
+  if(c.id){
+    const status=c.status==='won'?'kazandı':c.status==='lost'?'kaybetti':'henüz açık';
+    lines.push(['nevzat','Kupon masasında günün en büyük dosyası '+money(c.stake)+' stake ve ×'+Number(c.odds||0).toFixed(2)+' oranla '+status+'.']);
+    if(c.status==='lost')lines.push(['cengiz','Ben olsam son ayağı çıkarırdım. Hangi ayak olduğunu bilmiyorum ama çıkarırdım.']);
+  }
+
+  const sp=d.special||{};
+  if(sp.key==='SHEEP_JUMP'){
+    const winner=sp.outcomes?.SP_SHEEP_WINNER;
+    if(winner)lines.push(['nevzat','Koyun masasında sonuç kesinleşti. '+(specialSheepNames[winner]||winner)+' günü önde kapattı.']);
+    else lines.push(['erdal','Koyun Atlatma dosyası henüz kapanmadı. Kınalı dahil bütün taraflar kurumumuzca gereğinden ciddi takip ediliyor.']);
+  }
+
+  const b=d.boxing||{};
+  if(b.id){
+    if(b.status==='finished'&&b.winner)lines.push(['nevzat','Boks masasından da sonuç var: '+b.red+' - '+b.blue+' karşılaşmasında '+b.winner+' kazandı.']);
+    else if(b.status==='scheduled')lines.push(['cengiz',b.red+' ile '+b.blue+' birazdan ringe çıkıyor. Ben ikisini de gözünden tanırım. İkisini de hiç görmedim.']);
+  }
+
+  const lux=d.luxury||{};
+  if(lux.item_key){
+    lines.push(['erdal','Mali profil dosyasında son lüks alım '+lux.icon+' '+lux.name+'. '+money(lux.price)+' harcanmış. Mevcut bakiye '+money(d.balance)+'. Kurum matematiği yaptı, sonra sessiz kaldı.']);
+  }
+  return lines;
+}
+function nightPollLabel(key){return {MERT:'Mert',HAKEM:'Hakem',KINALI:'Kınalı',SISTEM:'Sistem'}[key]||key}
+function renderNightDesk(){
+  const root=document.getElementById('nightDeskContent');
+  if(!root)return;
+  if(!onlineSession){
+    root.innerHTML='<div class="night-auth"><strong>📺 Yayın şifreli değil ama vatandaş kaydı istiyor.</strong><br><br>Gece Masası gerçek Project Afyon verilerini konuştuğu için önce hesabına giriş yap.</div>';
+    return;
+  }
+  const d=nightDeskData;
+  if(!d){
+    root.innerHTML='<div class="night-auth">Reji günlük dosyaları topluyor…</div>';
+    return;
+  }
+  const lines=buildNightDeskLines(d);
+  const chance=d.chance||{},coupon=d.coupon||{},sp=d.special||{},boxing=d.boxing||{};
+  const ticker=[
+    'BABA-01 • Kaynak koduna erişim: Maalesef var',
+    Number(chance.plays||0)>0?('ŞANS MASASI • '+chance.plays+' oyun • Net '+(Number(chance.net||0)>=0?'+':'')+money(chance.net||0)):'ŞANS MASASI • Bugün sessiz',
+    sp.title?((sp.icon||'🎪')+' '+sp.title+' • '+String(sp.status||'').toUpperCase()):'AFMB ÖZEL • Dosya bekleniyor'
+  ].join('   •   ');
+  const phoneNet=Number(chance.net||0);
+  const phoneText=phoneNet<0
+    ?'İyi yayınlar. Bugün şans oyunlarında '+money(Math.abs(phoneNet))+' kaybettim. Bununla ilgili kurum ne düşünüyor?'
+    :'İyi yayınlar. Kurum bugün benim adıma neden bu kadar sakin? Bir yanlışlık mı var?';
+  const phoneAnswer=phoneNet<0?'Kurum düşünmüyor efendim.':'Nevzat Bey hatta kalsın, kurum ilk defa bu soruya hazırlıksız yakalandı.';
+  const poll=d.poll||{},total=Number(poll.total||0);
+  const keys=['MERT','HAKEM','KINALI','SISTEM'];
+  const pollButtons=keys.map(k=>'<button class="night-vote '+(d.my_vote===k?'selected':'')+'" data-night-vote="'+k+'" '+(d.my_vote?'disabled':'')+'>'+nightPollLabel(k)+'</button>').join('');
+  const pollResults=keys.map(k=>{
+    const n=Number(poll[k]||0),pct=total?Math.round(n/total*100):0;
+    return '<div class="night-result"><span>'+nightPollLabel(k)+'</span><div class="night-bar"><span style="width:'+pct+'%"></span></div><b>%'+pct+'</b></div>';
+  }).join('');
+  root.innerHTML=
+    '<div class="night-ticker"><b>SON DAKİKA</b><span>'+nightEsc(ticker)+'</span></div>'+
+    '<div class="night-body"><div class="night-panel"><div class="night-panel-head"><strong>🎙️ BU GECE MASADA</strong><small>Gerçek günlük veriler • gereksiz yüksek yorum seviyesi</small></div><div class="night-feed">'+
+      lines.map((x,i)=>nightSpeaker(x[0],x[1],Math.min(i*55,550))).join('')+
+      nightSpeaker('phone',phoneText,600)+nightSpeaker('nevzat',phoneAnswer,650)+
+    '</div></div>'+
+    '<div class="night-side">'+
+      '<div class="night-panel"><div class="night-panel-head"><strong>📂 GÜNÜN DOSYALARI</strong><small>AFMB veri servisinden</small></div><div class="night-topic-grid">'+
+        '<div class="night-topic"><small>CÜZDAN</small><strong>'+money(d.balance||0)+'</strong><em>Mevcut AFMB bakiyesi</em></div>'+
+        '<div class="night-topic"><small>ŞANS</small><strong>'+Number(chance.plays||0)+' oyun</strong><em>Net '+(Number(chance.net||0)>=0?'+':'')+money(chance.net||0)+'</em></div>'+
+        '<div class="night-topic"><small>KUPON</small><strong>'+(coupon.id?money(coupon.stake):'Yok')+'</strong><em>'+(coupon.id?'×'+Number(coupon.odds||0).toFixed(2)+' • '+nightEsc(coupon.status):'Bugün dosya açılmadı')+'</em></div>'+
+        '<div class="night-topic"><small>SPOR</small><strong>'+nightEsc(sp.icon||'🥊')+'</strong><em>'+nightEsc(sp.title||boxing.event_name||'Program bekleniyor')+'</em></div>'+
+      '</div><div class="night-phone"><small>☎️ TELEFON HATTI</small><strong>Afyonkarahisar’dan ismini vermek istemeyen vatandaş</strong><p>'+nightEsc(phoneText)+'</p></div></div>'+
+      '<div class="night-panel"><div class="night-panel-head"><strong>📊 AFMB HALK OYLAMASI</strong><small>'+(d.my_vote?'Bugünkü oyun kayda geçti.':'Günde tek oy • sonuç değiştirilemez')+'</small></div><div class="night-poll"><div class="night-poll-question">Bugün yaşananların sorumlusu kim?</div><div class="night-poll-grid">'+pollButtons+'</div><div class="night-poll-results">'+pollResults+'</div></div></div>'+
+    '</div></div>';
+  root.querySelectorAll('[data-night-vote]').forEach(btn=>btn.addEventListener('click',()=>castNightDeskVote(btn.dataset.nightVote)));
+}
+async function refreshNightDesk(force=false){
+  if(!onlineMode||!onlineSession){nightDeskData=null;renderNightDesk();return}
+  if(nightDeskBusy&&!force)return;
+  nightDeskBusy=true;
+  try{
+    const {data,error}=await supabaseClient.rpc('get_afmb_night_desk');
+    if(error)throw error;
+    nightDeskData=data||null;
+    renderNightDesk();
+  }catch(err){
+    console.error('Night desk',err);
+    const root=document.getElementById('nightDeskContent');
+    if(root)root.innerHTML='<div class="night-auth">AFMB reji masası veri alamadı: '+nightEsc(err.message||err)+'</div>';
+  }finally{nightDeskBusy=false}
+}
+async function castNightDeskVote(choice){
+  if(nightDeskBusy||!onlineSession)return;
+  nightDeskBusy=true;
+  try{
+    const {data,error}=await supabaseClient.rpc('cast_afmb_night_vote',{p_choice:choice});
+    if(error)throw error;
+    nightDeskData=data||nightDeskData;
+    renderNightDesk();
+    toast('AFMB halk oylaması: '+nightPollLabel(choice)+' kayda geçti. 📺');
+  }catch(err){toast(err.message||'Oy kaydedilemedi.')}
+  finally{nightDeskBusy=false}
+}
+
+const pageNames={bulletin:'Bülten',matches:'Maç Merkezi',coupons:'Kuponlarım',leagues:'Ligler',news:'Haberler',night:'Gece Masası',boxing:'Boks',games:'Şans Oyunları',profile:'Profil',admin:'Admin'};
 function currentPageRoute(){
   const raw=new URLSearchParams(window.location.search).get('page')||'bulletin';
   return Object.prototype.hasOwnProperty.call(pageNames,raw)?raw:'bulletin';
@@ -8855,13 +9057,15 @@ function applyPageRoute(){
   document.querySelectorAll('[data-page-nav]').forEach(link=>{
     link.classList.toggle('active',link.dataset.pageNav===page);
   });
-  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['profile','leagues','news','games','admin'].includes(page));
+  document.getElementById('mobileMoreOpen')?.classList.toggle('active',['profile','leagues','news','night','games','admin'].includes(page));
   document.getElementById('mobileMoreSheet')?.classList.remove('open');
   document.title='Project Afyon — '+pageNames[page];
+  updateNightDeskNav();
   renderWallet();
   if(onlineSession&&!document.hidden)pingUserActivity(true);
   if(page==='matches'){renderMatchCenter();renderLiveCenter();}
   if(page==='boxing')renderBoxing();
+  if(page==='night'){renderNightDesk();if(onlineSession)refreshNightDesk(true).catch(err=>console.error('Night desk route',err));}
   if(page==='profile'){
     renderProfile();
     if(onlineSession)refreshMyProfile().catch(err=>console.error('Profile route',err));
@@ -8888,6 +9092,8 @@ document.querySelectorAll('[data-page-nav]').forEach(link=>{
   });
 });
 applyPageRoute();
+updateNightDeskNav();
+setInterval(updateNightDeskNav,60000);
 syncBulletinLeagueFilters();
 
 
