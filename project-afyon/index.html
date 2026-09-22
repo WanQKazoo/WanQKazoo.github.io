@@ -2966,7 +2966,7 @@ body[data-page="night"] #nightDeskSection{min-height:calc(100vh - 190px)}
     </div>
   </div>
 
-  <footer><div class="container"><strong>Project Afyon — Prototype 0.69.2 MÜHÜR-01</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
+  <footer><div class="container"><strong>Project Afyon — Prototype 0.70 Koyun Kadrosu</strong><br>Bu sayfadaki tüm kulüpler, maçlar, oranlar, para birimleri ve kurumlar kurgusaldır. Gerçek spor müsabakaları veya gerçek bahis hizmetleriyle bağlantısı yoktur.</div></footer>
 </div>
 
 <div class="afmb-float" id="rescueFloat">
@@ -5311,7 +5311,7 @@ const specialMarketNames={
   SP_SHEEP_GRAZE:'Bir koyun yarışı bırakıp otlamaya gider',
   SP_SHEEP_ARCH:'Arkeoloji heyeti olaya gereğinden fazla ilgi gösterir'
 };
-const specialSheepNames={KINALI:'Kınalı',KARABAS:'Karabaş',PAMUK:'Pamuk',REIS:'Reis',FISTIK:'Fıstık',MOR:'Mor Koyun'};
+const specialSheepNames={KINALI:'Kınalı',KARABAS:'Karabaş',PAMUK:'Pamuk',REIS:'Reis',FISTIK:'Fıstık',MOR:'Mor Koyun',DELIFISEK:'Delifişek',DELIYUREK:'Deliyürek',EIROLSUN:'Eirolsun'};
 function specialMarketLabel(key){return specialMarketNames[key]||key}
 function specialSelectionLabel(key,selection){
   if(key==='SP_SHEEP_WINNER')return specialSheepNames[selection]||selection;
@@ -5366,7 +5366,7 @@ function renderSpecialBulletinCard(m){
     '</div>';
   }
 
-  const winnerKeys=['KINALI','KARABAS','PAMUK','REIS','FISTIK','MOR'];
+  const winnerKeys=['KINALI','KARABAS','PAMUK','REIS','FISTIK','MOR','DELIFISEK','DELIYUREK','EIROLSUN'];
   const binary=[
     ['SP_SHEEP_HESITATION','🤔'],
     ['SP_SHEEP_RETURN','↩️'],
@@ -5378,13 +5378,13 @@ function renderSpecialBulletinCard(m){
     ['SP_SHEEP_GRAZE','🌿'],
     ['SP_SHEEP_ARCH','🏺']
   ];
-  const winners='<div class="market-group wide"><div class="market-group-title">🏆 Kazanan Elci Koyun</div><div class="market-grid">'+winnerKeys.map(k=>pickButton(specialSheepNames[k],specialSheepNames[k]+' kazanır','SP_SHEEP_WINNER',k)).join('')+'</div></div>';
+  const winners='<div class="market-group wide"><div class="market-group-title">🏆 Kazanan Koyun</div><div class="market-grid">'+winnerKeys.map(k=>pickButton(specialSheepNames[k],specialSheepNames[k]+' kazanır','SP_SHEEP_WINNER',k)).join('')+'</div></div>';
   const extras=binary.map(x=>'<div class="market-group"><div class="market-group-title">'+x[1]+' '+specialMarketLabel(x[0])+'</div><div class="market-grid">'+
     pickButton('EVET','Evet',x[0],'YES')+pickButton('HAYIR','Hayır',x[0],'NO')+'</div></div>').join('');
   return '<div class="match special special-sheep">'+
     '<div class="match-meta"><strong>'+status+'</strong><small>ÇAL • BÜYÜK MENDERES</small><small class="match-context">'+context+'</small></div>'+
     teams+
-    '<button class="special-market-launch" data-market-toggle="'+id+'" aria-expanded="'+openMarkets.has(id)+'"><span>🐑 '+(openMarkets.has(id)?'Marketleri Kapat':'Koyun Marketlerini Aç')+'</span><small>6 koyun • 9 bağımsız olay</small></button>'+
+    '<button class="special-market-launch" data-market-toggle="'+id+'" aria-expanded="'+openMarkets.has(id)+'"><span>🐑 '+(openMarkets.has(id)?'Marketleri Kapat':'Koyun Marketlerini Aç')+'</span><small>9 koyun • 9 bağımsız olay</small></button>'+
     '<div class="extra-markets '+(openMarkets.has(id)?'open':'')+'">'+winners+extras+'</div>'+
   '</div>';
 }
