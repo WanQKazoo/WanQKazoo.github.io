@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073b67">
+  <meta name="description" content="Download Tiny Titans: Idle Clicker on Google Play.">
+  <meta property="og:title" content="Tiny Titans: Idle Clicker">
+  <meta property="og:description" content="Tap, evolve and collect 20 Titans. Free on Google Play.">
+  <title>Tiny Titans — Google Play</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .bridge { min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 32px 16px; }
+    .bridge .play-button { font-size: 1.2rem; padding: 18px 28px; }
+  </style>
+</head>
+<body>
+  <main class="bridge">
+    <p class="eyebrow">Code Cat Games</p>
+    <h1>Tiny Titans</h1>
+    <p class="lead">Opening Google Play…</p>
+    <a id="play" class="play-button" href="https://play.google.com/store/apps/details?id=com.CodeCatGames.TinyTitans" rel="noopener">Get it on Google Play</a>
+  </main>
+  <script>
+    // In-app browsers (Instagram, TikTok) often won't open play.google.com in the
+    // Play Store app, so on Android hand off with an intent and fall back to the web page.
+    (function () {
+      var id = "com.CodeCatGames.TinyTitans";
+      var web = "https://play.google.com/store/apps/details?id=" + id;
+      if (/android/i.test(navigator.userAgent)) {
+        var intent = "intent://details?id=" + id + "#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=" + encodeURIComponent(web) + ";end";
+        document.getElementById("play").href = intent;
+        window.location.href = intent;
+      }
+    })();
+  </script>
+</body>
+</html>
